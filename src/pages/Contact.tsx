@@ -7,12 +7,13 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 const contactFaqs = [
   { q: "Hoe snel ontvang ik een offerte?", a: "Binnen 24 uur na ontvangst van je aanvraag." },
   { q: "Kan ik eerst een demo aanvragen?", a: "Ja. Vermeld dit in je bericht en we plannen iets in." },
-  { q: "Is er een minimumafname?", a: "Ja, de online training is beschikbaar vanaf 10 seats." },
+  { q: "Is er een minimumafname?", a: "Nee. Je kunt ook een enkele seat boeken. Wel geldt: hoe meer seats, hoe lager de prijs per seat." },
   { q: "Kan ik de training eerst zelf bekijken?", a: "Ja. Neem contact op en we geven je tijdelijk toegang tot een demoversie." },
+  { q: "Wij zijn een overheidsorganisatie. Werkt dit ook voor ons?", a: "Ja. De training is geschikt voor alle sectoren, inclusief overheid. We werken al samen met meerdere ministeries en overheidsinstanties." },
 ];
 
 const Contact = () => {
-  const [form, setForm] = useState({ naam: "", organisatie: "", functie: "", email: "", telefoon: "", aantal: "", opmerkingen: "" });
+  const [form, setForm] = useState({ naam: "", organisatie: "", functie: "", email: "", telefoon: "", hulp: "", aantal: "", opmerkingen: "" });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -56,6 +57,21 @@ const Contact = () => {
                   </div>
                 ))}
                 <div>
+                  <label className="text-sm text-muted-foreground mb-1 block">Waarmee kan ik je helpen? <span className="text-neon-purple">*</span></label>
+                  <select
+                    required
+                    value={form.hulp}
+                    onChange={(e) => setForm({ ...form, hulp: e.target.value })}
+                    className="w-full bg-background border border-border rounded-lg px-4 py-3 text-foreground text-sm focus:outline-none focus:border-neon-purple focus:ring-1 focus:ring-neon-purple/20 transition-all duration-300"
+                  >
+                    <option value="">Selecteer...</option>
+                    <option value="training">Online Training</option>
+                    <option value="masterclass">Masterclass</option>
+                    <option value="beide">Beide</option>
+                    <option value="anders">Anders</option>
+                  </select>
+                </div>
+                <div>
                   <label className="text-sm text-muted-foreground mb-1 block">Aantal seats</label>
                   <select
                     value={form.aantal}
@@ -63,8 +79,8 @@ const Contact = () => {
                     className="w-full bg-background border border-border rounded-lg px-4 py-3 text-foreground text-sm focus:outline-none focus:border-neon-purple focus:ring-1 focus:ring-neon-purple/20 transition-all duration-300"
                   >
                     <option value="">Selecteer...</option>
-                    <option value="10-24">10-24</option>
-                    <option value="25-49">25-49</option>
+                    <option value="1">1</option>
+                    <option value="2-49">2-49</option>
                     <option value="50-99">50-99</option>
                     <option value="100+">100+</option>
                   </select>

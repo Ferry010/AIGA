@@ -6,17 +6,20 @@ import SectionLabel from "@/components/SectionLabel";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 const pricingTiers = [
-  { name: "Starter", seats: "10 tot 24", price: "249,-", total: "Vanaf 2.490,-", features: ["Toegang leerplatform", "Certificaten per deelnemer", "Voortgangsdashboard"], featured: false },
-  { name: "Team", seats: "25 tot 49", price: "229,-", total: "Vanaf 5.725,-", features: ["Alles uit Starter", "Prioriteitsondersteuning", "Onboarding call"], featured: true, badge: "AANBEVOLEN" },
-  { name: "Organisatie", seats: "50 tot 99", price: "209,-", total: "Vanaf 10.450,-", features: ["Alles uit Team", "Dedicated accountmanager", "Rapportages op maat"], featured: false },
-  { name: "Enterprise", seats: "100+", price: "Op aanvraag", total: "", features: ["Maatwerk content", "White-label optie", "SLA", "Integratie met eigen LMS"], featured: false },
+  { name: "Individueel", seats: "1 seat", price: "249,-", total: "", features: ["Toegang leerplatform", "Certificaat", "Voortgangsdashboard"], featured: false },
+  { name: "Team", seats: "2 tot 49", price: "249,-", total: "Vanaf 498,-", features: ["Alles uit Individueel", "Prioriteitsondersteuning", "Onboarding call"], featured: false },
+  { name: "Organisatie", seats: "50 tot 99", price: "209,-", total: "Vanaf 10.450,-", features: ["Alles uit Team", "Dedicated accountmanager", "Rapportages op maat", "Gratis Masterclass voor management"], featured: true, badge: "AANBEVOLEN" },
+  { name: "Enterprise", seats: "100+", price: "Op aanvraag", total: "", features: ["Maatwerk content", "White-label optie", "SLA", "Integratie met eigen LMS", "Gratis Masterclass voor management"], featured: false },
 ];
 
 const hrFaqs = [
   { q: "Kunnen we de voortgang van medewerkers bijhouden?", a: "Ja. Het platform biedt een dashboard waarop je per medewerker de voortgang, examenscore en certificering kunt inzien." },
   { q: "Kunnen we seats in tranches inzetten?", a: "Ja. Je koopt een pakket en geeft medewerkers gefaseerd toegang. De seats blijven beschikbaar zolang de licentie actief is." },
+  { q: "Is er een minimumafname?", a: "Nee. Je kunt ook een enkele seat boeken. Wel geldt: hoe meer seats, hoe lager de prijs per seat." },
   { q: "Hoe snel kunnen we starten?", a: "Na akkoord op de offerte staat jouw organisatie binnen twee werkdagen live." },
   { q: "Is er een factuur beschikbaar?", a: "Ja. Je ontvangt een factuur op naam van jouw organisatie, geschikt voor de bedrijfsadministratie." },
+  { q: "Krijgen we een gratis Masterclass bij 50+ seats?", a: "Ja. Bij een afname van 50 of meer seats is de Masterclass voor leidinggevenden gratis inbegrepen." },
+  { q: "Werkt de training ook voor niet-technische medewerkers?", a: "Absoluut. De training is specifiek ontworpen voor alle medewerkers, ongeacht technische achtergrond." },
 ];
 
 const VoorOrganisaties = () => {
@@ -48,6 +51,23 @@ const VoorOrganisaties = () => {
         </div>
       </section>
 
+      {/* Gratis Masterclass highlight */}
+      <AnimatedSection>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-12">
+          <div className="neon-border-lg">
+            <div className="neon-inner bg-background rounded-2xl p-8 flex flex-col sm:flex-row items-center gap-6">
+              <div className="flex-1">
+                <h3 className="text-lg font-semibold text-foreground">Gratis Masterclass voor management bij 50+ seats</h3>
+                <p className="text-sm text-muted-foreground mt-2">Boek 50 of meer training seats en ontvang een gratis Masterclass voor leidinggevenden, gegeven door Ferry Hoes.</p>
+              </div>
+              <Link to="/masterclass" className="btn-neon px-6 py-3 rounded-lg whitespace-nowrap">
+                Meer over de Masterclass
+              </Link>
+            </div>
+          </div>
+        </div>
+      </AnimatedSection>
+
       {/* Comparison table */}
       <section className="py-24">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -67,8 +87,8 @@ const VoorOrganisaties = () => {
                     ["Formaat", "Online, zelfpaced", "Live"],
                     ["Duur", "2 tot 3 uur", "2 uur"],
                     ["Certificaat", "AI Literacy Practitioner", "AI Literacy Leader"],
-                    ["Prijs", "Vanaf 249/seat", "Op aanvraag"],
-                    ["Minimaal", "10 seats", "1 deelnemer"],
+                    ["Prijs", "249,- per seat", "Op aanvraag"],
+                    ["Minimaal", "1 seat", "10 deelnemers"],
                     ["Dashboard", "Ja", "Nee"],
                     ["AI Act compliant", "Ja", "Ja"],
                   ].map(([label, col1, col2]) => (
@@ -213,8 +233,8 @@ const VoorOrganisaties = () => {
                 className="w-full bg-card border border-border rounded-lg px-4 py-3 text-foreground text-sm focus:outline-none focus:border-neon-purple focus:ring-1 focus:ring-neon-purple/20 transition-all duration-300"
               >
                 <option value="">Selecteer...</option>
-                <option value="10-24">10-24</option>
-                <option value="25-49">25-49</option>
+                <option value="1">1</option>
+                <option value="2-49">2-49</option>
                 <option value="50-99">50-99</option>
                 <option value="100+">100+</option>
               </select>

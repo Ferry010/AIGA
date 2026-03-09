@@ -70,7 +70,7 @@ const Quiz = () => {
               Hoe AI-ready is jouw team?
             </h1>
             <p className="mt-6 text-lg text-muted-foreground">
-              10 vragen. 3 minuten. Direct resultaat. Ontdek waar jouw organisatie staat en wat de volgende stap is.
+              10 vragen. Vijf minuten. Direct resultaat. Ontdek waar jouw organisatie staat en wat de volgende stap is.
             </p>
             <button
               onClick={() => setPhase("quiz")}

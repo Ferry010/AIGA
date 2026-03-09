@@ -1,20 +1,21 @@
 import { Link } from "react-router-dom";
-import { Check, Monitor, ClipboardCheck, Award, BarChart2 } from "lucide-react";
+import { Check, Monitor, ClipboardCheck, Award, BarChart2, Brain, Wrench, AlertCircle, Shield, User, Bell } from "lucide-react";
 import { AnimatedSection, StaggerContainer, StaggerItem } from "@/components/AnimatedSection";
 import SectionLabel from "@/components/SectionLabel";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 const pricingTiers = [
-  { name: "Starter", seats: "10 tot 24", price: "249,-", total: "Vanaf 2.490,-", features: ["Toegang leerplatform", "Certificaten per deelnemer", "Voortgangsdashboard"], featured: false },
-  { name: "Team", seats: "25 tot 49", price: "229,-", total: "Vanaf 5.725,-", features: ["Alles uit Starter", "Prioriteitsondersteuning", "Onboarding call"], featured: true, badge: "AANBEVOLEN" },
-  { name: "Organisatie", seats: "50 tot 99", price: "209,-", total: "Vanaf 10.450,-", features: ["Alles uit Team", "Dedicated accountmanager", "Rapportages op maat"], featured: false },
-  { name: "Enterprise", seats: "100+", price: "Op aanvraag", total: "", features: ["Maatwerk content", "White-label optie", "SLA", "Integratie met eigen LMS"], featured: false },
+  { name: "Individueel", seats: "1 seat", price: "249,-", total: "", features: ["Toegang leerplatform", "Certificaat", "Voortgangsdashboard"], featured: false },
+  { name: "Team", seats: "2 tot 49", price: "249,-", total: "Vanaf 498,-", features: ["Alles uit Individueel", "Prioriteitsondersteuning", "Onboarding call"], featured: false },
+  { name: "Organisatie", seats: "50 tot 99", price: "209,-", total: "Vanaf 10.450,-", features: ["Alles uit Team", "Dedicated accountmanager", "Rapportages op maat", "Gratis Masterclass voor management"], featured: true, badge: "AANBEVOLEN" },
+  { name: "Enterprise", seats: "100+", price: "Op aanvraag", total: "", features: ["Maatwerk content", "White-label optie", "SLA", "Integratie met eigen LMS", "Gratis Masterclass voor management"], featured: false },
 ];
 
 const faqs = [
   { q: "Is deze training verplicht?", a: "Ja. Sinds februari 2025 is AI-geletterdheid wettelijk verplicht voor organisaties binnen de EU die met AI werken. Dat geldt ook als medewerkers alleen ChatGPT of Copilot gebruiken. Per augustus 2025 wordt er gehandhaafd." },
   { q: "Hoe lang duurt de training?", a: "De training is zelfpaced en kan in meerdere sessies worden gevolgd. Gemiddeld zijn medewerkers twee tot drie uur bezig." },
   { q: "Is er technische voorkennis nodig?", a: "Nee. De training is ontwikkeld voor alle medewerkers, ook zonder technische achtergrond." },
+  { q: "Wat als een deelnemer niet slaagt voor het examen?", a: "Dan kan de deelnemer het examen herkansen. Er is geen limiet op het aantal pogingen." },
   { q: "Hoe werkt het certificaat?", a: "Na het afronden van het adaptieve examen ontvangt iedere deelnemer automatisch het AI Literacy Practitioner certificaat. Dit is een OpenBadge: digitaal ondertekend, deelbaar via LinkedIn en audit-proof voor de AI Act." },
   { q: "Kan ik seats bijboeken?", a: "Ja. Je kunt op elk moment extra seats toevoegen via robbert@speakersacademy.nl." },
   { q: "Is de training AI Act-compliant?", a: "Ja. De inhoud is volledig afgestemd op de eisen van de EU AI Act, inclusief risicobeheersing, ethiek, governance en praktische toepassing." },
@@ -54,17 +55,17 @@ const Training = () => (
         </AnimatedSection>
         <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-10">
           {[
-            "Wat AI is en wat het niet is",
-            "Hoe AI werkt op de werkvloer, niet in theorie",
-            "Risico's van bias, datamisbruik en automatische beslissingen",
-            "Hoe je AI veilig, verantwoord en binnen de wet gebruikt",
-            "Welke rol medewerkers spelen binnen de AI Act",
-            "Hoe ze risico's herkennen en escaleren binnen de organisatie",
+            { icon: Brain, text: "Wat AI is en wat het niet is" },
+            { icon: Wrench, text: "Hoe AI werkt op de werkvloer, niet in theorie" },
+            { icon: AlertCircle, text: "Risico's van bias, datamisbruik en automatische beslissingen" },
+            { icon: Shield, text: "Hoe je AI veilig, verantwoord en binnen de wet gebruikt" },
+            { icon: User, text: "Welke rol medewerkers spelen binnen de AI Act" },
+            { icon: Bell, text: "Hoe ze risico's herkennen en escaleren binnen de organisatie" },
           ].map((item) => (
-            <StaggerItem key={item}>
+            <StaggerItem key={item.text}>
               <div className="flex items-start gap-3 p-4">
-                <Check size={18} className="text-success mt-0.5 shrink-0" />
-                <span className="text-foreground">{item}</span>
+                <item.icon size={18} className="text-primary mt-0.5 shrink-0" />
+                <span className="text-foreground">{item.text}</span>
               </div>
             </StaggerItem>
           ))}
