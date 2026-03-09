@@ -156,7 +156,7 @@ const Quiz = () => {
               <select
                 value={gate.aantal}
                 onChange={(e) => setGate({ ...gate, aantal: e.target.value })}
-                className="w-full bg-card border border-border rounded-lg px-4 py-3 text-foreground text-sm focus:outline-none focus:border-primary transition-all duration-300"
+                className="w-full bg-background border border-border rounded-lg px-4 py-3 text-foreground text-sm focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/20 transition-all duration-300"
               >
                 <option value="">Selecteer...</option>
                 <option value="1-10">1-10</option>
