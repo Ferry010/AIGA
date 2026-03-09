@@ -28,9 +28,9 @@ const Index = () => {
               </Link>
             </div>
             <div className="flex flex-wrap gap-6 mt-8 text-sm text-muted-foreground">
-              <span className="flex items-center gap-2"><Check size={16} className="text-success" /> Audit-proof certificaat</span>
-              <span className="flex items-center gap-2"><Check size={16} className="text-success" /> Vanaf 10 medewerkers</span>
-              <span className="flex items-center gap-2"><Check size={16} className="text-success" /> Direct starten</span>
+              <span className="flex items-center gap-2"><Check size={16} className="text-primary" /> Audit-proof certificaat</span>
+              <span className="flex items-center gap-2"><Check size={16} className="text-primary" /> Vanaf 10 medewerkers</span>
+              <span className="flex items-center gap-2"><Check size={16} className="text-primary" /> Direct starten</span>
             </div>
           </motion.div>
         </div>
@@ -38,9 +38,9 @@ const Index = () => {
 
       {/* Urgency Banner */}
       <AnimatedSection>
-        <div className="bg-gradient-to-r from-[hsl(30,100%,5%)] to-[hsl(40,100%,7%)] border-l-[3px] border-warning mx-4 sm:mx-8 lg:mx-auto max-w-7xl px-6 py-5 rounded-r-lg">
+        <div className="bg-amber-50 border-l-[3px] border-warning mx-4 sm:mx-8 lg:mx-auto max-w-7xl px-6 py-5 rounded-r-lg">
           <div className="flex flex-col sm:flex-row sm:items-center gap-3">
-            <span className="text-xs font-medium uppercase tracking-[0.08em] text-warning font-body">Deadline</span>
+            <span className="text-xs font-medium uppercase tracking-[0.08em] text-amber-700 font-body">Deadline</span>
             <p className="text-sm text-foreground leading-relaxed">
               Per augustus 2025 wordt de AI Act actief gehandhaafd. Organisaties zonder gecertificeerde medewerkers riskeren boetes.
             </p>
@@ -79,7 +79,7 @@ const Index = () => {
               { icon: HelpCircle, title: "Onduidelijk wat de wet precies vereist", body: "De AI Act is complex. Wat geldt voor jouw sector, jouw functies, jouw tools?" },
             ].map((c) => (
               <StaggerItem key={c.title}>
-                <div className="bg-card border border-border rounded-2xl p-10 hover:border-primary/50 hover:shadow-lg hover:shadow-primary/5 transition-all duration-300 group">
+                <div className="bg-card border border-border rounded-2xl p-10 hover:border-primary/40 hover:shadow-lg hover:shadow-primary/5 transition-all duration-300 group">
                   <c.icon size={24} className="text-primary mb-4" />
                   <h3 className="text-lg font-semibold text-foreground mb-2">{c.title}</h3>
                   <p className="text-sm text-muted-foreground leading-relaxed">{c.body}</p>
@@ -178,14 +178,14 @@ const Index = () => {
           </AnimatedSection>
           <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-12">
             <StaggerItem>
-              <div className="bg-card border-2 border-primary rounded-2xl p-10 h-full flex flex-col shadow-lg shadow-primary/5">
+              <div className="bg-background border-2 border-primary rounded-2xl p-10 h-full flex flex-col shadow-lg shadow-primary/10">
                 <span className="text-xs font-medium uppercase tracking-[0.08em] text-primary mb-4">MEEST GEKOZEN</span>
                 <h3 className="text-xl font-semibold text-foreground mb-2">Online Training voor teams</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed mb-4">Volledig zelfstandig te volgen. Inclusief certificering. Geschikt voor alle medewerkers zonder technische voorkennis.</p>
                 <p className="text-2xl font-bold text-foreground mb-4">Vanaf <span className="text-primary">249,-</span> <span className="text-sm font-normal text-muted-foreground">per seat (ex BTW)</span></p>
                 <ul className="space-y-2 mb-6 text-sm text-muted-foreground flex-1">
                   {["Online leerplatform", "AI Literacy Practitioner certificaat", "Voortgangsdashboard", "Vanaf 10 medewerkers"].map((f) => (
-                    <li key={f} className="flex items-center gap-2"><Check size={14} className="text-success" />{f}</li>
+                    <li key={f} className="flex items-center gap-2"><Check size={14} className="text-primary" />{f}</li>
                   ))}
                 </ul>
                 <Link to="/training" className="bg-primary text-primary-foreground px-6 py-3 rounded-lg font-semibold text-center hover:brightness-110 transition-all duration-300 shadow-lg shadow-primary/20">
@@ -194,13 +194,13 @@ const Index = () => {
               </div>
             </StaggerItem>
             <StaggerItem>
-              <div className="bg-card border border-border rounded-2xl p-10 h-full flex flex-col hover:border-primary/50 hover:shadow-lg hover:shadow-primary/5 transition-all duration-300">
+              <div className="bg-background border border-border rounded-2xl p-10 h-full flex flex-col hover:border-primary/40 hover:shadow-lg hover:shadow-primary/5 transition-all duration-300">
                 <h3 className="text-xl font-semibold text-foreground mb-2 mt-6">Masterclass voor leidinggevenden</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed mb-4">Twee uur live strategische verdieping voor directie en MT. Gegeven door Ferry Hoes.</p>
                 <p className="text-2xl font-bold text-foreground mb-4">Op aanvraag</p>
                 <ul className="space-y-2 mb-6 text-sm text-muted-foreground flex-1">
                   {["Live sessie (online of op locatie)", "AI Literacy Leader bewijs van deelname", "Live Q&A met Ferry Hoes", "Open of besloten sessie"].map((f) => (
-                    <li key={f} className="flex items-center gap-2"><Check size={14} className="text-success" />{f}</li>
+                    <li key={f} className="flex items-center gap-2"><Check size={14} className="text-primary" />{f}</li>
                   ))}
                 </ul>
                 <Link to="/masterclass" className="border border-primary text-primary px-6 py-3 rounded-lg font-semibold text-center hover:bg-accent transition-all duration-300">
@@ -223,7 +223,7 @@ const Index = () => {
             </h2>
           </AnimatedSection>
           <AnimatedSection delay={0.2} className="flex flex-col md:flex-row gap-12 mt-12 items-center">
-            <div className="w-48 h-48 rounded-full bg-surface-2 border border-border flex items-center justify-center shrink-0">
+            <div className="w-48 h-48 rounded-full bg-accent border border-primary/20 flex items-center justify-center shrink-0">
               <span className="text-4xl font-display font-bold text-primary">FH</span>
             </div>
             <div>

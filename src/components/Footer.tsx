@@ -10,10 +10,9 @@ const footerLinks = [
 ];
 
 const Footer = () => (
-  <footer className="bg-background border-t border-border">
+  <footer className="bg-card border-t border-border">
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-        {/* Brand */}
         <div>
           <span className="text-xl font-display font-bold text-primary">AIGA</span>
           <p className="text-sm text-muted-foreground mt-1">AI Geletterdheid Academy</p>
@@ -21,8 +20,6 @@ const Footer = () => (
             AI-geletterdheid die blijft hangen. Online, schaalbaar en compliant.
           </p>
         </div>
-
-        {/* Navigation */}
         <div>
           <h4 className="text-sm font-semibold text-foreground mb-4">Navigatie</h4>
           <div className="flex flex-col gap-2">
@@ -33,8 +30,6 @@ const Footer = () => (
             ))}
           </div>
         </div>
-
-        {/* Contact */}
         <div>
           <h4 className="text-sm font-semibold text-foreground mb-4">Contact</h4>
           <div className="flex flex-col gap-2 text-sm text-muted-foreground">
@@ -48,7 +43,6 @@ const Footer = () => (
           </div>
         </div>
       </div>
-
       <div className="border-t border-border mt-12 pt-8 flex flex-col sm:flex-row justify-between gap-4 text-xs text-muted-foreground">
         <p>&copy; 2025 AI Geletterdheid Academy</p>
         <p>Een initiatief van Brand Humanizing Institute en Speakers Academy</p>
