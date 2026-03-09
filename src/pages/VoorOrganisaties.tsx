@@ -41,7 +41,7 @@ const VoorOrganisaties = () => {
             <p className="mt-6 text-lg text-muted-foreground max-w-2xl leading-relaxed">
               AIGA biedt een complete aanpak voor AI-geletterdheid op elk niveau. Een leverancier, twee producten, geen gedoe.
             </p>
-            <Link to="/contact" className="inline-block mt-8 bg-primary text-primary-foreground px-7 py-3.5 rounded-lg font-semibold hover:brightness-110 hover:-translate-y-px transition-all duration-300 shadow-lg shadow-primary/20">
+            <Link to="/contact" className="btn-neon inline-block mt-8 px-7 py-3.5 rounded-lg">
               Vraag een offerte aan
             </Link>
           </AnimatedSection>
@@ -57,8 +57,8 @@ const VoorOrganisaties = () => {
                 <thead>
                   <tr className="border-b border-border">
                     <th className="text-left py-3 text-muted-foreground font-normal"></th>
-                    <th className="text-left py-3 text-primary font-semibold">Online Training</th>
-                    <th className="text-left py-3 text-primary font-semibold">Masterclass</th>
+                    <th className="text-left py-3 neon-text font-semibold">Online Training</th>
+                    <th className="text-left py-3 neon-text font-semibold">Masterclass</th>
                   </tr>
                 </thead>
                 <tbody className="text-foreground">
@@ -91,23 +91,44 @@ const VoorOrganisaties = () => {
           <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {pricingTiers.map((t) => (
               <StaggerItem key={t.name}>
-                <div className={`bg-background rounded-2xl p-8 h-full flex flex-col border ${t.featured ? "border-2 border-primary shadow-lg shadow-primary/5" : "border-border hover:border-primary/50 hover:shadow-lg hover:shadow-primary/5"} transition-all duration-300`}>
-                  {t.badge && <span className="text-xs font-medium uppercase tracking-[0.08em] text-primary mb-2">{t.badge}</span>}
-                  <h3 className="text-lg font-semibold text-foreground">{t.name}</h3>
-                  <p className="text-sm text-muted-foreground mt-1">{t.seats} seats</p>
-                  <p className="text-2xl font-bold text-foreground mt-4">{t.price} <span className="text-sm font-normal text-muted-foreground">{t.price !== "Op aanvraag" ? "per seat" : ""}</span></p>
-                  {t.total && <p className="text-xs text-muted-foreground">{t.total}</p>}
-                  <ul className="space-y-2 mt-4 mb-6 flex-1">
-                    {t.features.map((f) => (
-                      <li key={f} className="flex items-start gap-2 text-sm text-muted-foreground">
-                        <Check size={14} className="text-success mt-0.5 shrink-0" />{f}
-                      </li>
-                    ))}
-                  </ul>
-                  <Link to="/contact" className={`text-center py-2.5 rounded-lg font-semibold text-sm ${t.featured ? "bg-primary text-primary-foreground hover:brightness-110 shadow-lg shadow-primary/20" : "border border-primary text-primary hover:bg-accent"} transition-all duration-300`}>
-                    {t.name === "Enterprise" ? "Neem contact op" : "Vraag offerte aan"}
-                  </Link>
-                </div>
+                {t.featured ? (
+                  <div className="neon-border-lg h-full">
+                    <div className="neon-inner bg-background rounded-2xl p-8 h-full flex flex-col">
+                      <span className="text-xs font-medium uppercase tracking-[0.08em] neon-text mb-2">{t.badge}</span>
+                      <h3 className="text-lg font-semibold text-foreground">{t.name}</h3>
+                      <p className="text-sm text-muted-foreground mt-1">{t.seats} seats</p>
+                      <p className="text-2xl font-bold text-foreground mt-4">{t.price} <span className="text-sm font-normal text-muted-foreground">per seat</span></p>
+                      {t.total && <p className="text-xs text-muted-foreground">{t.total}</p>}
+                      <ul className="space-y-2 mt-4 mb-6 flex-1">
+                        {t.features.map((f) => (
+                          <li key={f} className="flex items-start gap-2 text-sm text-muted-foreground">
+                            <Check size={14} className="text-success mt-0.5 shrink-0" />{f}
+                          </li>
+                        ))}
+                      </ul>
+                      <Link to="/contact" className="btn-neon text-center py-2.5 rounded-lg text-sm">
+                        Vraag offerte aan
+                      </Link>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="bg-background rounded-2xl p-8 h-full flex flex-col border border-border hover:border-neon-purple/40 neon-glow transition-all duration-300">
+                    <h3 className="text-lg font-semibold text-foreground">{t.name}</h3>
+                    <p className="text-sm text-muted-foreground mt-1">{t.seats} seats</p>
+                    <p className="text-2xl font-bold text-foreground mt-4">{t.price} <span className="text-sm font-normal text-muted-foreground">{t.price !== "Op aanvraag" ? "per seat" : ""}</span></p>
+                    {t.total && <p className="text-xs text-muted-foreground">{t.total}</p>}
+                    <ul className="space-y-2 mt-4 mb-6 flex-1">
+                      {t.features.map((f) => (
+                        <li key={f} className="flex items-start gap-2 text-sm text-muted-foreground">
+                          <Check size={14} className="text-success mt-0.5 shrink-0" />{f}
+                        </li>
+                      ))}
+                    </ul>
+                    <Link to="/contact" className="btn-neon-outline text-center py-2.5 font-semibold text-sm">
+                      {t.name === "Enterprise" ? "Neem contact op" : "Vraag offerte aan"}
+                    </Link>
+                  </div>
+                )}
               </StaggerItem>
             ))}
           </StaggerContainer>
@@ -174,13 +195,13 @@ const VoorOrganisaties = () => {
               { name: "telefoon", label: "Telefoonnummer", required: false, type: "tel" },
             ].map((f) => (
               <div key={f.name}>
-                <label className="text-sm text-muted-foreground mb-1 block">{f.label} {f.required && <span className="text-primary">*</span>}</label>
+                <label className="text-sm text-muted-foreground mb-1 block">{f.label} {f.required && <span className="text-neon-purple">*</span>}</label>
                 <input
                   type={f.type || "text"}
                   required={f.required}
                   value={form[f.name as keyof typeof form]}
                   onChange={(e) => setForm({ ...form, [f.name]: e.target.value })}
-                  className="w-full bg-card border border-border rounded-lg px-4 py-3 text-foreground text-sm focus:outline-none focus:border-primary transition-all duration-300"
+                  className="w-full bg-card border border-border rounded-lg px-4 py-3 text-foreground text-sm focus:outline-none focus:border-neon-purple focus:ring-1 focus:ring-neon-purple/20 transition-all duration-300"
                 />
               </div>
             ))}
@@ -189,7 +210,7 @@ const VoorOrganisaties = () => {
               <select
                 value={form.aantal}
                 onChange={(e) => setForm({ ...form, aantal: e.target.value })}
-                className="w-full bg-card border border-border rounded-lg px-4 py-3 text-foreground text-sm focus:outline-none focus:border-primary transition-all duration-300"
+                className="w-full bg-card border border-border rounded-lg px-4 py-3 text-foreground text-sm focus:outline-none focus:border-neon-purple focus:ring-1 focus:ring-neon-purple/20 transition-all duration-300"
               >
                 <option value="">Selecteer...</option>
                 <option value="10-24">10-24</option>
@@ -204,10 +225,10 @@ const VoorOrganisaties = () => {
                 value={form.opmerkingen}
                 onChange={(e) => setForm({ ...form, opmerkingen: e.target.value })}
                 rows={4}
-                className="w-full bg-card border border-border rounded-lg px-4 py-3 text-foreground text-sm focus:outline-none focus:border-primary transition-all duration-300 resize-none"
+                className="w-full bg-card border border-border rounded-lg px-4 py-3 text-foreground text-sm focus:outline-none focus:border-neon-purple focus:ring-1 focus:ring-neon-purple/20 transition-all duration-300 resize-none"
               />
             </div>
-            <button type="submit" className="w-full bg-primary text-primary-foreground py-3 rounded-lg font-semibold hover:brightness-110 transition-all duration-300 shadow-lg shadow-primary/20">
+            <button type="submit" className="btn-neon w-full py-3 rounded-lg">
               Verstuur aanvraag
             </button>
           </form>

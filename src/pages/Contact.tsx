@@ -27,7 +27,7 @@ const Contact = () => {
             <SectionLabel text="CONTACT" />
             <h1 className="text-4xl sm:text-5xl font-display font-bold text-foreground leading-tight mt-4">
               Klaar om jouw team te certificeren?<br />
-              <span className="text-primary">Laten we praten.</span>
+              <span className="neon-text">Laten we praten.</span>
             </h1>
             <p className="mt-6 text-lg text-muted-foreground max-w-2xl">
               Vul het formulier in en we nemen binnen 24 uur contact met je op met een offerte op maat. Geen verplichtingen.
@@ -45,13 +45,13 @@ const Contact = () => {
                   { name: "telefoon", label: "Telefoonnummer", required: false, type: "tel" },
                 ].map((f) => (
                   <div key={f.name}>
-                    <label className="text-sm text-muted-foreground mb-1 block">{f.label} {f.required && <span className="text-primary">*</span>}</label>
+                    <label className="text-sm text-muted-foreground mb-1 block">{f.label} {f.required && <span className="text-neon-purple">*</span>}</label>
                     <input
                       type={f.type || "text"}
                       required={f.required}
                       value={form[f.name as keyof typeof form]}
                       onChange={(e) => setForm({ ...form, [f.name]: e.target.value })}
-                      className="w-full bg-background border border-border rounded-lg px-4 py-3 text-foreground text-sm focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/20 transition-all duration-300"
+                      className="w-full bg-background border border-border rounded-lg px-4 py-3 text-foreground text-sm focus:outline-none focus:border-neon-purple focus:ring-1 focus:ring-neon-purple/20 transition-all duration-300"
                     />
                   </div>
                 ))}
@@ -60,7 +60,7 @@ const Contact = () => {
                   <select
                     value={form.aantal}
                     onChange={(e) => setForm({ ...form, aantal: e.target.value })}
-                    className="w-full bg-background border border-border rounded-lg px-4 py-3 text-foreground text-sm focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/20 transition-all duration-300"
+                    className="w-full bg-background border border-border rounded-lg px-4 py-3 text-foreground text-sm focus:outline-none focus:border-neon-purple focus:ring-1 focus:ring-neon-purple/20 transition-all duration-300"
                   >
                     <option value="">Selecteer...</option>
                     <option value="10-24">10-24</option>
@@ -75,38 +75,38 @@ const Contact = () => {
                     value={form.opmerkingen}
                     onChange={(e) => setForm({ ...form, opmerkingen: e.target.value })}
                     rows={4}
-                    className="w-full bg-background border border-border rounded-lg px-4 py-3 text-foreground text-sm focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/20 transition-all duration-300 resize-none"
+                    className="w-full bg-background border border-border rounded-lg px-4 py-3 text-foreground text-sm focus:outline-none focus:border-neon-purple focus:ring-1 focus:ring-neon-purple/20 transition-all duration-300 resize-none"
                   />
                 </div>
-                <button type="submit" className="w-full bg-primary text-primary-foreground py-3 rounded-lg font-semibold hover:brightness-110 transition-all duration-300 shadow-lg shadow-primary/20">
+                <button type="submit" className="btn-neon w-full py-3 rounded-lg">
                   Verstuur bericht
                 </button>
               </form>
             </AnimatedSection>
 
             <AnimatedSection delay={0.2}>
-              <div className="bg-card border border-border rounded-2xl p-10">
+              <div className="bg-card border border-border rounded-2xl p-10 neon-card-top">
                 <h3 className="text-lg font-semibold text-foreground mb-2">Direct contact</h3>
                 <p className="text-sm text-muted-foreground mb-6">Voor sales en offertes:</p>
                 <p className="text-foreground font-semibold">Robbert | Speakers Academy</p>
                 <div className="mt-4 space-y-3">
-                  <a href="tel:+31103167827" className="flex items-center gap-3 text-sm text-muted-foreground hover:text-primary transition-colors">
+                  <a href="tel:+31103167827" className="flex items-center gap-3 text-sm text-muted-foreground hover:text-neon-purple transition-colors">
                     <Phone size={16} /> +31 (0)10 316 7827
                   </a>
-                  <a href="mailto:robbert@speakersacademy.nl" className="flex items-center gap-3 text-sm text-muted-foreground hover:text-primary transition-colors">
+                  <a href="mailto:robbert@speakersacademy.nl" className="flex items-center gap-3 text-sm text-muted-foreground hover:text-neon-purple transition-colors">
                     <Mail size={16} /> robbert@speakersacademy.nl
                   </a>
                 </div>
                 <div className="flex gap-3 mt-6">
-                  <a href="tel:+31103167827" className="flex-1 text-center border border-primary text-primary py-2.5 rounded-lg font-semibold text-sm hover:bg-accent transition-all duration-300">
+                  <a href="tel:+31103167827" className="btn-neon-outline flex-1 text-center py-2.5 font-semibold text-sm">
                     Bel direct
                   </a>
-                  <a href="mailto:robbert@speakersacademy.nl" className="flex-1 text-center bg-primary text-primary-foreground py-2.5 rounded-lg font-semibold text-sm hover:brightness-110 transition-all duration-300">
+                  <a href="mailto:robbert@speakersacademy.nl" className="btn-neon flex-1 text-center py-2.5 rounded-lg text-sm">
                     Stuur e-mail
                   </a>
                 </div>
                 <div className="mt-8 bg-brand-dim rounded-xl p-4 text-center">
-                  <p className="text-sm text-foreground">Gemiddelde reactietijd: <span className="text-primary font-semibold">minder dan 24 uur</span></p>
+                  <p className="text-sm text-foreground">Gemiddelde reactietijd: <span className="neon-text font-semibold">minder dan 24 uur</span></p>
                 </div>
               </div>
             </AnimatedSection>

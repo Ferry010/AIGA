@@ -14,16 +14,16 @@ const Index = () => {
             <SectionLabel text="AI GELETTERDHEID VOOR TEAMS" />
             <h1 className="text-4xl sm:text-5xl lg:text-[56px] font-display font-bold text-foreground leading-tight mt-4">
               Jouw team werkt al met AI.<br />
-              <span className="text-primary">Weet iedereen wat dat betekent?</span>
+              <span className="neon-text">Weet iedereen wat dat betekent?</span>
             </h1>
             <p className="mt-6 text-lg text-muted-foreground max-w-2xl leading-relaxed">
               Sinds februari 2025 is AI-geletterdheid wettelijk verplicht voor organisaties in de EU. Wij helpen je team voldoen aan de AI Act, met een gecertificeerde online training die werkt.
             </p>
             <div className="flex flex-wrap gap-4 mt-8">
-              <Link to="/training" className="bg-primary text-primary-foreground px-7 py-3.5 rounded-lg font-semibold text-[15px] hover:brightness-110 hover:-translate-y-px transition-all duration-300 shadow-lg shadow-primary/20">
+              <Link to="/training" className="btn-neon px-7 py-3.5 rounded-lg text-[15px]">
                 Bekijk de training
               </Link>
-              <Link to="/contact" className="border border-primary text-primary px-7 py-3.5 rounded-lg font-semibold text-[15px] hover:bg-accent transition-all duration-300">
+              <Link to="/contact" className="btn-neon-outline px-7 py-3.5 text-[15px] font-semibold">
                 Vraag offerte aan
               </Link>
             </div>
@@ -79,8 +79,8 @@ const Index = () => {
               { icon: HelpCircle, title: "Onduidelijk wat de wet precies vereist", body: "De AI Act is complex. Wat geldt voor jouw sector, jouw functies, jouw tools?" },
             ].map((c) => (
               <StaggerItem key={c.title}>
-                <div className="bg-card border border-border rounded-2xl p-10 hover:border-primary/40 hover:shadow-lg hover:shadow-primary/5 transition-all duration-300 group">
-                  <c.icon size={24} className="text-primary mb-4" />
+                <div className="bg-card border border-border rounded-2xl p-10 hover:border-neon-purple/40 neon-glow transition-all duration-300 group">
+                  <c.icon size={24} className="text-neon-purple mb-4" />
                   <h3 className="text-lg font-semibold text-foreground mb-2">{c.title}</h3>
                   <p className="text-sm text-muted-foreground leading-relaxed">{c.body}</p>
                 </div>
@@ -137,7 +137,7 @@ const Index = () => {
             ].map((s) => (
               <StaggerItem key={s.step}>
                 <div className="relative">
-                  <span className="text-5xl font-mono text-primary/20 font-bold">{s.step}</span>
+                  <span className="text-5xl font-mono neon-text font-bold">{s.step}</span>
                   <h3 className="text-lg font-semibold text-foreground mt-2 mb-2">{s.title}</h3>
                   <p className="text-sm text-muted-foreground leading-relaxed">{s.body}</p>
                 </div>
@@ -159,7 +159,7 @@ const Index = () => {
             <p className="mt-4 text-muted-foreground max-w-xl mx-auto">
               10 vragen. Direct resultaat. Inclusief persoonlijk advies op maat.
             </p>
-            <Link to="/quiz" className="inline-block mt-8 bg-primary text-primary-foreground px-8 py-4 rounded-lg font-semibold text-[15px] hover:brightness-110 hover:-translate-y-px transition-all duration-300 shadow-lg shadow-primary/20">
+            <Link to="/quiz" className="btn-neon inline-block mt-8 px-8 py-4 rounded-lg text-[15px]">
               Doe de gratis quiz
             </Link>
           </AnimatedSection>
@@ -178,23 +178,25 @@ const Index = () => {
           </AnimatedSection>
           <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-12">
             <StaggerItem>
-              <div className="bg-background border-2 border-primary rounded-2xl p-10 h-full flex flex-col shadow-lg shadow-primary/10">
-                <span className="text-xs font-medium uppercase tracking-[0.08em] text-primary mb-4">MEEST GEKOZEN</span>
-                <h3 className="text-xl font-semibold text-foreground mb-2">Online Training voor teams</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed mb-4">Volledig zelfstandig te volgen. Inclusief certificering. Geschikt voor alle medewerkers zonder technische voorkennis.</p>
-                <p className="text-2xl font-bold text-foreground mb-4">Vanaf <span className="text-primary">249,-</span> <span className="text-sm font-normal text-muted-foreground">per seat (ex BTW)</span></p>
-                <ul className="space-y-2 mb-6 text-sm text-muted-foreground flex-1">
-                  {["Online leerplatform", "AI Literacy Practitioner certificaat", "Voortgangsdashboard", "Vanaf 10 medewerkers"].map((f) => (
-                    <li key={f} className="flex items-center gap-2"><Check size={14} className="text-primary" />{f}</li>
-                  ))}
-                </ul>
-                <Link to="/training" className="bg-primary text-primary-foreground px-6 py-3 rounded-lg font-semibold text-center hover:brightness-110 transition-all duration-300 shadow-lg shadow-primary/20">
-                  Bekijk de training
-                </Link>
+              <div className="neon-border-lg">
+                <div className="neon-inner bg-background rounded-2xl p-10 h-full flex flex-col">
+                  <span className="text-xs font-medium uppercase tracking-[0.08em] neon-text mb-4">MEEST GEKOZEN</span>
+                  <h3 className="text-xl font-semibold text-foreground mb-2">Online Training voor teams</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed mb-4">Volledig zelfstandig te volgen. Inclusief certificering. Geschikt voor alle medewerkers zonder technische voorkennis.</p>
+                  <p className="text-2xl font-bold text-foreground mb-4">Vanaf <span className="neon-text">249,-</span> <span className="text-sm font-normal text-muted-foreground">per seat (ex BTW)</span></p>
+                  <ul className="space-y-2 mb-6 text-sm text-muted-foreground flex-1">
+                    {["Online leerplatform", "AI Literacy Practitioner certificaat", "Voortgangsdashboard", "Vanaf 10 medewerkers"].map((f) => (
+                      <li key={f} className="flex items-center gap-2"><Check size={14} className="text-primary" />{f}</li>
+                    ))}
+                  </ul>
+                  <Link to="/training" className="btn-neon px-6 py-3 rounded-lg text-center">
+                    Bekijk de training
+                  </Link>
+                </div>
               </div>
             </StaggerItem>
             <StaggerItem>
-              <div className="bg-background border border-border rounded-2xl p-10 h-full flex flex-col hover:border-primary/40 hover:shadow-lg hover:shadow-primary/5 transition-all duration-300">
+              <div className="bg-background border border-border rounded-2xl p-10 h-full flex flex-col hover:border-neon-purple/40 neon-glow transition-all duration-300">
                 <h3 className="text-xl font-semibold text-foreground mb-2 mt-6">Masterclass voor leidinggevenden</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed mb-4">Twee uur live strategische verdieping voor directie en MT. Gegeven door Ferry Hoes.</p>
                 <p className="text-2xl font-bold text-foreground mb-4">Op aanvraag</p>
@@ -203,7 +205,7 @@ const Index = () => {
                     <li key={f} className="flex items-center gap-2"><Check size={14} className="text-primary" />{f}</li>
                   ))}
                 </ul>
-                <Link to="/masterclass" className="border border-primary text-primary px-6 py-3 rounded-lg font-semibold text-center hover:bg-accent transition-all duration-300">
+                <Link to="/masterclass" className="btn-neon-outline px-6 py-3 font-semibold text-center">
                   Meer over de Masterclass
                 </Link>
               </div>
@@ -223,8 +225,10 @@ const Index = () => {
             </h2>
           </AnimatedSection>
           <AnimatedSection delay={0.2} className="flex flex-col md:flex-row gap-12 mt-12 items-center">
-            <div className="w-48 h-48 rounded-full bg-accent border border-primary/20 flex items-center justify-center shrink-0">
-              <span className="text-4xl font-display font-bold text-primary">FH</span>
+            <div className="neon-border-lg rounded-full" style={{ borderRadius: '9999px', padding: '3px' }}>
+              <div className="w-48 h-48 rounded-full bg-background flex items-center justify-center">
+                <span className="text-4xl font-display font-bold neon-text">FH</span>
+              </div>
             </div>
             <div>
               <p className="text-muted-foreground leading-relaxed mb-6">
@@ -237,7 +241,7 @@ const Index = () => {
                   { val: "2020", label: "Winner AI Hackathon" },
                 ].map((s) => (
                   <div key={s.label}>
-                    <span className="text-2xl font-mono font-bold text-primary">{s.val}</span>
+                    <span className="text-2xl font-mono font-bold neon-text">{s.val}</span>
                     <p className="text-muted-foreground">{s.label}</p>
                   </div>
                 ))}
@@ -257,7 +261,7 @@ const Index = () => {
             <p className="mt-4 text-muted-foreground max-w-xl mx-auto">
               Vraag een offerte aan en ontvang binnen 24 uur een voorstel op maat. Geen verplichtingen.
             </p>
-            <Link to="/contact" className="inline-block mt-8 bg-primary text-primary-foreground px-8 py-4 rounded-lg font-semibold text-[15px] hover:brightness-110 hover:-translate-y-px transition-all duration-300 shadow-lg shadow-primary/20">
+            <Link to="/contact" className="btn-neon inline-block mt-8 px-8 py-4 rounded-lg text-[15px]">
               Vraag offerte aan
             </Link>
             <p className="mt-4 text-sm text-muted-foreground">Of bel direct: +31 (0)10 316 7827</p>
