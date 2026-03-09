@@ -32,7 +32,7 @@ const Masterclass = () => (
             Twee uur live verdieping voor directie, MT en beleidsmakers. Geen saaie compliance-sessie. Wel een helder beeld van wat AI-geletterdheid betekent voor jouw organisatie, inclusief de strategische kansen die je nu kunt pakken.
           </p>
           <p className="mt-4 text-sm text-muted-foreground">Gegeven door Ferry Hoes, AI-expert en keynote spreker</p>
-          <Link to="/contact" className="inline-block mt-8 bg-primary text-primary-foreground px-7 py-3.5 rounded-lg font-semibold hover:brightness-110 hover:-translate-y-px transition-all duration-300 shadow-lg shadow-primary/20">
+          <Link to="/contact" className="btn-neon inline-block mt-8 px-7 py-3.5 rounded-lg">
             Meld je aan of vraag een besloten sessie aan
           </Link>
         </AnimatedSection>
@@ -49,7 +49,7 @@ const Masterclass = () => (
           </h2>
           <div className="flex flex-wrap gap-3 mt-6">
             {["Directie & C-level", "HR-directeuren", "L&D-managers", "Beleidsmakers"].map((t) => (
-              <span key={t} className="px-4 py-2 rounded-full border border-border text-sm text-foreground bg-card">{t}</span>
+              <span key={t} className="px-4 py-2 rounded-full border border-neon-purple/30 text-sm text-foreground bg-card neon-glow">{t}</span>
             ))}
           </div>
           <p className="mt-6 text-muted-foreground">Geen technische achtergrond nodig. Wel de wil om serieus aan de slag te gaan.</p>
@@ -67,7 +67,7 @@ const Masterclass = () => (
           {takeaways.map((t, i) => (
             <StaggerItem key={i}>
               <div className="flex items-start gap-4">
-                <span className="text-lg font-mono font-bold text-primary shrink-0">{String(i + 1).padStart(2, "0")}</span>
+                <span className="text-lg font-mono font-bold neon-text shrink-0">{String(i + 1).padStart(2, "0")}</span>
                 <p className="text-foreground leading-relaxed">{t}</p>
               </div>
             </StaggerItem>
@@ -91,9 +91,9 @@ const Masterclass = () => (
         <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-12">
           {programBlocks.map((b) => (
             <StaggerItem key={b.block}>
-              <div className="bg-card border border-border rounded-2xl p-8 hover:border-primary/50 hover:shadow-lg hover:shadow-primary/5 transition-all duration-300">
+              <div className="bg-card border border-border rounded-2xl p-8 hover:border-neon-purple/40 neon-glow transition-all duration-300 neon-card-top">
                 <div className="flex items-center gap-3 mb-3">
-                  <span className="text-sm font-semibold text-primary">{b.block}</span>
+                  <span className="text-sm font-semibold neon-text">{b.block}</span>
                   <span className="text-xs text-muted-foreground">{b.duration}</span>
                 </div>
                 <h3 className="text-base font-semibold text-foreground mb-2">{b.title}</h3>
@@ -115,19 +115,21 @@ const Masterclass = () => (
         </AnimatedSection>
         <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-12 max-w-3xl mx-auto">
           <StaggerItem>
-            <div className="bg-surface-2 border border-border rounded-2xl p-10 text-center h-full flex flex-col">
-              <h3 className="text-lg font-semibold text-foreground mb-2">Open sessie</h3>
-              <p className="text-sm text-muted-foreground mb-6 flex-1">Meld je individueel aan voor een geplande open sessie.</p>
-              <Link to="/contact" className="bg-primary text-primary-foreground py-3 rounded-lg font-semibold hover:brightness-110 transition-all duration-300 shadow-lg shadow-primary/20">
-                Bekijk data en meld je aan
-              </Link>
+            <div className="neon-border-lg h-full">
+              <div className="neon-inner bg-background rounded-2xl p-10 text-center h-full flex flex-col">
+                <h3 className="text-lg font-semibold text-foreground mb-2">Open sessie</h3>
+                <p className="text-sm text-muted-foreground mb-6 flex-1">Meld je individueel aan voor een geplande open sessie.</p>
+                <Link to="/contact" className="btn-neon py-3 rounded-lg">
+                  Bekijk data en meld je aan
+                </Link>
+              </div>
             </div>
           </StaggerItem>
           <StaggerItem>
-            <div className="bg-surface-2 border border-border rounded-2xl p-10 text-center h-full flex flex-col">
+            <div className="bg-surface-2 border border-border rounded-2xl p-10 text-center h-full flex flex-col hover:border-neon-purple/40 neon-glow transition-all duration-300">
               <h3 className="text-lg font-semibold text-foreground mb-2">Besloten sessie</h3>
               <p className="text-sm text-muted-foreground mb-6 flex-1">Plan een exclusieve sessie voor jouw MT of directie. Op locatie of online, op een datum die jullie past.</p>
-              <Link to="/contact" className="border border-primary text-primary py-3 rounded-lg font-semibold hover:bg-accent transition-all duration-300">
+              <Link to="/contact" className="btn-neon-outline py-3 font-semibold">
                 Vraag een besloten sessie aan
               </Link>
             </div>

@@ -74,7 +74,7 @@ const Quiz = () => {
             </p>
             <button
               onClick={() => setPhase("quiz")}
-              className="mt-8 bg-primary text-primary-foreground px-8 py-4 rounded-lg font-semibold text-[15px] hover:brightness-110 hover:-translate-y-px transition-all duration-300 shadow-lg shadow-primary/20"
+              className="btn-neon mt-8 px-8 py-4 rounded-lg text-[15px]"
             >
               Start de check
             </button>
@@ -91,7 +91,7 @@ const Quiz = () => {
         <div className="fixed top-16 left-0 right-0 z-40 bg-background border-b border-border">
           <div className="flex gap-1 p-2 max-w-xl mx-auto">
             {Array.from({ length: 10 }).map((_, i) => (
-              <div key={i} className={`h-1.5 flex-1 rounded-full transition-colors duration-300 ${i < current ? "bg-primary" : i === current ? "bg-primary/50" : "bg-border"}`} />
+              <div key={i} className={`h-1.5 flex-1 rounded-full transition-colors duration-300 ${i < current ? "bg-neon-purple" : i === current ? "bg-neon-pink/50" : "bg-border"}`} />
             ))}
           </div>
           <p className="text-center text-xs text-muted-foreground pb-2">{current + 1} / 10</p>
@@ -114,8 +114,8 @@ const Quiz = () => {
                   disabled={selected !== null}
                   className={`w-full text-left p-5 rounded-2xl border transition-all duration-300 text-sm leading-relaxed ${
                     selected === i
-                      ? "border-primary bg-brand-dim text-foreground shadow-lg shadow-primary/5"
-                      : "border-border bg-card text-foreground hover:border-primary/50 hover:shadow-md hover:shadow-primary/5"
+                      ? "border-neon-purple bg-neon-purple/5 text-foreground neon-glow"
+                      : "border-border bg-card text-foreground hover:border-neon-purple/40 hover:shadow-md"
                   }`}
                 >
                   {opt}
@@ -141,13 +141,13 @@ const Quiz = () => {
               { name: "email", label: "E-mailadres", required: true, type: "email" },
             ].map((f) => (
               <div key={f.name}>
-                <label className="text-sm text-muted-foreground mb-1 block">{f.label} <span className="text-primary">*</span></label>
+                <label className="text-sm text-muted-foreground mb-1 block">{f.label} <span className="text-neon-purple">*</span></label>
                 <input
                   type={f.type || "text"}
                   required={f.required}
                   value={gate[f.name as keyof typeof gate]}
                   onChange={(e) => setGate({ ...gate, [f.name]: e.target.value })}
-                  className="w-full bg-background border border-border rounded-lg px-4 py-3 text-foreground text-sm focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/20 transition-all duration-300"
+                  className="w-full bg-background border border-border rounded-lg px-4 py-3 text-foreground text-sm focus:outline-none focus:border-neon-purple focus:ring-1 focus:ring-neon-purple/20 transition-all duration-300"
                 />
               </div>
             ))}
@@ -156,7 +156,7 @@ const Quiz = () => {
               <select
                 value={gate.aantal}
                 onChange={(e) => setGate({ ...gate, aantal: e.target.value })}
-                className="w-full bg-background border border-border rounded-lg px-4 py-3 text-foreground text-sm focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/20 transition-all duration-300"
+                className="w-full bg-background border border-border rounded-lg px-4 py-3 text-foreground text-sm focus:outline-none focus:border-neon-purple focus:ring-1 focus:ring-neon-purple/20 transition-all duration-300"
               >
                 <option value="">Selecteer...</option>
                 <option value="1-10">1-10</option>
@@ -165,7 +165,7 @@ const Quiz = () => {
                 <option value="250+">250+</option>
               </select>
             </div>
-            <button type="submit" className="w-full bg-primary text-primary-foreground py-3 rounded-lg font-semibold hover:brightness-110 transition-all duration-300 shadow-lg shadow-primary/20">
+            <button type="submit" className="btn-neon w-full py-3 rounded-lg">
               Bekijk mijn score
             </button>
           </form>
@@ -215,7 +215,7 @@ const Quiz = () => {
 
         <div className="flex flex-wrap justify-center gap-3 mt-8">
           {tier.ctas.map((c) => (
-            <Link key={c.label} to={c.to} className="bg-primary text-primary-foreground px-6 py-3 rounded-lg font-semibold text-sm hover:brightness-110 transition-all duration-300 shadow-lg shadow-primary/20">
+            <Link key={c.label} to={c.to} className="btn-neon px-6 py-3 rounded-lg text-sm">
               {c.label}
             </Link>
           ))}
@@ -223,7 +223,7 @@ const Quiz = () => {
 
         <div className="mt-8 flex items-center justify-center gap-4 text-sm text-muted-foreground">
           <span>Deel jouw score</span>
-          <button onClick={handleShare} className="text-primary hover:underline">Link kopieren</button>
+          <button onClick={handleShare} className="neon-text font-semibold hover:underline">Link kopieren</button>
         </div>
       </motion.div>
     </div>

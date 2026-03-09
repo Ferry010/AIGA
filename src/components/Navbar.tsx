@@ -39,13 +39,13 @@ const Navbar = () => {
           <div className="hidden lg:flex items-center gap-3">
             <Link
               to="/quiz"
-              className="text-sm font-semibold text-primary border border-primary px-4 py-2 rounded-lg hover:bg-accent transition-all duration-300"
+              className="btn-neon-outline text-sm font-semibold px-4 py-2"
             >
               Doe de quiz
             </Link>
             <Link
               to="/contact"
-              className="text-sm font-semibold text-primary-foreground bg-primary px-5 py-2 rounded-lg hover:brightness-110 transition-all duration-300 hover:-translate-y-px shadow-lg shadow-primary/20"
+              className="btn-neon text-sm px-5 py-2 rounded-lg"
             >
               Offerte aanvragen
             </Link>
@@ -70,13 +70,13 @@ const Navbar = () => {
             </Link>
           ))}
           <hr className="border-border" />
-          <Link to="/quiz" onClick={() => setOpen(false)} className="text-lg font-body text-primary">
+          <Link to="/quiz" onClick={() => setOpen(false)} className="text-lg font-body neon-text font-semibold">
             Doe de quiz
           </Link>
           <Link
             to="/contact"
             onClick={() => setOpen(false)}
-            className="text-center text-primary-foreground bg-primary px-5 py-3 rounded-lg font-semibold"
+            className="btn-neon text-center px-5 py-3 rounded-lg"
           >
             Offerte aanvragen
           </Link>

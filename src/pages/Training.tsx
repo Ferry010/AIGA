@@ -35,7 +35,7 @@ const Training = () => (
           <p className="mt-6 text-lg text-muted-foreground max-w-2xl leading-relaxed">
             De EU AI Act verplicht organisaties hun medewerkers voor te bereiden op verantwoord AI-gebruik. Onze training doet dat snel, praktisch en met een audit-proof certificaat.
           </p>
-          <Link to="/contact" className="inline-block mt-8 bg-primary text-primary-foreground px-7 py-3.5 rounded-lg font-semibold hover:brightness-110 hover:-translate-y-px transition-all duration-300 shadow-lg shadow-primary/20">
+          <Link to="/contact" className="btn-neon inline-block mt-8 px-7 py-3.5 rounded-lg">
             Vraag offerte aan
           </Link>
         </AnimatedSection>
@@ -86,7 +86,7 @@ const Training = () => (
             { icon: BarChart2, title: "Voortgangsdashboard", body: "Monitor de voortgang van je hele team op een plek. Exporteerbaar voor audits." },
           ].map((c) => (
             <StaggerItem key={c.title}>
-              <div className="bg-surface-2 border border-border rounded-2xl p-8 hover:border-primary/50 hover:shadow-lg hover:shadow-primary/5 transition-all duration-300 h-full">
+              <div className="bg-surface-2 border border-border rounded-2xl p-8 hover:border-neon-purple/40 neon-glow transition-all duration-300 h-full neon-card-top">
                 <c.icon size={24} className="text-primary mb-4" />
                 <h3 className="text-base font-semibold text-foreground mb-2">{c.title}</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">{c.body}</p>
@@ -109,23 +109,44 @@ const Training = () => (
         <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-12">
           {pricingTiers.map((t) => (
             <StaggerItem key={t.name}>
-              <div className={`bg-card rounded-2xl p-8 h-full flex flex-col border ${t.featured ? "border-2 border-primary shadow-lg shadow-primary/5" : "border-border hover:border-primary/50 hover:shadow-lg hover:shadow-primary/5"} transition-all duration-300`}>
-                {t.badge && <span className="text-xs font-medium uppercase tracking-[0.08em] text-primary mb-2">{t.badge}</span>}
-                <h3 className="text-lg font-semibold text-foreground">{t.name}</h3>
-                <p className="text-sm text-muted-foreground mt-1">{t.seats} seats</p>
-                <p className="text-2xl font-bold text-foreground mt-4">{t.price} <span className="text-sm font-normal text-muted-foreground">{t.price !== "Op aanvraag" ? "per seat" : ""}</span></p>
-                {t.total && <p className="text-xs text-muted-foreground">{t.total}</p>}
-                <ul className="space-y-2 mt-4 mb-6 flex-1">
-                  {t.features.map((f) => (
-                    <li key={f} className="flex items-start gap-2 text-sm text-muted-foreground">
-                      <Check size={14} className="text-success mt-0.5 shrink-0" />{f}
-                    </li>
-                  ))}
-                </ul>
-                <Link to="/contact" className={`text-center py-2.5 rounded-lg font-semibold text-sm ${t.featured ? "bg-primary text-primary-foreground hover:brightness-110 shadow-lg shadow-primary/20" : "border border-primary text-primary hover:bg-accent"} transition-all duration-300`}>
-                  {t.name === "Enterprise" ? "Neem contact op" : "Vraag offerte aan"}
-                </Link>
-              </div>
+              {t.featured ? (
+                <div className="neon-border-lg h-full">
+                  <div className="neon-inner bg-background rounded-2xl p-8 h-full flex flex-col">
+                    <span className="text-xs font-medium uppercase tracking-[0.08em] neon-text mb-2">{t.badge}</span>
+                    <h3 className="text-lg font-semibold text-foreground">{t.name}</h3>
+                    <p className="text-sm text-muted-foreground mt-1">{t.seats} seats</p>
+                    <p className="text-2xl font-bold text-foreground mt-4">{t.price} <span className="text-sm font-normal text-muted-foreground">per seat</span></p>
+                    {t.total && <p className="text-xs text-muted-foreground">{t.total}</p>}
+                    <ul className="space-y-2 mt-4 mb-6 flex-1">
+                      {t.features.map((f) => (
+                        <li key={f} className="flex items-start gap-2 text-sm text-muted-foreground">
+                          <Check size={14} className="text-success mt-0.5 shrink-0" />{f}
+                        </li>
+                      ))}
+                    </ul>
+                    <Link to="/contact" className="btn-neon text-center py-2.5 rounded-lg text-sm">
+                      Vraag offerte aan
+                    </Link>
+                  </div>
+                </div>
+              ) : (
+                <div className="bg-card rounded-2xl p-8 h-full flex flex-col border border-border hover:border-neon-purple/40 neon-glow transition-all duration-300">
+                  <h3 className="text-lg font-semibold text-foreground">{t.name}</h3>
+                  <p className="text-sm text-muted-foreground mt-1">{t.seats} seats</p>
+                  <p className="text-2xl font-bold text-foreground mt-4">{t.price} <span className="text-sm font-normal text-muted-foreground">{t.price !== "Op aanvraag" ? "per seat" : ""}</span></p>
+                  {t.total && <p className="text-xs text-muted-foreground">{t.total}</p>}
+                  <ul className="space-y-2 mt-4 mb-6 flex-1">
+                    {t.features.map((f) => (
+                      <li key={f} className="flex items-start gap-2 text-sm text-muted-foreground">
+                        <Check size={14} className="text-success mt-0.5 shrink-0" />{f}
+                      </li>
+                    ))}
+                  </ul>
+                  <Link to="/contact" className="btn-neon-outline text-center py-2.5 font-semibold text-sm">
+                    {t.name === "Enterprise" ? "Neem contact op" : "Vraag offerte aan"}
+                  </Link>
+                </div>
+              )}
             </StaggerItem>
           ))}
         </StaggerContainer>
@@ -155,7 +176,7 @@ const Training = () => (
       <div className="text-center">
         <AnimatedSection>
           <h2 className="text-3xl font-display font-semibold text-foreground">Hoeveel seats heeft jouw team nodig?</h2>
-          <Link to="/contact" className="inline-block mt-8 bg-primary text-primary-foreground px-8 py-4 rounded-lg font-semibold hover:brightness-110 hover:-translate-y-px transition-all duration-300 shadow-lg shadow-primary/20">
+          <Link to="/contact" className="btn-neon inline-block mt-8 px-8 py-4 rounded-lg">
             Vraag offerte aan
           </Link>
         </AnimatedSection>

@@ -42,8 +42,10 @@ const OverAiga = () => (
           <h2 className="text-3xl font-display font-semibold text-foreground mt-2">Ferry Hoes</h2>
         </AnimatedSection>
         <AnimatedSection delay={0.2} className="flex flex-col md:flex-row gap-12 mt-10 items-center">
-          <div className="w-56 h-56 rounded-full bg-accent border border-primary/20 flex items-center justify-center shrink-0">
-            <span className="text-5xl font-display font-bold text-primary">FH</span>
+          <div className="neon-border-lg" style={{ borderRadius: '9999px', padding: '3px' }}>
+            <div className="w-56 h-56 rounded-full bg-background flex items-center justify-center">
+              <span className="text-5xl font-display font-bold neon-text">FH</span>
+            </div>
           </div>
           <div>
             <p className="text-muted-foreground leading-relaxed mb-4">
@@ -59,7 +61,7 @@ const OverAiga = () => (
                 { val: "2020", label: "Winner AI Hackathon" },
               ].map((s) => (
                 <div key={s.label}>
-                  <span className="text-2xl font-mono font-bold text-primary">{s.val}</span>
+                  <span className="text-2xl font-mono font-bold neon-text">{s.val}</span>
                   <p className="text-muted-foreground">{s.label}</p>
                 </div>
               ))}
@@ -104,7 +106,7 @@ const OverAiga = () => (
             { title: "Toepasbaar boven compliant", body: "We helpen organisaties niet alleen aan een certificaat. We helpen ze een cultuur bouwen waarin AI slim en verantwoord wordt ingezet." },
           ].map((c) => (
             <StaggerItem key={c.title}>
-              <div className="bg-background border border-border rounded-2xl p-10 hover:border-primary/50 hover:shadow-lg hover:shadow-primary/5 transition-all duration-300 h-full">
+              <div className="bg-background border border-border rounded-2xl p-10 hover:border-neon-purple/40 neon-glow transition-all duration-300 h-full neon-card-top">
                 <h3 className="text-lg font-semibold text-foreground mb-3">{c.title}</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">{c.body}</p>
               </div>
