@@ -75,7 +75,7 @@ const Contact = () => {
                     value={form.opmerkingen}
                     onChange={(e) => setForm({ ...form, opmerkingen: e.target.value })}
                     rows={4}
-                    className="w-full bg-card border border-border rounded-lg px-4 py-3 text-foreground text-sm focus:outline-none focus:border-primary transition-all duration-300 resize-none"
+                    className="w-full bg-background border border-border rounded-lg px-4 py-3 text-foreground text-sm focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/20 transition-all duration-300 resize-none"
                   />
                 </div>
                 <button type="submit" className="w-full bg-primary text-primary-foreground py-3 rounded-lg font-semibold hover:brightness-110 transition-all duration-300 shadow-lg shadow-primary/20">

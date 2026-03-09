@@ -42,7 +42,7 @@ const OverAiga = () => (
           <h2 className="text-3xl font-display font-semibold text-foreground mt-2">Ferry Hoes</h2>
         </AnimatedSection>
         <AnimatedSection delay={0.2} className="flex flex-col md:flex-row gap-12 mt-10 items-center">
-          <div className="w-56 h-56 rounded-full bg-surface-2 border border-border flex items-center justify-center shrink-0">
+          <div className="w-56 h-56 rounded-full bg-accent border border-primary/20 flex items-center justify-center shrink-0">
             <span className="text-5xl font-display font-bold text-primary">FH</span>
           </div>
           <div>
