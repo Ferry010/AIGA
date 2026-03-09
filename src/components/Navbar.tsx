@@ -1,0 +1,94 @@
+import { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { Menu, X } from "lucide-react";
+
+const navLinks = [
+  { to: "/training", label: "Training" },
+  { to: "/masterclass", label: "Masterclass" },
+  { to: "/voor-organisaties", label: "Voor Organisaties" },
+  { to: "/over-aiga", label: "Over AIGA" },
+];
+
+const Navbar = () => {
+  const [open, setOpen] = useState(false);
+  const location = useLocation();
+
+  return (
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-16">
+          {/* Logo */}
+          <Link to="/" className="flex items-center gap-2" onClick={() => setOpen(false)}>
+            <span className="text-xl font-display font-bold text-primary">AIGA</span>
+            <span className="hidden sm:block text-xs text-muted-foreground">AI Geletterdheid Academy</span>
+          </Link>
+
+          {/* Desktop links */}
+          <div className="hidden lg:flex items-center gap-6">
+            {navLinks.map((l) => (
+              <Link
+                key={l.to}
+                to={l.to}
+                className={`text-sm font-body transition-colors hover:text-primary ${
+                  location.pathname === l.to ? "text-primary" : "text-muted-foreground"
+                }`}
+              >
+                {l.label}
+              </Link>
+            ))}
+          </div>
+
+          {/* Desktop CTAs */}
+          <div className="hidden lg:flex items-center gap-3">
+            <Link
+              to="/quiz"
+              className="text-sm font-semibold text-primary border border-primary px-4 py-2 rounded-md hover:bg-accent transition-colors"
+            >
+              Doe de quiz
+            </Link>
+            <Link
+              to="/contact"
+              className="text-sm font-semibold text-primary-foreground bg-primary px-5 py-2 rounded-md hover:brightness-110 transition-all hover:-translate-y-px"
+            >
+              Offerte aanvragen
+            </Link>
+          </div>
+
+          {/* Mobile toggle */}
+          <button className="lg:hidden text-foreground" onClick={() => setOpen(!open)}>
+            {open ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
+      </div>
+
+      {/* Mobile overlay */}
+      {open && (
+        <div className="lg:hidden fixed inset-0 top-16 bg-background z-40 flex flex-col p-8 gap-6">
+          {navLinks.map((l) => (
+            <Link
+              key={l.to}
+              to={l.to}
+              onClick={() => setOpen(false)}
+              className="text-lg font-body text-foreground hover:text-primary transition-colors"
+            >
+              {l.label}
+            </Link>
+          ))}
+          <hr className="border-border" />
+          <Link to="/quiz" onClick={() => setOpen(false)} className="text-lg font-body text-primary">
+            Doe de quiz
+          </Link>
+          <Link
+            to="/contact"
+            onClick={() => setOpen(false)}
+            className="text-center text-primary-foreground bg-primary px-5 py-3 rounded-md font-semibold"
+          >
+            Offerte aanvragen
+          </Link>
+        </div>
+      )}
+    </nav>
+  );
+};
+
+export default Navbar;
