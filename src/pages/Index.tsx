@@ -183,7 +183,7 @@ const Index = () => {
       <section className="py-24">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection>
-            <SectionLabel text="ONS AANBOD" className="text-center" />
+            <div className="text-center"><SectionLabel text="ONS AANBOD" /></div>
             <h2 className="text-3xl sm:text-4xl font-display font-semibold text-foreground mt-2 text-center">
               Stel samen wat je nodig hebt.
             </h2>
