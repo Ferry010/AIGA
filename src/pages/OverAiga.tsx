@@ -4,7 +4,7 @@ import SectionLabel from "@/components/SectionLabel";
 const OverAiga = () => (
   <div className="min-h-screen">
     {/* Hero */}
-    <section className="pt-32 pb-20 dot-grid-bg">
+    <section className="pt-32 pb-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <AnimatedSection>
           <SectionLabel text="OVER AIGA" />
@@ -20,7 +20,7 @@ const OverAiga = () => (
     </section>
 
     {/* Story */}
-    <section className="py-20">
+    <section className="py-24">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         <AnimatedSection>
           <SectionLabel text="ONS VERHAAL" />
@@ -35,7 +35,7 @@ const OverAiga = () => (
     </section>
 
     {/* Ferry's profile */}
-    <section className="py-20 bg-card">
+    <section className="py-24 bg-card">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <AnimatedSection>
           <SectionLabel text="DE TRAINER" />
@@ -70,7 +70,7 @@ const OverAiga = () => (
     </section>
 
     {/* Partners */}
-    <section className="py-20">
+    <section className="py-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <AnimatedSection>
           <SectionLabel text="IN SAMENWERKING MET" />
@@ -89,7 +89,7 @@ const OverAiga = () => (
     </section>
 
     {/* Principles */}
-    <section className="py-20 bg-card">
+    <section className="py-24 bg-card">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <AnimatedSection>
           <SectionLabel text="ONZE AANPAK" />
@@ -104,7 +104,7 @@ const OverAiga = () => (
             { title: "Toepasbaar boven compliant", body: "We helpen organisaties niet alleen aan een certificaat. We helpen ze een cultuur bouwen waarin AI slim en verantwoord wordt ingezet." },
           ].map((c) => (
             <StaggerItem key={c.title}>
-              <div className="bg-background border border-border rounded-xl p-8 hover:border-primary transition-colors h-full">
+              <div className="bg-background border border-border rounded-2xl p-10 hover:border-primary/50 hover:shadow-lg hover:shadow-primary/5 transition-all duration-300 h-full">
                 <h3 className="text-lg font-semibold text-foreground mb-3">{c.title}</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">{c.body}</p>
               </div>

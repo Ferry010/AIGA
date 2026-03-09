@@ -8,7 +8,7 @@ const Index = () => {
   return (
     <div className="min-h-screen">
       {/* Hero */}
-      <section className="min-h-[90vh] flex items-center relative dot-grid-bg">
+      <section className="min-h-[90vh] flex items-center relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32">
           <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
             <SectionLabel text="AI GELETTERDHEID VOOR TEAMS" />
@@ -20,10 +20,10 @@ const Index = () => {
               Sinds februari 2025 is AI-geletterdheid wettelijk verplicht voor organisaties in de EU. Wij helpen je team voldoen aan de AI Act, met een gecertificeerde online training die werkt.
             </p>
             <div className="flex flex-wrap gap-4 mt-8">
-              <Link to="/training" className="bg-primary text-primary-foreground px-7 py-3.5 rounded-md font-semibold text-[15px] hover:brightness-110 hover:-translate-y-px transition-all">
+              <Link to="/training" className="bg-primary text-primary-foreground px-7 py-3.5 rounded-lg font-semibold text-[15px] hover:brightness-110 hover:-translate-y-px transition-all duration-300 shadow-lg shadow-primary/20">
                 Bekijk de training
               </Link>
-              <Link to="/contact" className="border border-primary text-primary px-7 py-3.5 rounded-md font-semibold text-[15px] hover:bg-accent transition-colors">
+              <Link to="/contact" className="border border-primary text-primary px-7 py-3.5 rounded-lg font-semibold text-[15px] hover:bg-accent transition-all duration-300">
                 Vraag offerte aan
               </Link>
             </div>
@@ -38,9 +38,9 @@ const Index = () => {
 
       {/* Urgency Banner */}
       <AnimatedSection>
-        <div className="bg-gradient-to-r from-[hsl(30,100%,5%)] to-[hsl(40,100%,7%)] border-l-[3px] border-warning mx-4 sm:mx-8 lg:mx-auto max-w-7xl px-6 py-5 rounded-r-md">
+        <div className="bg-gradient-to-r from-[hsl(30,100%,5%)] to-[hsl(40,100%,7%)] border-l-[3px] border-warning mx-4 sm:mx-8 lg:mx-auto max-w-7xl px-6 py-5 rounded-r-lg">
           <div className="flex flex-col sm:flex-row sm:items-center gap-3">
-            <span className="text-[11px] font-bold uppercase tracking-[0.12em] text-warning font-body">Deadline</span>
+            <span className="text-xs font-medium uppercase tracking-[0.08em] text-warning font-body">Deadline</span>
             <p className="text-sm text-foreground leading-relaxed">
               Per augustus 2025 wordt de AI Act actief gehandhaafd. Organisaties zonder gecertificeerde medewerkers riskeren boetes.
             </p>
@@ -62,7 +62,7 @@ const Index = () => {
       </AnimatedSection>
 
       {/* Problem section */}
-      <section className="py-20">
+      <section className="py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection>
             <SectionLabel text="HERKEN JE DIT?" />
@@ -79,7 +79,7 @@ const Index = () => {
               { icon: HelpCircle, title: "Onduidelijk wat de wet precies vereist", body: "De AI Act is complex. Wat geldt voor jouw sector, jouw functies, jouw tools?" },
             ].map((c) => (
               <StaggerItem key={c.title}>
-                <div className="bg-card border border-border rounded-xl p-8 hover:border-primary transition-colors group">
+                <div className="bg-card border border-border rounded-2xl p-10 hover:border-primary/50 hover:shadow-lg hover:shadow-primary/5 transition-all duration-300 group">
                   <c.icon size={24} className="text-primary mb-4" />
                   <h3 className="text-lg font-semibold text-foreground mb-2">{c.title}</h3>
                   <p className="text-sm text-muted-foreground leading-relaxed">{c.body}</p>
@@ -91,7 +91,7 @@ const Index = () => {
       </section>
 
       {/* Solution section */}
-      <section className="py-20">
+      <section className="py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection>
             <SectionLabel text="DE OPLOSSING" />
@@ -103,7 +103,7 @@ const Index = () => {
               De AIGA online training geeft medewerkers precies de kennis die ze nodig hebben. Zelfstandig, in eigen tempo, volledig online. Na afloop ontvangen ze een audit-proof certificaat waarmee jouw organisatie aantoont te voldoen aan de AI Act.
             </p>
           </AnimatedSection>
-          <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
+          <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-10 mt-12">
             {[
               { icon: Play, title: "Zelfpaced", body: "Geen klassikale sessies. Medewerkers volgen de training wanneer het hen uitkomt, in 2 tot 3 uur." },
               { icon: Award, title: "Gecertificeerd", body: "Iedere deelnemer ontvangt het AI Literacy Practitioner certificaat. OpenBadge, digitaal ondertekend, audit-proof." },
@@ -120,7 +120,7 @@ const Index = () => {
       </section>
 
       {/* How it works */}
-      <section className="py-20 bg-card">
+      <section className="py-24 bg-card">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection>
             <SectionLabel text="HOE HET WERKT" />
@@ -129,7 +129,7 @@ const Index = () => {
               <span className="text-primary">in drie stappen.</span>
             </h2>
           </AnimatedSection>
-          <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
+          <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-10 mt-12">
             {[
               { step: "01", title: "Kies het aantal seats", body: "Selecteer 10, 25, 50 of 100+ seats. We stellen de omgeving direct in." },
               { step: "02", title: "Medewerkers volgen de training zelfstandig", body: "Volledig online, in eigen tempo. Videolessen, praktijkcases en een adaptief afsluitend examen." },
@@ -148,7 +148,7 @@ const Index = () => {
       </section>
 
       {/* Quiz CTA */}
-      <section className="py-20 bg-brand-dim border-y border-primary/20">
+      <section className="py-24 bg-brand-dim border-y border-primary/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <AnimatedSection>
             <SectionLabel text="WEET JIJ HOE READY JE TEAM IS?" />
@@ -159,7 +159,7 @@ const Index = () => {
             <p className="mt-4 text-muted-foreground max-w-xl mx-auto">
               10 vragen. Direct resultaat. Inclusief persoonlijk advies op maat.
             </p>
-            <Link to="/quiz" className="inline-block mt-8 bg-primary text-primary-foreground px-8 py-4 rounded-md font-semibold text-[15px] hover:brightness-110 hover:-translate-y-px transition-all">
+            <Link to="/quiz" className="inline-block mt-8 bg-primary text-primary-foreground px-8 py-4 rounded-lg font-semibold text-[15px] hover:brightness-110 hover:-translate-y-px transition-all duration-300 shadow-lg shadow-primary/20">
               Doe de gratis quiz
             </Link>
           </AnimatedSection>
@@ -167,7 +167,7 @@ const Index = () => {
       </section>
 
       {/* Products overview */}
-      <section className="py-20">
+      <section className="py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection>
             <SectionLabel text="ONS AANBOD" />
@@ -178,8 +178,8 @@ const Index = () => {
           </AnimatedSection>
           <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-12">
             <StaggerItem>
-              <div className="bg-card border-2 border-primary rounded-xl p-8 h-full flex flex-col">
-                <span className="text-[11px] font-bold uppercase tracking-[0.12em] text-primary mb-4">MEEST GEKOZEN</span>
+              <div className="bg-card border-2 border-primary rounded-2xl p-10 h-full flex flex-col shadow-lg shadow-primary/5">
+                <span className="text-xs font-medium uppercase tracking-[0.08em] text-primary mb-4">MEEST GEKOZEN</span>
                 <h3 className="text-xl font-semibold text-foreground mb-2">Online Training voor teams</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed mb-4">Volledig zelfstandig te volgen. Inclusief certificering. Geschikt voor alle medewerkers zonder technische voorkennis.</p>
                 <p className="text-2xl font-bold text-foreground mb-4">Vanaf <span className="text-primary">249,-</span> <span className="text-sm font-normal text-muted-foreground">per seat (ex BTW)</span></p>
@@ -188,13 +188,13 @@ const Index = () => {
                     <li key={f} className="flex items-center gap-2"><Check size={14} className="text-success" />{f}</li>
                   ))}
                 </ul>
-                <Link to="/training" className="bg-primary text-primary-foreground px-6 py-3 rounded-md font-semibold text-center hover:brightness-110 transition-all">
+                <Link to="/training" className="bg-primary text-primary-foreground px-6 py-3 rounded-lg font-semibold text-center hover:brightness-110 transition-all duration-300 shadow-lg shadow-primary/20">
                   Bekijk de training
                 </Link>
               </div>
             </StaggerItem>
             <StaggerItem>
-              <div className="bg-card border border-border rounded-xl p-8 h-full flex flex-col hover:border-primary transition-colors">
+              <div className="bg-card border border-border rounded-2xl p-10 h-full flex flex-col hover:border-primary/50 hover:shadow-lg hover:shadow-primary/5 transition-all duration-300">
                 <h3 className="text-xl font-semibold text-foreground mb-2 mt-6">Masterclass voor leidinggevenden</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed mb-4">Twee uur live strategische verdieping voor directie en MT. Gegeven door Ferry Hoes.</p>
                 <p className="text-2xl font-bold text-foreground mb-4">Op aanvraag</p>
@@ -203,7 +203,7 @@ const Index = () => {
                     <li key={f} className="flex items-center gap-2"><Check size={14} className="text-success" />{f}</li>
                   ))}
                 </ul>
-                <Link to="/masterclass" className="border border-primary text-primary px-6 py-3 rounded-md font-semibold text-center hover:bg-accent transition-colors">
+                <Link to="/masterclass" className="border border-primary text-primary px-6 py-3 rounded-lg font-semibold text-center hover:bg-accent transition-all duration-300">
                   Meer over de Masterclass
                 </Link>
               </div>
@@ -213,7 +213,7 @@ const Index = () => {
       </section>
 
       {/* About Ferry */}
-      <section className="py-20 bg-card">
+      <section className="py-24 bg-card">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection>
             <SectionLabel text="DE TRAINER" />
@@ -248,7 +248,7 @@ const Index = () => {
       </section>
 
       {/* Final CTA */}
-      <section className="py-24">
+      <section className="py-28">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <AnimatedSection>
             <h2 className="text-3xl sm:text-4xl font-display font-semibold text-foreground">
@@ -257,7 +257,7 @@ const Index = () => {
             <p className="mt-4 text-muted-foreground max-w-xl mx-auto">
               Vraag een offerte aan en ontvang binnen 24 uur een voorstel op maat. Geen verplichtingen.
             </p>
-            <Link to="/contact" className="inline-block mt-8 bg-primary text-primary-foreground px-8 py-4 rounded-md font-semibold text-[15px] hover:brightness-110 hover:-translate-y-px transition-all">
+            <Link to="/contact" className="inline-block mt-8 bg-primary text-primary-foreground px-8 py-4 rounded-lg font-semibold text-[15px] hover:brightness-110 hover:-translate-y-px transition-all duration-300 shadow-lg shadow-primary/20">
               Vraag offerte aan
             </Link>
             <p className="mt-4 text-sm text-muted-foreground">Of bel direct: +31 (0)10 316 7827</p>
