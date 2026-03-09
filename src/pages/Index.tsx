@@ -17,7 +17,7 @@ const Index = () => {
               <span className="neon-text">Weet iedereen wat dat betekent?</span>
             </h1>
             <p className="mt-6 text-lg text-muted-foreground max-w-2xl leading-relaxed">
-              Sinds februari 2025 is AI-geletterdheid wettelijk verplicht voor organisaties in de EU. Wij helpen je team voldoen aan de AI Act, met een gecertificeerde online training die werkt.
+              Sinds februari 2025 is AI-geletterdheid wettelijk verplicht voor organisaties in de EU. Wij helpen je team voldoen aan de AI Act, met een praktische online training en een digitaal certificaat dat telt bij een audit.
             </p>
             <div className="flex flex-wrap gap-4 mt-8">
               <Link to="/training" className="btn-neon px-7 py-3.5 rounded-lg text-[15px]">
@@ -28,8 +28,8 @@ const Index = () => {
               </Link>
             </div>
             <div className="flex flex-wrap gap-6 mt-8 text-sm text-muted-foreground">
-              <span className="flex items-center gap-2"><Check size={16} className="text-primary" /> Audit-proof certificaat</span>
-              <span className="flex items-center gap-2"><Check size={16} className="text-primary" /> Vanaf 10 medewerkers</span>
+              <span className="flex items-center gap-2"><Check size={16} className="text-primary" /> Per seat beschikbaar</span>
+              <span className="flex items-center gap-2"><Check size={16} className="text-primary" /> Gratis Masterclass vanaf 50 seats</span>
               <span className="flex items-center gap-2"><Check size={16} className="text-primary" /> Direct starten</span>
             </div>
           </motion.div>
@@ -74,8 +74,8 @@ const Index = () => {
           <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-12">
             {[
               { icon: AlertTriangle, title: "Medewerkers gebruiken AI zonder kader", body: "ChatGPT, Copilot, sociale media advertenties. Als ze het gebruiken, vallen ze onder de AI Act. Weten ze dat?" },
-              { icon: FileX, title: "Geen aantoonbare compliance", body: "HR vraagt om bewijs. Je hebt geen documentatie. Een audit wordt een probleem." },
-              { icon: Clock, title: "Klassikale training past niet", body: "Je team is druk. Roosters zijn vol. Een meerdaagse training is geen optie." },
+              { icon: FileX, title: "Geen bewijs bij een audit", body: "HR vraagt om bewijs. Je hebt geen documentatie. Een audit wordt een probleem." },
+              { icon: Clock, title: "Geen tijd voor klassikale training", body: "Je team is druk. Roosters zijn vol. Een meerdaagse training is geen optie." },
               { icon: HelpCircle, title: "Onduidelijk wat de wet precies vereist", body: "De AI Act is complex. Wat geldt voor jouw sector, jouw functies, jouw tools?" },
             ].map((c) => (
               <StaggerItem key={c.title}>
@@ -100,14 +100,14 @@ const Index = () => {
               <span className="text-primary">voor teams die al druk zijn.</span>
             </h2>
             <p className="mt-4 text-muted-foreground max-w-2xl leading-relaxed">
-              De AIGA online training geeft medewerkers precies de kennis die ze nodig hebben. Zelfstandig, in eigen tempo, volledig online. Na afloop ontvangen ze een audit-proof certificaat waarmee jouw organisatie aantoont te voldoen aan de AI Act.
+              Geen gedoe. Geen planningshoofdbrekens. Gewoon geregeld. De AIGA online training geeft medewerkers precies de kennis die ze nodig hebben. Zelfstandig, in eigen tempo, volledig online. Na afloop ontvangen ze een audit-proof certificaat waarmee jouw organisatie aantoont te voldoen aan de AI Act.
             </p>
           </AnimatedSection>
           <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-10 mt-12">
             {[
               { icon: Play, title: "Zelfpaced", body: "Geen klassikale sessies. Medewerkers volgen de training wanneer het hen uitkomt, in 2 tot 3 uur." },
               { icon: Award, title: "Gecertificeerd", body: "Iedere deelnemer ontvangt het AI Literacy Practitioner certificaat. OpenBadge, digitaal ondertekend, audit-proof." },
-              { icon: Users, title: "Schaalbaar", body: "Vanaf 10 seats. Geschikt voor teams van 10 tot 1000+ medewerkers. Voortgangsdashboard inbegrepen." },
+              { icon: Users, title: "Schaalbaar", body: "Per seat te boeken, geen minimumafname. Geschikt voor teams van 1 tot 1000+ medewerkers. Voortgangsdashboard inbegrepen." },
             ].map((c) => (
               <StaggerItem key={c.title}>
                 <c.icon size={24} className="text-primary mb-4" />
@@ -131,7 +131,7 @@ const Index = () => {
           </AnimatedSection>
           <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-10 mt-12">
             {[
-              { step: "01", title: "Kies het aantal seats", body: "Selecteer 10, 25, 50 of 100+ seats. We stellen de omgeving direct in." },
+              { step: "01", title: "Kies het aantal seats", body: "Selecteer 1, 25, 50 of 100+ seats. We stellen de omgeving direct in." },
               { step: "02", title: "Medewerkers volgen de training zelfstandig", body: "Volledig online, in eigen tempo. Videolessen, praktijkcases en een adaptief afsluitend examen." },
               { step: "03", title: "Ontvang de certificaten", body: "Iedere deelnemer ontvangt het AI Literacy Practitioner certificaat. Digitaal ondertekend, OpenBadge, direct deelbaar via LinkedIn." },
             ].map((s) => (
@@ -154,7 +154,7 @@ const Index = () => {
             <SectionLabel text="WEET JIJ HOE READY JE TEAM IS?" />
             <h2 className="text-3xl sm:text-4xl font-display font-semibold text-foreground mt-2">
               Doe de gratis AI Readiness Check.<br />
-              <span className="text-primary">In 3 minuten weet je waar je staat.</span>
+              <span className="text-primary">In vijf minuten weet je waar je staat.</span>
             </h2>
             <p className="mt-4 text-muted-foreground max-w-xl mx-auto">
               10 vragen. Direct resultaat. Inclusief persoonlijk advies op maat.
@@ -183,9 +183,9 @@ const Index = () => {
                   <span className="text-xs font-medium uppercase tracking-[0.08em] neon-text mb-4">MEEST GEKOZEN</span>
                   <h3 className="text-xl font-semibold text-foreground mb-2">Online Training voor teams</h3>
                   <p className="text-sm text-muted-foreground leading-relaxed mb-4">Volledig zelfstandig te volgen. Inclusief certificering. Geschikt voor alle medewerkers zonder technische voorkennis.</p>
-                  <p className="text-2xl font-bold text-foreground mb-4">Vanaf <span className="neon-text">249,-</span> <span className="text-sm font-normal text-muted-foreground">per seat (ex BTW)</span></p>
+                  <p className="text-2xl font-bold text-foreground mb-4"><span className="neon-text">249,-</span> <span className="text-sm font-normal text-muted-foreground">per seat (ex BTW)</span></p>
                   <ul className="space-y-2 mb-6 text-sm text-muted-foreground flex-1">
-                    {["Online leerplatform", "AI Literacy Practitioner certificaat", "Voortgangsdashboard", "Vanaf 10 medewerkers"].map((f) => (
+                    {["Online leerplatform", "AI Literacy Practitioner certificaat", "Voortgangsdashboard", "Per seat te boeken, geen minimumafname", "Gratis Masterclass voor management bij 50+ seats"].map((f) => (
                       <li key={f} className="flex items-center gap-2"><Check size={14} className="text-primary" />{f}</li>
                     ))}
                   </ul>

@@ -94,7 +94,7 @@ const OverAiga = () => (
     <section className="py-24 bg-card">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <AnimatedSection>
-          <SectionLabel text="ONZE AANPAK" />
+          <SectionLabel text="WAT ONS ONDERSCHEIDT" />
           <h2 className="text-3xl font-display font-semibold text-foreground mt-2">
             Drie principes.<br /><span className="text-primary">Een richting.</span>
           </h2>
