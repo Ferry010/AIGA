@@ -42,6 +42,10 @@
     --brand-dim: 189 30% 95%;
     --text-faint: 215 16% 75%;
 
+    --neon-purple: 263 70% 58%;
+    --neon-pink: 330 81% 60%;
+    --neon-glow: 0 0 20px hsl(263 70% 58% / 0.15), 0 0 40px hsl(330 81% 60% / 0.1);
+
     --sidebar-background: 210 20% 98%;
     --sidebar-foreground: 220 20% 14%;
     --sidebar-primary: 189 35% 42%;
@@ -72,4 +76,73 @@
 
 .font-mono-display {
   font-family: 'DM Mono', monospace;
+}
+
+/* Neon gradient border wrapper — use on a parent div, put content inside with bg-background */
+.neon-border {
+  background: linear-gradient(135deg, hsl(var(--neon-purple)), hsl(var(--neon-pink)));
+  padding: 2px;
+  border-radius: var(--radius);
+}
+
+.neon-border-lg {
+  background: linear-gradient(135deg, hsl(var(--neon-purple)), hsl(var(--neon-pink)));
+  padding: 2px;
+  border-radius: 1rem;
+}
+
+.neon-border > .neon-inner,
+.neon-border-lg > .neon-inner {
+  background: hsl(var(--background));
+  border-radius: inherit;
+}
+
+/* Neon glow on hover */
+.neon-glow {
+  transition: box-shadow 0.3s ease;
+}
+.neon-glow:hover {
+  box-shadow: 0 0 20px hsl(263 70% 58% / 0.15), 0 0 40px hsl(330 81% 60% / 0.1);
+}
+
+/* Neon gradient button — solid gradient bg */
+.btn-neon {
+  background: linear-gradient(135deg, hsl(var(--neon-purple)), hsl(var(--neon-pink)));
+  color: white;
+  font-weight: 600;
+  border: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px hsl(263 70% 58% / 0.25);
+}
+.btn-neon:hover {
+  box-shadow: 0 6px 25px hsl(263 70% 58% / 0.35), 0 0 40px hsl(330 81% 60% / 0.15);
+  transform: translateY(-1px);
+}
+
+/* Neon outline button — gradient border, transparent fill */
+.btn-neon-outline {
+  position: relative;
+  background: linear-gradient(135deg, hsl(var(--neon-purple)), hsl(var(--neon-pink)));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  border: 2px solid transparent;
+  border-image: linear-gradient(135deg, hsl(var(--neon-purple)), hsl(var(--neon-pink))) 1;
+  border-radius: 0;
+  transition: all 0.3s ease;
+}
+
+/* Neon text gradient */
+.neon-text {
+  background: linear-gradient(135deg, hsl(var(--neon-purple)), hsl(var(--neon-pink)));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Card with gradient top border accent */
+.neon-card-top {
+  border-top: 3px solid transparent;
+  border-image: linear-gradient(90deg, hsl(var(--neon-purple)), hsl(var(--neon-pink))) 1;
+  border-image-slice: 1;
 }

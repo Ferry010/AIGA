@@ -58,6 +58,8 @@ export default {
         "surface-2": "hsl(var(--surface-2))",
         "brand-dim": "hsl(var(--brand-dim))",
         "text-faint": "hsl(var(--text-faint))",
+        "neon-purple": "hsl(var(--neon-purple))",
+        "neon-pink": "hsl(var(--neon-pink))",
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
           foreground: "hsl(var(--sidebar-foreground))",
