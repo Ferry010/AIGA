@@ -51,7 +51,7 @@ const Contact = () => {
                       required={f.required}
                       value={form[f.name as keyof typeof form]}
                       onChange={(e) => setForm({ ...form, [f.name]: e.target.value })}
-                      className="w-full bg-card border border-border rounded-lg px-4 py-3 text-foreground text-sm focus:outline-none focus:border-primary transition-all duration-300"
+                      className="w-full bg-background border border-border rounded-lg px-4 py-3 text-foreground text-sm focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/20 transition-all duration-300"
                     />
                   </div>
                 ))}
@@ -60,7 +60,7 @@ const Contact = () => {
                   <select
                     value={form.aantal}
                     onChange={(e) => setForm({ ...form, aantal: e.target.value })}
-                    className="w-full bg-card border border-border rounded-lg px-4 py-3 text-foreground text-sm focus:outline-none focus:border-primary transition-all duration-300"
+                    className="w-full bg-background border border-border rounded-lg px-4 py-3 text-foreground text-sm focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/20 transition-all duration-300"
                   >
                     <option value="">Selecteer...</option>
                     <option value="10-24">10-24</option>
