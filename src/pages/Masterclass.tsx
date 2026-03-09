@@ -20,7 +20,7 @@ const programBlocks = [
 const Masterclass = () => (
   <div className="min-h-screen">
     {/* Hero */}
-    <section className="pt-32 pb-20 dot-grid-bg">
+    <section className="pt-32 pb-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <AnimatedSection>
           <SectionLabel text="MASTERCLASS VOOR LEIDINGGEVENDEN" />
@@ -32,7 +32,7 @@ const Masterclass = () => (
             Twee uur live verdieping voor directie, MT en beleidsmakers. Geen saaie compliance-sessie. Wel een helder beeld van wat AI-geletterdheid betekent voor jouw organisatie, inclusief de strategische kansen die je nu kunt pakken.
           </p>
           <p className="mt-4 text-sm text-muted-foreground">Gegeven door Ferry Hoes, AI-expert en keynote spreker</p>
-          <Link to="/contact" className="inline-block mt-8 bg-primary text-primary-foreground px-7 py-3.5 rounded-md font-semibold hover:brightness-110 hover:-translate-y-px transition-all">
+          <Link to="/contact" className="inline-block mt-8 bg-primary text-primary-foreground px-7 py-3.5 rounded-lg font-semibold hover:brightness-110 hover:-translate-y-px transition-all duration-300 shadow-lg shadow-primary/20">
             Meld je aan of vraag een besloten sessie aan
           </Link>
         </AnimatedSection>
@@ -40,7 +40,7 @@ const Masterclass = () => (
     </section>
 
     {/* For who */}
-    <section className="py-20">
+    <section className="py-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <AnimatedSection>
           <SectionLabel text="VOOR WIE" />
@@ -58,7 +58,7 @@ const Masterclass = () => (
     </section>
 
     {/* What you get */}
-    <section className="py-20 bg-card">
+    <section className="py-24 bg-card">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <AnimatedSection>
           <SectionLabel text="WAT JE MEENEEMT" />
@@ -80,7 +80,7 @@ const Masterclass = () => (
     </section>
 
     {/* Program */}
-    <section className="py-20">
+    <section className="py-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <AnimatedSection>
           <SectionLabel text="PROGRAMMA" />
@@ -91,7 +91,7 @@ const Masterclass = () => (
         <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-12">
           {programBlocks.map((b) => (
             <StaggerItem key={b.block}>
-              <div className="bg-card border border-border rounded-xl p-6 hover:border-primary transition-colors">
+              <div className="bg-card border border-border rounded-2xl p-8 hover:border-primary/50 hover:shadow-lg hover:shadow-primary/5 transition-all duration-300">
                 <div className="flex items-center gap-3 mb-3">
                   <span className="text-sm font-semibold text-primary">{b.block}</span>
                   <span className="text-xs text-muted-foreground">{b.duration}</span>
@@ -106,7 +106,7 @@ const Masterclass = () => (
     </section>
 
     {/* CTA */}
-    <section className="py-20 bg-card">
+    <section className="py-24 bg-card">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <AnimatedSection>
           <h2 className="text-3xl font-display font-semibold text-foreground text-center">
@@ -115,19 +115,19 @@ const Masterclass = () => (
         </AnimatedSection>
         <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-12 max-w-3xl mx-auto">
           <StaggerItem>
-            <div className="bg-surface-2 border border-border rounded-xl p-8 text-center h-full flex flex-col">
+            <div className="bg-surface-2 border border-border rounded-2xl p-10 text-center h-full flex flex-col">
               <h3 className="text-lg font-semibold text-foreground mb-2">Open sessie</h3>
               <p className="text-sm text-muted-foreground mb-6 flex-1">Meld je individueel aan voor een geplande open sessie.</p>
-              <Link to="/contact" className="bg-primary text-primary-foreground py-3 rounded-md font-semibold hover:brightness-110 transition-all">
+              <Link to="/contact" className="bg-primary text-primary-foreground py-3 rounded-lg font-semibold hover:brightness-110 transition-all duration-300 shadow-lg shadow-primary/20">
                 Bekijk data en meld je aan
               </Link>
             </div>
           </StaggerItem>
           <StaggerItem>
-            <div className="bg-surface-2 border border-border rounded-xl p-8 text-center h-full flex flex-col">
+            <div className="bg-surface-2 border border-border rounded-2xl p-10 text-center h-full flex flex-col">
               <h3 className="text-lg font-semibold text-foreground mb-2">Besloten sessie</h3>
               <p className="text-sm text-muted-foreground mb-6 flex-1">Plan een exclusieve sessie voor jouw MT of directie. Op locatie of online, op een datum die jullie past.</p>
-              <Link to="/contact" className="border border-primary text-primary py-3 rounded-md font-semibold hover:bg-accent transition-colors">
+              <Link to="/contact" className="border border-primary text-primary py-3 rounded-lg font-semibold hover:bg-accent transition-all duration-300">
                 Vraag een besloten sessie aan
               </Link>
             </div>

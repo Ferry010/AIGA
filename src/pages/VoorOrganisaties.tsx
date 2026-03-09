@@ -30,7 +30,7 @@ const VoorOrganisaties = () => {
   return (
     <div className="min-h-screen">
       {/* Hero */}
-      <section className="pt-32 pb-20 dot-grid-bg">
+      <section className="pt-32 pb-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection>
             <SectionLabel text="VOOR ORGANISATIES" />
@@ -41,7 +41,7 @@ const VoorOrganisaties = () => {
             <p className="mt-6 text-lg text-muted-foreground max-w-2xl leading-relaxed">
               AIGA biedt een complete aanpak voor AI-geletterdheid op elk niveau. Een leverancier, twee producten, geen gedoe.
             </p>
-            <Link to="/contact" className="inline-block mt-8 bg-primary text-primary-foreground px-7 py-3.5 rounded-md font-semibold hover:brightness-110 hover:-translate-y-px transition-all">
+            <Link to="/contact" className="inline-block mt-8 bg-primary text-primary-foreground px-7 py-3.5 rounded-lg font-semibold hover:brightness-110 hover:-translate-y-px transition-all duration-300 shadow-lg shadow-primary/20">
               Vraag een offerte aan
             </Link>
           </AnimatedSection>
@@ -49,7 +49,7 @@ const VoorOrganisaties = () => {
       </section>
 
       {/* Comparison table */}
-      <section className="py-20">
+      <section className="py-24">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection>
             <div className="overflow-x-auto">
@@ -86,13 +86,13 @@ const VoorOrganisaties = () => {
       </section>
 
       {/* Pricing */}
-      <section className="py-20 bg-card">
+      <section className="py-24 bg-card">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {pricingTiers.map((t) => (
               <StaggerItem key={t.name}>
-                <div className={`bg-background rounded-xl p-6 h-full flex flex-col border ${t.featured ? "border-2 border-primary" : "border-border hover:border-primary"} transition-colors`}>
-                  {t.badge && <span className="text-[11px] font-bold uppercase tracking-[0.12em] text-primary mb-2">{t.badge}</span>}
+                <div className={`bg-background rounded-2xl p-8 h-full flex flex-col border ${t.featured ? "border-2 border-primary shadow-lg shadow-primary/5" : "border-border hover:border-primary/50 hover:shadow-lg hover:shadow-primary/5"} transition-all duration-300`}>
+                  {t.badge && <span className="text-xs font-medium uppercase tracking-[0.08em] text-primary mb-2">{t.badge}</span>}
                   <h3 className="text-lg font-semibold text-foreground">{t.name}</h3>
                   <p className="text-sm text-muted-foreground mt-1">{t.seats} seats</p>
                   <p className="text-2xl font-bold text-foreground mt-4">{t.price} <span className="text-sm font-normal text-muted-foreground">{t.price !== "Op aanvraag" ? "per seat" : ""}</span></p>
@@ -104,7 +104,7 @@ const VoorOrganisaties = () => {
                       </li>
                     ))}
                   </ul>
-                  <Link to="/contact" className={`text-center py-2.5 rounded-md font-semibold text-sm ${t.featured ? "bg-primary text-primary-foreground" : "border border-primary text-primary hover:bg-accent"} transition-all`}>
+                  <Link to="/contact" className={`text-center py-2.5 rounded-lg font-semibold text-sm ${t.featured ? "bg-primary text-primary-foreground hover:brightness-110 shadow-lg shadow-primary/20" : "border border-primary text-primary hover:bg-accent"} transition-all duration-300`}>
                     {t.name === "Enterprise" ? "Neem contact op" : "Vraag offerte aan"}
                   </Link>
                 </div>
@@ -115,7 +115,7 @@ const VoorOrganisaties = () => {
       </section>
 
       {/* Always included */}
-      <section className="py-20">
+      <section className="py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection>
             <SectionLabel text="ALTIJD INBEGREPEN" />
@@ -141,7 +141,7 @@ const VoorOrganisaties = () => {
       </section>
 
       {/* HR FAQ */}
-      <section className="py-20 bg-card">
+      <section className="py-24 bg-card">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection>
             <SectionLabel text="VRAGEN VAN HR EN L&D" />
@@ -158,7 +158,7 @@ const VoorOrganisaties = () => {
       </section>
 
       {/* Offerte form */}
-      <section className="py-20">
+      <section className="py-24">
         <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection>
             <h2 className="text-3xl font-display font-semibold text-foreground">
@@ -180,7 +180,7 @@ const VoorOrganisaties = () => {
                   required={f.required}
                   value={form[f.name as keyof typeof form]}
                   onChange={(e) => setForm({ ...form, [f.name]: e.target.value })}
-                  className="w-full bg-card border border-border rounded-md px-4 py-2.5 text-foreground text-sm focus:outline-none focus:border-primary transition-colors"
+                  className="w-full bg-card border border-border rounded-lg px-4 py-3 text-foreground text-sm focus:outline-none focus:border-primary transition-all duration-300"
                 />
               </div>
             ))}
@@ -189,7 +189,7 @@ const VoorOrganisaties = () => {
               <select
                 value={form.aantal}
                 onChange={(e) => setForm({ ...form, aantal: e.target.value })}
-                className="w-full bg-card border border-border rounded-md px-4 py-2.5 text-foreground text-sm focus:outline-none focus:border-primary transition-colors"
+                className="w-full bg-card border border-border rounded-lg px-4 py-3 text-foreground text-sm focus:outline-none focus:border-primary transition-all duration-300"
               >
                 <option value="">Selecteer...</option>
                 <option value="10-24">10-24</option>
@@ -204,10 +204,10 @@ const VoorOrganisaties = () => {
                 value={form.opmerkingen}
                 onChange={(e) => setForm({ ...form, opmerkingen: e.target.value })}
                 rows={4}
-                className="w-full bg-card border border-border rounded-md px-4 py-2.5 text-foreground text-sm focus:outline-none focus:border-primary transition-colors resize-none"
+                className="w-full bg-card border border-border rounded-lg px-4 py-3 text-foreground text-sm focus:outline-none focus:border-primary transition-all duration-300 resize-none"
               />
             </div>
-            <button type="submit" className="w-full bg-primary text-primary-foreground py-3 rounded-md font-semibold hover:brightness-110 transition-all">
+            <button type="submit" className="w-full bg-primary text-primary-foreground py-3 rounded-lg font-semibold hover:brightness-110 transition-all duration-300 shadow-lg shadow-primary/20">
               Verstuur aanvraag
             </button>
           </form>

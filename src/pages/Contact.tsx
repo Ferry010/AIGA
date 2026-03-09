@@ -21,7 +21,7 @@ const Contact = () => {
 
   return (
     <div className="min-h-screen">
-      <section className="pt-32 pb-20">
+      <section className="pt-32 pb-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection>
             <SectionLabel text="CONTACT" />
@@ -35,7 +35,6 @@ const Contact = () => {
           </AnimatedSection>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 mt-12">
-            {/* Form */}
             <AnimatedSection delay={0.1}>
               <form onSubmit={handleSubmit} className="space-y-4">
                 {[
@@ -52,7 +51,7 @@ const Contact = () => {
                       required={f.required}
                       value={form[f.name as keyof typeof form]}
                       onChange={(e) => setForm({ ...form, [f.name]: e.target.value })}
-                      className="w-full bg-card border border-border rounded-md px-4 py-2.5 text-foreground text-sm focus:outline-none focus:border-primary transition-colors"
+                      className="w-full bg-card border border-border rounded-lg px-4 py-3 text-foreground text-sm focus:outline-none focus:border-primary transition-all duration-300"
                     />
                   </div>
                 ))}
@@ -61,7 +60,7 @@ const Contact = () => {
                   <select
                     value={form.aantal}
                     onChange={(e) => setForm({ ...form, aantal: e.target.value })}
-                    className="w-full bg-card border border-border rounded-md px-4 py-2.5 text-foreground text-sm focus:outline-none focus:border-primary transition-colors"
+                    className="w-full bg-card border border-border rounded-lg px-4 py-3 text-foreground text-sm focus:outline-none focus:border-primary transition-all duration-300"
                   >
                     <option value="">Selecteer...</option>
                     <option value="10-24">10-24</option>
@@ -76,18 +75,17 @@ const Contact = () => {
                     value={form.opmerkingen}
                     onChange={(e) => setForm({ ...form, opmerkingen: e.target.value })}
                     rows={4}
-                    className="w-full bg-card border border-border rounded-md px-4 py-2.5 text-foreground text-sm focus:outline-none focus:border-primary transition-colors resize-none"
+                    className="w-full bg-card border border-border rounded-lg px-4 py-3 text-foreground text-sm focus:outline-none focus:border-primary transition-all duration-300 resize-none"
                   />
                 </div>
-                <button type="submit" className="w-full bg-primary text-primary-foreground py-3 rounded-md font-semibold hover:brightness-110 transition-all">
+                <button type="submit" className="w-full bg-primary text-primary-foreground py-3 rounded-lg font-semibold hover:brightness-110 transition-all duration-300 shadow-lg shadow-primary/20">
                   Verstuur bericht
                 </button>
               </form>
             </AnimatedSection>
 
-            {/* Direct contact */}
             <AnimatedSection delay={0.2}>
-              <div className="bg-card border border-border rounded-xl p-8">
+              <div className="bg-card border border-border rounded-2xl p-10">
                 <h3 className="text-lg font-semibold text-foreground mb-2">Direct contact</h3>
                 <p className="text-sm text-muted-foreground mb-6">Voor sales en offertes:</p>
                 <p className="text-foreground font-semibold">Robbert | Speakers Academy</p>
@@ -100,14 +98,14 @@ const Contact = () => {
                   </a>
                 </div>
                 <div className="flex gap-3 mt-6">
-                  <a href="tel:+31103167827" className="flex-1 text-center border border-primary text-primary py-2.5 rounded-md font-semibold text-sm hover:bg-accent transition-colors">
+                  <a href="tel:+31103167827" className="flex-1 text-center border border-primary text-primary py-2.5 rounded-lg font-semibold text-sm hover:bg-accent transition-all duration-300">
                     Bel direct
                   </a>
-                  <a href="mailto:robbert@speakersacademy.nl" className="flex-1 text-center bg-primary text-primary-foreground py-2.5 rounded-md font-semibold text-sm hover:brightness-110 transition-all">
+                  <a href="mailto:robbert@speakersacademy.nl" className="flex-1 text-center bg-primary text-primary-foreground py-2.5 rounded-lg font-semibold text-sm hover:brightness-110 transition-all duration-300">
                     Stuur e-mail
                   </a>
                 </div>
-                <div className="mt-8 bg-brand-dim rounded-lg p-4 text-center">
+                <div className="mt-8 bg-brand-dim rounded-xl p-4 text-center">
                   <p className="text-sm text-foreground">Gemiddelde reactietijd: <span className="text-primary font-semibold">minder dan 24 uur</span></p>
                 </div>
               </div>
@@ -117,7 +115,7 @@ const Contact = () => {
       </section>
 
       {/* Mini FAQ */}
-      <section className="py-16 bg-card">
+      <section className="py-20 bg-card">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
           <Accordion type="single" collapsible>
             {contactFaqs.map((f, i) => (

@@ -24,7 +24,7 @@ const faqs = [
 const Training = () => (
   <div className="min-h-screen">
     {/* Hero */}
-    <section className="pt-32 pb-20 dot-grid-bg">
+    <section className="pt-32 pb-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <AnimatedSection>
           <SectionLabel text="ONLINE TRAINING" />
@@ -35,7 +35,7 @@ const Training = () => (
           <p className="mt-6 text-lg text-muted-foreground max-w-2xl leading-relaxed">
             De EU AI Act verplicht organisaties hun medewerkers voor te bereiden op verantwoord AI-gebruik. Onze training doet dat snel, praktisch en met een audit-proof certificaat.
           </p>
-          <Link to="/contact" className="inline-block mt-8 bg-primary text-primary-foreground px-7 py-3.5 rounded-md font-semibold hover:brightness-110 hover:-translate-y-px transition-all">
+          <Link to="/contact" className="inline-block mt-8 bg-primary text-primary-foreground px-7 py-3.5 rounded-lg font-semibold hover:brightness-110 hover:-translate-y-px transition-all duration-300 shadow-lg shadow-primary/20">
             Vraag offerte aan
           </Link>
         </AnimatedSection>
@@ -43,7 +43,7 @@ const Training = () => (
     </section>
 
     {/* What they learn */}
-    <section className="py-20">
+    <section className="py-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <AnimatedSection>
           <SectionLabel text="WAT MEDEWERKERS LEREN" />
@@ -73,7 +73,7 @@ const Training = () => (
     </section>
 
     {/* What's included */}
-    <section className="py-20 bg-card">
+    <section className="py-24 bg-card">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <AnimatedSection>
           <SectionLabel text="WAT JE KRIJGT" />
@@ -86,7 +86,7 @@ const Training = () => (
             { icon: BarChart2, title: "Voortgangsdashboard", body: "Monitor de voortgang van je hele team op een plek. Exporteerbaar voor audits." },
           ].map((c) => (
             <StaggerItem key={c.title}>
-              <div className="bg-surface-2 border border-border rounded-xl p-6 hover:border-primary transition-colors h-full">
+              <div className="bg-surface-2 border border-border rounded-2xl p-8 hover:border-primary/50 hover:shadow-lg hover:shadow-primary/5 transition-all duration-300 h-full">
                 <c.icon size={24} className="text-primary mb-4" />
                 <h3 className="text-base font-semibold text-foreground mb-2">{c.title}</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">{c.body}</p>
@@ -98,7 +98,7 @@ const Training = () => (
     </section>
 
     {/* Pricing */}
-    <section className="py-20">
+    <section className="py-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <AnimatedSection>
           <SectionLabel text="PRIJZEN VOOR ORGANISATIES" />
@@ -109,8 +109,8 @@ const Training = () => (
         <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-12">
           {pricingTiers.map((t) => (
             <StaggerItem key={t.name}>
-              <div className={`bg-card rounded-xl p-6 h-full flex flex-col border ${t.featured ? "border-2 border-primary" : "border-border hover:border-primary"} transition-colors`}>
-                {t.badge && <span className="text-[11px] font-bold uppercase tracking-[0.12em] text-primary mb-2">{t.badge}</span>}
+              <div className={`bg-card rounded-2xl p-8 h-full flex flex-col border ${t.featured ? "border-2 border-primary shadow-lg shadow-primary/5" : "border-border hover:border-primary/50 hover:shadow-lg hover:shadow-primary/5"} transition-all duration-300`}>
+                {t.badge && <span className="text-xs font-medium uppercase tracking-[0.08em] text-primary mb-2">{t.badge}</span>}
                 <h3 className="text-lg font-semibold text-foreground">{t.name}</h3>
                 <p className="text-sm text-muted-foreground mt-1">{t.seats} seats</p>
                 <p className="text-2xl font-bold text-foreground mt-4">{t.price} <span className="text-sm font-normal text-muted-foreground">{t.price !== "Op aanvraag" ? "per seat" : ""}</span></p>
@@ -122,7 +122,7 @@ const Training = () => (
                     </li>
                   ))}
                 </ul>
-                <Link to="/contact" className={`text-center py-2.5 rounded-md font-semibold text-sm ${t.featured ? "bg-primary text-primary-foreground hover:brightness-110" : "border border-primary text-primary hover:bg-accent"} transition-all`}>
+                <Link to="/contact" className={`text-center py-2.5 rounded-lg font-semibold text-sm ${t.featured ? "bg-primary text-primary-foreground hover:brightness-110 shadow-lg shadow-primary/20" : "border border-primary text-primary hover:bg-accent"} transition-all duration-300`}>
                   {t.name === "Enterprise" ? "Neem contact op" : "Vraag offerte aan"}
                 </Link>
               </div>
@@ -134,7 +134,7 @@ const Training = () => (
     </section>
 
     {/* FAQ */}
-    <section className="py-20 bg-card">
+    <section className="py-24 bg-card">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         <AnimatedSection>
           <SectionLabel text="VEELGESTELDE VRAGEN" />
@@ -151,11 +151,11 @@ const Training = () => (
     </section>
 
     {/* Closing CTA */}
-    <section className="py-24">
+    <section className="py-28">
       <div className="text-center">
         <AnimatedSection>
           <h2 className="text-3xl font-display font-semibold text-foreground">Hoeveel seats heeft jouw team nodig?</h2>
-          <Link to="/contact" className="inline-block mt-8 bg-primary text-primary-foreground px-8 py-4 rounded-md font-semibold hover:brightness-110 hover:-translate-y-px transition-all">
+          <Link to="/contact" className="inline-block mt-8 bg-primary text-primary-foreground px-8 py-4 rounded-lg font-semibold hover:brightness-110 hover:-translate-y-px transition-all duration-300 shadow-lg shadow-primary/20">
             Vraag offerte aan
           </Link>
         </AnimatedSection>
