@@ -19,8 +19,7 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <Link to="/" className="flex items-center gap-2" onClick={() => setOpen(false)}>
-            <span className="text-xl font-display font-bold text-primary">AIGA</span>
-            <span className="hidden sm:block text-xs text-muted-foreground">AI Geletterdheid Academy</span>
+            <img src={logo} alt="AIGA - AI Geletterdheid Academy" className="h-8" />
           </Link>
 
           <div className="hidden lg:flex items-center gap-6">
