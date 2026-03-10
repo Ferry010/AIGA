@@ -14,7 +14,7 @@ export default {
     },
     extend: {
       fontFamily: {
-        display: ["Instrument Serif", "serif"],
+        display: ["Space Grotesk", "sans-serif"],
         body: ["DM Sans", "sans-serif"],
         mono: ["DM Mono", "monospace"],
       },
