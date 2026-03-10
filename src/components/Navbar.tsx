@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X } from "lucide-react";
+import logo from "@/assets/AIGA_transparent.png";
 
 const navLinks = [
   { to: "/training", label: "Training" },
