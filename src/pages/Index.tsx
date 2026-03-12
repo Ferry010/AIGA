@@ -104,7 +104,7 @@ const Index = () => {
             {[
               { icon: Play, title: "Selfpaced", body: "Geen klassikale sessies. Medewerkers volgen de training wanneer het hen uitkomt, in 2 tot 3 uur." },
               { icon: Award, title: "Gecertificeerd", body: "Iedere deelnemer ontvangt het AI Literacy Practitioner certificaat. Digitaal ondertekend, audit-proof." },
-              { icon: Users, title: "Schaalbaar", body: "Per seat te boeken, geen minimumafname. Geschikt voor teams van 1 tot 1000+ medewerkers. Voortgangsdashboard inbegrepen." },
+              { icon: Users, title: "Schaalbaar", body: "Per seat te boeken. Geschikt voor teams van 1 tot 1000+ medewerkers. Voortgangsdashboard inbegrepen." },
             ].map((c) => (
               <StaggerItem key={c.title}>
                 <c.icon size={24} className="text-primary mb-4" />
@@ -274,7 +274,7 @@ const Index = () => {
               Klaar om jouw team te certificeren?
             </h2>
             <p className="mt-4 text-muted-foreground max-w-xl mx-auto">
-              Vraag een offerte aan en ontvang binnen 24 uur een voorstel op maat. Geen verplichtingen.
+              Vraag een offerte aan. Geen verplichtingen.
             </p>
             <Link to="/contact" className="btn-neon inline-block mt-8 px-8 py-4 rounded-lg text-[15px]">
               Vraag offerte aan

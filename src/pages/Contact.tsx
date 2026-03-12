@@ -5,9 +5,7 @@ import SectionLabel from "@/components/SectionLabel";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 const contactFaqs = [
-  { q: "Hoe snel ontvang ik een offerte?", a: "Binnen 24 uur na ontvangst van je aanvraag." },
   { q: "Kan ik eerst een demo aanvragen?", a: "Ja. Vermeld dit in je bericht en we plannen iets in." },
-  { q: "Is er een minimumafname?", a: "Nee. Je kunt ook een enkele seat boeken. Wel geldt: hoe meer seats, hoe lager de prijs per seat." },
   { q: "Kan ik de training eerst zelf bekijken?", a: "Ja. Neem contact op en we geven je tijdelijk toegang tot een demoversie." },
   { q: "Wij zijn een overheidsorganisatie. Werkt dit ook voor ons?", a: "Ja. De training is geschikt voor alle sectoren, inclusief overheid. We werken al samen met meerdere ministeries en overheidsinstanties." },
 ];
@@ -30,9 +28,9 @@ const Contact = () => {
               Klaar om jouw team te certificeren?<br />
               <span className="neon-text">Laten we praten.</span>
             </h1>
-            <p className="mt-6 text-lg text-muted-foreground max-w-2xl">
-              Vul het formulier in en we nemen binnen 24 uur contact met je op met een offerte op maat. Geen verplichtingen.
-            </p>
+             <p className="mt-6 text-lg text-muted-foreground max-w-2xl">
+               Vul het formulier in en we nemen contact met je op met een offerte op maat. Geen verplichtingen.
+             </p>
           </AnimatedSection>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 mt-12">
@@ -123,9 +121,6 @@ const Contact = () => {
                   <a href="mailto:robbert@speakersacademy.nl" className="btn-neon flex-1 text-center py-2.5 rounded-lg text-sm">
                     Stuur e-mail
                   </a>
-                </div>
-                <div className="mt-8 bg-brand-dim rounded-xl p-4 text-center">
-                  <p className="text-sm text-foreground">Gemiddelde reactietijd: <span className="neon-text font-semibold">minder dan 24 uur</span></p>
                 </div>
               </div>
             </AnimatedSection>
