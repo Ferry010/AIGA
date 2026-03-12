@@ -4,9 +4,9 @@ import { Menu, X } from "lucide-react";
 import logo from "@/assets/AIGA_transparent.png";
 
 const navLinks = [
-  { to: "/training", label: "Training" },
-  { to: "/masterclass", label: "Masterclass" },
-  { to: "/voor-organisaties", label: "Voor Organisaties" },
+  { to: "/training", label: "Voor teams" },
+  { to: "/masterclass", label: "Voor leidinggevenden" },
+  { to: "/kenniscentrum", label: "Kenniscentrum" },
   { to: "/over-aiga", label: "Over AIGA" },
 ];
 

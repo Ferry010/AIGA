@@ -229,6 +229,72 @@ const Index = () => {
         </div>
       </section>
 
+      {/* Comparison table */}
+      <section className="py-24">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <AnimatedSection>
+            <div className="text-center"><SectionLabel text="VERGELIJK" /></div>
+            <h2 className="text-3xl sm:text-4xl font-display font-semibold text-foreground mt-2 text-center">
+              Welk product past bij wie?
+            </h2>
+          </AnimatedSection>
+          <AnimatedSection delay={0.2}>
+            <div className="overflow-x-auto mt-10">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="border-b border-border">
+                    <th className="text-left py-3 text-muted-foreground font-normal"></th>
+                    <th className="text-left py-3 neon-text font-semibold">Online Training</th>
+                    <th className="text-left py-3 neon-text font-semibold">Masterclass</th>
+                  </tr>
+                </thead>
+                <tbody className="text-foreground">
+                  {[
+                    ["Voor wie", "Alle medewerkers", "Directie, MT, HR"],
+                    ["Formaat", "Online, selfpaced", "Live, in-company"],
+                    ["Duur", "2 tot 3 uur", "2 uur"],
+                    ["Certificaat", "AI Literacy Practitioner", "AI Literacy Leader"],
+                    ["AI Act compliant", "Ja", "Ja"],
+                  ].map(([label, col1, col2]) => (
+                    <tr key={label} className="border-b border-border">
+                      <td className="py-3 text-muted-foreground">{label}</td>
+                      <td className="py-3">{col1}</td>
+                      <td className="py-3">{col2}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </AnimatedSection>
+        </div>
+      </section>
+
+      {/* Altijd inbegrepen */}
+      <section className="py-24 bg-card">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <AnimatedSection>
+            <SectionLabel text="ALTIJD INBEGREPEN" />
+          </AnimatedSection>
+          <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8">
+            {[
+              "Directe platformtoegang na boeking",
+              "AI Literacy Practitioner certificaat per deelnemer",
+              "Certificaat deelbaar via LinkedIn, audit-proof",
+              "Voortgangsdashboard voor HR en L&D",
+              "Nederlandstalige content",
+              "Technische ondersteuning",
+            ].map((item) => (
+              <StaggerItem key={item}>
+                <div className="flex items-center gap-3 p-3">
+                  <Check size={16} className="text-primary shrink-0" />
+                  <span className="text-foreground text-sm">{item}</span>
+                </div>
+              </StaggerItem>
+            ))}
+          </StaggerContainer>
+        </div>
+      </section>
+
       {/* About Ferry */}
       <section className="py-24 bg-card">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
