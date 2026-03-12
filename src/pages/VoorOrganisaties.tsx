@@ -84,7 +84,7 @@ const VoorOrganisaties = () => {
                 <tbody className="text-foreground">
                   {[
                     ["Voor wie", "Alle medewerkers", "Directie, MT, HR"],
-                    ["Formaat", "Online, zelfpaced", "Live"],
+                    ["Formaat", "Online, selfpaced", "Live"],
                     ["Duur", "2 tot 3 uur", "2 uur"],
                     ["Certificaat", "AI Literacy Practitioner", "AI Literacy Leader"],
                     ["Prijs", "249,- per seat", "Op aanvraag"],
