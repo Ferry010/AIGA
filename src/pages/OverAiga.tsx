@@ -1,5 +1,6 @@
 import { AnimatedSection, StaggerContainer, StaggerItem } from "@/components/AnimatedSection";
 import SectionLabel from "@/components/SectionLabel";
+import ferryImg from "@/assets/ferry-hoes.gif";
 
 const OverAiga = () => (
   <div className="min-h-screen">
@@ -43,9 +44,7 @@ const OverAiga = () => (
         </AnimatedSection>
         <AnimatedSection delay={0.2} className="flex flex-col md:flex-row gap-12 mt-10 items-center">
           <div className="neon-border-lg" style={{ borderRadius: '9999px', padding: '3px' }}>
-            <div className="w-56 h-56 rounded-full bg-background flex items-center justify-center">
-              <span className="text-5xl font-display font-bold neon-text">FH</span>
-            </div>
+            <img src={ferryImg} alt="Ferry Hoes" className="w-56 h-56 rounded-full object-cover" />
           </div>
           <div>
             <p className="text-muted-foreground leading-relaxed mb-4">
@@ -56,9 +55,9 @@ const OverAiga = () => (
             </p>
             <div className="flex flex-wrap gap-8 text-sm">
               {[
-                { val: "40+", label: "Keynotes per jaar" },
-                { val: "5+", label: "Sectoren bediend" },
-                { val: "2020", label: "Winner AI Hackathon" },
+                { val: "40+", label: "Keynotes per jaar, internationale events en in-house sessies" },
+                { val: "15+", label: "Jaar ervaring van startups tot wereldwijde corporates" },
+                { val: "2020", label: "Winnaar prestigieuze AI Hackathon van de Nederlandse overheid" },
               ].map((s) => (
                 <div key={s.label}>
                   <span className="text-2xl font-mono font-bold neon-text">{s.val}</span>
