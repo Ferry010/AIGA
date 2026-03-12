@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { Check, Play } from "lucide-react";
 import { AnimatedSection, StaggerContainer, StaggerItem } from "@/components/AnimatedSection";
 import SectionLabel from "@/components/SectionLabel";
-import ferryImg from "@/assets/ferry-hoes.gif";
+import TrainerSection from "@/components/TrainerSection";
 import ContactForm from "@/components/ContactForm";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 

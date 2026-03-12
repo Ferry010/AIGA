@@ -1,6 +1,6 @@
 import { AnimatedSection, StaggerContainer, StaggerItem } from "@/components/AnimatedSection";
 import SectionLabel from "@/components/SectionLabel";
-import ferryImg from "@/assets/ferry-hoes.gif";
+import TrainerSection from "@/components/TrainerSection";
 
 const OverAiga = () => (
   <div className="min-h-screen">
