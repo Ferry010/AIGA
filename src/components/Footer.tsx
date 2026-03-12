@@ -47,7 +47,7 @@ const Footer = () => (
         </div>
       </div>
       <div className="border-t border-border mt-12 pt-8 flex flex-col sm:flex-row justify-between gap-4 text-xs text-muted-foreground">
-        <p>&copy; 2025 AI Geletterdheid Academy</p>
+        <p>&copy; 2026 AI Geletterdheid Academy</p>
         <p>Een initiatief van Brand Humanizing Institute en Speakers Academy</p>
         <div className="flex gap-4">
           <span className="hover:text-primary cursor-pointer">Privacyverklaring</span>

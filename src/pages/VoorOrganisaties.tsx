@@ -253,7 +253,7 @@ const VoorOrganisaties = () => {
             </button>
           </form>
           <p className="mt-6 text-sm text-muted-foreground text-center">
-            Of neem direct contact op: <a href="mailto:robbert@speakersacademy.nl" className="text-primary hover:underline">robbert@speakersacademy.nl</a> | <a href="tel:+31103167827" className="text-primary hover:underline">+31 (0)10 316 7827</a>
+            Of neem direct contact op: <a href="mailto:robbert@speakersacademy.nl" className="text-primary hover:underline">robbert@speakersacademy.nl</a> of <a href="mailto:tom@speakersacademy.nl" className="text-primary hover:underline">tom@speakersacademy.nl</a> | <a href="tel:+31103167827" className="text-primary hover:underline">+31 (0)10 316 7827</a>
           </p>
         </div>
       </section>

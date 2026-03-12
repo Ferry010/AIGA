@@ -56,8 +56,8 @@ const OverAiga = () => (
             </p>
             <div className="flex flex-wrap gap-8 text-sm">
               {[
-                { val: "20+", label: "Keynotes per jaar" },
-                { val: "1000+", label: "Medewerkers bereikt" },
+                { val: "40+", label: "Keynotes per jaar" },
+                { val: "5+", label: "Sectoren bediend" },
                 { val: "2020", label: "Winner AI Hackathon" },
               ].map((s) => (
                 <div key={s.label}>
