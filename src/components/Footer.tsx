@@ -44,7 +44,11 @@ const Footer = () => (
             <a href="tel:+31103167827" className="hover:text-primary transition-colors">
               +31 (0)10 316 7827
             </a>
-            <p className="mt-2">In samenwerking met Speakers Academy</p>
+            <p className="mt-4 text-xs">Een samenwerking tussen</p>
+            <div className="flex items-center gap-4 mt-2">
+              <img src={brandLogo} alt="Brand Humanizing Institute" className="h-10 rounded" />
+              <img src={speakersLogo} alt="Speakers Academy" className="h-10 rounded" />
+            </div>
           </div>
         </div>
       </div>
