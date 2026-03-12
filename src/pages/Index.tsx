@@ -3,6 +3,7 @@ import { AlertTriangle, FileX, Clock, HelpCircle, Play, Award, Users, Check } fr
 import { AnimatedSection, StaggerContainer, StaggerItem } from "@/components/AnimatedSection";
 import SectionLabel from "@/components/SectionLabel";
 import { motion } from "framer-motion";
+import trainingVideo from "@/assets/AI-Geletterdheid-Homepage-scaled-1.webm";
 
 const Index = () => {
 
