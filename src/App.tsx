@@ -13,6 +13,7 @@ import Kenniscentrum from "./pages/Kenniscentrum";
 import OverAiga from "./pages/OverAiga";
 import Contact from "./pages/Contact";
 import Quiz from "./pages/Quiz";
+import Faq from "./pages/Faq";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
