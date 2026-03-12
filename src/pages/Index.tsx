@@ -230,6 +230,34 @@ const Index = () => {
         </div>
       </section>
 
+      {/* Video section */}
+      <section className="py-24">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <AnimatedSection>
+            <div className="text-center"><SectionLabel text="BEKIJK DE TRAINING" /></div>
+            <h2 className="text-3xl sm:text-4xl font-display font-semibold text-foreground mt-2 text-center">
+              Zie hoe het werkt,<br />
+              <span className="text-primary">in minder dan twee minuten.</span>
+            </h2>
+          </AnimatedSection>
+          <AnimatedSection delay={0.2} className="mt-10">
+            <div className="neon-border-lg rounded-2xl" style={{ padding: '3px' }}>
+              <div className="neon-inner bg-background rounded-2xl overflow-hidden">
+                <video
+                  src={trainingVideo}
+                  controls
+                  muted
+                  autoPlay
+                  loop
+                  playsInline
+                  className="w-full rounded-2xl"
+                />
+              </div>
+            </div>
+          </AnimatedSection>
+        </div>
+      </section>
+
       {/* Comparison table */}
       <section className="py-24">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -239,32 +267,38 @@ const Index = () => {
               Welk product past bij wie?
             </h2>
           </AnimatedSection>
-          <AnimatedSection delay={0.2}>
-            <div className="overflow-x-auto mt-10">
-              <table className="w-full text-sm">
-                <thead>
-                  <tr className="border-b border-border">
-                    <th className="text-left py-3 text-muted-foreground font-normal"></th>
-                    <th className="text-left py-3 neon-text font-semibold">Online Training</th>
-                    <th className="text-left py-3 neon-text font-semibold">Masterclass</th>
-                  </tr>
-                </thead>
-                <tbody className="text-foreground">
-                  {[
-                    ["Voor wie", "Alle medewerkers", "Directie, MT, HR"],
-                    ["Formaat", "Online, selfpaced", "Live, in-company"],
-                    ["Duur", "2 tot 3 uur", "2 uur"],
-                    ["Certificaat", "AI Literacy Practitioner", "AI Literacy Leader"],
-                    ["AI Act compliant", "Ja", "Ja"],
-                  ].map(([label, col1, col2]) => (
-                    <tr key={label} className="border-b border-border">
-                      <td className="py-3 text-muted-foreground">{label}</td>
-                      <td className="py-3">{col1}</td>
-                      <td className="py-3">{col2}</td>
+          <AnimatedSection delay={0.2} className="mt-10">
+            <div className="bg-card border border-border rounded-2xl p-6 sm:p-8 neon-glow">
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm">
+                  <thead>
+                    <tr className="border-b border-border">
+                      <th className="text-left py-4 pr-4 text-muted-foreground font-normal w-1/3"></th>
+                      <th className="text-left py-4 px-4 w-1/3">
+                        <span className="inline-block px-3 py-1 rounded-full bg-primary/10 neon-text font-semibold text-xs uppercase tracking-wide">Voor teams</span>
+                      </th>
+                      <th className="text-left py-4 pl-4 w-1/3">
+                        <span className="inline-block px-3 py-1 rounded-full bg-primary/10 neon-text font-semibold text-xs uppercase tracking-wide">Voor leidinggevenden</span>
+                      </th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody className="text-foreground">
+                    {[
+                      ["Voor wie", "Alle medewerkers", "Directie, MT, HR"],
+                      ["Formaat", "Online, selfpaced", "Live, in-company"],
+                      ["Duur", "2 tot 3 uur", "2 uur"],
+                      ["Certificaat", "AI Literacy Practitioner", "AI Literacy Leader"],
+                      ["AI Act compliant", "Ja", "Ja"],
+                    ].map(([label, col1, col2], i, arr) => (
+                      <tr key={label} className={`${i < arr.length - 1 ? 'border-b border-border' : ''} hover:bg-muted/30 transition-colors`}>
+                        <td className="py-4 pr-4 text-muted-foreground font-medium">{label}</td>
+                        <td className="py-4 px-4">{col1}</td>
+                        <td className="py-4 pl-4">{col2}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             </div>
           </AnimatedSection>
         </div>
