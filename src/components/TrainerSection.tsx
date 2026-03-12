@@ -11,7 +11,7 @@ const defaultBio =
 
 const stats = [
   { val: "40+", label: "Keynotes per jaar, internationale events en in-house sessies" },
-  { val: "15+", label: "Jaar ervaring van startups tot wereldwijde corporates" },
+  { val: "15+", label: "Jaar ervaring van startups tot wereldwijde corporates in allerlei sectoren" },
   { val: "2020", label: "Winnaar prestigieuze AI Hackathon van de Nederlandse overheid" },
 ];
 
