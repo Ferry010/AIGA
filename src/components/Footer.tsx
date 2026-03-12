@@ -6,7 +6,7 @@ const footerLinks: { to: string; label: string; external?: boolean }[] = [
   { to: "/kenniscentrum", label: "Kenniscentrum" },
   { to: "/over-aiga", label: "Over AIGA" },
   { to: "/contact", label: "Contact" },
-  { to: "https://aigeletterdheid.academy/faq-ai-geletterdheid/", label: "FAQ", external: true },
+  { to: "/faq", label: "FAQ" },
   { to: "/risicoscan", label: "AI Risico-scan" },
 ];
 

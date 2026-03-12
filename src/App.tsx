@@ -40,6 +40,7 @@ const AppContent = () => {
           <Route path="/kenniscentrum" element={<Kenniscentrum />} />
           <Route path="/over-aiga" element={<OverAiga />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/faq" element={<Faq />} />
           <Route path="/risicoscan" element={<Quiz />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
