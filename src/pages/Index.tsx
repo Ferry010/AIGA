@@ -1,26 +1,10 @@
-import { useState } from "react";
 import { Link } from "react-router-dom";
 import { AlertTriangle, FileX, Clock, HelpCircle, Play, Award, Users, Check } from "lucide-react";
 import { AnimatedSection, StaggerContainer, StaggerItem } from "@/components/AnimatedSection";
 import SectionLabel from "@/components/SectionLabel";
-import { motion, AnimatePresence } from "framer-motion";
-
-const trainingFeatures = [
-  "Online leerplatform",
-  "AI Literacy Practitioner certificaat",
-  "Voortgangsdashboard",
-  "Per seat te boeken, geen minimumafname",
-];
-
-const masterclassFeatures = [
-  "Live sessie (online of op locatie)",
-  "AI Literacy Leader bewijs van deelname",
-  "Live Q&A met Ferry Hoes",
-  "Open of besloten sessie",
-];
+import { motion } from "framer-motion";
 
 const Index = () => {
-  const [includeMasterclass, setIncludeMasterclass] = useState(false);
 
   return (
     <div className="min-h-screen">

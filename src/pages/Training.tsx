@@ -1,15 +1,9 @@
 import { Link } from "react-router-dom";
-import { Check, Monitor, ClipboardCheck, Award, BarChart2, Brain, Wrench, AlertCircle, Shield, User, Bell } from "lucide-react";
+import { Check, Play } from "lucide-react";
 import { AnimatedSection, StaggerContainer, StaggerItem } from "@/components/AnimatedSection";
 import SectionLabel from "@/components/SectionLabel";
+import ContactForm from "@/components/ContactForm";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-
-const pricingTiers = [
-  { name: "Individueel", seats: "1 seat", price: "249,-", total: "", features: ["Toegang leerplatform", "Certificaat", "Voortgangsdashboard"], featured: false },
-  { name: "Team", seats: "2 tot 49", price: "249,-", total: "Vanaf 498,-", features: ["Alles uit Individueel", "Prioriteitsondersteuning", "Onboarding call"], featured: false },
-  { name: "Organisatie", seats: "50 tot 99", price: "209,-", total: "Vanaf 10.450,-", features: ["Alles uit Team", "Dedicated accountmanager", "Rapportages op maat", "Gratis Masterclass voor management"], featured: true, badge: "AANBEVOLEN" },
-  { name: "Enterprise", seats: "100+", price: "Op aanvraag", total: "", features: ["Maatwerk content", "White-label optie", "SLA", "Integratie met eigen LMS", "Gratis Masterclass voor management"], featured: false },
-];
 
 const faqs = [
   { q: "Is deze training verplicht?", a: "Ja. Sinds februari 2025 is AI-geletterdheid wettelijk verplicht voor organisaties binnen de EU die met AI werken. Dat geldt ook als medewerkers alleen ChatGPT of Copilot gebruiken. Per augustus 2025 wordt er gehandhaafd." },
@@ -18,7 +12,6 @@ const faqs = [
   { q: "Wat als een deelnemer niet slaagt voor het examen?", a: "Dan kan de deelnemer het examen herkansen. Er is geen limiet op het aantal pogingen." },
   { q: "Hoe werkt het certificaat?", a: "Na het afronden van het adaptieve examen ontvangt iedere deelnemer automatisch het AI Literacy Practitioner certificaat. Dit is een OpenBadge: digitaal ondertekend, deelbaar via LinkedIn en audit-proof voor de AI Act." },
   { q: "Kan ik seats bijboeken?", a: "Ja. Je kunt op elk moment extra seats toevoegen via robbert@speakersacademy.nl." },
-  { q: "Is de training AI Act-compliant?", a: "Ja. De inhoud is volledig afgestemd op de eisen van de EU AI Act, inclusief risicobeheersing, ethiek, governance en praktische toepassing." },
   { q: "Hoe snel kunnen we starten?", a: "Na akkoord op de offerte staat jouw organisatie binnen twee werkdagen live op het platform." },
 ];
 
@@ -30,42 +23,84 @@ const Training = () => (
         <AnimatedSection>
           <SectionLabel text="ONLINE TRAINING" />
           <h1 className="text-4xl sm:text-5xl font-display font-bold text-foreground leading-tight mt-4">
-            Jouw team AI-geletterd en gecertificeerd.<br />
-            <span className="text-primary">Online, in eigen tempo.</span>
+            AI-Geletterdheid training voor teams<br />
+            <span className="neon-text">Voldoe aan de AI Act. Train je team slim, snel en gecertificeerd.</span>
           </h1>
-          <p className="mt-6 text-lg text-muted-foreground max-w-2xl leading-relaxed">
-            De EU AI Act verplicht organisaties hun medewerkers voor te bereiden op verantwoord AI-gebruik. Onze training doet dat snel, praktisch en met een audit-proof certificaat.
-          </p>
-          <Link to="/contact" className="btn-neon inline-block mt-8 px-7 py-3.5 rounded-lg">
-            Vraag offerte aan
-          </Link>
         </AnimatedSection>
       </div>
     </section>
 
-    {/* What they learn */}
+    {/* Why section */}
+    <section className="py-24 bg-card">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <AnimatedSection>
+          <SectionLabel text="WAAROM NU" />
+          <h2 className="text-3xl sm:text-4xl font-display font-semibold text-foreground mt-2">
+            Waarom AI-geletterdheid trainen<br /><span className="text-primary">nú essentieel is voor je team</span>
+          </h2>
+          <div className="mt-6 text-muted-foreground max-w-3xl space-y-4 leading-relaxed">
+            <p>
+              De EU AI Act stelt duidelijke eisen: medewerkers moeten AI begrijpen, risico's herkennen en weten hoe ze technologie veilig en verantwoord inzetten in hun werk.
+            </p>
+            <p>
+              Onze AI-geletterdheid training voor teams geeft je organisatie precies die kennis, modulair opgebouwd, volledig online en direct toepasbaar. Geen ingewikkelde tools, geen klassikale sessies. Wél een audit-proof certificaat waarmee je organisatie voldoet aan de EU AI wetgeving.
+            </p>
+            <p>
+              Ook geschikt voor teams zonder technische voorkennis. En voor leidinggevenden is er de{" "}
+              <Link to="/masterclass" className="text-primary hover:underline font-medium">AI Masterclass</Link>.
+            </p>
+          </div>
+        </AnimatedSection>
+      </div>
+    </section>
+
+    {/* Key specs */}
     <section className="py-24">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {[
+            "Zelfstandig en in eigen tempo te volgen",
+            "Adaptief examen aan het einde",
+            "Vanaf 10 deelnemers",
+            "Certificering: AI Literacy Practitioner (digitaal ondertekend en audit-proof)",
+            "Kosten: 249,- (ex BTW) per deelnemer",
+          ].map((item) => (
+            <StaggerItem key={item}>
+              <div className="flex items-start gap-3 p-4">
+                <Check size={18} className="text-primary mt-0.5 shrink-0" />
+                <span className="text-foreground">{item}</span>
+              </div>
+            </StaggerItem>
+          ))}
+        </StaggerContainer>
+      </div>
+    </section>
+
+    {/* What you learn */}
+    <section className="py-24 bg-card">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <AnimatedSection>
           <SectionLabel text="WAT MEDEWERKERS LEREN" />
           <h2 className="text-3xl sm:text-4xl font-display font-semibold text-foreground mt-2">
             Concreet, begrijpelijk<br /><span className="text-primary">en direct toepasbaar.</span>
           </h2>
-          <p className="mt-4 text-muted-foreground max-w-2xl">Na deze training weten medewerkers wat AI is, welke risico's het meebrengt en hoe ze het veilig en verantwoord toepassen in hun werk.</p>
+          <p className="mt-4 text-muted-foreground max-w-3xl">
+            Alles wat jouw team moet weten om AI veilig en verantwoord toe te passen in de praktijk. Na deze training begrijpen medewerkers wat AI is, welke risico's het met zich meebrengt en hoe ze er op een verantwoorde manier mee werken, in lijn met de wet én de dagelijkse realiteit op de werkvloer.
+          </p>
         </AnimatedSection>
         <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-10">
           {[
-            { icon: Brain, text: "Wat AI is en wat het niet is" },
-            { icon: Wrench, text: "Hoe AI werkt op de werkvloer, niet in theorie" },
-            { icon: AlertCircle, text: "Risico's van bias, datamisbruik en automatische beslissingen" },
-            { icon: Shield, text: "Hoe je AI veilig, verantwoord en binnen de wet gebruikt" },
-            { icon: User, text: "Welke rol medewerkers spelen binnen de AI Act" },
-            { icon: Bell, text: "Hoe ze risico's herkennen en escaleren binnen de organisatie" },
+            "Wat AI is (en wat het niet is)",
+            "Hoe AI in de praktijk werkt (op de werkvloer, niet in theorie)",
+            "Wat de risico's zijn van bias, datamisbruik en fouten",
+            "Hoe je AI veilig, verantwoord en binnen de wet gebruikt",
+            "Welke rol medewerkers zelf spelen binnen de AI Act",
+            "Hoe ze risico's herkennen en escaleren binnen de organisatie",
           ].map((item) => (
-            <StaggerItem key={item.text}>
+            <StaggerItem key={item}>
               <div className="flex items-start gap-3 p-4">
-                <item.icon size={18} className="text-primary mt-0.5 shrink-0" />
-                <span className="text-foreground">{item.text}</span>
+                <Check size={18} className="text-primary mt-0.5 shrink-0" />
+                <span className="text-foreground">{item}</span>
               </div>
             </StaggerItem>
           ))}
@@ -73,90 +108,61 @@ const Training = () => (
       </div>
     </section>
 
-    {/* What's included */}
-    <section className="py-24 bg-card">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <AnimatedSection>
-          <SectionLabel text="WAT JE KRIJGT" />
-        </AnimatedSection>
-        <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-8">
-          {[
-            { icon: Monitor, title: "Leerplatform", body: "Directe toegang na boeking. Videolessen, praktijkcases en kennisquizzen." },
-            { icon: ClipboardCheck, title: "Adaptief examen", body: "Het afsluitend examen past zich aan op het niveau van de deelnemer." },
-            { icon: Award, title: "Audit-proof certificaat", body: "AI Literacy Practitioner. OpenBadge, digitaal ondertekend. Deelbaar via LinkedIn." },
-            { icon: BarChart2, title: "Voortgangsdashboard", body: "Monitor de voortgang van je hele team op een plek. Exporteerbaar voor audits." },
-          ].map((c) => (
-            <StaggerItem key={c.title}>
-              <div className="bg-surface-2 border border-border rounded-2xl p-8 hover:border-neon-purple/40 neon-glow transition-all duration-300 h-full neon-card-top">
-                <c.icon size={24} className="text-primary mb-4" />
-                <h3 className="text-base font-semibold text-foreground mb-2">{c.title}</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">{c.body}</p>
-              </div>
-            </StaggerItem>
-          ))}
-        </StaggerContainer>
-      </div>
-    </section>
-
-    {/* Pricing */}
+    {/* Trainer section */}
     <section className="py-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <AnimatedSection>
-          <SectionLabel text="PRIJZEN VOOR ORGANISATIES" />
+          <SectionLabel text="DE TRAINER" />
           <h2 className="text-3xl sm:text-4xl font-display font-semibold text-foreground mt-2">
-            Transparant en schaalbaar.<br /><span className="text-primary">Geen verborgen kosten.</span>
+            Ferry Hoes
+          </h2>
+          <p className="text-lg text-muted-foreground mt-1">Niet zomaar een trainer. Een expert die het veld kent.</p>
+        </AnimatedSection>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mt-12 items-center">
+          <AnimatedSection delay={0.1}>
+            <div className="aspect-video bg-muted rounded-2xl border border-border flex items-center justify-center">
+              <Play size={48} className="text-muted-foreground/40" />
+            </div>
+          </AnimatedSection>
+          <AnimatedSection delay={0.2}>
+            <p className="text-muted-foreground leading-relaxed">
+              Ferry Hoes is veelgevraagd spreker op het gebied van Artificial Intelligence. Hij staat meermaals per maand op het podium en spreekt voor organisaties zoals a.s.r Verzekeringen, VodafoneZiggo, MKB bedrijven en verschillende Ministeries. In 2020 won hij de "Anti-Discriminatie AI-Hackathon". Ferry weet precies hoe je AI-geletterdheid vertaalt naar actie, compliance én voordeel.
+            </p>
+          </AnimatedSection>
+        </div>
+      </div>
+    </section>
+
+    {/* Waarom bij ons */}
+    <section className="py-24 bg-card">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <AnimatedSection>
+          <SectionLabel text="WAAROM BIJ ONS" />
+          <h2 className="text-3xl sm:text-4xl font-display font-semibold text-foreground mt-2">
+            Waarom bij ons?
           </h2>
         </AnimatedSection>
-        <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-12">
-          {pricingTiers.map((t) => (
-            <StaggerItem key={t.name}>
-              {t.featured ? (
-                <div className="neon-border-lg h-full">
-                  <div className="neon-inner bg-background rounded-2xl p-8 h-full flex flex-col">
-                    <span className="text-xs font-medium uppercase tracking-[0.08em] neon-text mb-2">{t.badge}</span>
-                    <h3 className="text-lg font-semibold text-foreground">{t.name}</h3>
-                    <p className="text-sm text-muted-foreground mt-1">{t.seats} seats</p>
-                    <p className="text-2xl font-bold text-foreground mt-4">{t.price} <span className="text-sm font-normal text-muted-foreground">per seat</span></p>
-                    {t.total && <p className="text-xs text-muted-foreground">{t.total}</p>}
-                    <ul className="space-y-2 mt-4 mb-6 flex-1">
-                      {t.features.map((f) => (
-                        <li key={f} className="flex items-start gap-2 text-sm text-muted-foreground">
-                          <Check size={14} className="text-success mt-0.5 shrink-0" />{f}
-                        </li>
-                      ))}
-                    </ul>
-                    <Link to="/contact" className="btn-neon text-center py-2.5 rounded-lg text-sm">
-                      Vraag offerte aan
-                    </Link>
-                  </div>
-                </div>
-              ) : (
-                <div className="bg-card rounded-2xl p-8 h-full flex flex-col border border-border hover:border-neon-purple/40 neon-glow transition-all duration-300">
-                  <h3 className="text-lg font-semibold text-foreground">{t.name}</h3>
-                  <p className="text-sm text-muted-foreground mt-1">{t.seats} seats</p>
-                  <p className="text-2xl font-bold text-foreground mt-4">{t.price} <span className="text-sm font-normal text-muted-foreground">{t.price !== "Op aanvraag" ? "per seat" : ""}</span></p>
-                  {t.total && <p className="text-xs text-muted-foreground">{t.total}</p>}
-                  <ul className="space-y-2 mt-4 mb-6 flex-1">
-                    {t.features.map((f) => (
-                      <li key={f} className="flex items-start gap-2 text-sm text-muted-foreground">
-                        <Check size={14} className="text-success mt-0.5 shrink-0" />{f}
-                      </li>
-                    ))}
-                  </ul>
-                  <Link to="/contact" className="btn-neon-outline text-center py-2.5 font-semibold text-sm">
-                    {t.name === "Enterprise" ? "Neem contact op" : "Vraag offerte aan"}
-                  </Link>
-                </div>
-              )}
+        <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-10">
+          {[
+            "Je voldoet aan de wettelijke verplichting van de AI Act",
+            "De training is inclusief certificering",
+            "Je voorkomt risico's zoals datalekken, bias en reputatieschade",
+            "Je versterkt strategisch denken over AI binnen je organisatie",
+            "Training door een AI-Expert en professioneel spreker",
+          ].map((item) => (
+            <StaggerItem key={item}>
+              <div className="flex items-start gap-3 p-4">
+                <Check size={18} className="text-primary mt-0.5 shrink-0" />
+                <span className="text-foreground">{item}</span>
+              </div>
             </StaggerItem>
           ))}
         </StaggerContainer>
-        <p className="text-sm text-muted-foreground mt-8 text-center">Alle prijzen exclusief BTW. Factuur op naam van jouw organisatie.</p>
       </div>
     </section>
 
     {/* FAQ */}
-    <section className="py-24 bg-card">
+    <section className="py-24">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         <AnimatedSection>
           <SectionLabel text="VEELGESTELDE VRAGEN" />
@@ -172,14 +178,15 @@ const Training = () => (
       </div>
     </section>
 
-    {/* Closing CTA */}
-    <section className="py-28">
-      <div className="text-center">
+    {/* Contact form */}
+    <section className="py-24 bg-card">
+      <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
         <AnimatedSection>
-          <h2 className="text-3xl font-display font-semibold text-foreground">Hoeveel seats heeft jouw team nodig?</h2>
-          <Link to="/contact" className="btn-neon inline-block mt-8 px-8 py-4 rounded-lg">
-            Vraag offerte aan
-          </Link>
+          <SectionLabel text="OFFERTE AANVRAGEN" />
+          <h2 className="text-3xl sm:text-4xl font-display font-semibold text-foreground mt-2 mb-8">
+            Hoeveel seats heeft jouw team nodig?
+          </h2>
+          <ContactForm product="training" />
         </AnimatedSection>
       </div>
     </section>
