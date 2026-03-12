@@ -47,9 +47,9 @@ const tiers: TierData[] = [
     badge: "HOOG RISICO", color: "hsl(0, 84%, 60%)",
     heading: "Je team loopt risico",
     body: "Jullie gebruiken waarschijnlijk al AI-tools — maar zonder gedeelde kennis of spelregels. Dat is een blinde vlek die organisaties geld, vertrouwen en straks ook compliance kost.",
-    ctaHeading: "Wil je weten waar je moet beginnen?",
-    ctaBody: "We sturen je een gratis actieplan op basis van jouw score — geen verkooppraatje, gewoon concrete stappen.",
-    buttonLabel: "Stuur mij het actieplan →",
+    ctaHeading: "Laat ons helpen",
+    ctaBody: "Vul je gegevens in en we nemen contact met je op om te kijken hoe we kunnen helpen.",
+    buttonLabel: "Neem contact met mij op →",
     textLink: { label: "Of bekijk direct onze trainingen voor teams →", to: "/training" },
     showBenchmark: false, showLinkedIn: false,
   },
@@ -58,9 +58,9 @@ const tiers: TierData[] = [
     badge: "BLINDE VLEKKEN", color: "hsl(38, 92%, 50%)",
     heading: "Jullie zijn op de goede weg — maar er zijn blinde vlekken",
     body: "Een deel van je team begrijpt AI goed. Maar zonder gedeelde basis werkt niet iedereen vanuit dezelfde kennis. Dat zie je niet meteen — totdat het misgaat.",
-    ctaHeading: "Wil je de blinde vlekken aanpakken?",
-    ctaBody: "Ontvang een overzicht van de zwakste punten en een concreet voorstel voor jouw team.",
-    buttonLabel: "Ja, stuur me het overzicht →",
+    ctaHeading: "Laat ons helpen verbeteren",
+    ctaBody: "Vul je gegevens in en we kijken samen waar de verbeterpunten liggen.",
+    buttonLabel: "Neem contact met mij op →",
     textLink: { label: "Bekijk onze e-learning met EU AI Act-certificering →", to: "/training" },
     showBenchmark: false, showLinkedIn: false,
   },
@@ -69,9 +69,9 @@ const tiers: TierData[] = [
     badge: "VOORLOPER", color: "hsl(160, 84%, 39%)",
     heading: "Jullie lopen voor op de meeste organisaties",
     body: "Je team heeft een solide basis — en dat is zeldzamer dan je denkt. Dit is precies het moment om dat te formaliseren, voordat anderen bijkomen.",
-    ctaHeading: "Maak het officieel",
-    ctaBody: "Een goede score is een startpunt, geen eindpunt. Certificeer je team via de EU AI Act-erkende e-learning en laat zien dat jullie AI-geletterdheid geen toeval is.",
-    buttonLabel: "Ontvang de certificeringsinfo →",
+    ctaHeading: "Laat ons helpen dit vast te houden",
+    ctaBody: "Vul je gegevens in en we bespreken hoe jullie deze voorsprong kunnen behouden en formaliseren.",
+    buttonLabel: "Neem contact met mij op →",
     textLink: { label: "Bekijk onze e-learning met EU AI Act-certificering →", to: "/training" },
     showBenchmark: true, showLinkedIn: true,
   },
@@ -107,15 +107,6 @@ const Quiz = () => {
   const pct = Math.round((score / 30) * 100);
   const tier = tiers.find((t) => pct >= t.minPct && pct <= t.maxPct) || tiers[0];
 
-  const tierDbValue = pct <= 40 ? "hoog_risico" : pct <= 70 ? "gemengd" : "laag_risico";
-
-  const dimensieScores = Object.fromEntries(
-    dimensions.map((dim) => [
-      dim.label,
-      Math.round((dim.indices.reduce((s, i) => s + (answers[i] || 0), 0) / 6) * 100),
-    ])
-  );
-
   const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitting(true);
@@ -126,8 +117,13 @@ const Quiz = () => {
       email: formData.email,
       bedrijfsnaam: formData.bedrijf,
       totaal_score: pct,
-      tier: tierDbValue,
-      dimensie_scores: dimensieScores,
+      tier: pct <= 40 ? "hoog_risico" : pct <= 70 ? "gemengd" : "laag_risico",
+      dimensie_scores: Object.fromEntries(
+        dimensions.map((dim) => [
+          dim.label,
+          Math.round((dim.indices.reduce((s, i) => s + (answers[i] || 0), 0) / 6) * 100),
+        ])
+      ),
     });
 
     setSubmitting(false);
