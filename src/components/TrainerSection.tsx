@@ -26,38 +26,39 @@ const TrainerSection = ({ bio = defaultBio }: TrainerSectionProps) => (
         </h2>
       </AnimatedSection>
 
-      {/* Top row: image card (1/3) + text (2/3) */}
+      {/* Layout: image left + text & stats right */}
       <AnimatedSection delay={0.2} className="mt-12">
         <div className="flex flex-col md:flex-row gap-10 items-start">
-          <div className="w-full md:w-1/3 shrink-0">
+          {/* Image card – wider than tall */}
+          <div className="w-full md:w-5/12 shrink-0">
             <div className="neon-border-lg rounded-2xl" style={{ padding: '3px' }}>
               <div className="neon-inner bg-card rounded-2xl overflow-hidden">
                 <img
                   src={ferryImg}
                   alt="Ferry Hoes"
-                  className="w-full aspect-[3/4] object-cover rounded-2xl"
+                  className="w-full aspect-[4/3] object-cover rounded-2xl"
                 />
               </div>
             </div>
           </div>
+
+          {/* Text + stats */}
           <div className="flex-1 pt-2">
             <h3 className="text-xl font-semibold text-foreground mb-4">Ferry Hoes</h3>
             <p className="text-muted-foreground leading-relaxed">{bio}</p>
+
+            {/* Stats directly below text */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-6">
+              {stats.map((s) => (
+                <div key={s.val} className="bg-background border border-border rounded-xl p-4 hover:border-neon-purple/40 neon-glow transition-all duration-300">
+                  <span className="text-2xl font-mono font-bold neon-text">{s.val}</span>
+                  <p className="text-xs text-muted-foreground mt-1 leading-relaxed">{s.label}</p>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </AnimatedSection>
-
-      {/* Bottom row: 3 stats side by side */}
-      <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
-        {stats.map((s) => (
-          <StaggerItem key={s.val}>
-            <div className="bg-background border border-border rounded-2xl p-6 hover:border-neon-purple/40 neon-glow transition-all duration-300">
-              <span className="text-3xl font-mono font-bold neon-text">{s.val}</span>
-              <p className="text-sm text-muted-foreground mt-2 leading-relaxed">{s.label}</p>
-            </div>
-          </StaggerItem>
-        ))}
-      </StaggerContainer>
     </div>
   </section>
 );
