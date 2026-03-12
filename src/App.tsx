@@ -13,6 +13,7 @@ import Kenniscentrum from "./pages/Kenniscentrum";
 import OverAiga from "./pages/OverAiga";
 import Contact from "./pages/Contact";
 import Quiz from "./pages/Quiz";
+import Faq from "./pages/Faq";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -39,6 +40,7 @@ const AppContent = () => {
           <Route path="/kenniscentrum" element={<Kenniscentrum />} />
           <Route path="/over-aiga" element={<OverAiga />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/faq" element={<Faq />} />
           <Route path="/risicoscan" element={<Quiz />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
