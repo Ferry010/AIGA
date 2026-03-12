@@ -165,7 +165,7 @@ const VoorOrganisaties = () => {
             {[
               "Directe platformtoegang na boeking",
               "AI Literacy Practitioner certificaat per deelnemer",
-              "OpenBadge: deelbaar via LinkedIn, audit-proof",
+              "Certificaat deelbaar via LinkedIn, audit-proof",
               "Voortgangsdashboard voor HR en L&D",
               "Nederlandstalige content",
               "Technische ondersteuning",
