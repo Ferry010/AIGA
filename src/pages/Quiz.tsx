@@ -324,8 +324,13 @@ const Quiz = () => {
                   />
                 </div>
               ))}
-              <button type="submit" className="btn-neon w-full py-3 rounded-lg text-sm">
-                {tier.buttonLabel}
+              {submitError && (
+                <p className="text-sm text-destructive text-center">
+                  Er ging iets mis. Probeer het opnieuw of mail ons op info@aigeletterdheid.academy.
+                </p>
+              )}
+              <button type="submit" disabled={submitting} className="btn-neon w-full py-3 rounded-lg text-sm disabled:opacity-50">
+                {submitting ? "Bezig..." : tier.buttonLabel}
               </button>
               <p className="text-xs text-muted-foreground text-center">
                 Één e-mail. Geen nieuwsbrief. Geen gedoe.
