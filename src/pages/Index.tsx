@@ -332,39 +332,7 @@ const Index = () => {
       </section>
 
       {/* About Ferry */}
-      <section className="py-24 bg-card">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <AnimatedSection>
-            <SectionLabel text="DE TRAINER" />
-            <h2 className="text-3xl sm:text-4xl font-display font-semibold text-foreground mt-2">
-              Niet zomaar een training.<br />
-              <span className="text-primary">Een expert die het veld kent.</span>
-            </h2>
-          </AnimatedSection>
-          <AnimatedSection delay={0.2} className="flex flex-col md:flex-row gap-12 mt-12 items-center">
-            <div className="neon-border-lg rounded-full" style={{ borderRadius: '9999px', padding: '3px' }}>
-              <img src={ferryImg} alt="Ferry Hoes" className="w-48 h-48 rounded-full object-cover" />
-            </div>
-            <div>
-              <p className="text-muted-foreground leading-relaxed mb-6">
-                Ferry Hoes staat meermaals per maand op het podium voor organisaties als a.s.r. Verzekeringen, VodafoneZiggo en verschillende Ministeries. In 2020 won hij de Anti-Discriminatie AI-Hackathon. Hij weet precies hoe je AI-geletterdheid vertaalt naar actie, compliance en voordeel.
-              </p>
-              <div className="flex flex-wrap gap-8 text-sm">
-                {[
-                  { val: "40+", label: "Keynotes per jaar, internationale events en in-house sessies" },
-                  { val: "15+", label: "Jaar ervaring van startups tot wereldwijde corporates" },
-                  { val: "2020", label: "Winnaar prestigieuze AI Hackathon van de Nederlandse overheid" },
-                ].map((s) => (
-                  <div key={s.label}>
-                    <span className="text-2xl font-mono font-bold neon-text">{s.val}</span>
-                    <p className="text-muted-foreground">{s.label}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </AnimatedSection>
-        </div>
-      </section>
+      <TrainerSection bio="Ferry Hoes staat meermaals per maand op het podium voor organisaties als a.s.r. Verzekeringen, VodafoneZiggo en verschillende Ministeries. In 2020 won hij de Anti-Discriminatie AI-Hackathon. Hij weet precies hoe je AI-geletterdheid vertaalt naar actie, compliance en voordeel." />
 
       {/* Final CTA */}
       <section className="py-28">
