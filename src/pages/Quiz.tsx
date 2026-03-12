@@ -17,49 +17,107 @@ const questions = [
   { q: "Stel: er is morgen een audit op AI-geletterdheid. Hoe sta je ervoor?", options: ["Slecht. We kunnen niets aantonen.", "Matig. We hebben wel iets maar het is niet overtuigend.", "Redelijk. We zijn bezig maar nog niet compliant.", "Goed. We kunnen aantonen dat ons team gecertificeerd is."] },
 ];
 
-const tiers = [
-  { min: 0, max: 9, badge: "KRITIEK RISICO", color: "hsl(0, 84%, 60%)", h2: "Jouw team is nu al kwetsbaar.", body: "Jouw organisatie loopt een significant compliance-risico. Medewerkers gebruiken AI zonder kader, zonder beleid en zonder documentatie. Per augustus 2025 wordt de AI Act gehandhaafd. Dit is het moment om te handelen.", rec: "Start met de AIGA online training. Breng jouw hele team in korte tijd op het vereiste niveau en ontvang audit-proof certificaten per medewerker.", ctas: [{ label: "Vraag direct een offerte aan", to: "/contact" }, { label: "Bekijk de training", to: "/training" }] },
-  { min: 10, max: 17, badge: "AANDACHT VEREIST", color: "hsl(38, 92%, 50%)", h2: "Je bent bewust, maar nog niet compliant.", body: "Je organisatie is zich bewust van AI, maar compliance is nog geen realiteit. Er zijn geen formele certificaten, geen aantoonbare training en waarschijnlijk geen actueel beleid. Dat is te fixen, maar het vraagt actie nu.", rec: "Combineer de AIGA online training voor je team met de Masterclass voor je management. Zo pak je het op alle niveaus aan.", ctas: [{ label: "Bekijk de trainingsopties", to: "/voor-organisaties" }, { label: "Vraag offerte aan", to: "/contact" }] },
-  { min: 18, max: 24, badge: "GOEDE BASIS", color: "hsl(189, 35%, 52%)", h2: "Je bent op de goede weg, maar nog niet klaar.", body: "Jouw organisatie heeft bewustzijn van AI en heeft stappen gezet. Maar voor volledige AI Act-compliance heb je audit-proof certificaten nodig per medewerker. Die ontbreken waarschijnlijk nog.", rec: "Formaliseer wat je al hebt. De AIGA online training sluit het gat tussen bewustzijn en bewijs.", ctas: [{ label: "Bekijk de online training", to: "/training" }] },
-  { min: 25, max: 30, badge: "AI-READY", color: "hsl(160, 84%, 39%)", h2: "Indrukwekkend. Jouw organisatie loopt voor.", body: "Jouw team heeft een sterke basis voor AI-geletterdheid. Je hebt beleid, bewustzijn en waarschijnlijk al documentatie. Als je nog geen audit-proof certificaten hebt, is de AIGA training de logische volgende stap.", rec: "Overweeg de AIGA training als formele afsluiting van het traject dat je al bent ingegaan.", ctas: [{ label: "Bekijk de training", to: "/training" }] },
+const dimensions = [
+  { label: "AI-gebruik", indices: [0, 1] },
+  { label: "Bewustzijn & wetgeving", indices: [2, 3] },
+  { label: "Risicobeheer", indices: [4, 5] },
+  { label: "Leiderschap & urgentie", indices: [6, 7] },
+  { label: "Onboarding & audit-readiness", indices: [8, 9] },
 ];
 
-type Phase = "intro" | "quiz" | "gate" | "result";
+interface TierData {
+  minPct: number;
+  maxPct: number;
+  badge: string;
+  color: string;
+  heading: string;
+  body: string;
+  ctaHeading: string;
+  ctaBody: string;
+  buttonLabel: string;
+  textLink: { label: string; to: string };
+  showBenchmark: boolean;
+  showLinkedIn: boolean;
+}
+
+const tiers: TierData[] = [
+  {
+    minPct: 0, maxPct: 40,
+    badge: "HOOG RISICO", color: "hsl(0, 84%, 60%)",
+    heading: "Je team loopt risico",
+    body: "Jullie gebruiken waarschijnlijk al AI-tools — maar zonder gedeelde kennis of spelregels. Dat is een blinde vlek die organisaties geld, vertrouwen en straks ook compliance kost.",
+    ctaHeading: "Wil je weten waar je moet beginnen?",
+    ctaBody: "We sturen je een gratis actieplan op basis van jouw score — geen verkooppraatje, gewoon concrete stappen.",
+    buttonLabel: "Stuur mij het actieplan →",
+    textLink: { label: "Of bekijk direct onze trainingen voor teams →", to: "/training" },
+    showBenchmark: false, showLinkedIn: false,
+  },
+  {
+    minPct: 41, maxPct: 70,
+    badge: "BLINDE VLEKKEN", color: "hsl(38, 92%, 50%)",
+    heading: "Jullie zijn op de goede weg — maar er zijn blinde vlekken",
+    body: "Een deel van je team begrijpt AI goed. Maar zonder gedeelde basis werkt niet iedereen vanuit dezelfde kennis. Dat zie je niet meteen — totdat het misgaat.",
+    ctaHeading: "Wil je de blinde vlekken aanpakken?",
+    ctaBody: "Ontvang een overzicht van de zwakste punten en een concreet voorstel voor jouw team.",
+    buttonLabel: "Ja, stuur me het overzicht →",
+    textLink: { label: "Bekijk onze e-learning met EU AI Act-certificering →", to: "/training" },
+    showBenchmark: false, showLinkedIn: false,
+  },
+  {
+    minPct: 71, maxPct: 100,
+    badge: "VOORLOPER", color: "hsl(160, 84%, 39%)",
+    heading: "Jullie lopen voor op de meeste organisaties",
+    body: "Je team heeft een solide basis — en dat is zeldzamer dan je denkt. Dit is precies het moment om dat te formaliseren, voordat anderen bijkomen.",
+    ctaHeading: "Maak het officieel",
+    ctaBody: "Een goede score is een startpunt, geen eindpunt. Certificeer je team via de EU AI Act-erkende e-learning en laat zien dat jullie AI-geletterdheid geen toeval is.",
+    buttonLabel: "Ontvang de certificeringsinfo →",
+    textLink: { label: "Bekijk onze e-learning met EU AI Act-certificering →", to: "/training" },
+    showBenchmark: true, showLinkedIn: true,
+  },
+];
+
+type Phase = "intro" | "quiz" | "result";
 
 const Quiz = () => {
   const [phase, setPhase] = useState<Phase>("intro");
   const [current, setCurrent] = useState(0);
   const [answers, setAnswers] = useState<number[]>([]);
   const [selected, setSelected] = useState<number | null>(null);
-  const [gate, setGate] = useState({ voornaam: "", organisatie: "", email: "", aantal: "" });
+  const [formData, setFormData] = useState({ naam: "", email: "", bedrijf: "" });
+  const [submitted, setSubmitted] = useState(false);
 
   const handleAnswer = (idx: number) => {
     setSelected(idx);
     setTimeout(() => {
-      setAnswers([...answers, idx]);
+      const next = [...answers, idx];
+      setAnswers(next);
       setSelected(null);
       if (current < 9) {
         setCurrent(current + 1);
       } else {
-        setPhase("gate");
+        setPhase("result");
       }
     }, 400);
   };
 
   const score = answers.reduce((sum, a) => sum + a, 0);
-  const tier = tiers.find((t) => score >= t.min && score <= t.max) || tiers[0];
   const pct = Math.round((score / 30) * 100);
+  const tier = tiers.find((t) => pct >= t.minPct && pct <= t.maxPct) || tiers[0];
 
-  const handleGateSubmit = (e: React.FormEvent) => {
+  const handleFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Quiz lead:", { ...gate, score, tier: tier.badge });
-    setPhase("result");
+    console.log("Quiz lead:", { ...formData, score, pct, tier: tier.badge });
+    setSubmitted(true);
   };
 
-  const handleShare = () => {
-    navigator.clipboard.writeText(window.location.href);
+  const handleLinkedInShare = () => {
+    const text = encodeURIComponent(
+      `Onze organisatie scoort ${pct}% op de AIGA AI Risico Scan — en we lopen voor op 80% van de Nederlandse teams. Benieuwd hoe jullie scoren? ${window.location.origin}/risicoscan`
+    );
+    window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(window.location.origin + "/risicoscan")}&summary=${text}`, "_blank");
   };
 
+  // INTRO
   if (phase === "intro") {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -84,6 +142,7 @@ const Quiz = () => {
     );
   }
 
+  // QUIZ
   if (phase === "quiz") {
     const q = questions[current];
     return (
@@ -94,10 +153,13 @@ const Quiz = () => {
               <div key={i} className={`h-1.5 flex-1 rounded-full transition-colors duration-300 ${i < current ? "bg-neon-purple" : i === current ? "bg-neon-pink/50" : "bg-border"}`} />
             ))}
           </div>
-          <p className="text-center text-xs text-muted-foreground pb-2">{current + 1} / 10</p>
+          <p className="text-center text-xs text-muted-foreground pb-1">{current + 1} / 10</p>
+          <p className="text-center text-[11px] text-muted-foreground/60 pb-2 italic">
+            Je ziet je resultaat meteen — we gooien geen formulier voor je neus.
+          </p>
         </div>
 
-        <div className="flex-1 flex items-center justify-center pt-32 pb-16 px-4">
+        <div className="flex-1 flex items-center justify-center pt-36 pb-16 px-4">
           <motion.div
             key={current}
             initial={{ opacity: 0, x: 20 }}
@@ -128,103 +190,140 @@ const Quiz = () => {
     );
   }
 
-  if (phase === "gate") {
-    return (
-      <div className="min-h-screen flex items-center justify-center px-4">
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="max-w-md w-full">
-          <h2 className="text-3xl font-display font-semibold text-foreground">Jouw resultaten zijn klaar.</h2>
-          <p className="mt-4 text-muted-foreground">Vul je gegevens in om je persoonlijke AI Readiness Score te ontvangen, inclusief aanbeveling op maat.</p>
-          <form onSubmit={handleGateSubmit} className="mt-8 space-y-4">
-            {[
-              { name: "voornaam", label: "Voornaam", required: true },
-              { name: "organisatie", label: "Organisatie", required: true },
-              { name: "email", label: "E-mailadres", required: true, type: "email" },
-            ].map((f) => (
-              <div key={f.name}>
-                <label className="text-sm text-muted-foreground mb-1 block">{f.label} <span className="text-neon-purple">*</span></label>
-                <input
-                  type={f.type || "text"}
-                  required={f.required}
-                  value={gate[f.name as keyof typeof gate]}
-                  onChange={(e) => setGate({ ...gate, [f.name]: e.target.value })}
-                  className="w-full bg-background border border-border rounded-lg px-4 py-3 text-foreground text-sm focus:outline-none focus:border-neon-purple focus:ring-1 focus:ring-neon-purple/20 transition-all duration-300"
-                />
-              </div>
-            ))}
-            <div>
-              <label className="text-sm text-muted-foreground mb-1 block">Aantal medewerkers</label>
-              <select
-                value={gate.aantal}
-                onChange={(e) => setGate({ ...gate, aantal: e.target.value })}
-                className="w-full bg-background border border-border rounded-lg px-4 py-3 text-foreground text-sm focus:outline-none focus:border-neon-purple focus:ring-1 focus:ring-neon-purple/20 transition-all duration-300"
-              >
-                <option value="">Selecteer...</option>
-                <option value="1-10">1-10</option>
-                <option value="10-50">10-50</option>
-                <option value="50-250">50-250</option>
-                <option value="250+">250+</option>
-              </select>
-            </div>
-            <button type="submit" className="btn-neon w-full py-3 rounded-lg">
-              Bekijk mijn score
-            </button>
-          </form>
-          <p className="mt-4 text-xs text-muted-foreground text-center">We sturen je de resultaten ook per e-mail toe.</p>
-        </motion.div>
-      </div>
-    );
-  }
-
+  // RESULT
   return (
     <div className="min-h-screen flex items-center justify-center px-4 py-32">
-      <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.5 }} className="max-w-2xl w-full text-center">
-        <div className="relative inline-block mb-8">
-          <svg width="160" height="160" className="-rotate-90">
-            <circle cx="80" cy="80" r="70" stroke="hsl(var(--border))" strokeWidth="8" fill="none" />
-            <motion.circle
-              cx="80" cy="80" r="70"
-              stroke={tier.color}
-              strokeWidth="8"
-              fill="none"
-              strokeLinecap="round"
-              strokeDasharray={2 * Math.PI * 70}
-              initial={{ strokeDashoffset: 2 * Math.PI * 70 }}
-              animate={{ strokeDashoffset: 2 * Math.PI * 70 * (1 - pct / 100) }}
-              transition={{ duration: 1, delay: 0.3 }}
-            />
-          </svg>
-          <div className="absolute inset-0 flex items-center justify-center">
-            <span className="text-4xl font-mono font-bold text-foreground">{score}</span>
+      <motion.div
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.5 }}
+        className="max-w-2xl w-full"
+      >
+        {/* Ring chart */}
+        <div className="text-center mb-8">
+          <div className="relative inline-block">
+            <svg width="160" height="160" className="-rotate-90">
+              <circle cx="80" cy="80" r="70" stroke="hsl(var(--border))" strokeWidth="8" fill="none" />
+              <motion.circle
+                cx="80" cy="80" r="70"
+                stroke={tier.color}
+                strokeWidth="8"
+                fill="none"
+                strokeLinecap="round"
+                strokeDasharray={2 * Math.PI * 70}
+                initial={{ strokeDashoffset: 2 * Math.PI * 70 }}
+                animate={{ strokeDashoffset: 2 * Math.PI * 70 * (1 - pct / 100) }}
+                transition={{ duration: 1, delay: 0.3 }}
+              />
+            </svg>
+            <div className="absolute inset-0 flex items-center justify-center">
+              <span className="text-4xl font-mono font-bold text-foreground">{pct}%</span>
+            </div>
           </div>
         </div>
 
-        <span
-          className="inline-block text-xs font-medium uppercase tracking-[0.08em] px-3 py-1 rounded-full mb-4"
-          style={{ color: tier.color, backgroundColor: `${tier.color}20` }}
-        >
-          {tier.badge}
-        </span>
-
-        <h2 className="text-3xl font-display font-semibold text-foreground mt-4">{tier.h2}</h2>
-        <p className="mt-4 text-muted-foreground leading-relaxed max-w-xl mx-auto">{tier.body}</p>
-
-        <div className="mt-8 bg-brand-dim border border-primary/10 rounded-2xl p-8 text-left">
-          <p className="text-sm font-semibold text-foreground mb-2">De volgende stap:</p>
-          <p className="text-sm text-muted-foreground leading-relaxed">{tier.rec}</p>
+        {/* Badge + heading + body */}
+        <div className="text-center">
+          <span
+            className="inline-block text-xs font-medium uppercase tracking-[0.08em] px-3 py-1 rounded-full mb-4"
+            style={{ color: tier.color, backgroundColor: `${tier.color}20` }}
+          >
+            {tier.badge}
+          </span>
+          <h2 className="text-3xl font-display font-semibold text-foreground mt-2">{tier.heading}</h2>
+          <p className="mt-4 text-muted-foreground leading-relaxed max-w-xl mx-auto">{tier.body}</p>
         </div>
 
-        <div className="flex flex-wrap justify-center gap-3 mt-8">
-          {tier.ctas.map((c) => (
-            <Link key={c.label} to={c.to} className="btn-neon px-6 py-3 rounded-lg text-sm">
-              {c.label}
-            </Link>
-          ))}
+        {/* Dimension breakdown */}
+        <div className="mt-10 space-y-4">
+          <p className="text-sm font-semibold text-foreground mb-2">Jouw score per dimensie</p>
+          {dimensions.map((dim) => {
+            const dimScore = dim.indices.reduce((s, i) => s + (answers[i] || 0), 0);
+            const dimPct = Math.round((dimScore / 6) * 100);
+            return (
+              <div key={dim.label}>
+                <div className="flex justify-between text-sm mb-1">
+                  <span className="text-muted-foreground">{dim.label}</span>
+                  <span className="font-mono text-foreground">{dimPct}%</span>
+                </div>
+                <div className="h-2 w-full rounded-full bg-border overflow-hidden">
+                  <motion.div
+                    className="h-full rounded-full"
+                    style={{ backgroundColor: tier.color }}
+                    initial={{ width: 0 }}
+                    animate={{ width: `${dimPct}%` }}
+                    transition={{ duration: 0.8, delay: 0.5 }}
+                  />
+                </div>
+              </div>
+            );
+          })}
         </div>
 
-        <div className="mt-8 flex items-center justify-center gap-4 text-sm text-muted-foreground">
-          <span>Deel jouw score</span>
-          <button onClick={handleShare} className="neon-text font-semibold hover:underline">Link kopieren</button>
+        {/* Benchmark (tier 3 only) */}
+        {tier.showBenchmark && (
+          <div className="mt-8 bg-brand-dim border border-primary/10 rounded-2xl p-6 text-center">
+            <p className="text-sm text-muted-foreground leading-relaxed">
+              Minder dan 20% van de Nederlandse teams scoort boven de 70% op deze scan.
+            </p>
+          </div>
+        )}
+
+        {/* CTA block */}
+        <div className="mt-10 bg-card border border-border rounded-2xl p-8">
+          <p className="text-lg font-semibold text-foreground mb-2">{tier.ctaHeading}</p>
+          <p className="text-sm text-muted-foreground leading-relaxed mb-6">{tier.ctaBody}</p>
+
+          {submitted ? (
+            <p className="text-foreground font-medium text-center py-4">
+              Goed bezig. Je hoort binnen één werkdag van ons.
+            </p>
+          ) : (
+            <form onSubmit={handleFormSubmit} className="space-y-4">
+              {[
+                { name: "naam", label: "Naam", type: "text" },
+                { name: "email", label: "Zakelijk e-mailadres", type: "email" },
+                { name: "bedrijf", label: "Bedrijfsnaam", type: "text" },
+              ].map((f) => (
+                <div key={f.name}>
+                  <label className="text-sm text-muted-foreground mb-1 block">{f.label}</label>
+                  <input
+                    type={f.type}
+                    required
+                    value={formData[f.name as keyof typeof formData]}
+                    onChange={(e) => setFormData({ ...formData, [f.name]: e.target.value })}
+                    className="w-full bg-background border border-border rounded-lg px-4 py-3 text-foreground text-sm focus:outline-none focus:border-neon-purple focus:ring-1 focus:ring-neon-purple/20 transition-all duration-300"
+                  />
+                </div>
+              ))}
+              <button type="submit" className="btn-neon w-full py-3 rounded-lg text-sm">
+                {tier.buttonLabel}
+              </button>
+              <p className="text-xs text-muted-foreground text-center">
+                Één e-mail. Geen nieuwsbrief. Geen gedoe.
+              </p>
+            </form>
+          )}
         </div>
+
+        {/* Text link */}
+        <div className="mt-6 text-center">
+          <Link to={tier.textLink.to} className="text-sm neon-text hover:underline">
+            {tier.textLink.label}
+          </Link>
+        </div>
+
+        {/* LinkedIn share (tier 3 only) */}
+        {tier.showLinkedIn && (
+          <div className="mt-6 text-center">
+            <button
+              onClick={handleLinkedInShare}
+              className="text-sm font-semibold neon-text hover:underline"
+            >
+              Deel je score op LinkedIn →
+            </button>
+          </div>
+        )}
       </motion.div>
     </div>
   );
