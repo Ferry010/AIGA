@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
-
+import brandLogo from "@/assets/brand-humanizing-logo.png";
+import speakersLogo from "@/assets/speakers-academy-logo.png";
 const footerLinks = [
   { to: "/training", label: "Voor teams" },
   { to: "/masterclass", label: "Voor leidinggevenden" },
