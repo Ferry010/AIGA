@@ -86,6 +86,8 @@ const Quiz = () => {
   const [selected, setSelected] = useState<number | null>(null);
   const [formData, setFormData] = useState({ naam: "", email: "", bedrijf: "" });
   const [submitted, setSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
 
   const handleAnswer = (idx: number) => {
     setSelected(idx);
