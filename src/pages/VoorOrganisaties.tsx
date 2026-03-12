@@ -15,7 +15,7 @@ const pricingTiers = [
 const hrFaqs = [
   { q: "Kunnen we de voortgang van medewerkers bijhouden?", a: "Ja. Het platform biedt een dashboard waarop je per medewerker de voortgang, examenscore en certificering kunt inzien." },
   { q: "Kunnen we seats in tranches inzetten?", a: "Ja. Je koopt een pakket en geeft medewerkers gefaseerd toegang. De seats blijven beschikbaar zolang de licentie actief is." },
-  { q: "Is er een minimumafname?", a: "Nee. Je kunt ook een enkele seat boeken. Wel geldt: hoe meer seats, hoe lager de prijs per seat." },
+  
   { q: "Hoe snel kunnen we starten?", a: "Na akkoord op de offerte staat jouw organisatie binnen twee werkdagen live." },
   { q: "Is er een factuur beschikbaar?", a: "Ja. Je ontvangt een factuur op naam van jouw organisatie, geschikt voor de bedrijfsadministratie." },
   { q: "Krijgen we een gratis Masterclass bij 50+ seats?", a: "Ja. Bij een afname van 50 of meer seats is de Masterclass voor leidinggevenden gratis inbegrepen." },
