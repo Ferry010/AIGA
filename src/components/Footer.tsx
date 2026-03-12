@@ -36,6 +36,9 @@ const Footer = () => (
             <a href="mailto:robbert@speakersacademy.nl" className="hover:text-primary transition-colors">
               robbert@speakersacademy.nl
             </a>
+            <a href="mailto:tom@speakersacademy.nl" className="hover:text-primary transition-colors">
+              tom@speakersacademy.nl
+            </a>
             <a href="tel:+31103167827" className="hover:text-primary transition-colors">
               +31 (0)10 316 7827
             </a>
