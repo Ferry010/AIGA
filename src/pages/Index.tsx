@@ -130,7 +130,7 @@ const Index = () => {
             {[
               { step: "01", title: "Meldt je team gemakkelijk aan", body: "Meldt je team gemakkelijk aan in de online omgeving. We stellen alles direct voor je in." },
               { step: "02", title: "Medewerkers volgen de training zelfstandig", body: "Volledig online, in eigen tempo. Videolessen, praktijkcases en een adaptief afsluitend examen." },
-              { step: "03", title: "Ontvang de certificaten", body: "Iedere deelnemer ontvangt het AI Literacy Practitioner certificaat. Digitaal ondertekend, OpenBadge, direct deelbaar via LinkedIn." },
+              { step: "03", title: "Ontvang de certificaten", body: "Iedere deelnemer ontvangt het AI Literacy Practitioner certificaat. Digitaal ondertekend, direct deelbaar via LinkedIn." },
             ].map((s) => (
               <StaggerItem key={s.step}>
                 <div className="relative">
