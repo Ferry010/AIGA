@@ -14,7 +14,42 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      risk_scan_submissions: {
+        Row: {
+          bedrijfsnaam: string
+          created_at: string | null
+          dimensie_scores: Json
+          email: string
+          id: string
+          naam: string
+          opgevolgd: boolean | null
+          tier: string
+          totaal_score: number
+        }
+        Insert: {
+          bedrijfsnaam: string
+          created_at?: string | null
+          dimensie_scores: Json
+          email: string
+          id?: string
+          naam: string
+          opgevolgd?: boolean | null
+          tier: string
+          totaal_score: number
+        }
+        Update: {
+          bedrijfsnaam?: string
+          created_at?: string | null
+          dimensie_scores?: Json
+          email?: string
+          id?: string
+          naam?: string
+          opgevolgd?: boolean | null
+          tier?: string
+          totaal_score?: number
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
