@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-const footerLinks = [
+const footerLinks: { to: string; label: string; external?: boolean }[] = [
   { to: "/training", label: "Voor teams" },
   { to: "/masterclass", label: "Voor leidinggevenden" },
   { to: "/kenniscentrum", label: "Kenniscentrum" },
