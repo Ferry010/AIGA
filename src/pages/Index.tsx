@@ -274,7 +274,7 @@ const Index = () => {
               Klaar om jouw team te certificeren?
             </h2>
             <p className="mt-4 text-muted-foreground max-w-xl mx-auto">
-              Vraag een offerte aan en ontvang binnen 24 uur een voorstel op maat. Geen verplichtingen.
+              Vraag een offerte aan. Geen verplichtingen.
             </p>
             <Link to="/contact" className="btn-neon inline-block mt-8 px-8 py-4 rounded-lg text-[15px]">
               Vraag offerte aan
