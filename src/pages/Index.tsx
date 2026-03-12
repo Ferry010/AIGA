@@ -102,8 +102,8 @@ const Index = () => {
           </AnimatedSection>
           <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-10 mt-12">
             {[
-              { icon: Play, title: "Zelfpaced", body: "Geen klassikale sessies. Medewerkers volgen de training wanneer het hen uitkomt, in 2 tot 3 uur." },
-              { icon: Award, title: "Gecertificeerd", body: "Iedere deelnemer ontvangt het AI Literacy Practitioner certificaat. OpenBadge, digitaal ondertekend, audit-proof." },
+              { icon: Play, title: "Selfpaced", body: "Geen klassikale sessies. Medewerkers volgen de training wanneer het hen uitkomt, in 2 tot 3 uur." },
+              { icon: Award, title: "Gecertificeerd", body: "Iedere deelnemer ontvangt het AI Literacy Practitioner certificaat. Digitaal ondertekend, audit-proof." },
               { icon: Users, title: "Schaalbaar", body: "Per seat te boeken, geen minimumafname. Geschikt voor teams van 1 tot 1000+ medewerkers. Voortgangsdashboard inbegrepen." },
             ].map((c) => (
               <StaggerItem key={c.title}>
@@ -128,9 +128,9 @@ const Index = () => {
           </AnimatedSection>
           <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-10 mt-12">
             {[
-              { step: "01", title: "Kies het aantal seats", body: "Selecteer 1, 25, 50 of 100+ seats. We stellen de omgeving direct in." },
+              { step: "01", title: "Meldt je team gemakkelijk aan", body: "Meldt je team gemakkelijk aan in de online omgeving. We stellen alles direct voor je in." },
               { step: "02", title: "Medewerkers volgen de training zelfstandig", body: "Volledig online, in eigen tempo. Videolessen, praktijkcases en een adaptief afsluitend examen." },
-              { step: "03", title: "Ontvang de certificaten", body: "Iedere deelnemer ontvangt het AI Literacy Practitioner certificaat. Digitaal ondertekend, OpenBadge, direct deelbaar via LinkedIn." },
+              { step: "03", title: "Ontvang de certificaten", body: "Iedere deelnemer ontvangt het AI Literacy Practitioner certificaat. Digitaal ondertekend, direct deelbaar via LinkedIn." },
             ].map((s) => (
               <StaggerItem key={s.step}>
                 <div className="relative">
@@ -251,8 +251,8 @@ const Index = () => {
               </p>
               <div className="flex flex-wrap gap-8 text-sm">
                 {[
-                  { val: "20+", label: "keynotes per jaar" },
-                  { val: "1000+", label: "medewerkers bereikt" },
+                  { val: "40+", label: "keynotes per jaar" },
+                  { val: "5+", label: "sectoren bediend" },
                   { val: "2020", label: "Winner AI Hackathon" },
                 ].map((s) => (
                   <div key={s.label}>
