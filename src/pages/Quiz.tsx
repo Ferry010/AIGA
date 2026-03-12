@@ -107,10 +107,35 @@ const Quiz = () => {
   const pct = Math.round((score / 30) * 100);
   const tier = tiers.find((t) => pct >= t.minPct && pct <= t.maxPct) || tiers[0];
 
-  const handleFormSubmit = (e: React.FormEvent) => {
+  const tierDbValue = pct <= 40 ? "hoog_risico" : pct <= 70 ? "gemengd" : "laag_risico";
+
+  const dimensieScores = Object.fromEntries(
+    dimensions.map((dim) => [
+      dim.label,
+      Math.round((dim.indices.reduce((s, i) => s + (answers[i] || 0), 0) / 6) * 100),
+    ])
+  );
+
+  const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Quiz lead:", { ...formData, score, pct, tier: tier.badge });
-    setSubmitted(true);
+    setSubmitting(true);
+    setSubmitError(false);
+
+    const { error } = await supabase.from("risk_scan_submissions").insert({
+      naam: formData.naam,
+      email: formData.email,
+      bedrijfsnaam: formData.bedrijf,
+      totaal_score: pct,
+      tier: tierDbValue,
+      dimensie_scores: dimensieScores,
+    });
+
+    setSubmitting(false);
+    if (error) {
+      setSubmitError(true);
+    } else {
+      setSubmitted(true);
+    }
   };
 
   const handleLinkedInShare = () => {

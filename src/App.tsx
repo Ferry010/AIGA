@@ -48,7 +48,7 @@ const AppContent = () => {
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
-      {!isQuizActive && <Footer />}
+      {!isQuizActive && !isAdminActive && <Footer />}
     </>
   );
 };
