@@ -4,6 +4,7 @@ import { AnimatedSection, StaggerContainer, StaggerItem } from "@/components/Ani
 import SectionLabel from "@/components/SectionLabel";
 import { motion } from "framer-motion";
 import trainingVideo from "@/assets/AI-Geletterdheid-Homepage-scaled-1.webm";
+import ferryImg from "@/assets/ferry-hoes.gif";
 
 const Index = () => {
 
