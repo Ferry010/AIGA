@@ -1,11 +1,12 @@
 import { Link } from "react-router-dom";
 
-const footerLinks = [
+const footerLinks: { to: string; label: string; external?: boolean }[] = [
   { to: "/training", label: "Voor teams" },
   { to: "/masterclass", label: "Voor leidinggevenden" },
   { to: "/kenniscentrum", label: "Kenniscentrum" },
   { to: "/over-aiga", label: "Over AIGA" },
   { to: "/contact", label: "Contact" },
+  { to: "https://aigeletterdheid.academy/faq-ai-geletterdheid/", label: "FAQ", external: true },
   { to: "/risicoscan", label: "AI Risico-scan" },
 ];
 
@@ -23,11 +24,17 @@ const Footer = () => (
         <div>
           <h4 className="text-sm font-semibold text-foreground mb-4">Navigatie</h4>
           <div className="flex flex-col gap-2">
-            {footerLinks.map((l) => (
-              <Link key={l.to} to={l.to} className="text-sm text-muted-foreground hover:text-primary transition-colors">
-                {l.label}
-              </Link>
-            ))}
+            {footerLinks.map((l) =>
+              l.external ? (
+                <a key={l.to} href={l.to} target="_blank" rel="noopener noreferrer" className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                  {l.label}
+                </a>
+              ) : (
+                <Link key={l.to} to={l.to} className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                  {l.label}
+                </Link>
+              )
+            )}
           </div>
         </div>
         <div>
