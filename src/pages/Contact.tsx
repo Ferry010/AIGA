@@ -28,9 +28,9 @@ const Contact = () => {
               Klaar om jouw team te certificeren?<br />
               <span className="neon-text">Laten we praten.</span>
             </h1>
-            <p className="mt-6 text-lg text-muted-foreground max-w-2xl">
-              Vul het formulier in en we nemen binnen 24 uur contact met je op met een offerte op maat. Geen verplichtingen.
-            </p>
+             <p className="mt-6 text-lg text-muted-foreground max-w-2xl">
+               Vul het formulier in en we nemen contact met je op met een offerte op maat. Geen verplichtingen.
+             </p>
           </AnimatedSection>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 mt-12">
