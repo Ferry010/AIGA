@@ -202,9 +202,9 @@ const VoorOrganisaties = () => {
       <section className="py-24">
         <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection>
-            <h2 className="text-3xl font-display font-semibold text-foreground">
-              Vraag een offerte aan.<br /><span className="text-primary">Binnen 24 uur een voorstel op maat.</span>
-            </h2>
+             <h2 className="text-3xl font-display font-semibold text-foreground">
+               Vraag een offerte aan.<br /><span className="text-primary">We maken een voorstel op maat.</span>
+             </h2>
           </AnimatedSection>
           <form onSubmit={handleSubmit} className="mt-10 space-y-4">
             {[

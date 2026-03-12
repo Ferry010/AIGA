@@ -122,9 +122,6 @@ const Contact = () => {
                     Stuur e-mail
                   </a>
                 </div>
-                <div className="mt-8 bg-brand-dim rounded-xl p-4 text-center">
-                  <p className="text-sm text-foreground">Gemiddelde reactietijd: <span className="neon-text font-semibold">minder dan 24 uur</span></p>
-                </div>
               </div>
             </AnimatedSection>
           </div>

@@ -162,9 +162,9 @@ const Masterclass = () => {
             <h2 className="text-3xl font-display font-semibold text-foreground mt-2">
               Laten we een datum prikken.
             </h2>
-            <p className="mt-4 text-muted-foreground">
-              Vul het formulier in en we nemen binnen 24 uur contact met je op.
-            </p>
+             <p className="mt-4 text-muted-foreground">
+               Vul het formulier in en we nemen contact met je op.
+             </p>
           </AnimatedSection>
           <form onSubmit={handleSubmit} className="mt-10 space-y-4">
             {[
