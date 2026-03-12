@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
-
+import brandLogo from "@/assets/brand-humanizing-logo.png";
+import speakersLogo from "@/assets/speakers-academy-logo.png";
 const footerLinks = [
   { to: "/training", label: "Voor teams" },
   { to: "/masterclass", label: "Voor leidinggevenden" },
@@ -43,13 +44,17 @@ const Footer = () => (
             <a href="tel:+31103167827" className="hover:text-primary transition-colors">
               +31 (0)10 316 7827
             </a>
-            <p className="mt-2">In samenwerking met Speakers Academy</p>
+            <p className="mt-4 text-xs">Een samenwerking tussen</p>
+            <div className="flex items-center gap-4 mt-2">
+              <img src={brandLogo} alt="Brand Humanizing Institute" className="h-10 rounded" />
+              <img src={speakersLogo} alt="Speakers Academy" className="h-10 rounded" />
+            </div>
           </div>
         </div>
       </div>
       <div className="border-t border-border mt-12 pt-8 flex flex-col sm:flex-row justify-between gap-4 text-xs text-muted-foreground">
         <p>&copy; 2026 AI Geletterdheid Academy</p>
-        <p>Een initiatief van Brand Humanizing Institute en Speakers Academy</p>
+        <p>&copy; 2026 AI Geletterdheid Academy</p>
         <div className="flex gap-4">
           <span className="hover:text-primary cursor-pointer">Privacyverklaring</span>
           <span className="hover:text-primary cursor-pointer">Licentie &amp; Gebruik</span>
