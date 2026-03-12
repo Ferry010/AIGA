@@ -28,6 +28,7 @@ const ScrollToTop = () => {
 const AppContent = () => {
   const { pathname } = useLocation();
   const isQuizActive = pathname === "/risicoscan";
+  const isAdminActive = pathname === "/admin";
 
   return (
     <>
