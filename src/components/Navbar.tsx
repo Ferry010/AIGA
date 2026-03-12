@@ -70,8 +70,8 @@ const Navbar = () => {
             </Link>
           ))}
           <hr className="border-border" />
-          <Link to="/quiz" onClick={() => setOpen(false)} className="text-lg font-body neon-text font-semibold">
-            Doe de quiz
+          <Link to="/risicoscan" onClick={() => setOpen(false)} className="text-lg font-body neon-text font-semibold">
+            Doe de scan
           </Link>
           <Link
             to="/contact"

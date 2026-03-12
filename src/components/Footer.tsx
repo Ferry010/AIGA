@@ -6,7 +6,7 @@ const footerLinks = [
   { to: "/voor-organisaties", label: "Voor Organisaties" },
   { to: "/over-aiga", label: "Over AIGA" },
   { to: "/contact", label: "Contact" },
-  { to: "/quiz", label: "Quiz" },
+  { to: "/risicoscan", label: "AI Risico-scan" },
 ];
 
 const Footer = () => (
