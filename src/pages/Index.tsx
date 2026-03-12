@@ -350,9 +350,9 @@ const Index = () => {
               </p>
               <div className="flex flex-wrap gap-8 text-sm">
                 {[
-                  { val: "40+", label: "keynotes per jaar" },
-                  { val: "5+", label: "sectoren bediend" },
-                  { val: "2020", label: "Winner AI Hackathon" },
+                  { val: "40+", label: "Keynotes per jaar, internationale events en in-house sessies" },
+                  { val: "15+", label: "Jaar ervaring van startups tot wereldwijde corporates" },
+                  { val: "2020", label: "Winnaar prestigieuze AI Hackathon van de Nederlandse overheid" },
                 ].map((s) => (
                   <div key={s.label}>
                     <span className="text-2xl font-mono font-bold neon-text">{s.val}</span>
