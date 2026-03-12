@@ -33,8 +33,8 @@ const AppContent = () => {
   return (
     <>
       <ScrollToTop />
-      <Navbar />
-      <main className="pt-16">
+      {!isAdminActive && <Navbar />}
+      <main className={isAdminActive ? "" : "pt-16"}>
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/training" element={<Training />} />
