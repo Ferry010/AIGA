@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { AnimatedSection } from "@/components/AnimatedSection";
 import SectionLabel from "@/components/SectionLabel";
 import { motion } from "framer-motion";
+import { supabase } from "@/integrations/supabase/client";
 
 const questions = [
   { q: "Hoeveel medewerkers in jouw organisatie gebruiken AI-tools zoals ChatGPT, Copilot of vergelijkbare software?", options: ["Niemand, voor zover ik weet", "Een handvol early adopters", "Een significant deel van de teams", "De meeste medewerkers, dagelijks"] },
@@ -85,6 +86,8 @@ const Quiz = () => {
   const [selected, setSelected] = useState<number | null>(null);
   const [formData, setFormData] = useState({ naam: "", email: "", bedrijf: "" });
   const [submitted, setSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
 
   const handleAnswer = (idx: number) => {
     setSelected(idx);
@@ -104,10 +107,35 @@ const Quiz = () => {
   const pct = Math.round((score / 30) * 100);
   const tier = tiers.find((t) => pct >= t.minPct && pct <= t.maxPct) || tiers[0];
 
-  const handleFormSubmit = (e: React.FormEvent) => {
+  const tierDbValue = pct <= 40 ? "hoog_risico" : pct <= 70 ? "gemengd" : "laag_risico";
+
+  const dimensieScores = Object.fromEntries(
+    dimensions.map((dim) => [
+      dim.label,
+      Math.round((dim.indices.reduce((s, i) => s + (answers[i] || 0), 0) / 6) * 100),
+    ])
+  );
+
+  const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Quiz lead:", { ...formData, score, pct, tier: tier.badge });
-    setSubmitted(true);
+    setSubmitting(true);
+    setSubmitError(false);
+
+    const { error } = await supabase.from("risk_scan_submissions").insert({
+      naam: formData.naam,
+      email: formData.email,
+      bedrijfsnaam: formData.bedrijf,
+      totaal_score: pct,
+      tier: tierDbValue,
+      dimensie_scores: dimensieScores,
+    });
+
+    setSubmitting(false);
+    if (error) {
+      setSubmitError(true);
+    } else {
+      setSubmitted(true);
+    }
   };
 
   const handleLinkedInShare = () => {
@@ -296,8 +324,13 @@ const Quiz = () => {
                   />
                 </div>
               ))}
-              <button type="submit" className="btn-neon w-full py-3 rounded-lg text-sm">
-                {tier.buttonLabel}
+              {submitError && (
+                <p className="text-sm text-destructive text-center">
+                  Er ging iets mis. Probeer het opnieuw of mail ons op info@aigeletterdheid.academy.
+                </p>
+              )}
+              <button type="submit" disabled={submitting} className="btn-neon w-full py-3 rounded-lg text-sm disabled:opacity-50">
+                {submitting ? "Bezig..." : tier.buttonLabel}
               </button>
               <p className="text-xs text-muted-foreground text-center">
                 Één e-mail. Geen nieuwsbrief. Geen gedoe.

@@ -14,6 +14,7 @@ import OverAiga from "./pages/OverAiga";
 import Contact from "./pages/Contact";
 import Quiz from "./pages/Quiz";
 import Faq from "./pages/Faq";
+import Admin from "./pages/Admin";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -27,12 +28,13 @@ const ScrollToTop = () => {
 const AppContent = () => {
   const { pathname } = useLocation();
   const isQuizActive = pathname === "/risicoscan";
+  const isAdminActive = pathname === "/admin";
 
   return (
     <>
       <ScrollToTop />
-      <Navbar />
-      <main className="pt-16">
+      {!isAdminActive && <Navbar />}
+      <main className={isAdminActive ? "" : "pt-16"}>
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/training" element={<Training />} />
@@ -42,10 +44,11 @@ const AppContent = () => {
           <Route path="/contact" element={<Contact />} />
           <Route path="/faq" element={<Faq />} />
           <Route path="/risicoscan" element={<Quiz />} />
+          <Route path="/admin" element={<Admin />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
-      {!isQuizActive && <Footer />}
+      {!isQuizActive && !isAdminActive && <Footer />}
     </>
   );
 };
