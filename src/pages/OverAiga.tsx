@@ -1,6 +1,6 @@
 import { AnimatedSection, StaggerContainer, StaggerItem } from "@/components/AnimatedSection";
 import SectionLabel from "@/components/SectionLabel";
-import ferryImg from "@/assets/ferry-hoes.gif";
+import TrainerSection from "@/components/TrainerSection";
 
 const OverAiga = () => (
   <div className="min-h-screen">
@@ -36,39 +36,7 @@ const OverAiga = () => (
     </section>
 
     {/* Ferry's profile */}
-    <section className="py-24 bg-card">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <AnimatedSection>
-          <SectionLabel text="DE TRAINER" />
-          <h2 className="text-3xl font-display font-semibold text-foreground mt-2">Ferry Hoes</h2>
-        </AnimatedSection>
-        <AnimatedSection delay={0.2} className="flex flex-col md:flex-row gap-12 mt-10 items-center">
-          <div className="neon-border-lg" style={{ borderRadius: '9999px', padding: '3px' }}>
-            <img src={ferryImg} alt="Ferry Hoes" className="w-56 h-56 rounded-full object-cover" />
-          </div>
-          <div>
-            <p className="text-muted-foreground leading-relaxed mb-4">
-              Ferry Hoes is keynote spreker, AI-expert en mede-oprichter van Brand Humanizing. Hij staat meermaals per maand op het podium voor organisaties in de financiele sector, de zorg, de overheid en het onderwijs. In 2020 won hij de Anti-Discriminatie AI-Hackathon.
-            </p>
-            <p className="text-muted-foreground leading-relaxed mb-6">
-              Ferry praat niet over AI vanuit een theorieboek. Hij praat erover vanuit de boardrooms, de werkvloeren en de workshops waar hij wekelijks aanwezig is.
-            </p>
-            <div className="flex flex-wrap gap-8 text-sm">
-              {[
-                { val: "40+", label: "Keynotes per jaar, internationale events en in-house sessies" },
-                { val: "15+", label: "Jaar ervaring van startups tot wereldwijde corporates" },
-                { val: "2020", label: "Winnaar prestigieuze AI Hackathon van de Nederlandse overheid" },
-              ].map((s) => (
-                <div key={s.label}>
-                  <span className="text-2xl font-mono font-bold neon-text">{s.val}</span>
-                  <p className="text-muted-foreground">{s.label}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </AnimatedSection>
-      </div>
-    </section>
+    <TrainerSection bio="Ferry Hoes is keynote spreker, AI-expert en mede-oprichter van Brand Humanizing. Hij staat meermaals per maand op het podium voor organisaties in de financiele sector, de zorg, de overheid en het onderwijs. In 2020 won hij de Anti-Discriminatie AI-Hackathon. Ferry praat niet over AI vanuit een theorieboek. Hij praat erover vanuit de boardrooms, de werkvloeren en de workshops waar hij wekelijks aanwezig is." />
 
     {/* Partners */}
     <section className="py-24">

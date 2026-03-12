@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { Check, Play } from "lucide-react";
 import { AnimatedSection, StaggerContainer, StaggerItem } from "@/components/AnimatedSection";
 import SectionLabel from "@/components/SectionLabel";
-import ferryImg from "@/assets/ferry-hoes.gif";
+import TrainerSection from "@/components/TrainerSection";
 import ContactForm from "@/components/ContactForm";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
@@ -110,41 +110,7 @@ const Training = () => (
     </section>
 
     {/* Trainer section */}
-    <section className="py-24">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <AnimatedSection>
-          <SectionLabel text="DE TRAINER" />
-          <h2 className="text-3xl sm:text-4xl font-display font-semibold text-foreground mt-2">
-            Ferry Hoes
-          </h2>
-          <p className="text-lg text-muted-foreground mt-1">Niet zomaar een trainer. Een expert die het veld kent.</p>
-        </AnimatedSection>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mt-12 items-center">
-          <AnimatedSection delay={0.1}>
-            <div className="neon-border-lg rounded-2xl" style={{ padding: '3px' }}>
-              <img src={ferryImg} alt="Ferry Hoes" className="w-full rounded-2xl object-cover" />
-            </div>
-          </AnimatedSection>
-          <AnimatedSection delay={0.2}>
-            <p className="text-muted-foreground leading-relaxed mb-6">
-              Ferry Hoes is veelgevraagd spreker op het gebied van Artificial Intelligence. Hij staat meermaals per maand op het podium en spreekt voor organisaties zoals a.s.r Verzekeringen, VodafoneZiggo, MKB bedrijven en verschillende Ministeries. In 2020 won hij de "Anti-Discriminatie AI-Hackathon". Ferry weet precies hoe je AI-geletterdheid vertaalt naar actie, compliance én voordeel.
-            </p>
-            <div className="flex flex-wrap gap-8 text-sm">
-              {[
-                { val: "40+", label: "Keynotes per jaar, internationale events en in-house sessies" },
-                { val: "15+", label: "Jaar ervaring van startups tot wereldwijde corporates" },
-                { val: "2020", label: "Winnaar prestigieuze AI Hackathon van de Nederlandse overheid" },
-              ].map((s) => (
-                <div key={s.label}>
-                  <span className="text-2xl font-mono font-bold neon-text">{s.val}</span>
-                  <p className="text-muted-foreground">{s.label}</p>
-                </div>
-              ))}
-            </div>
-          </AnimatedSection>
-        </div>
-      </div>
-    </section>
+    <TrainerSection />
 
     {/* Waarom bij ons */}
     <section className="py-24 bg-card">
