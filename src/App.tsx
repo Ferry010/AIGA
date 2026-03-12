@@ -9,7 +9,7 @@ import Footer from "@/components/Footer";
 import Index from "./pages/Index";
 import Training from "./pages/Training";
 import Masterclass from "./pages/Masterclass";
-import VoorOrganisaties from "./pages/VoorOrganisaties";
+import Kenniscentrum from "./pages/Kenniscentrum";
 import OverAiga from "./pages/OverAiga";
 import Contact from "./pages/Contact";
 import Quiz from "./pages/Quiz";
@@ -36,7 +36,7 @@ const AppContent = () => {
           <Route path="/" element={<Index />} />
           <Route path="/training" element={<Training />} />
           <Route path="/masterclass" element={<Masterclass />} />
-          <Route path="/voor-organisaties" element={<VoorOrganisaties />} />
+          <Route path="/kenniscentrum" element={<Kenniscentrum />} />
           <Route path="/over-aiga" element={<OverAiga />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/risicoscan" element={<Quiz />} />

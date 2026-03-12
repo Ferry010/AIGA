@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
 
 const footerLinks = [
-  { to: "/training", label: "Training" },
-  { to: "/masterclass", label: "Masterclass" },
-  { to: "/voor-organisaties", label: "Voor Organisaties" },
+  { to: "/training", label: "Voor teams" },
+  { to: "/masterclass", label: "Voor leidinggevenden" },
+  { to: "/kenniscentrum", label: "Kenniscentrum" },
   { to: "/over-aiga", label: "Over AIGA" },
   { to: "/contact", label: "Contact" },
   { to: "/risicoscan", label: "AI Risico-scan" },
