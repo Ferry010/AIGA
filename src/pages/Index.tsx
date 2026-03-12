@@ -1,26 +1,10 @@
-import { useState } from "react";
 import { Link } from "react-router-dom";
 import { AlertTriangle, FileX, Clock, HelpCircle, Play, Award, Users, Check } from "lucide-react";
 import { AnimatedSection, StaggerContainer, StaggerItem } from "@/components/AnimatedSection";
 import SectionLabel from "@/components/SectionLabel";
-import { motion, AnimatePresence } from "framer-motion";
-
-const trainingFeatures = [
-  "Online leerplatform",
-  "AI Literacy Practitioner certificaat",
-  "Voortgangsdashboard",
-  "Per seat te boeken, geen minimumafname",
-];
-
-const masterclassFeatures = [
-  "Live sessie (online of op locatie)",
-  "AI Literacy Leader bewijs van deelname",
-  "Live Q&A met Ferry Hoes",
-  "Open of besloten sessie",
-];
+import { motion } from "framer-motion";
 
 const Index = () => {
-  const [includeMasterclass, setIncludeMasterclass] = useState(false);
 
   return (
     <div className="min-h-screen">
@@ -179,97 +163,69 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Unified Product Card */}
+      {/* Ons Aanbod — Two product cards */}
       <section className="py-24">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection>
             <div className="text-center"><SectionLabel text="ONS AANBOD" /></div>
             <h2 className="text-3xl sm:text-4xl font-display font-semibold text-foreground mt-2 text-center">
-              Stel samen wat je nodig hebt.
+              Kies wat bij jouw organisatie past.
             </h2>
           </AnimatedSection>
-          <AnimatedSection delay={0.2}>
-            <div className="neon-border-lg mt-12">
-              <div className="neon-inner bg-background rounded-2xl p-8 sm:p-10">
-                {/* Toggle */}
-                <div className="flex items-center justify-center gap-3 mb-8">
-                  <button
-                    onClick={() => setIncludeMasterclass(false)}
-                    className={`px-5 py-2.5 rounded-lg text-sm font-medium transition-all ${
-                      !includeMasterclass
-                        ? "bg-primary text-primary-foreground shadow-md"
-                        : "bg-muted text-muted-foreground hover:text-foreground"
-                    }`}
-                  >
-                    Online Training
-                  </button>
-                  <button
-                    onClick={() => setIncludeMasterclass(true)}
-                    className={`px-5 py-2.5 rounded-lg text-sm font-medium transition-all ${
-                      includeMasterclass
-                        ? "bg-primary text-primary-foreground shadow-md"
-                        : "bg-muted text-muted-foreground hover:text-foreground"
-                    }`}
-                  >
-                    + Masterclass
-                  </button>
+          <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-12">
+            {/* Training card — featured */}
+            <StaggerItem>
+              <div className="neon-border-lg h-full">
+                <div className="neon-inner bg-background rounded-2xl p-8 sm:p-10 h-full flex flex-col">
+                  <span className="text-xs font-medium uppercase tracking-[0.08em] neon-text mb-2">ONLINE TRAINING</span>
+                  <h3 className="text-xl font-semibold text-foreground">AI-Geletterdheid voor teams</h3>
+                  <p className="text-sm text-muted-foreground mt-1">Vanaf 10 deelnemers</p>
+                  <p className="text-2xl font-bold text-foreground mt-4">249,- <span className="text-sm font-normal text-muted-foreground">per deelnemer (ex BTW)</span></p>
+                  <ul className="space-y-2 mt-6 mb-8 flex-1">
+                    {[
+                      "Volledig online, in eigen tempo",
+                      "Adaptief examen",
+                      "AI Literacy Practitioner certificaat",
+                      "Voortgangsdashboard",
+                    ].map((f) => (
+                      <li key={f} className="flex items-start gap-2 text-sm text-muted-foreground">
+                        <Check size={14} className="text-primary mt-0.5 shrink-0" />{f}
+                      </li>
+                    ))}
+                  </ul>
+                  <Link to="/training" className="btn-neon text-center py-3 rounded-lg text-sm">
+                    Bekijk training
+                  </Link>
                 </div>
+              </div>
+            </StaggerItem>
 
-                {/* Price */}
-                <div className="text-center mb-8">
-                  <AnimatePresence mode="wait">
-                    <motion.div
-                      key={includeMasterclass ? "combo" : "training"}
-                      initial={{ opacity: 0, y: 8 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -8 }}
-                      transition={{ duration: 0.2 }}
-                    >
-                      {!includeMasterclass ? (
-                        <>
-                          <p className="text-3xl font-bold text-foreground"><span className="neon-text">249,-</span> <span className="text-base font-normal text-muted-foreground">per seat (ex BTW)</span></p>
-                          <p className="text-sm text-muted-foreground mt-1">Voor alle medewerkers, geen minimumafname</p>
-                        </>
-                      ) : (
-                        <>
-                          <p className="text-3xl font-bold text-foreground"><span className="neon-text">Vanaf 249,-</span> <span className="text-base font-normal text-muted-foreground">per seat + Masterclass</span></p>
-                          <p className="text-sm text-muted-foreground mt-1">Gratis inbegrepen bij 50+ seats · anders op aanvraag</p>
-                        </>
-                      )}
-                    </motion.div>
-                  </AnimatePresence>
-                </div>
-
-                {/* Features */}
-                <ul className="space-y-3 mb-8">
-                  {trainingFeatures.map((f) => (
-                    <li key={f} className="flex items-center gap-2.5 text-sm text-muted-foreground">
-                      <Check size={15} className="text-primary shrink-0" />{f}
+            {/* Masterclass card */}
+            <StaggerItem>
+              <div className="bg-card rounded-2xl p-8 sm:p-10 h-full flex flex-col border border-border hover:border-neon-purple/40 neon-glow transition-all duration-300">
+                <span className="text-xs font-medium uppercase tracking-[0.08em] text-muted-foreground mb-2">MASTERCLASS</span>
+                <h3 className="text-xl font-semibold text-foreground">AI Geletterdheid voor leidinggevenden</h3>
+                <p className="text-sm text-muted-foreground mt-1">Min. 5 deelnemers · op locatie</p>
+                <p className="text-2xl font-bold text-foreground mt-4">495,- <span className="text-sm font-normal text-muted-foreground">per deelnemer (ex BTW)</span></p>
+                <p className="text-xs text-muted-foreground mt-1">Gratis bij 50+ training seats</p>
+                <ul className="space-y-2 mt-6 mb-8 flex-1">
+                  {[
+                    "In-company, ca. 2 uur",
+                    "Voor C-level, management & beleidsmakers",
+                    "Strategisch inzicht in de AI Act",
+                    "Direct toepasbaar in beleid",
+                  ].map((f) => (
+                    <li key={f} className="flex items-start gap-2 text-sm text-muted-foreground">
+                      <Check size={14} className="text-primary mt-0.5 shrink-0" />{f}
                     </li>
                   ))}
-                  <AnimatePresence>
-                    {includeMasterclass && masterclassFeatures.map((f) => (
-                      <motion.li
-                        key={f}
-                        initial={{ opacity: 0, height: 0 }}
-                        animate={{ opacity: 1, height: "auto" }}
-                        exit={{ opacity: 0, height: 0 }}
-                        transition={{ duration: 0.2 }}
-                        className="flex items-center gap-2.5 text-sm text-muted-foreground"
-                      >
-                        <Check size={15} className="text-neon-purple shrink-0" />{f}
-                      </motion.li>
-                    ))}
-                  </AnimatePresence>
                 </ul>
-
-                {/* Single CTA */}
-                <Link to="/contact" className="btn-neon block text-center px-6 py-3.5 rounded-lg text-[15px]">
-                  Vraag een offerte aan
+                <Link to="/masterclass" className="btn-neon-outline text-center py-3 font-semibold text-sm">
+                  Bekijk masterclass
                 </Link>
               </div>
-            </div>
-          </AnimatedSection>
+            </StaggerItem>
+          </StaggerContainer>
         </div>
       </section>
 
