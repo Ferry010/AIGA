@@ -38,10 +38,10 @@ const Navbar = () => {
 
           <div className="hidden lg:flex items-center gap-3">
             <Link
-              to="/quiz"
+              to="/risicoscan"
               className="btn-neon-outline text-sm font-semibold px-4 py-2"
             >
-              Doe de quiz
+              Doe de scan
             </Link>
             <Link
               to="/contact"
