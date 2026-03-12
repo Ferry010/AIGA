@@ -5,9 +5,7 @@ import SectionLabel from "@/components/SectionLabel";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 const contactFaqs = [
-  { q: "Hoe snel ontvang ik een offerte?", a: "Binnen 24 uur na ontvangst van je aanvraag." },
   { q: "Kan ik eerst een demo aanvragen?", a: "Ja. Vermeld dit in je bericht en we plannen iets in." },
-  { q: "Is er een minimumafname?", a: "Nee. Je kunt ook een enkele seat boeken. Wel geldt: hoe meer seats, hoe lager de prijs per seat." },
   { q: "Kan ik de training eerst zelf bekijken?", a: "Ja. Neem contact op en we geven je tijdelijk toegang tot een demoversie." },
   { q: "Wij zijn een overheidsorganisatie. Werkt dit ook voor ons?", a: "Ja. De training is geschikt voor alle sectoren, inclusief overheid. We werken al samen met meerdere ministeries en overheidsinstanties." },
 ];
