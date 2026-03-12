@@ -25,7 +25,7 @@ const ScrollToTop = () => {
 
 const AppContent = () => {
   const { pathname } = useLocation();
-  const isQuizActive = pathname === "/quiz";
+  const isQuizActive = pathname === "/risicoscan";
 
   return (
     <>
@@ -39,7 +39,7 @@ const AppContent = () => {
           <Route path="/voor-organisaties" element={<VoorOrganisaties />} />
           <Route path="/over-aiga" element={<OverAiga />} />
           <Route path="/contact" element={<Contact />} />
-          <Route path="/quiz" element={<Quiz />} />
+          <Route path="/risicoscan" element={<Quiz />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>

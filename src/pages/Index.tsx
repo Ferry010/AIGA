@@ -144,20 +144,20 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Quiz CTA */}
+      {/* Risico-scan CTA */}
       <section className="py-24 bg-brand-dim border-y border-primary/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <AnimatedSection>
-            <SectionLabel text="WEET JIJ HOE READY JE TEAM IS?" />
+            <SectionLabel text="HOE KWETSBAAR IS JOUW ORGANISATIE?" />
             <h2 className="text-3xl sm:text-4xl font-display font-semibold text-foreground mt-2">
-              Doe de gratis AI Readiness Check.<br />
+              Doe de gratis AI Risico-scan.<br />
               <span className="text-primary">In vijf minuten weet je waar je staat.</span>
             </h2>
             <p className="mt-4 text-muted-foreground max-w-xl mx-auto">
               10 vragen. Direct resultaat. Inclusief persoonlijk advies op maat.
             </p>
-            <Link to="/quiz" className="btn-neon inline-block mt-8 px-8 py-4 rounded-lg text-[15px]">
-              Doe de gratis quiz
+            <Link to="/risicoscan" className="btn-neon inline-block mt-8 px-8 py-4 rounded-lg text-[15px]">
+              Start de AI Risico-scan
             </Link>
           </AnimatedSection>
         </div>

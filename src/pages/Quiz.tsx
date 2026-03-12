@@ -65,18 +65,18 @@ const Quiz = () => {
       <div className="min-h-screen flex items-center justify-center">
         <div className="max-w-2xl mx-auto px-4 text-center">
           <AnimatedSection>
-            <SectionLabel text="GRATIS AI READINESS CHECK" />
+            <SectionLabel text="GRATIS AI RISICO-SCAN" />
             <h1 className="text-4xl sm:text-5xl font-display font-bold text-foreground leading-tight mt-4">
-              Hoe AI-ready is jouw team?
+              Hoe kwetsbaar is jouw organisatie?
             </h1>
             <p className="mt-6 text-lg text-muted-foreground">
-              10 vragen. Vijf minuten. Direct resultaat. Ontdek waar jouw organisatie staat en wat de volgende stap is.
+              10 vragen. Vijf minuten. Direct resultaat. Ontdek welke AI-risico's jouw organisatie loopt en wat je eraan kunt doen.
             </p>
             <button
               onClick={() => setPhase("quiz")}
               className="btn-neon mt-8 px-8 py-4 rounded-lg text-[15px]"
             >
-              Start de check
+              Start de scan
             </button>
           </AnimatedSection>
         </div>

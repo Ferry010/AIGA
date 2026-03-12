@@ -38,10 +38,10 @@ const Navbar = () => {
 
           <div className="hidden lg:flex items-center gap-3">
             <Link
-              to="/quiz"
+              to="/risicoscan"
               className="btn-neon-outline text-sm font-semibold px-4 py-2"
             >
-              Doe de quiz
+              Doe de scan
             </Link>
             <Link
               to="/contact"
@@ -70,8 +70,8 @@ const Navbar = () => {
             </Link>
           ))}
           <hr className="border-border" />
-          <Link to="/quiz" onClick={() => setOpen(false)} className="text-lg font-body neon-text font-semibold">
-            Doe de quiz
+          <Link to="/risicoscan" onClick={() => setOpen(false)} className="text-lg font-body neon-text font-semibold">
+            Doe de scan
           </Link>
           <Link
             to="/contact"
