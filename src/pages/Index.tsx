@@ -342,9 +342,7 @@ const Index = () => {
           </AnimatedSection>
           <AnimatedSection delay={0.2} className="flex flex-col md:flex-row gap-12 mt-12 items-center">
             <div className="neon-border-lg rounded-full" style={{ borderRadius: '9999px', padding: '3px' }}>
-              <div className="w-48 h-48 rounded-full bg-background flex items-center justify-center">
-                <span className="text-4xl font-display font-bold neon-text">FH</span>
-              </div>
+              <img src={ferryImg} alt="Ferry Hoes" className="w-48 h-48 rounded-full object-cover" />
             </div>
             <div>
               <p className="text-muted-foreground leading-relaxed mb-6">
