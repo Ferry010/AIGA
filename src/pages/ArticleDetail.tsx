@@ -57,25 +57,53 @@ const ArticleDetail = () => {
 
   return (
     <div className="min-h-screen">
-      <section className="pt-32 pb-16">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-          <AnimatedSection>
+      {/* Hero header image */}
+      {article.image_url && (
+        <div className="relative w-full h-[40vh] sm:h-[50vh] overflow-hidden">
+          <img
+            src={article.image_url}
+            alt={article.title}
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent" />
+          <div className="absolute bottom-0 left-0 right-0 max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pb-8">
             <Link
               to="/kenniscentrum"
-              className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors mb-8"
+              className="inline-flex items-center gap-2 text-sm text-white/70 hover:text-white transition-colors mb-4"
             >
               <ArrowLeft size={16} /> Terug naar kenniscentrum
             </Link>
-
-            <Badge variant="secondary" className="mb-4 text-xs">
+            <Badge variant="secondary" className="mb-3 text-xs">
               {article.category}
             </Badge>
-
-            <h1 className="text-3xl sm:text-4xl font-display font-bold text-foreground leading-tight mb-6">
+            <h1 className="text-3xl sm:text-4xl font-display font-bold text-white leading-tight">
               {article.title}
             </h1>
+          </div>
+        </div>
+      )}
 
-            <div className="flex items-center gap-4 text-sm text-muted-foreground mb-8 pb-8 border-b border-border">
+      <section className={article.image_url ? "pb-16" : "pt-32 pb-16"}>
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+          <AnimatedSection>
+            {!article.image_url && (
+              <>
+                <Link
+                  to="/kenniscentrum"
+                  className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors mb-8"
+                >
+                  <ArrowLeft size={16} /> Terug naar kenniscentrum
+                </Link>
+                <Badge variant="secondary" className="mb-4 text-xs">
+                  {article.category}
+                </Badge>
+                <h1 className="text-3xl sm:text-4xl font-display font-bold text-foreground leading-tight mb-6">
+                  {article.title}
+                </h1>
+              </>
+            )}
+
+            <div className="flex items-center gap-4 text-sm text-muted-foreground mb-8 pb-8 border-b border-border mt-6">
               <span>Ferry Hoes</span>
               <a
                 href={article.url}
@@ -86,16 +114,6 @@ const ArticleDetail = () => {
                 Origineel artikel <ExternalLink size={14} />
               </a>
             </div>
-
-            {article.image_url && (
-              <div className="rounded-2xl overflow-hidden mb-10">
-                <img
-                  src={article.image_url}
-                  alt={article.title}
-                  className="w-full h-auto object-cover"
-                />
-              </div>
-            )}
 
             <article className="prose prose-invert prose-lg max-w-none prose-headings:font-display prose-headings:text-foreground prose-p:text-muted-foreground prose-a:text-primary prose-strong:text-foreground prose-li:text-muted-foreground">
               <ReactMarkdown remarkPlugins={[remarkGfm]}>
