@@ -6,6 +6,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { useEffect } from "react";
 import Navbar from "@/components/Navbar";
+import CookieBanner from "@/components/CookieBanner";
 import Footer from "@/components/Footer";
 import Index from "./pages/Index";
 import Training from "./pages/Training";
@@ -58,6 +59,7 @@ const AppContent = () => {
         </Routes>
       </main>
       {!isQuizActive && !isAdminActive && <Footer />}
+      <CookieBanner />
     </>
   );
 };
