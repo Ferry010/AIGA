@@ -183,7 +183,7 @@ const ArticleDetail = () => {
                   },
                 }}
               >
-                {article.content || "Geen content beschikbaar."}
+                {stripLeadingTitle(article.content || "Geen content beschikbaar.", article.title)}
               </ReactMarkdown>
             </article>
           </AnimatedSection>
