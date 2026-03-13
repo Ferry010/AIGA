@@ -1,33 +1,23 @@
-import { Building2, Landmark, HeartPulse, GraduationCap, Briefcase, Star } from "lucide-react";
+import { ShieldCheck, Mic, Award } from "lucide-react";
+import { Link } from "react-router-dom";
 import { AnimatedSection, StaggerContainer, StaggerItem } from "@/components/AnimatedSection";
 import SectionLabel from "@/components/SectionLabel";
 
-const sectors = [
-  { icon: Building2, label: "Financiële sector" },
-  { icon: Landmark, label: "Overheid" },
-  { icon: HeartPulse, label: "Zorg" },
-  { icon: GraduationCap, label: "Onderwijs" },
-  { icon: Briefcase, label: "Zakelijke dienstverlening" },
-];
-
-const stats = [
-  { value: "500+", label: "Gecertificeerde medewerkers" },
-  { value: "40+", label: "Organisaties" },
-  { value: "4.8/5", label: "Gemiddelde beoordeling" },
-];
-
-const testimonials = [
+const pillars = [
   {
-    quote: "De AIGA training gaf ons team precies de kennis die we nodig hadden om verantwoord met AI om te gaan. Praktisch, helder en direct toepasbaar.",
-    name: "Marieke de Vries",
-    role: "HR-directeur",
-    org: "Financiële instelling",
+    icon: ShieldCheck,
+    title: "Wettelijk verplicht sinds februari 2025",
+    text: "De EU AI Act vereist aantoonbare AI-geletterdheid voor alle medewerkers die met AI werken. Onze training is hier specifiek op ontworpen.",
   },
   {
-    quote: "Eindelijk een training die niet over techniek gaat, maar over wat AI betekent voor onze dagelijkse werkprocessen. Een must voor elke organisatie.",
-    name: "Jan-Willem Bakker",
-    role: "Afdelingshoofd",
-    org: "Rijksoverheid",
+    icon: Mic,
+    title: "Ontwikkeld door een erkend AI-expert",
+    text: "Ferry Hoes spreekt maandelijks voor organisaties als a.s.r. Verzekeringen, VodafoneZiggo en meerdere Nederlandse Ministeries. De training komt rechtstreeks uit de praktijk.",
+  },
+  {
+    icon: Award,
+    title: "Audit-proof certificaat",
+    text: "Iedere deelnemer ontvangt een digitaal ondertekend AI Literacy Practitioner certificaat — deelbaar via LinkedIn en geldig als bewijs bij een audit.",
   },
 ];
 
@@ -36,61 +26,41 @@ const SocialProof = () => (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <AnimatedSection>
         <div className="text-center">
-          <SectionLabel text="SOCIAL PROOF" />
+          <SectionLabel text="WAAROM AIGA" />
           <h2 className="text-3xl sm:text-4xl font-display font-semibold text-foreground mt-2">
-            Vertrouwd door organisaties<br />
-            <span className="text-primary">in heel Nederland.</span>
+            Gebouwd op expertise.<br />
+            <span className="text-primary">Niet op beloften.</span>
           </h2>
         </div>
       </AnimatedSection>
 
-      {/* Sector icons */}
-      <AnimatedSection delay={0.1}>
-        <div className="flex flex-wrap justify-center gap-8 mt-12">
-          {sectors.map((s) => (
-            <div key={s.label} className="flex flex-col items-center gap-2 text-muted-foreground">
-              <div className="w-16 h-16 rounded-xl bg-card border border-border flex items-center justify-center neon-glow hover:border-primary/40 transition-all duration-300">
-                <s.icon size={28} className="text-primary/70" />
-              </div>
-              <span className="text-xs">{s.label}</span>
-            </div>
-          ))}
-        </div>
-      </AnimatedSection>
-
-      {/* Stats */}
-      <StaggerContainer className="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-16">
-        {stats.map((s) => (
-          <StaggerItem key={s.label}>
-            <div className="text-center p-6 bg-card border border-border rounded-2xl neon-glow hover:border-primary/40 transition-all duration-300">
-              <span className="text-3xl font-mono font-bold neon-text">{s.value}</span>
-              <p className="text-sm text-muted-foreground mt-1">{s.label}</p>
-            </div>
-          </StaggerItem>
-        ))}
-      </StaggerContainer>
-
-      {/* Testimonials */}
-      <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-12">
-        {testimonials.map((t) => (
-          <StaggerItem key={t.name}>
+      <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-16">
+        {pillars.map((p) => (
+          <StaggerItem key={p.title}>
             <div className="bg-card border border-border rounded-2xl p-8 hover:border-primary/40 neon-glow transition-all duration-300 h-full flex flex-col">
-              <div className="flex gap-1 mb-4">
-                {Array.from({ length: 5 }).map((_, i) => (
-                  <Star key={i} size={16} className="fill-primary text-primary" />
-                ))}
+              <div className="w-12 h-12 rounded-xl bg-accent flex items-center justify-center mb-5">
+                <p.icon size={24} className="text-primary" />
               </div>
-              <blockquote className="text-foreground leading-relaxed flex-1 italic">
-                "{t.quote}"
-              </blockquote>
-              <div className="mt-6 pt-4 border-t border-border">
-                <p className="text-sm font-semibold text-foreground">{t.name}</p>
-                <p className="text-xs text-muted-foreground">{t.role}, {t.org}</p>
-              </div>
+              <h3 className="text-lg font-display font-semibold text-foreground mb-2">{p.title}</h3>
+              <p className="text-muted-foreground text-sm leading-relaxed">{p.text}</p>
             </div>
           </StaggerItem>
         ))}
       </StaggerContainer>
+
+      <AnimatedSection delay={0.3}>
+        <p className="text-center text-sm text-muted-foreground mt-12">
+          Benieuwd of dit past bij jouw organisatie?{" "}
+          <Link to="/contact" className="text-primary underline underline-offset-4 hover:text-primary/80 transition-colors">
+            Offerte aanvragen
+          </Link>{" "}
+          of{" "}
+          <Link to="/risicoscan" className="text-primary underline underline-offset-4 hover:text-primary/80 transition-colors">
+            doe de scan
+          </Link>
+          .
+        </p>
+      </AnimatedSection>
     </div>
   </section>
 );
