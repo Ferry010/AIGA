@@ -59,6 +59,7 @@ const AppContent = () => {
         </Routes>
       </main>
       {!isQuizActive && !isAdminActive && <Footer />}
+      <CookieBanner />
     </>
   );
 };
