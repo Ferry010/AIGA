@@ -21,7 +21,7 @@ const Training = () => (
   <div className="min-h-screen">
     <SEO
       title="AI-Geletterdheid Training voor Teams | AIGA"
-      description="Online AI Act training met certificaat. Vanaf 10 medewerkers. Selfpaced, audit-proof en direct inzetbaar. Voldoe aan de EU AI Act."
+      description="Online AI Act training met certificaat. Selfpaced, audit-proof en direct inzetbaar. Voldoe aan de EU AI Act."
       canonical="/training"
       jsonLd={{
         "@context": "https://schema.org",
@@ -78,7 +78,7 @@ const Training = () => (
           {[
             "Zelfstandig en in eigen tempo te volgen",
             "Adaptief examen aan het einde",
-            "Vanaf 10 deelnemers",
+            "Geschikt voor teams van elke omvang",
             "Certificering: AI Literacy Practitioner (digitaal ondertekend en audit-proof)",
             "Kosten: 249,- (ex BTW) per deelnemer",
           ].map((item) => (

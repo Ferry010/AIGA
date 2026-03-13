@@ -50,7 +50,7 @@ const Masterclass = () => {
             </p>
             <p className="mt-4 text-sm text-muted-foreground">Gegeven door Ferry Hoes, AI-expert en keynote spreker</p>
             <div className="mt-4 flex flex-wrap gap-4 text-sm text-muted-foreground">
-              <span className="px-3 py-1 rounded-full border border-neon-purple/30 bg-card">Minimaal 10 deelnemers</span>
+              <span className="px-3 py-1 rounded-full border border-neon-purple/30 bg-card">Op locatie of online</span>
               <span className="px-3 py-1 rounded-full border border-neon-purple/30 bg-card">Prijs op aanvraag</span>
               <span className="px-3 py-1 rounded-full border border-neon-purple/30 bg-card neon-text font-semibold">Gratis bij 50+ training seats</span>
             </div>

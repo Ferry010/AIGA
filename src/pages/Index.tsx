@@ -13,7 +13,7 @@ const Index = () => {
     <div className="min-h-screen">
       <SEO
         title="AIGA - AI Geletterdheid Academy | AI Act Training"
-        description="Maak jouw team AI-geletterd en compliant met de EU AI Act. Gecertificeerde online training vanaf 10 medewerkers. Audit-proof certificaat inbegrepen."
+        description="Maak jouw team AI-geletterd en compliant met de EU AI Act. Gecertificeerde online training met audit-proof certificaat inbegrepen."
         canonical="/"
         jsonLd={{
           "@context": "https://schema.org",
@@ -184,7 +184,7 @@ const Index = () => {
                 <div className="neon-inner bg-background rounded-2xl p-8 sm:p-10 h-full flex flex-col">
                   <span className="text-xs font-medium uppercase tracking-[0.08em] neon-text mb-2">ONLINE TRAINING</span>
                   <h3 className="text-xl font-semibold text-foreground">AI-Geletterdheid voor teams</h3>
-                  <p className="text-sm text-muted-foreground mt-1">Vanaf 10 deelnemers</p>
+                  <p className="text-sm text-muted-foreground mt-1">Online training met certificaat</p>
                   <p className="text-2xl font-bold text-foreground mt-4">249,- <span className="text-sm font-normal text-muted-foreground">per deelnemer (ex BTW)</span></p>
                   <ul className="space-y-2 mt-6 mb-8 flex-1">
                     {[
