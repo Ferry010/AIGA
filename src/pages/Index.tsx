@@ -5,6 +5,7 @@ import SectionLabel from "@/components/SectionLabel";
 import { motion } from "framer-motion";
 import trainingVideo from "@/assets/AI-Geletterdheid-Homepage-scaled-1.webm";
 import TrainerSection from "@/components/TrainerSection";
+import SEO from "@/components/SEO";
 
 const Index = () => {
 
