@@ -150,8 +150,9 @@ const ArticleDetail = () => {
   const showToc = wordCount >= 600 && headings.length >= 2;
   const isLegalCategory = article?.category === "Wetten en regels";
 
-  const publishedDate = article?.created_at ? new Date(article.created_at).toISOString() : "2025-01-15T00:00:00Z";
-  const modifiedDate = article?.updated_at ? new Date(article.updated_at).toISOString() : publishedDate;
+  const slugDate = article?.slug && SLUG_DATES[article.slug] ? SLUG_DATES[article.slug] + "T00:00:00Z" : null;
+  const publishedDate = slugDate || (article?.created_at ? new Date(article.created_at).toISOString() : "2025-01-15T00:00:00Z");
+  const modifiedDate = "2026-03-13T00:00:00Z";
 
   const formatDate = (iso: string) => {
     const d = new Date(iso);
