@@ -226,7 +226,7 @@ const Admin = () => {
                         <td className="py-3 px-2 font-mono text-foreground">{s.totaal_score}%</td>
                         <td className="py-3 px-2 text-foreground">{tierLabels[s.tier] || s.tier}</td>
                         <td className="py-3 px-2">
-                          <Checkbox checked={s.opgevolgd} onCheckedChange={() => toggleOpgevolgd(s.id, s.opgevol)} />
+                          <Checkbox checked={s.opgevolgd} onCheckedChange={() => toggleOpgevolgd(s.id, s.opgevolgd)} />
                         </td>
                       </tr>
                     );
