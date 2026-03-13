@@ -64,15 +64,11 @@ const Admin = () => {
 
   // Check auth + admin role
   useEffect(() => {
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
-      if (!session) {
-        setAuthenticated(false);
-        setCheckingAuth(false);
-        navigate("/admin/login");
-        return;
-      }
-      // Check admin role
-      const { data } = await supabase.rpc("has_role", { _user_id: session.user.id, _role: "admin" });
+    let cancelled = false;
+
+    const checkAdmin = async (userId: string) => {
+      const { data } = await supabase.rpc("has_role", { _user_id: userId, _role: "admin" });
+      if (cancelled) return;
       if (data) {
         setAuthenticated(true);
       } else {
@@ -80,11 +76,35 @@ const Admin = () => {
         navigate("/admin/login");
       }
       setCheckingAuth(false);
+    };
+
+    // Check current session first
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      if (cancelled) return;
+      if (!session) {
+        setAuthenticated(false);
+        setCheckingAuth(false);
+        navigate("/admin/login");
+        return;
+      }
+      checkAdmin(session.user.id);
     });
 
-    supabase.auth.getSession();
+    // Listen for future auth changes
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      if (!session) {
+        setAuthenticated(false);
+        setCheckingAuth(false);
+        navigate("/admin/login");
+        return;
+      }
+      checkAdmin(session.user.id);
+    });
 
-    return () => subscription.unsubscribe();
+    return () => {
+      cancelled = true;
+      subscription.unsubscribe();
+    };
   }, [navigate]);
 
   const fetchArticles = async () => {
