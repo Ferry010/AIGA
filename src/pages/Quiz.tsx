@@ -4,6 +4,7 @@ import { AnimatedSection } from "@/components/AnimatedSection";
 import SectionLabel from "@/components/SectionLabel";
 import { motion } from "framer-motion";
 import { supabase } from "@/integrations/supabase/client";
+import SEO from "@/components/SEO";
 
 const questions = [
   { q: "Hoeveel medewerkers in jouw organisatie gebruiken AI-tools zoals ChatGPT, Copilot of vergelijkbare software?", options: ["Niemand, voor zover ik weet", "Een handvol early adopters", "Een significant deel van de teams", "De meeste medewerkers, dagelijks"] },
