@@ -5,6 +5,7 @@ import { AnimatedSection, StaggerContainer, StaggerItem } from "@/components/Ani
 import SectionLabel from "@/components/SectionLabel";
 import { Badge } from "@/components/ui/badge";
 import { supabase } from "@/integrations/supabase/client";
+import SEO from "@/components/SEO";
 
 const categories = [
   "Alle",
