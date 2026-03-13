@@ -56,7 +56,7 @@ const Footer = () => (
         <p>&copy; 2026 AI Geletterdheid Academy</p>
         <div className="flex gap-4">
           <Link to="/privacyverklaring" className="hover:text-primary transition-colors">Privacyverklaring</Link>
-          <span className="hover:text-primary cursor-pointer">Licentie &amp; Gebruik</span>
+          <Link to="/licentie" className="hover:text-primary transition-colors">Licentie &amp; Gebruik</Link>
         </div>
       </div>
     </div>

@@ -53,6 +53,7 @@ const AppContent = () => {
           <Route path="/admin" element={<Admin />} />
           <Route path="/admin/login" element={<AdminLogin />} />
           <Route path="/privacyverklaring" element={<Privacyverklaring />} />
+          <Route path="/licentie" element={<Licentie />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
