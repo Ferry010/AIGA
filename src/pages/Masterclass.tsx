@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { AnimatedSection, StaggerContainer, StaggerItem } from "@/components/AnimatedSection";
 import SectionLabel from "@/components/SectionLabel";
+import SEO from "@/components/SEO";
 
 const takeaways = [
   "Een helder beeld van wat de AI Act concreet van jouw organisatie vraagt",
