@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { ArrowLeft, ArrowRight, ExternalLink } from "lucide-react";
 import ReactMarkdown from "react-markdown";
@@ -48,6 +48,17 @@ const ArticleDetail = () => {
   const [prevArticle, setPrevArticle] = useState<AdjacentArticle | null>(null);
   const [nextArticle, setNextArticle] = useState<AdjacentArticle | null>(null);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
+
+  const handleInternalLinkClick = useCallback((e: React.MouseEvent<HTMLElement>) => {
+    const anchor = (e.target as HTMLElement).closest("a");
+    if (!anchor) return;
+    const href = anchor.getAttribute("href");
+    if (href && (href.startsWith("/kenniscentrum") || href.startsWith("/training") || href.startsWith("/masterclass") || href.startsWith("/faq") || href.startsWith("/over-aiga") || href.startsWith("/contact") || href.startsWith("/risicoscan"))) {
+      e.preventDefault();
+      navigate(href);
+    }
+  }, [navigate]);
 
   useEffect(() => {
     if (!slug) return;
@@ -106,6 +117,11 @@ const ArticleDetail = () => {
       </div>
     );
   }
+
+  // Detect HTML vs Markdown content
+  const isHtmlContent = (text: string) => /^\s*<[a-z][\s\S]*>/i.test(text);
+  const articleContent = stripLeadingTitle(article.content || "Geen content beschikbaar.", article.title);
+
 
   // Normalize hero image URL for comparison (strip protocol + query params)
   const heroImgNorm = article.image_url
@@ -173,37 +189,36 @@ const ArticleDetail = () => {
             </div>
 
             {/* Article content */}
-            <article className="prose prose-lg max-w-none prose-headings:font-display prose-headings:text-foreground prose-p:text-muted-foreground prose-a:text-primary prose-strong:text-foreground prose-li:text-muted-foreground prose-blockquote:text-muted-foreground prose-blockquote:border-primary/30 prose-hr:border-border prose-img:rounded-xl">
-              <ReactMarkdown
-                remarkPlugins={[remarkGfm]}
-                components={{
-                  a: ({ href, children, ...props }) => {
-                    // Render internal links as React Router Links
-                    if (href && (href.startsWith("/kenniscentrum") || href.startsWith("/training") || href.startsWith("/masterclass") || href.startsWith("/faq") || href.startsWith("/over-aiga") || href.startsWith("/contact") || href.startsWith("/risicoscan"))) {
-                      return <Link to={href} className="text-primary hover:underline">{children}</Link>;
-                    }
-                    return <a href={href} target="_blank" rel="noopener noreferrer" {...props}>{children}</a>;
-                  },
-                  img: ({ src, alt, ...props }) => {
-                    if (src) {
-                      const srcNorm = src.replace(/^https?:\/\//, "").split("?")[0];
-                      if (srcNorm === heroImgNorm) return null;
-                    }
-                    return (
-                      <img
-                        src={src}
-                        alt={alt || ""}
-                        className="rounded-xl my-6 w-full"
-                        loading="lazy"
-                        {...props}
-                      />
-                    );
-                  },
-                }}
-              >
-                {stripLeadingTitle(article.content || "Geen content beschikbaar.", article.title)}
-              </ReactMarkdown>
-            </article>
+            {isHtmlContent(articleContent) ? (
+              <article
+                className="prose prose-lg max-w-none prose-headings:font-display prose-headings:text-foreground prose-p:text-muted-foreground prose-a:text-primary prose-strong:text-foreground prose-li:text-muted-foreground prose-blockquote:text-muted-foreground prose-blockquote:border-primary/30 prose-hr:border-border prose-img:rounded-xl"
+                dangerouslySetInnerHTML={{ __html: articleContent }}
+                onClick={handleInternalLinkClick}
+              />
+            ) : (
+              <article className="prose prose-lg max-w-none prose-headings:font-display prose-headings:text-foreground prose-p:text-muted-foreground prose-a:text-primary prose-strong:text-foreground prose-li:text-muted-foreground prose-blockquote:text-muted-foreground prose-blockquote:border-primary/30 prose-hr:border-border prose-img:rounded-xl">
+                <ReactMarkdown
+                  remarkPlugins={[remarkGfm]}
+                  components={{
+                    a: ({ href, children, ...props }) => {
+                      if (href && (href.startsWith("/kenniscentrum") || href.startsWith("/training") || href.startsWith("/masterclass") || href.startsWith("/faq") || href.startsWith("/over-aiga") || href.startsWith("/contact") || href.startsWith("/risicoscan"))) {
+                        return <Link to={href} className="text-primary hover:underline">{children}</Link>;
+                      }
+                      return <a href={href} target="_blank" rel="noopener noreferrer" {...props}>{children}</a>;
+                    },
+                    img: ({ src, alt, ...props }) => {
+                      if (src) {
+                        const srcNorm = src.replace(/^https?:\/\//, "").split("?")[0];
+                        if (srcNorm === heroImgNorm) return null;
+                      }
+                      return <img src={src} alt={alt || ""} className="rounded-xl my-6 w-full" loading="lazy" {...props} />;
+                    },
+                  }}
+                >
+                  {articleContent}
+                </ReactMarkdown>
+              </article>
+            )}
           </AnimatedSection>
 
           {/* Author bio card */}

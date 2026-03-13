@@ -5,7 +5,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Switch } from "@/components/ui/switch";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
+import RichTextEditor from "@/components/RichTextEditor";
 import { Label } from "@/components/ui/label";
 import { Pencil, Plus, X, LogOut } from "lucide-react";
 
@@ -351,12 +351,10 @@ const Admin = () => {
                 </div>
               </div>
               <div className="space-y-2">
-                <Label>Content (Markdown)</Label>
-                <Textarea
-                  value={form.content}
-                  onChange={(e) => setForm({ ...form, content: e.target.value })}
-                  placeholder="Schrijf hier de artikelcontent in Markdown..."
-                  className="min-h-[200px] font-mono text-sm"
+                <Label>Content</Label>
+                <RichTextEditor
+                  content={form.content}
+                  onChange={(html) => setForm({ ...form, content: html })}
                 />
               </div>
               <button
