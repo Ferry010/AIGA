@@ -183,7 +183,7 @@ const ArticleDetail = () => {
         title={`${article.title} | AIGA Kenniscentrum`}
         description={articleDescription}
         canonical={`/kenniscentrum/${article.slug}`}
-        ogImage={article.image_url}
+        ogImage={article.image_url || FALLBACK_IMAGE}
         ogType="article"
         articleMeta={{
           publishedTime: publishedDate,
@@ -196,7 +196,7 @@ const ArticleDetail = () => {
           "@type": "Article",
           headline: article.title,
           description: articleDescription,
-          image: article.image_url,
+          image: article.image_url || FALLBACK_IMAGE,
           datePublished: publishedDate,
           dateModified: modifiedDate,
           wordCount,
@@ -215,15 +215,6 @@ const ArticleDetail = () => {
           mainEntityOfPage: { "@type": "WebPage", "@id": `https://aiganl.lovable.app/kenniscentrum/${article.slug}` },
           inLanguage: "nl",
           about: { "@type": "Thing", name: "AI-geletterdheid" },
-        }}
-        breadcrumbJsonLd={{
-          "@context": "https://schema.org",
-          "@type": "BreadcrumbList",
-          itemListElement: [
-            { "@type": "ListItem", position: 1, name: "Home", item: "https://aiganl.lovable.app/" },
-            { "@type": "ListItem", position: 2, name: "Kenniscentrum", item: "https://aiganl.lovable.app/kenniscentrum" },
-            { "@type": "ListItem", position: 3, name: article.title, item: `https://aiganl.lovable.app/kenniscentrum/${article.slug}` },
-          ],
         }}
       />
 
