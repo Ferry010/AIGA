@@ -17,10 +17,12 @@ export type Database = {
       articles: {
         Row: {
           category: string
+          content: string | null
           created_at: string | null
           id: string
           image_url: string
           published: boolean | null
+          slug: string | null
           sort_order: number | null
           title: string
           updated_at: string | null
@@ -28,10 +30,12 @@ export type Database = {
         }
         Insert: {
           category: string
+          content?: string | null
           created_at?: string | null
           id?: string
           image_url: string
           published?: boolean | null
+          slug?: string | null
           sort_order?: number | null
           title: string
           updated_at?: string | null
@@ -39,10 +43,12 @@ export type Database = {
         }
         Update: {
           category?: string
+          content?: string | null
           created_at?: string | null
           id?: string
           image_url?: string
           published?: boolean | null
+          slug?: string | null
           sort_order?: number | null
           title?: string
           updated_at?: string | null
