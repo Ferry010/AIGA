@@ -6,7 +6,7 @@ const corsHeaders = {
     "authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version",
 };
 
-/** Very small HTML→Markdown converter for WordPress content */
+/** Improved HTML→Markdown converter for WordPress content */
 function htmlToMarkdown(html: string): string {
   let md = html;
 
@@ -14,11 +14,24 @@ function htmlToMarkdown(html: string): string {
   md = md.replace(/<script[\s\S]*?<\/script>/gi, "");
   md = md.replace(/<style[\s\S]*?<\/style>/gi, "");
 
-  // Headings
-  md = md.replace(/<h1[^>]*>([\s\S]*?)<\/h1>/gi, "\n# $1\n");
-  md = md.replace(/<h2[^>]*>([\s\S]*?)<\/h2>/gi, "\n## $1\n");
-  md = md.replace(/<h3[^>]*>([\s\S]*?)<\/h3>/gi, "\n### $1\n");
-  md = md.replace(/<h4[^>]*>([\s\S]*?)<\/h4>/gi, "\n#### $1\n");
+  // Remove WordPress-specific non-content elements (share buttons, related posts, etc.)
+  md = md.replace(/<div[^>]*class="[^"]*(?:sharedaddy|jp-relatedposts|post-nav|wp-block-buttons)[^"]*"[^>]*>[\s\S]*?<\/div>/gi, "");
+
+  // Convert <figure> with <img> and optional <figcaption>
+  md = md.replace(/<figure[^>]*>[\s\S]*?<img[^>]+src="([^"]*)"[^>]*(?:alt="([^"]*)")?[^>]*\/?>[\s\S]*?(?:<figcaption[^>]*>([\s\S]*?)<\/figcaption>)?[\s\S]*?<\/figure>/gi,
+    (_, src, alt, caption) => {
+      const altText = alt || caption || "";
+      return `\n![${altText}](${src})\n${caption ? `*${caption.replace(/<[^>]+>/g, "").trim()}*\n` : ""}`;
+    }
+  );
+
+  // Headings (handle attributes on tags)
+  md = md.replace(/<h1[^>]*>([\s\S]*?)<\/h1>/gi, "\n\n# $1\n\n");
+  md = md.replace(/<h2[^>]*>([\s\S]*?)<\/h2>/gi, "\n\n## $1\n\n");
+  md = md.replace(/<h3[^>]*>([\s\S]*?)<\/h3>/gi, "\n\n### $1\n\n");
+  md = md.replace(/<h4[^>]*>([\s\S]*?)<\/h4>/gi, "\n\n#### $1\n\n");
+  md = md.replace(/<h5[^>]*>([\s\S]*?)<\/h5>/gi, "\n\n##### $1\n\n");
+  md = md.replace(/<h6[^>]*>([\s\S]*?)<\/h6>/gi, "\n\n###### $1\n\n");
 
   // Bold / italic
   md = md.replace(/<(strong|b)>([\s\S]*?)<\/\1>/gi, "**$2**");
@@ -27,22 +40,28 @@ function htmlToMarkdown(html: string): string {
   // Links
   md = md.replace(/<a[^>]+href="([^"]*)"[^>]*>([\s\S]*?)<\/a>/gi, "[$2]($1)");
 
-  // Images
-  md = md.replace(/<img[^>]+src="([^"]*)"[^>]*alt="([^"]*)"[^>]*\/?>/gi, "![$2]($1)");
-  md = md.replace(/<img[^>]+src="([^"]*)"[^>]*\/?>/gi, "![]($1)");
+  // Images (standalone, not already handled by figure)
+  md = md.replace(/<img[^>]+src="([^"]*)"[^>]*alt="([^"]*)"[^>]*\/?>/gi, "\n![$2]($1)\n");
+  md = md.replace(/<img[^>]+src="([^"]*)"[^>]*\/?>/gi, "\n![]($1)\n");
 
-  // Lists
+  // Lists – handle nested lists by processing li first
   md = md.replace(/<li[^>]*>([\s\S]*?)<\/li>/gi, "- $1\n");
   md = md.replace(/<\/?[ou]l[^>]*>/gi, "\n");
 
   // Paragraphs & line breaks
   md = md.replace(/<br\s*\/?>/gi, "\n");
-  md = md.replace(/<p[^>]*>([\s\S]*?)<\/p>/gi, "\n$1\n");
+  md = md.replace(/<p[^>]*>([\s\S]*?)<\/p>/gi, "\n\n$1\n\n");
 
   // Blockquotes
   md = md.replace(/<blockquote[^>]*>([\s\S]*?)<\/blockquote>/gi, (_, content) =>
-    content.split("\n").map((l: string) => `> ${l}`).join("\n")
+    "\n" + content.replace(/<[^>]+>/g, "").split("\n").map((l: string) => `> ${l.trim()}`).join("\n") + "\n"
   );
+
+  // Horizontal rules
+  md = md.replace(/<hr[^>]*\/?>/gi, "\n---\n");
+
+  // Strip remaining div/span wrappers (WordPress uses lots of nested divs)
+  md = md.replace(/<\/?(div|span|section|aside|nav|header|footer)[^>]*>/gi, "\n");
 
   // Remove remaining HTML tags
   md = md.replace(/<[^>]+>/g, "");
@@ -54,9 +73,17 @@ function htmlToMarkdown(html: string): string {
   md = md.replace(/&quot;/g, '"');
   md = md.replace(/&#039;/g, "'");
   md = md.replace(/&nbsp;/g, " ");
+  md = md.replace(/&rsquo;/g, "'");
+  md = md.replace(/&lsquo;/g, "'");
+  md = md.replace(/&rdquo;/g, "\u201D");
+  md = md.replace(/&ldquo;/g, "\u201C");
+  md = md.replace(/&mdash;/g, "—");
+  md = md.replace(/&ndash;/g, "–");
+  md = md.replace(/&hellip;/g, "…");
 
-  // Clean up excessive whitespace
-  md = md.replace(/\n{3,}/g, "\n\n");
+  // Clean up excessive whitespace while preserving paragraph breaks
+  md = md.replace(/[ \t]+$/gm, ""); // trailing spaces
+  md = md.replace(/\n{3,}/g, "\n\n"); // max 2 newlines
   return md.trim();
 }
 
@@ -86,19 +113,15 @@ function extractContent(html: string): string {
 }
 
 function extractFeaturedImage(html: string): string | null {
-  // Try og:image meta tag first (most reliable for WordPress)
   const ogMatch = html.match(/<meta[^>]+property=["']og:image["'][^>]+content=["']([^"']+)["']/i);
   if (ogMatch?.[1]) return ogMatch[1];
 
-  // Try twitter:image
   const twitterMatch = html.match(/<meta[^>]+name=["']twitter:image["'][^>]+content=["']([^"']+)["']/i);
   if (twitterMatch?.[1]) return twitterMatch[1];
 
-  // Try WordPress featured image in post-thumbnail class
   const thumbMatch = html.match(/<div[^>]*class="[^"]*post-thumbnail[^"]*"[^>]*>[\s\S]*?<img[^>]+src=["']([^"']+)["']/i);
   if (thumbMatch?.[1]) return thumbMatch[1];
 
-  // Try first image in article
   const articleImgMatch = html.match(/<article[\s\S]*?<img[^>]+src=["']([^"']+)["']/i);
   if (articleImgMatch?.[1]) return articleImgMatch[1];
 
@@ -119,7 +142,6 @@ Deno.serve(async (req) => {
       });
     }
 
-    // Fetch the article page with browser-like headers
     const res = await fetch(url, {
       headers: {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
@@ -151,7 +173,6 @@ Deno.serve(async (req) => {
     const slug = extractSlug(url);
     const featuredImage = extractFeaturedImage(html);
 
-    // Save to database
     const supabase = createClient(
       Deno.env.get("SUPABASE_URL")!,
       Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!
