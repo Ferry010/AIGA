@@ -78,7 +78,7 @@ const Training = () => (
           {[
             "Zelfstandig en in eigen tempo te volgen",
             "Adaptief examen aan het einde",
-            "Vanaf 10 deelnemers",
+            "Geschikt voor teams van elke omvang",
             "Certificering: AI Literacy Practitioner (digitaal ondertekend en audit-proof)",
             "Kosten: 249,- (ex BTW) per deelnemer",
           ].map((item) => (
