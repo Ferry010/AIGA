@@ -19,6 +19,7 @@ import ArticleDetail from "./pages/ArticleDetail";
 import Admin from "./pages/Admin";
 import AdminLogin from "./pages/AdminLogin";
 import Privacyverklaring from "./pages/Privacyverklaring";
+import Licentie from "./pages/Licentie";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -52,6 +53,7 @@ const AppContent = () => {
           <Route path="/admin" element={<Admin />} />
           <Route path="/admin/login" element={<AdminLogin />} />
           <Route path="/privacyverklaring" element={<Privacyverklaring />} />
+          <Route path="/licentie" element={<Licentie />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
