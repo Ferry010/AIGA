@@ -21,7 +21,7 @@ const Training = () => (
   <div className="min-h-screen">
     <SEO
       title="AI-Geletterdheid Training voor Teams | AIGA"
-      description="Online AI Act training met certificaat. Vanaf 10 medewerkers. Selfpaced, audit-proof en direct inzetbaar. Voldoe aan de EU AI Act."
+      description="Online AI Act training met certificaat. Selfpaced, audit-proof en direct inzetbaar. Voldoe aan de EU AI Act."
       canonical="/training"
       jsonLd={{
         "@context": "https://schema.org",
