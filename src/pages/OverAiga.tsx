@@ -1,6 +1,7 @@
 import { AnimatedSection, StaggerContainer, StaggerItem } from "@/components/AnimatedSection";
 import SectionLabel from "@/components/SectionLabel";
 import TrainerSection from "@/components/TrainerSection";
+import SEO from "@/components/SEO";
 
 const OverAiga = () => (
   <div className="min-h-screen">
