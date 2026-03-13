@@ -287,10 +287,15 @@ const Admin = () => {
         {/* ─── Artikelen Tab ─── */}
         <TabsContent value="artikelen">
           <div className="flex items-center justify-between mb-6">
-            <p className="text-sm text-muted-foreground">{articles.length} artikelen</p>
-            <button onClick={openNewForm} className="flex items-center gap-2 bg-primary text-primary-foreground rounded-lg px-4 py-2 text-sm font-medium">
-              <Plus size={16} /> Nieuw artikel
-            </button>
+            <p className="text-sm text-muted-foreground">{articles.length} artikelen · {articles.filter(a => a.content).length} geïmporteerd</p>
+            <div className="flex gap-2">
+              <button onClick={importAll} className="flex items-center gap-2 bg-card border border-border text-foreground rounded-lg px-4 py-2 text-sm font-medium hover:border-primary/40 transition-colors">
+                Importeer alles
+              </button>
+              <button onClick={openNewForm} className="flex items-center gap-2 bg-primary text-primary-foreground rounded-lg px-4 py-2 text-sm font-medium">
+                <Plus size={16} /> Nieuw artikel
+              </button>
+            </div>
           </div>
 
           {showForm && (
