@@ -24,7 +24,7 @@ const Footer = () => (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
       <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
         <div>
-          <span className="text-xl font-display font-bold text-primary">AIGA</span>
+          <span className="text-xl font-display font-bold neon-text">AIGA</span>
           <p className="text-sm text-muted-foreground mt-1">AI Geletterdheid Academy</p>
           <p className="text-sm text-muted-foreground mt-4 leading-relaxed">
             AI-geletterdheid die blijft hangen. Online, schaalbaar en compliant.
