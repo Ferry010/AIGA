@@ -5,6 +5,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Switch } from "@/components/ui/switch";
 import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Pencil, Plus, X, LogOut } from "lucide-react";
 
@@ -48,7 +49,7 @@ const tierLabels: Record<string, string> = {
   laag_risico: "Laag risico",
 };
 
-const emptyArticleForm = { title: "", category: CATEGORIES[0], url: "", image_url: "", published: true, sort_order: 0 };
+const emptyArticleForm = { title: "", category: CATEGORIES[0], url: "", image_url: "", published: true, sort_order: 0, content: "", slug: "" };
 
 const Admin = () => {
   const navigate = useNavigate();
@@ -146,7 +147,7 @@ const Admin = () => {
 
   const openEditForm = (a: Article) => {
     setEditingId(a.id);
-    setForm({ title: a.title, category: a.category, url: a.url, image_url: a.image_url, published: a.published, sort_order: a.sort_order });
+    setForm({ title: a.title, category: a.category, url: a.url, image_url: a.image_url, published: a.published, sort_order: a.sort_order, content: a.content || "", slug: a.slug || "" });
     setShowForm(true);
   };
 
@@ -156,13 +157,23 @@ const Admin = () => {
     setForm(emptyArticleForm);
   };
 
+  const generateSlug = (title: string) =>
+    title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+
   const handleSave = async () => {
     if (!form.title || !form.url || !form.image_url) return;
     setSaving(true);
+    const slug = form.slug || (form.content ? generateSlug(form.title) : null);
+    const payload = {
+      ...form,
+      content: form.content || null,
+      slug,
+      updated_at: new Date().toISOString(),
+    };
     if (editingId) {
-      await supabase.from("articles").update({ ...form, updated_at: new Date().toISOString() }).eq("id", editingId);
+      await supabase.from("articles").update(payload).eq("id", editingId);
     } else {
-      await supabase.from("articles").insert([form]);
+      await supabase.from("articles").insert([payload]);
     }
     await fetchArticles();
     closeForm();
@@ -328,6 +339,10 @@ const Admin = () => {
                   <Input value={form.image_url} onChange={(e) => setForm({ ...form, image_url: e.target.value })} placeholder="https://..." />
                 </div>
                 <div className="space-y-2">
+                  <Label>Slug (URL-pad)</Label>
+                  <Input value={form.slug} onChange={(e) => setForm({ ...form, slug: e.target.value })} placeholder="bijv. ai-act-samenvatting" />
+                </div>
+                <div className="space-y-2">
                   <Label>Volgorde</Label>
                   <Input type="number" value={form.sort_order} onChange={(e) => setForm({ ...form, sort_order: parseInt(e.target.value) || 0 })} />
                 </div>
@@ -335,6 +350,15 @@ const Admin = () => {
                   <Switch checked={form.published} onCheckedChange={(v) => setForm({ ...form, published: v })} />
                   <Label>Gepubliceerd</Label>
                 </div>
+              </div>
+              <div className="space-y-2">
+                <Label>Content (Markdown)</Label>
+                <Textarea
+                  value={form.content}
+                  onChange={(e) => setForm({ ...form, content: e.target.value })}
+                  placeholder="Schrijf hier de artikelcontent in Markdown..."
+                  className="min-h-[200px] font-mono text-sm"
+                />
               </div>
               <button
                 onClick={handleSave}
