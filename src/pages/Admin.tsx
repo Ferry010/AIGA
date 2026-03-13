@@ -160,10 +160,16 @@ const Admin = () => {
   const handleSave = async () => {
     if (!form.title || !form.url || !form.image_url) return;
     setSaving(true);
+    const payload = {
+      ...form,
+      content: form.content || null,
+      slug: form.slug || null,
+      updated_at: new Date().toISOString(),
+    };
     if (editingId) {
-      await supabase.from("articles").update({ ...form, updated_at: new Date().toISOString() }).eq("id", editingId);
+      await supabase.from("articles").update(payload).eq("id", editingId);
     } else {
-      await supabase.from("articles").insert([form]);
+      await supabase.from("articles").insert([payload]);
     }
     await fetchArticles();
     closeForm();
