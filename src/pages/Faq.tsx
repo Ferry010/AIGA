@@ -1,6 +1,7 @@
 import { AnimatedSection } from "@/components/AnimatedSection";
 import SectionLabel from "@/components/SectionLabel";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import SEO from "@/components/SEO";
 
 const faqItems = [
   {
