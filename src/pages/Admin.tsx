@@ -335,6 +335,10 @@ const Admin = () => {
                   <Input value={form.image_url} onChange={(e) => setForm({ ...form, image_url: e.target.value })} placeholder="https://..." />
                 </div>
                 <div className="space-y-2">
+                  <Label>Slug (URL-pad)</Label>
+                  <Input value={form.slug} onChange={(e) => setForm({ ...form, slug: e.target.value })} placeholder="bijv. ai-act-samenvatting" />
+                </div>
+                <div className="space-y-2">
                   <Label>Volgorde</Label>
                   <Input type="number" value={form.sort_order} onChange={(e) => setForm({ ...form, sort_order: parseInt(e.target.value) || 0 })} />
                 </div>
@@ -342,6 +346,15 @@ const Admin = () => {
                   <Switch checked={form.published} onCheckedChange={(v) => setForm({ ...form, published: v })} />
                   <Label>Gepubliceerd</Label>
                 </div>
+              </div>
+              <div className="space-y-2">
+                <Label>Content (Markdown)</Label>
+                <Textarea
+                  value={form.content}
+                  onChange={(e) => setForm({ ...form, content: e.target.value })}
+                  placeholder="Schrijf hier de artikelcontent in Markdown..."
+                  className="min-h-[200px] font-mono text-sm"
+                />
               </div>
               <button
                 onClick={handleSave}
