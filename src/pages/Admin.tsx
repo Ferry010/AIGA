@@ -38,6 +38,8 @@ interface Article {
   image_url: string;
   published: boolean;
   sort_order: number;
+  content: string | null;
+  slug: string | null;
 }
 
 const tierLabels: Record<string, string> = {
@@ -61,6 +63,7 @@ const Admin = () => {
   const [showForm, setShowForm] = useState(false);
   const [form, setForm] = useState(emptyArticleForm);
   const [saving, setSaving] = useState(false);
+  const [importing, setImporting] = useState<Record<string, boolean>>({});
 
   // Check auth + admin role
   useEffect(() => {
@@ -171,6 +174,30 @@ const Admin = () => {
     await supabase.from("articles").update({ published: !a.published, updated_at: new Date().toISOString() }).eq("id", a.id);
   };
 
+
+  const importArticle = async (a: Article) => {
+    setImporting((prev) => ({ ...prev, [a.id]: true }));
+    try {
+      const { data, error } = await supabase.functions.invoke("scrape-article", {
+        body: { article_id: a.id, url: a.url },
+      });
+      if (error) throw error;
+      if (data?.success) {
+        await fetchArticles();
+      }
+    } catch (e) {
+      console.error("Import failed:", e);
+    }
+    setImporting((prev) => ({ ...prev, [a.id]: false }));
+  };
+
+  const importAll = async () => {
+    const toImport = articles.filter((a) => !a.content);
+    for (const a of toImport) {
+      await importArticle(a);
+    }
+  };
+
   if (checkingAuth) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-background">
@@ -260,10 +287,15 @@ const Admin = () => {
         {/* ─── Artikelen Tab ─── */}
         <TabsContent value="artikelen">
           <div className="flex items-center justify-between mb-6">
-            <p className="text-sm text-muted-foreground">{articles.length} artikelen</p>
-            <button onClick={openNewForm} className="flex items-center gap-2 bg-primary text-primary-foreground rounded-lg px-4 py-2 text-sm font-medium">
-              <Plus size={16} /> Nieuw artikel
-            </button>
+            <p className="text-sm text-muted-foreground">{articles.length} artikelen · {articles.filter(a => a.content).length} geïmporteerd</p>
+            <div className="flex gap-2">
+              <button onClick={importAll} className="flex items-center gap-2 bg-card border border-border text-foreground rounded-lg px-4 py-2 text-sm font-medium hover:border-primary/40 transition-colors">
+                Importeer alles
+              </button>
+              <button onClick={openNewForm} className="flex items-center gap-2 bg-primary text-primary-foreground rounded-lg px-4 py-2 text-sm font-medium">
+                <Plus size={16} /> Nieuw artikel
+              </button>
+            </div>
           </div>
 
           {showForm && (
@@ -317,13 +349,14 @@ const Admin = () => {
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="border-b border-border text-left">
-                  <th className="py-3 px-2 text-muted-foreground font-medium">#</th>
-                  <th className="py-3 px-2 text-muted-foreground font-medium">Titel</th>
-                  <th className="py-3 px-2 text-muted-foreground font-medium">Categorie</th>
-                  <th className="py-3 px-2 text-muted-foreground font-medium">Gepubliceerd</th>
-                  <th className="py-3 px-2 text-muted-foreground font-medium"></th>
-                </tr>
+                 <tr className="border-b border-border text-left">
+                   <th className="py-3 px-2 text-muted-foreground font-medium">#</th>
+                   <th className="py-3 px-2 text-muted-foreground font-medium">Titel</th>
+                   <th className="py-3 px-2 text-muted-foreground font-medium">Categorie</th>
+                   <th className="py-3 px-2 text-muted-foreground font-medium">Content</th>
+                   <th className="py-3 px-2 text-muted-foreground font-medium">Gepubliceerd</th>
+                   <th className="py-3 px-2 text-muted-foreground font-medium"></th>
+                 </tr>
               </thead>
               <tbody>
                 {articles.map((a) => (
@@ -331,14 +364,27 @@ const Admin = () => {
                     <td className="py-3 px-2 text-muted-foreground font-mono">{a.sort_order}</td>
                     <td className="py-3 px-2 text-foreground max-w-xs truncate">{a.title}</td>
                     <td className="py-3 px-2 text-foreground">{a.category}</td>
-                    <td className="py-3 px-2">
-                      <Switch checked={a.published} onCheckedChange={() => togglePublished(a)} />
-                    </td>
-                    <td className="py-3 px-2">
-                      <button onClick={() => openEditForm(a)} className="text-muted-foreground hover:text-primary">
-                        <Pencil size={16} />
-                      </button>
-                    </td>
+                     <td className="py-3 px-2">
+                       {a.content ? (
+                         <span className="text-xs text-green-400">✓ Geïmporteerd</span>
+                       ) : (
+                         <button
+                           onClick={() => importArticle(a)}
+                           disabled={importing[a.id]}
+                           className="text-xs text-primary hover:underline disabled:opacity-50"
+                         >
+                           {importing[a.id] ? "Bezig..." : "Importeer"}
+                         </button>
+                       )}
+                     </td>
+                     <td className="py-3 px-2">
+                       <Switch checked={a.published} onCheckedChange={() => togglePublished(a)} />
+                     </td>
+                     <td className="py-3 px-2">
+                       <button onClick={() => openEditForm(a)} className="text-muted-foreground hover:text-primary">
+                         <Pencil size={16} />
+                       </button>
+                     </td>
                   </tr>
                 ))}
               </tbody>

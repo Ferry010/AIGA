@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { ExternalLink } from "lucide-react";
 import { AnimatedSection, StaggerContainer, StaggerItem } from "@/components/AnimatedSection";
 import SectionLabel from "@/components/SectionLabel";
@@ -22,6 +23,8 @@ interface Article {
   category: string;
   url: string;
   image_url: string;
+  content: string | null;
+  slug: string | null;
 }
 
 const Kenniscentrum = () => {
@@ -32,7 +35,7 @@ const Kenniscentrum = () => {
   useEffect(() => {
     supabase
       .from("articles")
-      .select("id, title, category, url, image_url")
+      .select("id, title, category, url, image_url, content, slug")
       .eq("published", true)
       .order("sort_order", { ascending: true })
       .then(({ data }) => {
@@ -89,14 +92,10 @@ const Kenniscentrum = () => {
             <p className="text-muted-foreground">Laden...</p>
           ) : (
             <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {filtered.map((article) => (
-                <StaggerItem key={article.id}>
-                  <a
-                    href={article.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group bg-card border border-border rounded-2xl overflow-hidden hover:border-primary/40 neon-glow transition-all duration-300 flex flex-col h-full"
-                  >
+              {filtered.map((article) => {
+                const isImported = !!(article.content && article.slug);
+                const CardContent = (
+                  <>
                     <div className="aspect-video overflow-hidden bg-muted">
                       <img
                         src={article.image_url}
@@ -114,12 +113,34 @@ const Kenniscentrum = () => {
                       </h3>
                       <div className="flex items-center justify-between text-xs text-muted-foreground mt-auto pt-3 border-t border-border">
                         <span>Ferry Hoes</span>
-                        <ExternalLink size={14} className="text-primary opacity-0 group-hover:opacity-100 transition-opacity" />
+                        {!isImported && <ExternalLink size={14} className="text-primary opacity-0 group-hover:opacity-100 transition-opacity" />}
                       </div>
                     </div>
-                  </a>
-                </StaggerItem>
-              ))}
+                  </>
+                );
+
+                return (
+                  <StaggerItem key={article.id}>
+                    {isImported ? (
+                      <Link
+                        to={`/kenniscentrum/${article.slug}`}
+                        className="group bg-card border border-border rounded-2xl overflow-hidden hover:border-primary/40 neon-glow transition-all duration-300 flex flex-col h-full"
+                      >
+                        {CardContent}
+                      </Link>
+                    ) : (
+                      <a
+                        href={article.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="group bg-card border border-border rounded-2xl overflow-hidden hover:border-primary/40 neon-glow transition-all duration-300 flex flex-col h-full"
+                      >
+                        {CardContent}
+                      </a>
+                    )}
+                  </StaggerItem>
+                );
+              })}
             </StaggerContainer>
           )}
         </div>

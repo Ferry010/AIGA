@@ -14,6 +14,7 @@ import OverAiga from "./pages/OverAiga";
 import Contact from "./pages/Contact";
 import Quiz from "./pages/Quiz";
 import Faq from "./pages/Faq";
+import ArticleDetail from "./pages/ArticleDetail";
 import Admin from "./pages/Admin";
 import AdminLogin from "./pages/AdminLogin";
 import NotFound from "./pages/NotFound";
@@ -41,6 +42,7 @@ const AppContent = () => {
           <Route path="/training" element={<Training />} />
           <Route path="/masterclass" element={<Masterclass />} />
           <Route path="/kenniscentrum" element={<Kenniscentrum />} />
+          <Route path="/kenniscentrum/:slug" element={<ArticleDetail />} />
           <Route path="/over-aiga" element={<OverAiga />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/faq" element={<Faq />} />
