@@ -23,6 +23,8 @@ interface Article {
   category: string;
   url: string;
   image_url: string;
+  content: string | null;
+  slug: string | null;
 }
 
 const Kenniscentrum = () => {
