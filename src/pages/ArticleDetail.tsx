@@ -48,6 +48,17 @@ const ArticleDetail = () => {
   const [prevArticle, setPrevArticle] = useState<AdjacentArticle | null>(null);
   const [nextArticle, setNextArticle] = useState<AdjacentArticle | null>(null);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
+
+  const handleInternalLinkClick = useCallback((e: React.MouseEvent<HTMLElement>) => {
+    const anchor = (e.target as HTMLElement).closest("a");
+    if (!anchor) return;
+    const href = anchor.getAttribute("href");
+    if (href && (href.startsWith("/kenniscentrum") || href.startsWith("/training") || href.startsWith("/masterclass") || href.startsWith("/faq") || href.startsWith("/over-aiga") || href.startsWith("/contact") || href.startsWith("/risicoscan"))) {
+      e.preventDefault();
+      navigate(href);
+    }
+  }, [navigate]);
 
   useEffect(() => {
     if (!slug) return;
