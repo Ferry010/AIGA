@@ -143,6 +143,10 @@ const OverAiga = () => {
                 "a.s.r. Verzekeringen",
                 "VodafoneZiggo",
                 "Gemeente Eindhoven",
+                "GlaxoSmithKline",
+                "Avans Hogeschool",
+                "Vastgoed Nederland",
+                "FNV",
               ].map((item) => (
                 <li key={item} className="flex items-start gap-3 p-3 bg-card border border-border rounded-xl">
                   <span className="text-primary text-sm font-bold shrink-0">●</span>
