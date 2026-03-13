@@ -14,6 +14,7 @@ import OverAiga from "./pages/OverAiga";
 import Contact from "./pages/Contact";
 import Quiz from "./pages/Quiz";
 import Faq from "./pages/Faq";
+import ArticleDetail from "./pages/ArticleDetail";
 import Admin from "./pages/Admin";
 import AdminLogin from "./pages/AdminLogin";
 import NotFound from "./pages/NotFound";
