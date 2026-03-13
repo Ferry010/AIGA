@@ -49,7 +49,7 @@ const tierLabels: Record<string, string> = {
   laag_risico: "Laag risico",
 };
 
-const emptyArticleForm = { title: "", category: CATEGORIES[0], url: "", image_url: "", published: true, sort_order: 0 };
+const emptyArticleForm = { title: "", category: CATEGORIES[0], url: "", image_url: "", published: true, sort_order: 0, content: "", slug: "" };
 
 const Admin = () => {
   const navigate = useNavigate();
