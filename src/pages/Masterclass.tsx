@@ -126,23 +126,12 @@ const Masterclass = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection>
             <h2 className="text-3xl font-display font-semibold text-foreground text-center">
-              Individueel aanmelden of<br /><span className="text-primary">als managementteam?</span>
+              Aanmelden <span className="text-primary">als team</span>
             </h2>
           </AnimatedSection>
-          <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-12 max-w-3xl mx-auto">
+          <StaggerContainer className="mt-12 max-w-md mx-auto">
             <StaggerItem>
-              <div className="neon-border-lg h-full">
-                <div className="neon-inner bg-background rounded-2xl p-10 text-center h-full flex flex-col">
-                  <h3 className="text-lg font-semibold text-foreground mb-2">Open sessie</h3>
-                  <p className="text-sm text-muted-foreground mb-6 flex-1">Meld je individueel aan voor een geplande open sessie.</p>
-                  <Link to="#aanmelden" className="btn-neon py-3 rounded-lg">
-                    Bekijk data en meld je aan
-                  </Link>
-                </div>
-              </div>
-            </StaggerItem>
-            <StaggerItem>
-              <div className="bg-surface-2 border border-border rounded-2xl p-10 text-center h-full flex flex-col hover:border-neon-purple/40 neon-glow transition-all duration-300">
+              <div className="bg-surface-2 border border-border rounded-2xl p-10 text-center flex flex-col hover:border-neon-purple/40 neon-glow transition-all duration-300">
                 <h3 className="text-lg font-semibold text-foreground mb-2">Besloten sessie</h3>
                 <p className="text-sm text-muted-foreground mb-6 flex-1">Plan een exclusieve sessie voor jouw MT of directie. Op locatie of online, op een datum die jullie past.</p>
                 <Link to="#aanmelden" className="btn-neon-outline py-3 font-semibold">
