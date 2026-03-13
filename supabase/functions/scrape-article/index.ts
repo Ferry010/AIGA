@@ -206,7 +206,7 @@ Deno.serve(async (req) => {
       });
     }
 
-    const markdown = htmlToMarkdown(rawContent);
+    const markdown = stripBoilerplate(htmlToMarkdown(rawContent));
     const slug = extractSlug(url);
     const featuredImage = extractFeaturedImage(html);
 
