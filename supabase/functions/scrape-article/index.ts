@@ -99,12 +99,19 @@ Deno.serve(async (req) => {
       });
     }
 
-    // Fetch the article page
+    // Fetch the article page with browser-like headers
     const res = await fetch(url, {
-      headers: { "User-Agent": "Mozilla/5.0 (compatible; AIGABot/1.0)" },
+      headers: {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
+        "Accept-Language": "nl,en-US;q=0.7,en;q=0.3",
+        "Accept-Encoding": "identity",
+      },
+      redirect: "follow",
     });
     if (!res.ok) {
-      return new Response(JSON.stringify({ error: `Failed to fetch: ${res.status}` }), {
+      const body = await res.text();
+      return new Response(JSON.stringify({ error: `Failed to fetch: ${res.status}`, body: body.substring(0, 200) }), {
         status: 502,
         headers: { ...corsHeaders, "Content-Type": "application/json" },
       });

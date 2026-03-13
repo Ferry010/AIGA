@@ -1,0 +1,1 @@
+CREATE POLICY "Allow authenticated select" ON public.articles FOR SELECT TO authenticated USING (true);
