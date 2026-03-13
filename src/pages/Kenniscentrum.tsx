@@ -53,7 +53,7 @@ const Kenniscentrum = () => {
     <div className="min-h-screen">
       <SEO
         title="Kenniscentrum AI-Geletterdheid & AI Act | Artikelen | AIGA"
-        description="Artikelen over de AI Act, AI op de werkvloer en verantwoord AI-gebruik. Geschreven door AI-expert Ferry Hoes."
+        description="Artikelen, uitleg en achtergronden over AI-geletterdheid, de EU AI Act en verantwoord AI-gebruik. Geschreven door AI-expert Ferry Hoes."
         canonical="/kenniscentrum"
       />
       <BreadcrumbNav items={[{ label: "Home", href: "/" }, { label: "Kenniscentrum" }]} />

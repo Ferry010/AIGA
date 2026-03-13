@@ -53,6 +53,30 @@ function extractH2Headings(content: string): { id: string; text: string }[] {
 
 const FERRY_BIO = "Ferry Hoes is veelgevraagd spreker en trainer op het gebied van AI-geletterdheid. Hij staat meermaals per maand op het podium voor organisaties zoals a.s.r., VodafoneZiggo en verschillende ministeries. In 2020 won hij de Anti-Discriminatie AI-Hackathon van de Nederlandse overheid.";
 
+const SLUG_DATES: Record<string, string> = {
+  "ai-in-marketing-kansen-en-valkuilen": "2025-06-15",
+  "ai-act-compliance-checklist-kleine-bedrijven": "2025-06-01",
+  "veelgestelde-vragen-ai-act-audit": "2025-05-20",
+  "welke-ai-systemen-zijn-verboden": "2025-05-10",
+  "documentatie-eisen-eu-ai-act": "2025-05-01",
+  "ai-impact-assessment": "2025-04-20",
+  "ai-act-en-hr-wat-moet-je-als-hr-professional-weten": "2025-04-10",
+  "verschil-minimal-limited-high-risk-ai": "2025-04-01",
+  "eu-ai-act-uitgelegd": "2025-03-20",
+  "wat-zijn-high-risk-ai-systemen": "2025-03-10",
+  "ai-geletterdheid-uitgelegd": "2025-03-01",
+  "llms-generatieve-ai-geletterdheid": "2025-02-20",
+  "ai-trends-2025-ai-geletterdheid": "2025-02-10",
+  "ai-drift-chatgpt-voorkomen": "2025-02-01",
+  "ai-geletterdheid-voor-leiders": "2025-01-25",
+  "hoe-herken-je-ai-bias": "2025-01-20",
+  "5-ai-fouten-die-organisaties-maken": "2025-01-15",
+  "waarom-ai-geletterdheid-de-nieuwe-digitale-vaardigheid-is": "2025-01-10",
+  "wat-is-ai-geletterdheid": "2025-01-05",
+};
+
+const FALLBACK_IMAGE = "https://aiganl.lovable.app/assets/AIGA_transparent-CxHDVoMM.png";
+
 const EU_AI_ACT_SOURCES = [
   { label: "EUR-Lex — EU AI Act (Verordening 2024/1689)", url: "https://eur-lex.europa.eu/legal-content/NL/TXT/?uri=CELEX:32024R1689" },
   { label: "Rijksoverheid.nl — Kunstmatige Intelligentie", url: "https://www.rijksoverheid.nl/onderwerpen/kunstmatige-intelligentie-ai" },
@@ -126,8 +150,9 @@ const ArticleDetail = () => {
   const showToc = wordCount >= 600 && headings.length >= 2;
   const isLegalCategory = article?.category === "Wetten en regels";
 
-  const publishedDate = article?.created_at ? new Date(article.created_at).toISOString() : "2025-01-15T00:00:00Z";
-  const modifiedDate = article?.updated_at ? new Date(article.updated_at).toISOString() : publishedDate;
+  const slugDate = article?.slug && SLUG_DATES[article.slug] ? SLUG_DATES[article.slug] + "T00:00:00Z" : null;
+  const publishedDate = slugDate || (article?.created_at ? new Date(article.created_at).toISOString() : "2025-01-15T00:00:00Z");
+  const modifiedDate = "2026-03-13T00:00:00Z";
 
   const formatDate = (iso: string) => {
     const d = new Date(iso);
@@ -158,7 +183,7 @@ const ArticleDetail = () => {
         title={`${article.title} | AIGA Kenniscentrum`}
         description={articleDescription}
         canonical={`/kenniscentrum/${article.slug}`}
-        ogImage={article.image_url}
+        ogImage={article.image_url || FALLBACK_IMAGE}
         ogType="article"
         articleMeta={{
           publishedTime: publishedDate,
@@ -171,7 +196,7 @@ const ArticleDetail = () => {
           "@type": "Article",
           headline: article.title,
           description: articleDescription,
-          image: article.image_url,
+          image: article.image_url || FALLBACK_IMAGE,
           datePublished: publishedDate,
           dateModified: modifiedDate,
           wordCount,
@@ -190,15 +215,6 @@ const ArticleDetail = () => {
           mainEntityOfPage: { "@type": "WebPage", "@id": `https://aiganl.lovable.app/kenniscentrum/${article.slug}` },
           inLanguage: "nl",
           about: { "@type": "Thing", name: "AI-geletterdheid" },
-        }}
-        breadcrumbJsonLd={{
-          "@context": "https://schema.org",
-          "@type": "BreadcrumbList",
-          itemListElement: [
-            { "@type": "ListItem", position: 1, name: "Home", item: "https://aiganl.lovable.app/" },
-            { "@type": "ListItem", position: 2, name: "Kenniscentrum", item: "https://aiganl.lovable.app/kenniscentrum" },
-            { "@type": "ListItem", position: 3, name: article.title, item: `https://aiganl.lovable.app/kenniscentrum/${article.slug}` },
-          ],
         }}
       />
 

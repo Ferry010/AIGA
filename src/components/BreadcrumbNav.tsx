@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { ChevronRight } from "lucide-react";
-import SEO from "@/components/SEO";
+import { Helmet } from "react-helmet-async";
 
 interface BreadcrumbItem {
   label: string;
@@ -27,7 +27,9 @@ const BreadcrumbNav = ({ items }: BreadcrumbNavProps) => {
 
   return (
     <>
-      <SEO title="" description="" breadcrumbJsonLd={jsonLd} />
+      <Helmet>
+        <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
+      </Helmet>
       <nav aria-label="Breadcrumb" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-2">
         <ol className="flex flex-wrap items-center gap-1 text-sm text-muted-foreground">
           {items.map((item, i) => (

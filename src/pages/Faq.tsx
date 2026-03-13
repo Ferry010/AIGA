@@ -77,7 +77,7 @@ const Faq = () => (
   <div className="min-h-screen">
     <SEO
       title="Veelgestelde Vragen over AI-Geletterdheid & AI Act | AIGA"
-      description="Antwoorden op vragen over de AI Act, AI-geletterdheid certificering, trainingsinhoud en compliance. Alles wat je moet weten."
+      description="Antwoorden op veelgestelde vragen over AI-geletterdheid en de EU AI Act. Wat is verplicht, hoe werkt het certificaat en wat kost het?"
       canonical="/faq"
       jsonLd={{
         "@context": "https://schema.org",
