@@ -27,6 +27,18 @@ interface AdjacentArticle {
   image_url: string;
 }
 
+/** Strip leading H1 from markdown if it matches the article title (already shown above) */
+function stripLeadingTitle(content: string, title: string): string {
+  const titleNorm = title.toLowerCase().replace(/[^a-z0-9\s]/g, "").trim();
+  return content.replace(/^\s*#\s+\*{0,2}([^*\n]+)\*{0,2}\s*\n*/m, (match, heading) => {
+    const headingNorm = heading.toLowerCase().replace(/[^a-z0-9\s]/g, "").trim();
+    if (headingNorm === titleNorm || titleNorm.includes(headingNorm) || headingNorm.includes(titleNorm)) {
+      return "";
+    }
+    return match;
+  });
+}
+
 const FERRY_BIO =
   "Ferry Hoes is veelgevraagd spreker en trainer op het gebied van AI-geletterdheid. Hij staat meermaals per maand op het podium voor organisaties zoals a.s.r., VodafoneZiggo en verschillende ministeries. In 2020 won hij de Anti-Discriminatie AI-Hackathon van de Nederlandse overheid.";
 
@@ -183,7 +195,7 @@ const ArticleDetail = () => {
                   },
                 }}
               >
-                {article.content || "Geen content beschikbaar."}
+                {stripLeadingTitle(article.content || "Geen content beschikbaar.", article.title)}
               </ReactMarkdown>
             </article>
           </AnimatedSection>
