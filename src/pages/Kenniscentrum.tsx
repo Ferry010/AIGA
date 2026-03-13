@@ -5,6 +5,8 @@ import { AnimatedSection, StaggerContainer, StaggerItem } from "@/components/Ani
 import SectionLabel from "@/components/SectionLabel";
 import { Badge } from "@/components/ui/badge";
 import { supabase } from "@/integrations/supabase/client";
+import BreadcrumbNav from "@/components/BreadcrumbNav";
+import DefinitionBlock from "@/components/DefinitionBlock";
 import SEO from "@/components/SEO";
 
 const categories = [
@@ -50,12 +52,14 @@ const Kenniscentrum = () => {
   return (
     <div className="min-h-screen">
       <SEO
-        title="Kenniscentrum AI-Geletterdheid | AIGA"
+        title="Kenniscentrum AI-Geletterdheid & AI Act | Artikelen | AIGA"
         description="Artikelen over de AI Act, AI op de werkvloer en verantwoord AI-gebruik. Geschreven door AI-expert Ferry Hoes."
         canonical="/kenniscentrum"
       />
+      <BreadcrumbNav items={[{ label: "Home", href: "/" }, { label: "Kenniscentrum" }]} />
+
       {/* Hero */}
-      <section className="pt-32 pb-16">
+      <section className="pt-12 pb-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection>
             <SectionLabel text="KENNISCENTRUM" />
@@ -67,6 +71,11 @@ const Kenniscentrum = () => {
               Artikelen, uitleg en achtergronden over de AI Act, AI op de werkvloer en verantwoord AI-gebruik. Geschreven door Ferry Hoes.
             </p>
           </AnimatedSection>
+
+          <DefinitionBlock
+            term="Wat is AI-geletterdheid?"
+            definition="AI-geletterdheid is het vermogen van medewerkers om te begrijpen wat kunstmatige intelligentie is, hoe AI-systemen werken, welke risico's ze met zich meebrengen, en hoe ze AI op een veilige, verantwoorde en ethisch verantwoorde manier kunnen inzetten in hun dagelijks werk. Onder Artikel 4 van de EU AI Act (van kracht vanaf februari 2025) zijn organisaties in de EU verplicht om AI-geletterdheid te waarborgen voor alle medewerkers die met AI-systemen werken."
+          />
         </div>
       </section>
 

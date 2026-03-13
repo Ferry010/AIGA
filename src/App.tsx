@@ -21,6 +21,10 @@ import Admin from "./pages/Admin";
 import AdminLogin from "./pages/AdminLogin";
 import Privacyverklaring from "./pages/Privacyverklaring";
 import Licentie from "./pages/Licentie";
+import AiGeletterdheidNederland from "./pages/AiGeletterdheidNederland";
+import AiTrainingVoorBedrijven from "./pages/AiTrainingVoorBedrijven";
+import AiActComplianceNederland from "./pages/AiActComplianceNederland";
+import AiCursusMedewerkers from "./pages/AiCursusMedewerkers";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -51,6 +55,10 @@ const AppContent = () => {
           <Route path="/contact" element={<Contact />} />
           <Route path="/faq" element={<Faq />} />
           <Route path="/risicoscan" element={<Quiz />} />
+          <Route path="/ai-geletterdheid-nederland" element={<AiGeletterdheidNederland />} />
+          <Route path="/ai-training-voor-bedrijven" element={<AiTrainingVoorBedrijven />} />
+          <Route path="/ai-act-compliance-nederland" element={<AiActComplianceNederland />} />
+          <Route path="/ai-cursus-medewerkers" element={<AiCursusMedewerkers />} />
           <Route path="/admin" element={<Admin />} />
           <Route path="/admin/login" element={<AdminLogin />} />
           <Route path="/privacyverklaring" element={<Privacyverklaring />} />

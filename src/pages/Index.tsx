@@ -5,6 +5,8 @@ import SectionLabel from "@/components/SectionLabel";
 import { motion } from "framer-motion";
 import trainingVideo from "@/assets/AI-Geletterdheid-Homepage-scaled-1.webm";
 import TrainerSection from "@/components/TrainerSection";
+import SocialProof from "@/components/SocialProof";
+import DefinitionBlock from "@/components/DefinitionBlock";
 import SEO from "@/components/SEO";
 
 const Index = () => {
@@ -12,16 +14,24 @@ const Index = () => {
   return (
     <div className="min-h-screen">
       <SEO
-        title="AIGA - AI Geletterdheid Academy | AI Act Training"
-        description="Maak jouw team AI-geletterd en compliant met de EU AI Act. Gecertificeerde online training met audit-proof certificaat inbegrepen."
+        title="AI Geletterdheid Training Nederland | AIGA Academy | AI Act Compliant"
+        description="AIGA helpt Nederlandse organisaties voldoen aan de EU AI Act. Gecertificeerde online AI-geletterdheid training voor teams. Audit-proof certificaat. Vanaf 249,- per deelnemer."
         canonical="/"
         jsonLd={{
           "@context": "https://schema.org",
-          "@type": "Organization",
-          name: "AIGA - AI Geletterdheid Academy",
+          "@type": "EducationalOrganization",
+          name: "AIGA — AI Geletterdheid Academy",
+          alternateName: "AIGA",
           url: "https://aiganl.lovable.app",
-          description: "AI-geletterdheid training en certificering voor teams. Voldoe aan de EU AI Act.",
-          sameAs: [],
+          logo: "https://aiganl.lovable.app/assets/AIGA_transparent-CxHDVoMM.png",
+          description: "AIGA helpt Nederlandse organisaties te voldoen aan de EU AI Act door gecertificeerde AI-geletterdheid trainingen voor teams en leidinggevenden.",
+          areaServed: { "@type": "Country", name: "Nederland" },
+          telephone: "+31103167827",
+          email: "robbert@speakersacademy.nl",
+          foundingDate: "2024",
+          contactPoint: { "@type": "ContactPoint", telephone: "+31103167827", contactType: "sales", availableLanguage: "Dutch" },
+          sameAs: ["https://www.linkedin.com/company/aiga-nl"],
+          knowsAbout: ["AI-geletterdheid", "EU AI Act", "AI compliance", "AI training"],
         }}
       />
       {/* Hero */}
@@ -33,8 +43,14 @@ const Index = () => {
               Jouw team werkt al met AI.<br />
               <span className="neon-text">Weet iedereen wat dat betekent?</span>
             </h1>
+            <h2 className="text-xl sm:text-2xl font-display font-semibold text-primary mt-4">
+              De #1 AI Geletterdheid Training voor Nederlandse Organisaties
+            </h2>
             <p className="mt-6 text-lg text-muted-foreground max-w-2xl leading-relaxed">
               Sinds februari 2025 is AI-geletterdheid wettelijk verplicht voor organisaties in de EU. Wij helpen je team voldoen aan de AI Act, met een praktische online training en een digitaal certificaat dat telt bij een audit.
+            </p>
+            <p className="mt-4 text-muted-foreground max-w-2xl leading-relaxed">
+              Speciaal voor Nederlandse organisaties: onze training is volledig Nederlandstalig, gebaseerd op de vereisten van de EU AI Act zoals die in Nederland van toepassing zijn, en gevalideerd door AI-experts die dagelijks werken met Nederlandse bedrijven en overheidsinstellingen.
             </p>
             <div className="mt-8">
               <Link to="/training" className="btn-neon px-7 py-3.5 rounded-lg text-[15px]">
@@ -62,6 +78,15 @@ const Index = () => {
         </div>
       </AnimatedSection>
 
+      {/* Definition Block */}
+      <section className="py-12">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+          <DefinitionBlock
+            term="Wat is AI-geletterdheid?"
+            definition="AI-geletterdheid is het vermogen van medewerkers om te begrijpen wat kunstmatige intelligentie is, hoe AI-systemen werken, welke risico's ze met zich meebrengen, en hoe ze AI op een veilige, verantwoorde en ethisch verantwoorde manier kunnen inzetten in hun dagelijks werk. Onder Artikel 4 van de EU AI Act (van kracht vanaf februari 2025) zijn organisaties in de EU verplicht om AI-geletterdheid te waarborgen voor alle medewerkers die met AI-systemen werken."
+          />
+        </div>
+      </section>
 
       {/* Problem section */}
       <section className="py-24">
@@ -148,6 +173,9 @@ const Index = () => {
           </StaggerContainer>
         </div>
       </section>
+
+      {/* Social Proof */}
+      <SocialProof />
 
       {/* Risico-scan CTA */}
       <section className="py-24 bg-brand-dim border-y border-primary/10">
