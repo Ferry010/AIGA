@@ -203,8 +203,7 @@ const Admin = () => {
   };
 
   const importAll = async () => {
-    const toImport = articles.filter((a) => !a.content);
-    for (const a of toImport) {
+    for (const a of articles) {
       await importArticle(a);
     }
   };
