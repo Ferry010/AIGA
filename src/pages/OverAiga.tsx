@@ -133,16 +133,16 @@ const OverAiga = () => {
           <AnimatedSection>
             <SectionLabel text="KEYNOTES & MEDIA" />
             <h2 className="text-2xl font-display font-semibold text-foreground mt-2 mb-6">
-              Recente optredens
+              Recente opdrachtgevers
             </h2>
+            <p className="text-muted-foreground leading-relaxed mb-6">
+              Ferry verzorgt regelmatig keynotes, workshops en trainingen voor uiteenlopende organisaties in Nederland. Recente opdrachtgevers zijn onder meer:
+            </p>
             <ul className="space-y-3 text-muted-foreground">
               {[
-                "Keynote: a.s.r. Verzekeringen — AI-geletterdheid voor de financiële sector",
-                "Keynote: VodafoneZiggo — Verantwoord AI-gebruik in telecom",
-                "Masterclass: Ministerie van Binnenlandse Zaken — AI Act compliance",
-                "Spreker: AI & Ethics Conference Amsterdam 2025",
-                "Workshop: MKB Nederland — AI-risicobeheer voor ondernemers",
-                "Gastcollege: Universiteit van Amsterdam — AI-geletterdheid in het onderwijs",
+                "a.s.r. Verzekeringen",
+                "VodafoneZiggo",
+                "Gemeente Eindhoven",
               ].map((item) => (
                 <li key={item} className="flex items-start gap-3 p-3 bg-card border border-border rounded-xl">
                   <span className="text-primary text-sm font-bold shrink-0">●</span>
