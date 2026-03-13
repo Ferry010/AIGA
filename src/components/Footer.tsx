@@ -54,9 +54,8 @@ const Footer = () => (
       </div>
       <div className="border-t border-border mt-12 pt-8 flex flex-col sm:flex-row justify-between gap-4 text-xs text-muted-foreground">
         <p>&copy; 2026 AI Geletterdheid Academy</p>
-        <p>&copy; 2026 AI Geletterdheid Academy</p>
         <div className="flex gap-4">
-          <span className="hover:text-primary cursor-pointer">Privacyverklaring</span>
+          <Link to="/privacyverklaring" className="hover:text-primary transition-colors">Privacyverklaring</Link>
           <span className="hover:text-primary cursor-pointer">Licentie &amp; Gebruik</span>
         </div>
       </div>

@@ -51,6 +51,7 @@ const AppContent = () => {
           <Route path="/risicoscan" element={<Quiz />} />
           <Route path="/admin" element={<Admin />} />
           <Route path="/admin/login" element={<AdminLogin />} />
+          <Route path="/privacyverklaring" element={<Privacyverklaring />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
