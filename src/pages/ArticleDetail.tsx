@@ -7,6 +7,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { AnimatedSection } from "@/components/AnimatedSection";
 import { Badge } from "@/components/ui/badge";
 import ferryImg from "@/assets/ferry-hoes.gif";
+import SEO from "@/components/SEO";
 
 interface Article {
   id: string;
