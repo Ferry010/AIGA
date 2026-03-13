@@ -18,6 +18,7 @@ import Faq from "./pages/Faq";
 import ArticleDetail from "./pages/ArticleDetail";
 import Admin from "./pages/Admin";
 import AdminLogin from "./pages/AdminLogin";
+import Privacyverklaring from "./pages/Privacyverklaring";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
