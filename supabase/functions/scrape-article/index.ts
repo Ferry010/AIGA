@@ -87,6 +87,43 @@ function htmlToMarkdown(html: string): string {
   return md.trim();
 }
 
+/** Strip recurring boilerplate sections from converted markdown */
+function stripBoilerplate(md: string): string {
+  let clean = md;
+
+  // Remove "Over de auteur" blocks (everything from heading to next ## or end)
+  clean = clean.replace(/#{1,3}\s*Over de auteur[\s\S]*?(?=\n##\s|$)/gi, "");
+
+  // Remove "Meer weten" / "Lees ook" blocks with 👉 links
+  clean = clean.replace(/\*{0,2}Meer weten over[^*]*?\*{0,2}[\s\S]*?(?=\n##\s|\n\n(?!👉|Of ))/gi, "");
+  // Catch remaining orphaned 👉 lines
+  clean = clean.replace(/^👉\s*\[.*?\]\(.*?\)\s*$/gm, "");
+  clean = clean.replace(/^Of ontdek\b.*$/gm, "");
+
+  // Remove "Klaar om AI-Geletterd te worden?" sections
+  clean = clean.replace(/#{1,3}\s*Klaar om AI-Geletterd te worden\?[\s\S]*?(?=\n##\s|$)/gi, "");
+
+  // Remove "Waarom bij ons?" sections
+  clean = clean.replace(/#{1,3}\s*Waarom bij ons\?[\s\S]*?(?=\n##\s|$)/gi, "");
+
+  // Remove Ferry's author photo
+  clean = clean.replace(/!\[.*?\]\([^)]*1748602831893[^)]*\)/g, "");
+
+  // Remove CTA form remnants
+  clean = clean.replace(/Verstuur.*?nogmaals\.\s*×?/gs, "");
+  clean = clean.replace(/Bedankt voor uw verzoek[^×]*×/g, "");
+  clean = clean.replace(/Er ging iets fout[^×]*×/g, "");
+  clean = clean.replace(/Laat je gegevens achter en we nemen direct contact.*?voordeel\./gs, "");
+  clean = clean.replace(/Samen zorgen we dat jouw organisatie.*?voordeel\./gs, "");
+
+  // Remove Ferry op Linkedin links
+  clean = clean.replace(/\[Ferry op Linkedin\]\([^)]*\)/g, "");
+
+  // Clean up excessive whitespace
+  clean = clean.replace(/\n{3,}/g, "\n\n");
+  return clean.trim();
+}
+
 function extractSlug(url: string): string {
   const path = new URL(url).pathname.replace(/^\/|\/$/g, "");
   return path.split("/").pop() || path;
@@ -169,7 +206,7 @@ Deno.serve(async (req) => {
       });
     }
 
-    const markdown = htmlToMarkdown(rawContent);
+    const markdown = stripBoilerplate(htmlToMarkdown(rawContent));
     const slug = extractSlug(url);
     const featuredImage = extractFeaturedImage(html);
 
