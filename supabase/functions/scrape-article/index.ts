@@ -14,7 +14,7 @@ function htmlToMarkdown(html: string): string {
   md = md.replace(/<script[\s\S]*?<\/script>/gi, "");
   md = md.replace(/<style[\s\S]*?<\/style>/gi, "");
 
-  // Remove WordPress-specific non-content elements (share buttons, related posts, etc.)
+  // Remove WordPress-specific non-content elements
   md = md.replace(/<div[^>]*class="[^"]*(?:sharedaddy|jp-relatedposts|post-nav|wp-block-buttons)[^"]*"[^>]*>[\s\S]*?<\/div>/gi, "");
 
   // Convert <figure> with <img> and optional <figcaption>
@@ -24,6 +24,13 @@ function htmlToMarkdown(html: string): string {
       return `\n![${altText}](${src})\n${caption ? `*${caption.replace(/<[^>]+>/g, "").trim()}*\n` : ""}`;
     }
   );
+
+  // *** FIX: Strip <p> tags inside <li> BEFORE general <p> conversion ***
+  md = md.replace(/<li[^>]*>([\s\S]*?)<\/li>/gi, (_, inner) => {
+    // Remove <p>...</p> wrappers inside list items, keep content inline
+    const cleaned = inner.replace(/<\/?p[^>]*>/gi, " ").replace(/\s+/g, " ").trim();
+    return `<li>${cleaned}</li>`;
+  });
 
   // Headings (handle attributes on tags)
   md = md.replace(/<h1[^>]*>([\s\S]*?)<\/h1>/gi, "\n\n# $1\n\n");
@@ -37,14 +44,21 @@ function htmlToMarkdown(html: string): string {
   md = md.replace(/<(strong|b)>([\s\S]*?)<\/\1>/gi, "**$2**");
   md = md.replace(/<(em|i)>([\s\S]*?)<\/\1>/gi, "*$2*");
 
-  // Links
-  md = md.replace(/<a[^>]+href="([^"]*)"[^>]*>([\s\S]*?)<\/a>/gi, "[$2]($1)");
+  // Links — rewrite internal aigeletterdheid.academy links to /kenniscentrum/{slug}
+  md = md.replace(/<a[^>]+href="([^"]*)"[^>]*>([\s\S]*?)<\/a>/gi, (_, href, text) => {
+    let finalHref = href;
+    const internalMatch = href.match(/https?:\/\/(?:www\.)?aigeletterdheid\.academy\/([^/?#]+)/);
+    if (internalMatch) {
+      finalHref = `/kenniscentrum/${internalMatch[1]}`;
+    }
+    return `[${text}](${finalHref})`;
+  });
 
   // Images (standalone, not already handled by figure)
   md = md.replace(/<img[^>]+src="([^"]*)"[^>]*alt="([^"]*)"[^>]*\/?>/gi, "\n![$2]($1)\n");
   md = md.replace(/<img[^>]+src="([^"]*)"[^>]*\/?>/gi, "\n![]($1)\n");
 
-  // Lists – handle nested lists by processing li first
+  // Lists – now convert li tags to markdown bullets
   md = md.replace(/<li[^>]*>([\s\S]*?)<\/li>/gi, "- $1\n");
   md = md.replace(/<\/?[ou]l[^>]*>/gi, "\n");
 
@@ -54,13 +68,13 @@ function htmlToMarkdown(html: string): string {
 
   // Blockquotes
   md = md.replace(/<blockquote[^>]*>([\s\S]*?)<\/blockquote>/gi, (_, content) =>
-    "\n" + content.replace(/<[^>]+>/g, "").split("\n").map((l: string) => `> ${l.trim()}`).join("\n") + "\n"
+    "\n" + content.replace(/<[^>]+>/g, "").split("\n").filter((l: string) => l.trim()).map((l: string) => `> ${l.trim()}`).join("\n") + "\n"
   );
 
   // Horizontal rules
   md = md.replace(/<hr[^>]*\/?>/gi, "\n---\n");
 
-  // Strip remaining div/span wrappers (WordPress uses lots of nested divs)
+  // Strip remaining div/span wrappers
   md = md.replace(/<\/?(div|span|section|aside|nav|header|footer)[^>]*>/gi, "\n");
 
   // Remove remaining HTML tags
@@ -80,6 +94,18 @@ function htmlToMarkdown(html: string): string {
   md = md.replace(/&mdash;/g, "—");
   md = md.replace(/&ndash;/g, "–");
   md = md.replace(/&hellip;/g, "…");
+  md = md.replace(/&#8211;/g, "–");
+  md = md.replace(/&#8212;/g, "—");
+  md = md.replace(/&#8216;/g, "'");
+  md = md.replace(/&#8217;/g, "'");
+  md = md.replace(/&#8220;/g, "\u201C");
+  md = md.replace(/&#8221;/g, "\u201D");
+  md = md.replace(/&#8230;/g, "…");
+  // Catch any remaining numeric entities
+  md = md.replace(/&#(\d+);/g, (_, code) => String.fromCharCode(Number(code)));
+
+  // Fix bold artifacts: ****** or extra asterisks
+  md = md.replace(/\*{3,}/g, "**");
 
   // Clean up excessive whitespace while preserving paragraph breaks
   md = md.replace(/[ \t]+$/gm, ""); // trailing spaces
@@ -88,15 +114,41 @@ function htmlToMarkdown(html: string): string {
 }
 
 /** Strip recurring boilerplate sections from converted markdown */
-function stripBoilerplate(md: string): string {
+function stripBoilerplate(md: string, articleTitle?: string, imageUrl?: string): string {
   let clean = md;
 
-  // Remove "Over de auteur" blocks (everything from heading to next ## or end)
+  // Remove duplicate hero image at the top (first image if it matches the featured image)
+  if (imageUrl) {
+    const imgNorm = imageUrl.replace(/^https?:\/\//, "").split("?")[0];
+    // Remove first image in content if it matches hero
+    clean = clean.replace(/^(\s*!\[[^\]]*\]\([^)]*\)\s*\n?)/, (match, _, offset) => {
+      const srcMatch = match.match(/!\[[^\]]*\]\(([^)]*)\)/);
+      if (srcMatch) {
+        const srcNorm = srcMatch[1].replace(/^https?:\/\//, "").split("?")[0];
+        if (srcNorm === imgNorm) return "";
+      }
+      return match;
+    });
+  }
+
+  // Remove duplicate H1 title at the top if it matches the article title
+  if (articleTitle) {
+    const titleNorm = articleTitle.toLowerCase().replace(/[^a-z0-9\s]/g, "").trim();
+    // Match # Title or # **Title** at the start
+    clean = clean.replace(/^\s*#\s+\*{0,2}([^*\n]+)\*{0,2}\s*\n*/m, (match, heading) => {
+      const headingNorm = heading.toLowerCase().replace(/[^a-z0-9\s]/g, "").trim();
+      if (headingNorm === titleNorm || titleNorm.includes(headingNorm) || headingNorm.includes(titleNorm)) {
+        return "";
+      }
+      return match;
+    });
+  }
+
+  // Remove "Over de auteur" blocks
   clean = clean.replace(/#{1,3}\s*Over de auteur[\s\S]*?(?=\n##\s|$)/gi, "");
 
-  // Remove "Meer weten" / "Lees ook" blocks with 👉 links
+  // Remove "Meer weten" / "Lees ook" blocks
   clean = clean.replace(/\*{0,2}Meer weten over[^*]*?\*{0,2}[\s\S]*?(?=\n##\s|\n\n(?!👉|Of ))/gi, "");
-  // Catch remaining orphaned 👉 lines
   clean = clean.replace(/^👉\s*\[.*?\]\(.*?\)\s*$/gm, "");
   clean = clean.replace(/^Of ontdek\b.*$/gm, "");
 
@@ -130,7 +182,6 @@ function extractSlug(url: string): string {
 }
 
 function extractContent(html: string): string {
-  // Try WordPress .entry-content first, then <article>, then <main>
   const patterns = [
     /<div[^>]*class="[^"]*entry-content[^"]*"[^>]*>([\s\S]*?)<\/div>\s*(?:<footer|<div[^>]*class="[^"]*post-|<\/article)/i,
     /<article[^>]*>([\s\S]*?)<\/article>/i,
@@ -142,7 +193,6 @@ function extractContent(html: string): string {
     if (match?.[1]) return match[1];
   }
 
-  // Broader .entry-content fallback
   const broad = html.match(/<div[^>]*class="[^"]*entry-content[^"]*"[^>]*>([\s\S]*?)(?:<\/div>\s*<\/div>|<\/article>)/i);
   if (broad?.[1]) return broad[1];
 
@@ -161,6 +211,17 @@ function extractFeaturedImage(html: string): string | null {
 
   const articleImgMatch = html.match(/<article[\s\S]*?<img[^>]+src=["']([^"']+)["']/i);
   if (articleImgMatch?.[1]) return articleImgMatch[1];
+
+  return null;
+}
+
+/** Extract page title from HTML */
+function extractTitle(html: string): string | null {
+  const ogTitle = html.match(/<meta[^>]+property=["']og:title["'][^>]+content=["']([^"']+)["']/i);
+  if (ogTitle?.[1]) return ogTitle[1].replace(/\s*[-–|].*$/, "").trim();
+
+  const h1 = html.match(/<h1[^>]*>([\s\S]*?)<\/h1>/i);
+  if (h1?.[1]) return h1[1].replace(/<[^>]+>/g, "").trim();
 
   return null;
 }
@@ -206,9 +267,11 @@ Deno.serve(async (req) => {
       });
     }
 
-    const markdown = stripBoilerplate(htmlToMarkdown(rawContent));
-    const slug = extractSlug(url);
     const featuredImage = extractFeaturedImage(html);
+    const pageTitle = extractTitle(html);
+    const rawMarkdown = htmlToMarkdown(rawContent);
+    const markdown = stripBoilerplate(rawMarkdown, pageTitle || undefined, featuredImage || undefined);
+    const slug = extractSlug(url);
 
     const supabase = createClient(
       Deno.env.get("SUPABASE_URL")!,
