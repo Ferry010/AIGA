@@ -177,8 +177,14 @@ const ArticleDetail = () => {
               <ReactMarkdown
                 remarkPlugins={[remarkGfm]}
                 components={{
+                  a: ({ href, children, ...props }) => {
+                    // Render internal links as React Router Links
+                    if (href && (href.startsWith("/kenniscentrum") || href.startsWith("/training") || href.startsWith("/masterclass") || href.startsWith("/faq") || href.startsWith("/over-aiga") || href.startsWith("/contact") || href.startsWith("/risicoscan"))) {
+                      return <Link to={href} className="text-primary hover:underline">{children}</Link>;
+                    }
+                    return <a href={href} target="_blank" rel="noopener noreferrer" {...props}>{children}</a>;
+                  },
                   img: ({ src, alt, ...props }) => {
-                    // Filter out hero image duplicates
                     if (src) {
                       const srcNorm = src.replace(/^https?:\/\//, "").split("?")[0];
                       if (srcNorm === heroImgNorm) return null;

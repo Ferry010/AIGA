@@ -6,6 +6,31 @@ const corsHeaders = {
     "authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version",
 };
 
+/** Map known non-article slugs to their correct internal routes */
+const PAGE_SLUG_MAP: Record<string, string> = {
+  "ai-geletterdheid-training": "/training",
+  "masterclass-voor-leidinggevenden": "/masterclass",
+  "kenniscentrum": "/kenniscentrum",
+  "faq-items": "/faq",
+  "contact": "/contact",
+  "over-ons": "/over-aiga",
+};
+
+/** Map short/old slugs to their correct full article slug */
+const SLUG_ALIASES: Record<string, string> = {
+  "ai-act-hr": "ai-act-en-hr-wat-moet-je-als-hr-professional-weten",
+  "documentatie-eisen-ai-act": "documentatie-eisen-eu-ai-act",
+};
+
+/** Rewrite a single slug extracted from an internal link to the correct path */
+function rewriteInternalSlug(slug: string): string {
+  // Check if it's a known page (not an article)
+  if (PAGE_SLUG_MAP[slug]) return PAGE_SLUG_MAP[slug];
+  // Check if it's a known alias
+  const realSlug = SLUG_ALIASES[slug] || slug;
+  return `/kenniscentrum/${realSlug}`;
+}
+
 /** Improved HTML→Markdown converter for WordPress content */
 function htmlToMarkdown(html: string): string {
   let md = html;
