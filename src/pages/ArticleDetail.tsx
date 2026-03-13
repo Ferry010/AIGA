@@ -122,17 +122,6 @@ const ArticleDetail = () => {
   const isHtmlContent = (text: string) => /^\s*<[a-z][\s\S]*>/i.test(text);
   const articleContent = stripLeadingTitle(article.content || "Geen content beschikbaar.", article.title);
 
-  // Navigate internally for HTML content links
-  const navigate = useNavigate();
-  const handleInternalLinkClick = useCallback((e: React.MouseEvent<HTMLElement>) => {
-    const anchor = (e.target as HTMLElement).closest("a");
-    if (!anchor) return;
-    const href = anchor.getAttribute("href");
-    if (href && (href.startsWith("/kenniscentrum") || href.startsWith("/training") || href.startsWith("/masterclass") || href.startsWith("/faq") || href.startsWith("/over-aiga") || href.startsWith("/contact") || href.startsWith("/risicoscan"))) {
-      e.preventDefault();
-      navigate(href);
-    }
-  }, [navigate]);
 
   // Normalize hero image URL for comparison (strip protocol + query params)
   const heroImgNorm = article.image_url
