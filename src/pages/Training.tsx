@@ -4,6 +4,7 @@ import { AnimatedSection, StaggerContainer, StaggerItem } from "@/components/Ani
 import SectionLabel from "@/components/SectionLabel";
 import TrainerSection from "@/components/TrainerSection";
 import ContactForm from "@/components/ContactForm";
+import BreadcrumbNav from "@/components/BreadcrumbNav";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import SEO from "@/components/SEO";
 
@@ -20,22 +21,36 @@ const faqs = [
 const Training = () => (
   <div className="min-h-screen">
     <SEO
-      title="AI-Geletterdheid Training voor Teams | AIGA"
-      description="Online AI Act training met certificaat. Selfpaced, audit-proof en direct inzetbaar. Voldoe aan de EU AI Act."
+      title="AI-Geletterdheid Training voor Teams in Nederland | Certificaat | AIGA"
+      description="Online AI-geletterdheid training voor teams in Nederland. Voldoe aan de EU AI Act. AI Literacy Practitioner certificaat. Selfpaced, 2-3 uur, per seat beschikbaar."
       canonical="/training"
       jsonLd={{
         "@context": "https://schema.org",
         "@type": "Course",
-        name: "AI-Geletterdheid Training voor Teams",
-        description: "Online AI Act training met certificaat voor teams. Selfpaced, audit-proof.",
-        provider: { "@type": "Organization", name: "AIGA - AI Geletterdheid Academy" },
-        educationalLevel: "Beginner",
+        name: "AI-Geletterdheid voor Teams",
+        description: "Online AI-geletterdheid training voor teams. Voldoe aan de EU AI Act met een audit-proof AI Literacy Practitioner certificaat.",
+        provider: { "@type": "Organization", name: "AIGA — AI Geletterdheid Academy", url: "https://aiganl.lovable.app" },
+        instructor: { "@type": "Person", name: "Ferry Hoes" },
+        educationalLevel: "Beginner tot Intermediate",
+        teaches: ["AI-geletterdheid", "EU AI Act compliance", "Verantwoord AI-gebruik", "AI-risicobeheer"],
+        courseMode: "online",
+        duration: "PT2H30M",
         inLanguage: "nl",
-        offers: { "@type": "Offer", price: "249", priceCurrency: "EUR" },
+        offers: {
+          "@type": "Offer",
+          price: "249",
+          priceCurrency: "EUR",
+          availability: "https://schema.org/InStock",
+          priceSpecification: { "@type": "PriceSpecification", description: "excl. BTW, per deelnemer" },
+        },
+        hasCourseInstance: { "@type": "CourseInstance", courseMode: "online", courseWorkload: "PT2H30M" },
+        award: "AI Literacy Practitioner certificaat",
       }}
     />
+    <BreadcrumbNav items={[{ label: "Home", href: "/" }, { label: "Training" }]} />
+
     {/* Hero */}
-    <section className="pt-32 pb-24">
+    <section className="pt-12 pb-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <AnimatedSection>
           <SectionLabel text="ONLINE TRAINING" />
@@ -65,6 +80,7 @@ const Training = () => (
             <p>
               Ook geschikt voor teams zonder technische voorkennis. En voor leidinggevenden is er de{" "}
               <Link to="/masterclass" className="text-primary hover:underline font-medium">AI Masterclass</Link>.
+              Bekijk ook onze pagina's over <Link to="/ai-training-voor-bedrijven" className="text-primary hover:underline">AI training voor bedrijven</Link> en <Link to="/ai-cursus-medewerkers" className="text-primary hover:underline">AI cursus voor medewerkers</Link>.
             </p>
           </div>
         </AnimatedSection>

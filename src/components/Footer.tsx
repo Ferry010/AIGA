@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import brandLogo from "@/assets/brand-humanizing-logo.png";
 import speakersLogo from "@/assets/speakers-academy-logo.png";
+
 const footerLinks = [
   { to: "/training", label: "Voor teams" },
   { to: "/masterclass", label: "Voor leidinggevenden" },
@@ -11,10 +12,17 @@ const footerLinks = [
   { to: "/risicoscan", label: "AI Risico-scan" },
 ];
 
+const seoLinks = [
+  { to: "/ai-geletterdheid-nederland", label: "AI-Geletterdheid Nederland" },
+  { to: "/ai-training-voor-bedrijven", label: "AI Training voor Bedrijven" },
+  { to: "/ai-act-compliance-nederland", label: "AI Act Compliance" },
+  { to: "/ai-cursus-medewerkers", label: "AI Cursus Medewerkers" },
+];
+
 const Footer = () => (
   <footer className="bg-card border-t border-border">
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
         <div>
           <span className="text-xl font-display font-bold text-primary">AIGA</span>
           <p className="text-sm text-muted-foreground mt-1">AI Geletterdheid Academy</p>
@@ -26,6 +34,16 @@ const Footer = () => (
           <h4 className="text-sm font-semibold text-foreground mb-4">Navigatie</h4>
           <div className="flex flex-col gap-2">
             {footerLinks.map((l) => (
+              <Link key={l.to} to={l.to} className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                {l.label}
+              </Link>
+            ))}
+          </div>
+        </div>
+        <div>
+          <h4 className="text-sm font-semibold text-foreground mb-4">Meer informatie</h4>
+          <div className="flex flex-col gap-2">
+            {seoLinks.map((l) => (
               <Link key={l.to} to={l.to} className="text-sm text-muted-foreground hover:text-primary transition-colors">
                 {l.label}
               </Link>

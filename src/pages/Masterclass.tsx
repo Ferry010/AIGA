@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { AnimatedSection, StaggerContainer, StaggerItem } from "@/components/AnimatedSection";
 import SectionLabel from "@/components/SectionLabel";
+import BreadcrumbNav from "@/components/BreadcrumbNav";
 import SEO from "@/components/SEO";
 
 const takeaways = [
@@ -32,12 +33,14 @@ const Masterclass = () => {
   return (
     <div className="min-h-screen">
       <SEO
-        title="AI Act Masterclass voor Leidinggevenden | AIGA"
-        description="Live masterclass over de AI Act voor management en directie. Twee uur strategisch inzicht. Gegeven door Ferry Hoes."
+        title="AI Act Masterclass voor Leidinggevenden | In-company | AIGA"
+        description="Besloten AI Act masterclass voor directie en management in Nederland. Gegeven door AI-expert Ferry Hoes. Op locatie of online. Gratis bij 50+ seats."
         canonical="/masterclass"
       />
+      <BreadcrumbNav items={[{ label: "Home", href: "/" }, { label: "Masterclass" }]} />
+
       {/* Hero */}
-      <section className="pt-32 pb-24">
+      <section className="pt-12 pb-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection>
             <SectionLabel text="MASTERCLASS VOOR LEIDINGGEVENDEN" />
@@ -61,7 +64,7 @@ const Masterclass = () => {
         </div>
       </section>
 
-      {/* For who */}
+      {/* rest identical */}
       <section className="py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection>
@@ -79,7 +82,6 @@ const Masterclass = () => {
         </div>
       </section>
 
-      {/* What you get */}
       <section className="py-24 bg-card">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection>
@@ -101,7 +103,6 @@ const Masterclass = () => {
         </div>
       </section>
 
-      {/* Program */}
       <section className="py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection>
@@ -127,7 +128,6 @@ const Masterclass = () => {
         </div>
       </section>
 
-      {/* CTA */}
       <section className="py-24 bg-card">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection>
@@ -149,7 +149,6 @@ const Masterclass = () => {
         </div>
       </section>
 
-      {/* Contact form */}
       <section id="aanmelden" className="py-24">
         <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection>

@@ -145,27 +145,57 @@ const Quiz = () => {
   // INTRO
   if (phase === "intro") {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen">
         <SEO
-          title="Gratis AI Risicoscan | AIGA"
-          description="Ontdek in 5 minuten hoe jouw organisatie scoort op AI-geletterdheid. 10 vragen, direct resultaat, inclusief advies op maat."
+          title="Gratis AI Risicoscan voor Organisaties | 5 Minuten | AIGA"
+          description="Doe de gratis AIGA AI Risicoscan en ontdek in 5 minuten hoe kwetsbaar jouw organisatie is voor AI Act overtredingen. 10 vragen, direct resultaat."
           canonical="/risicoscan"
+          jsonLd={{
+            "@context": "https://schema.org",
+            "@type": "WebApplication",
+            name: "AIGA AI Risicoscan",
+            description: "Gratis AI Risicoscan voor Nederlandse organisaties. Ontdek in 5 minuten hoe kwetsbaar jouw organisatie is voor AI Act overtredingen.",
+            url: "https://aiganl.lovable.app/risicoscan",
+            applicationCategory: "BusinessApplication",
+            operatingSystem: "Any",
+            offers: { "@type": "Offer", price: "0", priceCurrency: "EUR" },
+            provider: { "@type": "Organization", name: "AIGA — AI Geletterdheid Academy" },
+          }}
         />
-        <div className="max-w-2xl mx-auto px-4 text-center">
+        <div className="max-w-3xl mx-auto px-4 pt-32 pb-24">
           <AnimatedSection>
             <SectionLabel text="GRATIS AI RISICO-SCAN" />
             <h1 className="text-4xl sm:text-5xl font-display font-bold text-foreground leading-tight mt-4">
-              Hoe kwetsbaar is jouw organisatie?
+              Gratis AI Risicoscan voor<br />
+              <span className="text-primary">Nederlandse Organisaties</span>
             </h1>
-            <p className="mt-6 text-lg text-muted-foreground">
-              10 vragen. Vijf minuten. Direct resultaat. Ontdek welke AI-risico's jouw organisatie loopt en wat je eraan kunt doen.
+            <p className="mt-6 text-lg text-muted-foreground leading-relaxed">
+              Sinds februari 2025 is AI-geletterdheid wettelijk verplicht onder de EU AI Act. Maar hoe weet je of jouw organisatie er klaar voor is? De AIGA AI Risicoscan geeft je in vijf minuten een helder beeld van waar je staat — en waar de blinde vlekken zitten.
             </p>
-            <button
-              onClick={() => setPhase("quiz")}
-              className="btn-neon mt-8 px-8 py-4 rounded-lg text-[15px]"
-            >
-              Start de scan
-            </button>
+            <p className="mt-4 text-muted-foreground leading-relaxed">
+              De scan meet vijf dimensies: AI-gebruik, bewustzijn van wetgeving, risicobeheer, leiderschap en audit-readiness. Na afloop ontvang je direct je score, inclusief een uitsplitsing per dimensie en persoonlijk advies.
+            </p>
+
+            <div className="mt-8 bg-card border border-border rounded-2xl p-6">
+              <h2 className="text-lg font-display font-semibold text-foreground mb-4">Voorbeeldvragen uit de scan</h2>
+              <ul className="space-y-3 text-sm text-muted-foreground">
+                <li className="flex items-start gap-2"><span className="text-primary font-bold shrink-0">1.</span> Hoeveel medewerkers in jouw organisatie gebruiken AI-tools?</li>
+                <li className="flex items-start gap-2"><span className="text-primary font-bold shrink-0">2.</span> Heeft jouw organisatie een beleid voor verantwoord AI-gebruik?</li>
+                <li className="flex items-start gap-2"><span className="text-primary font-bold shrink-0">3.</span> Weten jouw medewerkers wat de EU AI Act van hen vraagt?</li>
+                <li className="flex items-start gap-2"><span className="text-primary font-bold shrink-0">4.</span> Heeft jouw organisatie een AI-verantwoordelijke?</li>
+                <li className="flex items-start gap-2"><span className="text-primary font-bold shrink-0">5.</span> Hoe sta je ervoor als er morgen een audit is?</li>
+              </ul>
+            </div>
+
+            <div className="mt-8 text-center">
+              <button
+                onClick={() => setPhase("quiz")}
+                className="btn-neon px-8 py-4 rounded-lg text-[15px]"
+              >
+                Start de scan — 5 minuten
+              </button>
+              <p className="mt-3 text-xs text-muted-foreground">10 vragen. Direct resultaat. Geen account nodig.</p>
+            </div>
           </AnimatedSection>
         </div>
       </div>
@@ -252,7 +282,6 @@ const Quiz = () => {
           </div>
         </div>
 
-        {/* Badge + heading + body */}
         <div className="text-center">
           <span
             className="inline-block text-xs font-medium uppercase tracking-[0.08em] px-3 py-1 rounded-full mb-4"
@@ -264,7 +293,6 @@ const Quiz = () => {
           <p className="mt-4 text-muted-foreground leading-relaxed max-w-xl mx-auto">{tier.body}</p>
         </div>
 
-        {/* Dimension breakdown */}
         <div className="mt-10 space-y-4">
           <p className="text-sm font-semibold text-foreground mb-2">Jouw score per dimensie</p>
           {dimensions.map((dim) => {
@@ -290,7 +318,6 @@ const Quiz = () => {
           })}
         </div>
 
-        {/* Benchmark (tier 3 only) */}
         {tier.showBenchmark && (
           <div className="mt-8 bg-brand-dim border border-primary/10 rounded-2xl p-6 text-center">
             <p className="text-sm text-muted-foreground leading-relaxed">
@@ -299,7 +326,6 @@ const Quiz = () => {
           </div>
         )}
 
-        {/* CTA block */}
         <div className="mt-10 bg-card border border-border rounded-2xl p-8">
           <p className="text-lg font-semibold text-foreground mb-2">{tier.ctaHeading}</p>
           <p className="text-sm text-muted-foreground leading-relaxed mb-6">{tier.ctaBody}</p>
@@ -341,14 +367,12 @@ const Quiz = () => {
           )}
         </div>
 
-        {/* Text link */}
         <div className="mt-6 text-center">
           <Link to={tier.textLink.to} className="text-sm neon-text hover:underline">
             {tier.textLink.label}
           </Link>
         </div>
 
-        {/* LinkedIn share (tier 3 only) */}
         {tier.showLinkedIn && (
           <div className="mt-6 text-center">
             <button

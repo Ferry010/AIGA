@@ -1,12 +1,29 @@
 import { AnimatedSection } from "@/components/AnimatedSection";
 import SectionLabel from "@/components/SectionLabel";
+import BreadcrumbNav from "@/components/BreadcrumbNav";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import SEO from "@/components/SEO";
 
 const faqItems = [
   {
     q: "Wat is AI-geletterdheid?",
-    a: "AI-geletterdheid betekent dat je begrijpt wat AI is, hoe het werkt en welke risico's en regels eraan verbonden zijn.",
+    a: "AI-geletterdheid is het vermogen van medewerkers om AI-systemen te begrijpen, risico's te herkennen en AI veilig en verantwoord in te zetten op de werkvloer. Onder de EU AI Act is AI-geletterdheid voor alle medewerkers die met AI werken wettelijk verplicht.",
+  },
+  {
+    q: "Is een AI-geletterdheid training verplicht in Nederland?",
+    a: "Ja. Sinds februari 2025 vereist de EU AI Act dat organisaties die AI inzetten aantoonbaar investeren in AI-geletterdheid van hun medewerkers. Vanaf augustus 2025 wordt dit actief gehandhaafd.",
+  },
+  {
+    q: "Wat zijn de boetes voor niet-naleving van de AI Act?",
+    a: "Boetes voor overtredingen van de EU AI Act kunnen oplopen tot 35 miljoen euro of 7% van de wereldwijde jaaromzet, afhankelijk van welke overtreding het zwaarst is.",
+  },
+  {
+    q: "Hoe lang duurt de AI-geletterdheid training?",
+    a: "De online AI-geletterdheid training voor teams duurt 2 tot 3 uur. De training is volledig selfpaced en kan door medewerkers in eigen tempo worden gevolgd.",
+  },
+  {
+    q: "Wat is het AI Literacy Practitioner certificaat?",
+    a: "Het AI Literacy Practitioner certificaat is een digitaal ondertekend certificaat dat elke deelnemer ontvangt na afronding van de AIGA training. Het certificaat is audit-proof en deelbaar via LinkedIn.",
   },
   {
     q: "Hoe hoog is de gemiddelde AI-geletterdheid?",
@@ -59,7 +76,7 @@ const whyUsPoints = [
 const Faq = () => (
   <div className="min-h-screen">
     <SEO
-      title="Veelgestelde Vragen over AI-Geletterdheid | AIGA"
+      title="Veelgestelde Vragen over AI-Geletterdheid & AI Act | AIGA"
       description="Antwoorden op vragen over de AI Act, AI-geletterdheid certificering, trainingsinhoud en compliance. Alles wat je moet weten."
       canonical="/faq"
       jsonLd={{
@@ -72,8 +89,10 @@ const Faq = () => (
         })),
       }}
     />
+    <BreadcrumbNav items={[{ label: "Home", href: "/" }, { label: "FAQ" }]} />
+
     {/* Hero */}
-    <section className="pt-32 pb-20">
+    <section className="pt-12 pb-20">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <AnimatedSection>
           <SectionLabel text="FAQ" />
