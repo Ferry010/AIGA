@@ -44,12 +44,12 @@ function htmlToMarkdown(html: string): string {
   md = md.replace(/<(strong|b)>([\s\S]*?)<\/\1>/gi, "**$2**");
   md = md.replace(/<(em|i)>([\s\S]*?)<\/\1>/gi, "*$2*");
 
-  // Links — rewrite internal aigeletterdheid.academy links to /kenniscentrum/{slug}
+  // Links — rewrite internal aigeletterdheid.academy links to correct routes
   md = md.replace(/<a[^>]+href="([^"]*)"[^>]*>([\s\S]*?)<\/a>/gi, (_, href, text) => {
     let finalHref = href;
     const internalMatch = href.match(/https?:\/\/(?:www\.)?aigeletterdheid\.academy\/([^/?#]+)/);
     if (internalMatch) {
-      finalHref = `/kenniscentrum/${internalMatch[1]}`;
+      finalHref = rewriteInternalSlug(internalMatch[1]);
     }
     return `[${text}](${finalHref})`;
   });
