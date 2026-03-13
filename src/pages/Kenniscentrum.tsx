@@ -35,7 +35,7 @@ const Kenniscentrum = () => {
   useEffect(() => {
     supabase
       .from("articles")
-      .select("id, title, category, url, image_url")
+      .select("id, title, category, url, image_url, content, slug")
       .eq("published", true)
       .order("sort_order", { ascending: true })
       .then(({ data }) => {
