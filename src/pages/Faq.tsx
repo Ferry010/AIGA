@@ -58,6 +58,20 @@ const whyUsPoints = [
 
 const Faq = () => (
   <div className="min-h-screen">
+    <SEO
+      title="Veelgestelde Vragen over AI-Geletterdheid | AIGA"
+      description="Antwoorden op vragen over de AI Act, AI-geletterdheid certificering, trainingsinhoud en compliance. Alles wat je moet weten."
+      canonical="/faq"
+      jsonLd={{
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        mainEntity: faqItems.map((item) => ({
+          "@type": "Question",
+          name: item.q,
+          acceptedAnswer: { "@type": "Answer", text: item.a },
+        })),
+      }}
+    />
     {/* Hero */}
     <section className="pt-32 pb-20">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">

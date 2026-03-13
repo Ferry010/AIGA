@@ -49,6 +49,11 @@ const Kenniscentrum = () => {
 
   return (
     <div className="min-h-screen">
+      <SEO
+        title="Kenniscentrum AI-Geletterdheid | AIGA"
+        description="Artikelen over de AI Act, AI op de werkvloer en verantwoord AI-gebruik. Geschreven door AI-expert Ferry Hoes."
+        canonical="/kenniscentrum"
+      />
       {/* Hero */}
       <section className="pt-32 pb-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

@@ -19,6 +19,21 @@ const faqs = [
 
 const Training = () => (
   <div className="min-h-screen">
+    <SEO
+      title="AI-Geletterdheid Training voor Teams | AIGA"
+      description="Online AI Act training met certificaat. Vanaf 10 medewerkers. Selfpaced, audit-proof en direct inzetbaar. Voldoe aan de EU AI Act."
+      canonical="/training"
+      jsonLd={{
+        "@context": "https://schema.org",
+        "@type": "Course",
+        name: "AI-Geletterdheid Training voor Teams",
+        description: "Online AI Act training met certificaat voor teams. Selfpaced, audit-proof.",
+        provider: { "@type": "Organization", name: "AIGA - AI Geletterdheid Academy" },
+        educationalLevel: "Beginner",
+        inLanguage: "nl",
+        offers: { "@type": "Offer", price: "249", priceCurrency: "EUR" },
+      }}
+    />
     {/* Hero */}
     <section className="pt-32 pb-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

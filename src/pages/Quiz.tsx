@@ -146,6 +146,11 @@ const Quiz = () => {
   if (phase === "intro") {
     return (
       <div className="min-h-screen flex items-center justify-center">
+        <SEO
+          title="Gratis AI Risicoscan | AIGA"
+          description="Ontdek in 5 minuten hoe jouw organisatie scoort op AI-geletterdheid. 10 vragen, direct resultaat, inclusief advies op maat."
+          canonical="/risicoscan"
+        />
         <div className="max-w-2xl mx-auto px-4 text-center">
           <AnimatedSection>
             <SectionLabel text="GRATIS AI RISICO-SCAN" />

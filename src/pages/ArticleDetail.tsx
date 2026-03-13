@@ -102,6 +102,21 @@ const ArticleDetail = () => {
 
   return (
     <div className="min-h-screen">
+      <SEO
+        title={`${article.title} | AIGA Kenniscentrum`}
+        description={article.content ? article.content.slice(0, 155).replace(/[#*\n]/g, "") + "..." : "Lees dit artikel over AI-geletterdheid op het AIGA Kenniscentrum."}
+        canonical={`/kenniscentrum/${article.slug}`}
+        ogImage={article.image_url}
+        ogType="article"
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "Article",
+          headline: article.title,
+          image: article.image_url,
+          author: { "@type": "Person", name: "Ferry Hoes" },
+          publisher: { "@type": "Organization", name: "AIGA - AI Geletterdheid Academy" },
+        }}
+      />
       {/* Hero image – clean, no gradient overlay */}
       {article.image_url && (
         <div className="w-full max-h-[50vh] overflow-hidden">
