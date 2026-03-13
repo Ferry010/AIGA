@@ -349,13 +349,14 @@ const Admin = () => {
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="border-b border-border text-left">
-                  <th className="py-3 px-2 text-muted-foreground font-medium">#</th>
-                  <th className="py-3 px-2 text-muted-foreground font-medium">Titel</th>
-                  <th className="py-3 px-2 text-muted-foreground font-medium">Categorie</th>
-                  <th className="py-3 px-2 text-muted-foreground font-medium">Gepubliceerd</th>
-                  <th className="py-3 px-2 text-muted-foreground font-medium"></th>
-                </tr>
+                 <tr className="border-b border-border text-left">
+                   <th className="py-3 px-2 text-muted-foreground font-medium">#</th>
+                   <th className="py-3 px-2 text-muted-foreground font-medium">Titel</th>
+                   <th className="py-3 px-2 text-muted-foreground font-medium">Categorie</th>
+                   <th className="py-3 px-2 text-muted-foreground font-medium">Content</th>
+                   <th className="py-3 px-2 text-muted-foreground font-medium">Gepubliceerd</th>
+                   <th className="py-3 px-2 text-muted-foreground font-medium"></th>
+                 </tr>
               </thead>
               <tbody>
                 {articles.map((a) => (
