@@ -5,6 +5,7 @@ import SectionLabel from "@/components/SectionLabel";
 import TrainerSection from "@/components/TrainerSection";
 import ContactForm from "@/components/ContactForm";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import SEO from "@/components/SEO";
 
 const faqs = [
   { q: "Is deze training verplicht?", a: "Ja. Sinds februari 2025 is AI-geletterdheid wettelijk verplicht voor organisaties binnen de EU die met AI werken. Dat geldt ook als medewerkers alleen ChatGPT of Copilot gebruiken. Per augustus 2025 wordt er gehandhaafd." },
@@ -18,6 +19,21 @@ const faqs = [
 
 const Training = () => (
   <div className="min-h-screen">
+    <SEO
+      title="AI-Geletterdheid Training voor Teams | AIGA"
+      description="Online AI Act training met certificaat. Vanaf 10 medewerkers. Selfpaced, audit-proof en direct inzetbaar. Voldoe aan de EU AI Act."
+      canonical="/training"
+      jsonLd={{
+        "@context": "https://schema.org",
+        "@type": "Course",
+        name: "AI-Geletterdheid Training voor Teams",
+        description: "Online AI Act training met certificaat voor teams. Selfpaced, audit-proof.",
+        provider: { "@type": "Organization", name: "AIGA - AI Geletterdheid Academy" },
+        educationalLevel: "Beginner",
+        inLanguage: "nl",
+        offers: { "@type": "Offer", price: "249", priceCurrency: "EUR" },
+      }}
+    />
     {/* Hero */}
     <section className="pt-32 pb-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

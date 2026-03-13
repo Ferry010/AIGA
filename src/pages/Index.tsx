@@ -5,11 +5,25 @@ import SectionLabel from "@/components/SectionLabel";
 import { motion } from "framer-motion";
 import trainingVideo from "@/assets/AI-Geletterdheid-Homepage-scaled-1.webm";
 import TrainerSection from "@/components/TrainerSection";
+import SEO from "@/components/SEO";
 
 const Index = () => {
 
   return (
     <div className="min-h-screen">
+      <SEO
+        title="AIGA - AI Geletterdheid Academy | AI Act Training"
+        description="Maak jouw team AI-geletterd en compliant met de EU AI Act. Gecertificeerde online training vanaf 10 medewerkers. Audit-proof certificaat inbegrepen."
+        canonical="/"
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "Organization",
+          name: "AIGA - AI Geletterdheid Academy",
+          url: "https://aiganl.lovable.app",
+          description: "AI-geletterdheid training en certificering voor teams. Voldoe aan de EU AI Act.",
+          sameAs: [],
+        }}
+      />
       {/* Hero */}
       <section className="min-h-[90vh] flex items-center relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32">

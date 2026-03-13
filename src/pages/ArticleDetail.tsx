@@ -7,6 +7,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { AnimatedSection } from "@/components/AnimatedSection";
 import { Badge } from "@/components/ui/badge";
 import ferryImg from "@/assets/ferry-hoes.gif";
+import SEO from "@/components/SEO";
 
 interface Article {
   id: string;
@@ -101,6 +102,21 @@ const ArticleDetail = () => {
 
   return (
     <div className="min-h-screen">
+      <SEO
+        title={`${article.title} | AIGA Kenniscentrum`}
+        description={article.content ? article.content.slice(0, 155).replace(/[#*\n]/g, "") + "..." : "Lees dit artikel over AI-geletterdheid op het AIGA Kenniscentrum."}
+        canonical={`/kenniscentrum/${article.slug}`}
+        ogImage={article.image_url}
+        ogType="article"
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "Article",
+          headline: article.title,
+          image: article.image_url,
+          author: { "@type": "Person", name: "Ferry Hoes" },
+          publisher: { "@type": "Organization", name: "AIGA - AI Geletterdheid Academy" },
+        }}
+      />
       {/* Hero image – clean, no gradient overlay */}
       {article.image_url && (
         <div className="w-full max-h-[50vh] overflow-hidden">
@@ -145,7 +161,7 @@ const ArticleDetail = () => {
             </div>
 
             {/* Article content */}
-            <article className="prose prose-invert prose-lg max-w-none prose-headings:font-display prose-headings:text-foreground prose-p:text-muted-foreground prose-a:text-primary prose-strong:text-foreground prose-li:text-muted-foreground">
+            <article className="prose prose-lg max-w-none prose-headings:font-display prose-headings:text-foreground prose-p:text-muted-foreground prose-a:text-primary prose-strong:text-foreground prose-li:text-muted-foreground prose-blockquote:text-muted-foreground prose-blockquote:border-primary/30 prose-hr:border-border prose-img:rounded-xl">
               <ReactMarkdown
                 remarkPlugins={[remarkGfm]}
                 components={{

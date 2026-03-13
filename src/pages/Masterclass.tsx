@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { AnimatedSection, StaggerContainer, StaggerItem } from "@/components/AnimatedSection";
 import SectionLabel from "@/components/SectionLabel";
+import SEO from "@/components/SEO";
 
 const takeaways = [
   "Een helder beeld van wat de AI Act concreet van jouw organisatie vraagt",
@@ -30,6 +31,11 @@ const Masterclass = () => {
 
   return (
     <div className="min-h-screen">
+      <SEO
+        title="AI Act Masterclass voor Leidinggevenden | AIGA"
+        description="Live masterclass over de AI Act voor management en directie. Twee uur strategisch inzicht. Gegeven door Ferry Hoes."
+        canonical="/masterclass"
+      />
       {/* Hero */}
       <section className="pt-32 pb-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

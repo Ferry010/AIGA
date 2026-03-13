@@ -1,9 +1,15 @@
 import { AnimatedSection, StaggerContainer, StaggerItem } from "@/components/AnimatedSection";
 import SectionLabel from "@/components/SectionLabel";
 import TrainerSection from "@/components/TrainerSection";
+import SEO from "@/components/SEO";
 
 const OverAiga = () => (
   <div className="min-h-screen">
+    <SEO
+      title="Over AIGA - AI Geletterdheid Academy"
+      description="Wie we zijn en waarom AI-geletterdheid de basis is voor elke organisatie. Praktisch, menselijk en toepasbaar."
+      canonical="/over-aiga"
+    />
     {/* Hero */}
     <section className="pt-32 pb-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

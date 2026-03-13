@@ -3,6 +3,7 @@ import { Phone, Mail } from "lucide-react";
 import { AnimatedSection } from "@/components/AnimatedSection";
 import SectionLabel from "@/components/SectionLabel";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import SEO from "@/components/SEO";
 
 const contactFaqs = [
   { q: "Kan ik eerst een demo aanvragen?", a: "Ja. Vermeld dit in je bericht en we plannen iets in." },
@@ -20,6 +21,11 @@ const Contact = () => {
 
   return (
     <div className="min-h-screen">
+      <SEO
+        title="Contact | AIGA - AI Geletterdheid Academy"
+        description="Neem contact op voor AI-geletterdheid training, masterclass of offerte. Direct antwoord, geen verplichtingen."
+        canonical="/contact"
+      />
       <section className="pt-32 pb-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection>

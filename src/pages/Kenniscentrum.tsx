@@ -5,6 +5,7 @@ import { AnimatedSection, StaggerContainer, StaggerItem } from "@/components/Ani
 import SectionLabel from "@/components/SectionLabel";
 import { Badge } from "@/components/ui/badge";
 import { supabase } from "@/integrations/supabase/client";
+import SEO from "@/components/SEO";
 
 const categories = [
   "Alle",
@@ -48,6 +49,11 @@ const Kenniscentrum = () => {
 
   return (
     <div className="min-h-screen">
+      <SEO
+        title="Kenniscentrum AI-Geletterdheid | AIGA"
+        description="Artikelen over de AI Act, AI op de werkvloer en verantwoord AI-gebruik. Geschreven door AI-expert Ferry Hoes."
+        canonical="/kenniscentrum"
+      />
       {/* Hero */}
       <section className="pt-32 pb-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

@@ -4,6 +4,7 @@ import { AnimatedSection } from "@/components/AnimatedSection";
 import SectionLabel from "@/components/SectionLabel";
 import { motion } from "framer-motion";
 import { supabase } from "@/integrations/supabase/client";
+import SEO from "@/components/SEO";
 
 const questions = [
   { q: "Hoeveel medewerkers in jouw organisatie gebruiken AI-tools zoals ChatGPT, Copilot of vergelijkbare software?", options: ["Niemand, voor zover ik weet", "Een handvol early adopters", "Een significant deel van de teams", "De meeste medewerkers, dagelijks"] },
@@ -145,6 +146,11 @@ const Quiz = () => {
   if (phase === "intro") {
     return (
       <div className="min-h-screen flex items-center justify-center">
+        <SEO
+          title="Gratis AI Risicoscan | AIGA"
+          description="Ontdek in 5 minuten hoe jouw organisatie scoort op AI-geletterdheid. 10 vragen, direct resultaat, inclusief advies op maat."
+          canonical="/risicoscan"
+        />
         <div className="max-w-2xl mx-auto px-4 text-center">
           <AnimatedSection>
             <SectionLabel text="GRATIS AI RISICO-SCAN" />
