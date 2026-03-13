@@ -174,7 +174,6 @@ const Admin = () => {
     await supabase.from("articles").update({ published: !a.published, updated_at: new Date().toISOString() }).eq("id", a.id);
   };
 
-  const [importing, setImporting] = useState<Record<string, boolean>>({});
 
   const importArticle = async (a: Article) => {
     setImporting((prev) => ({ ...prev, [a.id]: true }));
