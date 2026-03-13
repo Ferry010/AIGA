@@ -173,6 +173,31 @@ const Admin = () => {
     await supabase.from("articles").update({ published: !a.published, updated_at: new Date().toISOString() }).eq("id", a.id);
   };
 
+  const [importing, setImporting] = useState<Record<string, boolean>>({});
+
+  const importArticle = async (a: Article) => {
+    setImporting((prev) => ({ ...prev, [a.id]: true }));
+    try {
+      const { data, error } = await supabase.functions.invoke("scrape-article", {
+        body: { article_id: a.id, url: a.url },
+      });
+      if (error) throw error;
+      if (data?.success) {
+        await fetchArticles();
+      }
+    } catch (e) {
+      console.error("Import failed:", e);
+    }
+    setImporting((prev) => ({ ...prev, [a.id]: false }));
+  };
+
+  const importAll = async () => {
+    const toImport = articles.filter((a) => !a.content);
+    for (const a of toImport) {
+      await importArticle(a);
+    }
+  };
+
   if (checkingAuth) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-background">
