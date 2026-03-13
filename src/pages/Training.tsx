@@ -5,6 +5,7 @@ import SectionLabel from "@/components/SectionLabel";
 import TrainerSection from "@/components/TrainerSection";
 import ContactForm from "@/components/ContactForm";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import SEO from "@/components/SEO";
 
 const faqs = [
   { q: "Is deze training verplicht?", a: "Ja. Sinds februari 2025 is AI-geletterdheid wettelijk verplicht voor organisaties binnen de EU die met AI werken. Dat geldt ook als medewerkers alleen ChatGPT of Copilot gebruiken. Per augustus 2025 wordt er gehandhaafd." },
