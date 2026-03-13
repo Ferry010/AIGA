@@ -38,6 +38,8 @@ interface Article {
   image_url: string;
   published: boolean;
   sort_order: number;
+  content: string | null;
+  slug: string | null;
 }
 
 const tierLabels: Record<string, string> = {
