@@ -62,17 +62,6 @@ const Index = () => {
         </div>
       </AnimatedSection>
 
-      {/* Logo strip */}
-      <AnimatedSection className="py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <SectionLabel text="GECERTIFICEERD BIJ ONDER ANDERE" />
-          <div className="flex flex-wrap gap-8 mt-6 text-sm text-muted-foreground opacity-50">
-            {["a.s.r. Verzekeringen", "VodafoneZiggo", "Speakers Academy", "Ministeries"].map((n) => (
-              <span key={n}>{n}</span>
-            ))}
-          </div>
-        </div>
-      </AnimatedSection>
 
       {/* Problem section */}
       <section className="py-24">
