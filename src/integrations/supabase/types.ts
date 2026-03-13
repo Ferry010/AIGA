@@ -14,6 +14,42 @@ export type Database = {
   }
   public: {
     Tables: {
+      articles: {
+        Row: {
+          category: string
+          created_at: string | null
+          id: string
+          image_url: string
+          published: boolean | null
+          sort_order: number | null
+          title: string
+          updated_at: string | null
+          url: string
+        }
+        Insert: {
+          category: string
+          created_at?: string | null
+          id?: string
+          image_url: string
+          published?: boolean | null
+          sort_order?: number | null
+          title: string
+          updated_at?: string | null
+          url: string
+        }
+        Update: {
+          category?: string
+          created_at?: string | null
+          id?: string
+          image_url?: string
+          published?: boolean | null
+          sort_order?: number | null
+          title?: string
+          updated_at?: string | null
+          url?: string
+        }
+        Relationships: []
+      }
       risk_scan_submissions: {
         Row: {
           bedrijfsnaam: string
