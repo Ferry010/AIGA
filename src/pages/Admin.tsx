@@ -157,13 +157,17 @@ const Admin = () => {
     setForm(emptyArticleForm);
   };
 
+  const generateSlug = (title: string) =>
+    title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+
   const handleSave = async () => {
     if (!form.title || !form.url || !form.image_url) return;
     setSaving(true);
+    const slug = form.slug || (form.content ? generateSlug(form.title) : null);
     const payload = {
       ...form,
       content: form.content || null,
-      slug: form.slug || null,
+      slug,
       updated_at: new Date().toISOString(),
     };
     if (editingId) {
