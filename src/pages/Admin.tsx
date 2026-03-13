@@ -147,7 +147,7 @@ const Admin = () => {
 
   const openEditForm = (a: Article) => {
     setEditingId(a.id);
-    setForm({ title: a.title, category: a.category, url: a.url, image_url: a.image_url, published: a.published, sort_order: a.sort_order });
+    setForm({ title: a.title, category: a.category, url: a.url, image_url: a.image_url, published: a.published, sort_order: a.sort_order, content: a.content || "", slug: a.slug || "" });
     setShowForm(true);
   };
 
