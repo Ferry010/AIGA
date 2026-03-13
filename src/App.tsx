@@ -15,6 +15,7 @@ import Contact from "./pages/Contact";
 import Quiz from "./pages/Quiz";
 import Faq from "./pages/Faq";
 import Admin from "./pages/Admin";
+import AdminLogin from "./pages/AdminLogin";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -28,7 +29,7 @@ const ScrollToTop = () => {
 const AppContent = () => {
   const { pathname } = useLocation();
   const isQuizActive = pathname === "/risicoscan";
-  const isAdminActive = pathname === "/admin";
+  const isAdminActive = pathname.startsWith("/admin");
 
   return (
     <>
@@ -45,6 +46,7 @@ const AppContent = () => {
           <Route path="/faq" element={<Faq />} />
           <Route path="/risicoscan" element={<Quiz />} />
           <Route path="/admin" element={<Admin />} />
+          <Route path="/admin/login" element={<AdminLogin />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>

@@ -1,13 +1,12 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Switch } from "@/components/ui/switch";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Pencil, Plus, X } from "lucide-react";
-
-const ADMIN_PASSWORD = "aiga2024admin";
+import { Pencil, Plus, X, LogOut } from "lucide-react";
 
 const CATEGORIES = [
   "Wetten en regels",
@@ -50,9 +49,9 @@ const tierLabels: Record<string, string> = {
 const emptyArticleForm = { title: "", category: CATEGORIES[0], url: "", image_url: "", published: true, sort_order: 0 };
 
 const Admin = () => {
+  const navigate = useNavigate();
   const [authenticated, setAuthenticated] = useState(false);
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState(false);
+  const [checkingAuth, setCheckingAuth] = useState(true);
   const [submissions, setSubmissions] = useState<Submission[]>([]);
   const [articles, setArticles] = useState<Article[]>([]);
   const [loading, setLoading] = useState(false);
@@ -63,15 +62,30 @@ const Admin = () => {
   const [form, setForm] = useState(emptyArticleForm);
   const [saving, setSaving] = useState(false);
 
-  const handleLogin = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (password === ADMIN_PASSWORD) {
-      setAuthenticated(true);
-      setError(false);
-    } else {
-      setError(true);
-    }
-  };
+  // Check auth + admin role
+  useEffect(() => {
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
+      if (!session) {
+        setAuthenticated(false);
+        setCheckingAuth(false);
+        navigate("/admin/login");
+        return;
+      }
+      // Check admin role
+      const { data } = await supabase.rpc("has_role", { _user_id: session.user.id, _role: "admin" });
+      if (data) {
+        setAuthenticated(true);
+      } else {
+        setAuthenticated(false);
+        navigate("/admin/login");
+      }
+      setCheckingAuth(false);
+    });
+
+    supabase.auth.getSession();
+
+    return () => subscription.unsubscribe();
+  }, [navigate]);
 
   const fetchArticles = async () => {
     const { data } = await supabase.from("articles").select("*").order("sort_order", { ascending: true });
@@ -90,6 +104,11 @@ const Admin = () => {
       setLoading(false);
     });
   }, [authenticated]);
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    navigate("/admin/login");
+  };
 
   const toggleOpgevolgd = async (id: string, current: boolean) => {
     setSubmissions((prev) => prev.map((s) => (s.id === id ? { ...s, opgevolgd: !current } : s)));
@@ -132,26 +151,15 @@ const Admin = () => {
     await supabase.from("articles").update({ published: !a.published, updated_at: new Date().toISOString() }).eq("id", a.id);
   };
 
-  if (!authenticated) {
+  if (checkingAuth) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-background px-4">
-        <form onSubmit={handleLogin} className="w-full max-w-xs space-y-4">
-          <h1 className="text-xl font-semibold text-foreground">Admin login</h1>
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="Wachtwoord"
-            className="w-full border border-border rounded-lg px-4 py-3 bg-background text-foreground text-sm focus:outline-none focus:border-primary"
-          />
-          {error && <p className="text-sm text-destructive">Onjuist wachtwoord</p>}
-          <button type="submit" className="w-full bg-primary text-primary-foreground rounded-lg py-3 text-sm font-medium">
-            Inloggen
-          </button>
-        </form>
+      <div className="min-h-screen flex items-center justify-center bg-background">
+        <p className="text-muted-foreground">Laden...</p>
       </div>
     );
   }
+
+  if (!authenticated) return null;
 
   const total = submissions.length;
   const nogOpTeVolgen = submissions.filter((s) => !s.opgevolgd).length;
@@ -159,7 +167,12 @@ const Admin = () => {
 
   return (
     <div className="min-h-screen bg-background p-6">
-      <h1 className="text-2xl font-semibold text-foreground mb-6">Admin Dashboard</h1>
+      <div className="flex items-center justify-between mb-6">
+        <h1 className="text-2xl font-semibold text-foreground">Admin Dashboard</h1>
+        <button onClick={handleLogout} className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
+          <LogOut size={16} /> Uitloggen
+        </button>
+      </div>
 
       <Tabs defaultValue="submissions">
         <TabsList className="mb-6">
@@ -213,7 +226,7 @@ const Admin = () => {
                         <td className="py-3 px-2 font-mono text-foreground">{s.totaal_score}%</td>
                         <td className="py-3 px-2 text-foreground">{tierLabels[s.tier] || s.tier}</td>
                         <td className="py-3 px-2">
-                          <Checkbox checked={s.opgevolgd} onCheckedChange={() => toggleOpgevolgd(s.id, s.opgevolgd)} />
+                          <Checkbox checked={s.opgevolgd} onCheckedChange={() => toggleOpgevolgd(s.id, s.opgevol)} />
                         </td>
                       </tr>
                     );
@@ -233,7 +246,6 @@ const Admin = () => {
             </button>
           </div>
 
-          {/* Inline form */}
           {showForm && (
             <div className="bg-card border border-border rounded-xl p-6 mb-6 space-y-4">
               <div className="flex items-center justify-between">
@@ -282,7 +294,6 @@ const Admin = () => {
             </div>
           )}
 
-          {/* Articles table */}
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
