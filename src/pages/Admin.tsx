@@ -364,14 +364,27 @@ const Admin = () => {
                     <td className="py-3 px-2 text-muted-foreground font-mono">{a.sort_order}</td>
                     <td className="py-3 px-2 text-foreground max-w-xs truncate">{a.title}</td>
                     <td className="py-3 px-2 text-foreground">{a.category}</td>
-                    <td className="py-3 px-2">
-                      <Switch checked={a.published} onCheckedChange={() => togglePublished(a)} />
-                    </td>
-                    <td className="py-3 px-2">
-                      <button onClick={() => openEditForm(a)} className="text-muted-foreground hover:text-primary">
-                        <Pencil size={16} />
-                      </button>
-                    </td>
+                     <td className="py-3 px-2">
+                       {a.content ? (
+                         <span className="text-xs text-green-400">✓ Geïmporteerd</span>
+                       ) : (
+                         <button
+                           onClick={() => importArticle(a)}
+                           disabled={importing[a.id]}
+                           className="text-xs text-primary hover:underline disabled:opacity-50"
+                         >
+                           {importing[a.id] ? "Bezig..." : "Importeer"}
+                         </button>
+                       )}
+                     </td>
+                     <td className="py-3 px-2">
+                       <Switch checked={a.published} onCheckedChange={() => togglePublished(a)} />
+                     </td>
+                     <td className="py-3 px-2">
+                       <button onClick={() => openEditForm(a)} className="text-muted-foreground hover:text-primary">
+                         <Pencil size={16} />
+                       </button>
+                     </td>
                   </tr>
                 ))}
               </tbody>
