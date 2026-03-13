@@ -8,8 +8,8 @@ import DefinitionBlock from "@/components/DefinitionBlock";
 const AiGeletterdheidNederland = () => (
   <div className="min-h-screen">
     <SEO
-      title="AI-Geletterdheid in Nederland | Alles wat je moet weten | AIGA"
-      description="Alles over AI-geletterdheid in Nederland: EU AI Act vereisten, Rijksoverheid verwachtingen en hoe Nederlandse organisaties AI-geletterdheid implementeren."
+      title="AI-Geletterdheid in Nederland: Complete Gids 2026 | AIGA"
+      description="Alles over AI-geletterdheid in Nederland: wetgeving, training, certificering en compliance voor Nederlandse organisaties. De complete gids van AIGA."
       canonical="/ai-geletterdheid-nederland"
       jsonLd={{
         "@context": "https://schema.org",

@@ -22,7 +22,7 @@ const Contact = () => {
   return (
     <div className="min-h-screen">
       <SEO
-        title="Contact | AIGA - AI Geletterdheid Academy"
+        title="Contact — AIGA AI Geletterdheid Academy | Offerte Aanvragen"
         description="Neem contact op voor AI-geletterdheid training, masterclass of offerte. Direct antwoord, geen verplichtingen."
         canonical="/contact"
       />
