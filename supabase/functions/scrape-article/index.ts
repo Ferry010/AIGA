@@ -85,6 +85,26 @@ function extractContent(html: string): string {
   return "";
 }
 
+function extractFeaturedImage(html: string): string | null {
+  // Try og:image meta tag first (most reliable for WordPress)
+  const ogMatch = html.match(/<meta[^>]+property=["']og:image["'][^>]+content=["']([^"']+)["']/i);
+  if (ogMatch?.[1]) return ogMatch[1];
+
+  // Try twitter:image
+  const twitterMatch = html.match(/<meta[^>]+name=["']twitter:image["'][^>]+content=["']([^"']+)["']/i);
+  if (twitterMatch?.[1]) return twitterMatch[1];
+
+  // Try WordPress featured image in post-thumbnail class
+  const thumbMatch = html.match(/<div[^>]*class="[^"]*post-thumbnail[^"]*"[^>]*>[\s\S]*?<img[^>]+src=["']([^"']+)["']/i);
+  if (thumbMatch?.[1]) return thumbMatch[1];
+
+  // Try first image in article
+  const articleImgMatch = html.match(/<article[\s\S]*?<img[^>]+src=["']([^"']+)["']/i);
+  if (articleImgMatch?.[1]) return articleImgMatch[1];
+
+  return null;
+}
+
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
@@ -129,6 +149,7 @@ Deno.serve(async (req) => {
 
     const markdown = htmlToMarkdown(rawContent);
     const slug = extractSlug(url);
+    const featuredImage = extractFeaturedImage(html);
 
     // Save to database
     const supabase = createClient(
@@ -136,9 +157,14 @@ Deno.serve(async (req) => {
       Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!
     );
 
+    const updateData: Record<string, unknown> = { content: markdown, slug };
+    if (featuredImage) {
+      updateData.image_url = featuredImage;
+    }
+
     const { error } = await supabase
       .from("articles")
-      .update({ content: markdown, slug })
+      .update(updateData)
       .eq("id", article_id);
 
     if (error) {
@@ -148,7 +174,7 @@ Deno.serve(async (req) => {
       });
     }
 
-    return new Response(JSON.stringify({ success: true, slug, content_length: markdown.length }), {
+    return new Response(JSON.stringify({ success: true, slug, content_length: markdown.length, image_url: featuredImage }), {
       headers: { ...corsHeaders, "Content-Type": "application/json" },
     });
   } catch (e) {
