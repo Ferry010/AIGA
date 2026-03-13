@@ -63,6 +63,7 @@ const Admin = () => {
   const [showForm, setShowForm] = useState(false);
   const [form, setForm] = useState(emptyArticleForm);
   const [saving, setSaving] = useState(false);
+  const [importing, setImporting] = useState<Record<string, boolean>>({});
 
   // Check auth + admin role
   useEffect(() => {
