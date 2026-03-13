@@ -13,7 +13,7 @@ const Index = () => {
     <div className="min-h-screen">
       <SEO
         title="AIGA - AI Geletterdheid Academy | AI Act Training"
-        description="Maak jouw team AI-geletterd en compliant met de EU AI Act. Gecertificeerde online training vanaf 10 medewerkers. Audit-proof certificaat inbegrepen."
+        description="Maak jouw team AI-geletterd en compliant met de EU AI Act. Gecertificeerde online training met audit-proof certificaat inbegrepen."
         canonical="/"
         jsonLd={{
           "@context": "https://schema.org",
