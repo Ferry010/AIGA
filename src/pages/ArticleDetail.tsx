@@ -203,7 +203,7 @@ const ArticleDetail = () => {
           author: {
             "@type": "Person",
             name: "Ferry Hoes",
-            url: "https://aiganl.lovable.app/over-aiga",
+            url: "https://aigeletterdheid.academy/over-aiga",
             jobTitle: "AI-expert & Keynote Spreker",
             sameAs: "https://www.linkedin.com/in/ferryhoes",
           },
