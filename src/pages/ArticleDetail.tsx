@@ -75,7 +75,7 @@ const SLUG_DATES: Record<string, string> = {
   "wat-is-ai-geletterdheid": "2025-01-05",
 };
 
-const FALLBACK_IMAGE = "https://aiganl.lovable.app/assets/AIGA_transparent-CxHDVoMM.png";
+const FALLBACK_IMAGE = "https://aigeletterdheid.academy/assets/AIGA_transparent-CxHDVoMM.png";
 
 const EU_AI_ACT_SOURCES = [
   { label: "EUR-Lex — EU AI Act (Verordening 2024/1689)", url: "https://eur-lex.europa.eu/legal-content/NL/TXT/?uri=CELEX:32024R1689" },
@@ -203,16 +203,16 @@ const ArticleDetail = () => {
           author: {
             "@type": "Person",
             name: "Ferry Hoes",
-            url: "https://aiganl.lovable.app/over-aiga",
+            url: "https://aigeletterdheid.academy/over-aiga",
             jobTitle: "AI-expert & Keynote Spreker",
             sameAs: "https://www.linkedin.com/in/ferryhoes",
           },
           publisher: {
             "@type": "Organization",
             name: "AIGA — AI Geletterdheid Academy",
-            logo: { "@type": "ImageObject", url: "https://aiganl.lovable.app/assets/AIGA_transparent-CxHDVoMM.png" },
+            logo: { "@type": "ImageObject", url: "https://aigeletterdheid.academy/assets/AIGA_transparent-CxHDVoMM.png" },
           },
-          mainEntityOfPage: { "@type": "WebPage", "@id": `https://aiganl.lovable.app/kenniscentrum/${article.slug}` },
+          mainEntityOfPage: { "@type": "WebPage", "@id": `https://aigeletterdheid.academy/kenniscentrum/${article.slug}` },
           inLanguage: "nl",
           about: { "@type": "Thing", name: "AI-geletterdheid" },
         }}

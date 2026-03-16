@@ -16,7 +16,7 @@ const AiGeletterdheidNederland = () => (
         "@type": "WebPage",
         name: "AI-Geletterdheid in Nederland",
         description: "Alles over AI-geletterdheid in Nederland en de EU AI Act.",
-        url: "https://aiganl.lovable.app/ai-geletterdheid-nederland",
+        url: "https://aigeletterdheid.academy/ai-geletterdheid-nederland",
         publisher: { "@type": "Organization", name: "AIGA — AI Geletterdheid Academy" },
       }}
     />

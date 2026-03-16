@@ -13,4 +13,4 @@ Allow: /
 User-agent: *
 Allow: /
 
-Sitemap: https://aiganl.lovable.app/sitemap.xml
+Sitemap: https://aigeletterdheid.academy/sitemap.xml

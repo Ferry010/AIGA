@@ -157,7 +157,7 @@ const Quiz = () => {
             "@type": "WebApplication",
             name: "AIGA AI Risicoscan",
             description: "Gratis AI Risicoscan voor Nederlandse organisaties. Ontdek in 5 minuten hoe kwetsbaar jouw organisatie is voor AI Act overtredingen.",
-            url: "https://aiganl.lovable.app/risicoscan",
+            url: "https://aigeletterdheid.academy/risicoscan",
             applicationCategory: "BusinessApplication",
             operatingSystem: "Any",
             offers: { "@type": "Offer", price: "0", priceCurrency: "EUR" },

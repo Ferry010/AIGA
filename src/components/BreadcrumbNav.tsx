@@ -11,7 +11,7 @@ interface BreadcrumbNavProps {
   items: BreadcrumbItem[];
 }
 
-const SITE_URL = "https://aiganl.lovable.app";
+const SITE_URL = "https://aigeletterdheid.academy";
 
 const BreadcrumbNav = ({ items }: BreadcrumbNavProps) => {
   const jsonLd = {
