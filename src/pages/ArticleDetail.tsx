@@ -75,7 +75,7 @@ const SLUG_DATES: Record<string, string> = {
   "wat-is-ai-geletterdheid": "2025-01-05",
 };
 
-const FALLBACK_IMAGE = "https://aiganl.lovable.app/assets/AIGA_transparent-CxHDVoMM.png";
+const FALLBACK_IMAGE = "https://aigeletterdheid.academy/assets/AIGA_transparent-CxHDVoMM.png";
 
 const EU_AI_ACT_SOURCES = [
   { label: "EUR-Lex — EU AI Act (Verordening 2024/1689)", url: "https://eur-lex.europa.eu/legal-content/NL/TXT/?uri=CELEX:32024R1689" },
