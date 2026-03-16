@@ -15,7 +15,7 @@ const AiActComplianceNederland = () => (
         "@type": "WebPage",
         name: "AI Act Compliance voor Nederlandse Organisaties",
         description: "Praktische gids voor AI Act compliance in Nederland.",
-        url: "https://aiganl.lovable.app/ai-act-compliance-nederland",
+        url: "https://aigeletterdheid.academy/ai-act-compliance-nederland",
         publisher: { "@type": "Organization", name: "AIGA — AI Geletterdheid Academy" },
       }}
     />

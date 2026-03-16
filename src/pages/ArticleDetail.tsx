@@ -212,7 +212,7 @@ const ArticleDetail = () => {
             name: "AIGA — AI Geletterdheid Academy",
             logo: { "@type": "ImageObject", url: "https://aigeletterdheid.academy/assets/AIGA_transparent-CxHDVoMM.png" },
           },
-          mainEntityOfPage: { "@type": "WebPage", "@id": `https://aiganl.lovable.app/kenniscentrum/${article.slug}` },
+          mainEntityOfPage: { "@type": "WebPage", "@id": `https://aigeletterdheid.academy/kenniscentrum/${article.slug}` },
           inLanguage: "nl",
           about: { "@type": "Thing", name: "AI-geletterdheid" },
         }}

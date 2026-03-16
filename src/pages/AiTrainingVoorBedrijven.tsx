@@ -16,7 +16,7 @@ const AiTrainingVoorBedrijven = () => (
         "@type": "WebPage",
         name: "AI Training voor Bedrijven in Nederland",
         description: "Gecertificeerde AI-training voor Nederlandse bedrijven.",
-        url: "https://aiganl.lovable.app/ai-training-voor-bedrijven",
+        url: "https://aigeletterdheid.academy/ai-training-voor-bedrijven",
         publisher: { "@type": "Organization", name: "AIGA — AI Geletterdheid Academy" },
       }}
     />
