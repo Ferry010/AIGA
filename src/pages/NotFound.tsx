@@ -15,9 +15,9 @@ const NotFound = () => {
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-background px-6">
       <motion.div
-        initial={{ opacity: 0, y: 24 }}
+        initial={reduced ? false : { opacity: 0, y: 24 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
+        transition={{ duration: reduced ? 0 : 0.6 }}
         className="text-center"
       >
         <img src={aigaLogo} alt="AIGA logo" className="mx-auto mb-8 h-10" />
