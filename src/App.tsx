@@ -7,6 +7,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import CookieBanner from "@/components/CookieBanner";
+import AccessibilityWidget from "@/components/AccessibilityWidget";
 import Footer from "@/components/Footer";
 import Index from "./pages/Index";
 import Training from "./pages/Training";
