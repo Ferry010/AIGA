@@ -314,7 +314,7 @@ const Quiz = () => {
                     style={{ backgroundColor: tier.color }}
                     initial={{ width: 0 }}
                     animate={{ width: `${dimPct}%` }}
-                    transition={{ duration: 0.8, delay: 0.5 }}
+                    transition={{ duration: reduced ? 0 : 0.8, delay: reduced ? 0 : 0.5 }}
                   />
                 </div>
               </div>
