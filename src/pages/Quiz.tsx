@@ -258,9 +258,9 @@ const Quiz = () => {
   return (
     <div className="min-h-screen flex items-center justify-center px-4 py-32">
       <motion.div
-        initial={{ opacity: 0, scale: 0.95 }}
+        initial={reduced ? false : { opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.5 }}
+        transition={{ duration: reduced ? 0 : 0.5 }}
         className="max-w-2xl w-full"
       >
         {/* Ring chart */}
