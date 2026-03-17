@@ -69,6 +69,7 @@ const AppContent = () => {
       </main>
       {!isQuizActive && !isAdminActive && <Footer />}
       <CookieBanner />
+      <AccessibilityWidget />
     </>
   );
 };
