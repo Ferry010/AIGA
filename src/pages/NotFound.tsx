@@ -2,8 +2,10 @@ import { useLocation, Link } from "react-router-dom";
 import { useEffect } from "react";
 import { motion } from "framer-motion";
 import aigaLogo from "@/assets/AIGA_transparent.png";
+import { useReduceMotion } from "@/hooks/use-reduce-motion";
 
 const NotFound = () => {
+  const reduced = useReduceMotion();
   const location = useLocation();
 
   useEffect(() => {
