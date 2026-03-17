@@ -11,6 +11,7 @@ import DefinitionBlock from "@/components/DefinitionBlock";
 import SEO from "@/components/SEO";
 
 const Index = () => {
+  const reduced = useReduceMotion();
 
   return (
     <div className="min-h-screen">
