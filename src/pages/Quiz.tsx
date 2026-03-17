@@ -277,7 +277,7 @@ const Quiz = () => {
                 strokeDasharray={2 * Math.PI * 70}
                 initial={{ strokeDashoffset: 2 * Math.PI * 70 }}
                 animate={{ strokeDashoffset: 2 * Math.PI * 70 * (1 - pct / 100) }}
-                transition={{ duration: 1, delay: 0.3 }}
+                transition={{ duration: reduced ? 0 : 1, delay: reduced ? 0 : 0.3 }}
               />
             </svg>
             <div className="absolute inset-0 flex items-center justify-center">
