@@ -158,9 +158,11 @@ html.a11y-large-text {
   font-size: 120% !important;
 }
 html.a11y-colorblind {
-  --color-success: #0077BB;
-  --color-warning: #EE7733;
-  --color-danger: #EE3377;
+  --warning: 30 100% 50%;
+  --success: 200 100% 37%;
+  --destructive: 330 80% 50%;
+  --neon-purple: 200 70% 50%;
+  --neon-pink: 45 90% 55%;
 }
 html.a11y-reduce-motion * {
   transition: none !important;

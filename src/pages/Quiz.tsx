@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { AnimatedSection } from "@/components/AnimatedSection";
 import SectionLabel from "@/components/SectionLabel";
 import { motion } from "framer-motion";
+import { useReduceMotion } from "@/hooks/use-reduce-motion";
 import { supabase } from "@/integrations/supabase/client";
 import SEO from "@/components/SEO";
 
@@ -83,6 +84,7 @@ const tiers: TierData[] = [
 type Phase = "intro" | "quiz" | "result";
 
 const Quiz = () => {
+  const reduced = useReduceMotion();
   const [phase, setPhase] = useState<Phase>("intro");
   const [current, setCurrent] = useState(0);
   const [answers, setAnswers] = useState<number[]>([]);
@@ -224,9 +226,9 @@ const Quiz = () => {
         <div className="flex-1 flex items-center justify-center pt-36 pb-16 px-4">
           <motion.div
             key={current}
-            initial={{ opacity: 0, x: 20 }}
+            initial={reduced ? false : { opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.3 }}
+            transition={{ duration: reduced ? 0 : 0.3 }}
             className="max-w-xl w-full"
           >
             <p className="text-lg font-semibold text-foreground mb-8 leading-relaxed">{q.q}</p>
@@ -256,9 +258,9 @@ const Quiz = () => {
   return (
     <div className="min-h-screen flex items-center justify-center px-4 py-32">
       <motion.div
-        initial={{ opacity: 0, scale: 0.95 }}
+        initial={reduced ? false : { opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.5 }}
+        transition={{ duration: reduced ? 0 : 0.5 }}
         className="max-w-2xl w-full"
       >
         {/* Ring chart */}
@@ -275,7 +277,7 @@ const Quiz = () => {
                 strokeDasharray={2 * Math.PI * 70}
                 initial={{ strokeDashoffset: 2 * Math.PI * 70 }}
                 animate={{ strokeDashoffset: 2 * Math.PI * 70 * (1 - pct / 100) }}
-                transition={{ duration: 1, delay: 0.3 }}
+                transition={{ duration: reduced ? 0 : 1, delay: reduced ? 0 : 0.3 }}
               />
             </svg>
             <div className="absolute inset-0 flex items-center justify-center">
@@ -312,7 +314,7 @@ const Quiz = () => {
                     style={{ backgroundColor: tier.color }}
                     initial={{ width: 0 }}
                     animate={{ width: `${dimPct}%` }}
-                    transition={{ duration: 0.8, delay: 0.5 }}
+                    transition={{ duration: reduced ? 0 : 0.8, delay: reduced ? 0 : 0.5 }}
                   />
                 </div>
               </div>
