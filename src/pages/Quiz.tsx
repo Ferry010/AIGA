@@ -84,6 +84,7 @@ const tiers: TierData[] = [
 type Phase = "intro" | "quiz" | "result";
 
 const Quiz = () => {
+  const reduced = useReduceMotion();
   const [phase, setPhase] = useState<Phase>("intro");
   const [current, setCurrent] = useState(0);
   const [answers, setAnswers] = useState<number[]>([]);
