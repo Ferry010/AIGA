@@ -147,3 +147,22 @@
   border-image: linear-gradient(90deg, hsl(var(--neon-purple)), hsl(var(--neon-pink))) 1;
   border-image-slice: 1;
 }
+
+/* Accessibility overrides */
+html.a11y-contrast {
+  filter: contrast(1.5);
+  background: #000 !important;
+  color: #fff !important;
+}
+html.a11y-large-text {
+  font-size: 120% !important;
+}
+html.a11y-colorblind {
+  --color-success: #0077BB;
+  --color-warning: #EE7733;
+  --color-danger: #EE3377;
+}
+html.a11y-reduce-motion * {
+  transition: none !important;
+  animation: none !important;
+}
