@@ -226,9 +226,9 @@ const Quiz = () => {
         <div className="flex-1 flex items-center justify-center pt-36 pb-16 px-4">
           <motion.div
             key={current}
-            initial={{ opacity: 0, x: 20 }}
+            initial={reduced ? false : { opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.3 }}
+            transition={{ duration: reduced ? 0 : 0.3 }}
             className="max-w-xl w-full"
           >
             <p className="text-lg font-semibold text-foreground mb-8 leading-relaxed">{q.q}</p>
