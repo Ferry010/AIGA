@@ -416,6 +416,16 @@ const Admin = () => {
             </table>
           </div>
         </TabsContent>
+
+        {/* ─── Gebruikers Tab ─── */}
+        <TabsContent value="gebruikers">
+          <AdminUsers />
+        </TabsContent>
+
+        {/* ─── Account Tab ─── */}
+        <TabsContent value="account">
+          <AdminAccount />
+        </TabsContent>
       </Tabs>
     </div>
   );
