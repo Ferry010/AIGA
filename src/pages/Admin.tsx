@@ -237,6 +237,8 @@ const Admin = () => {
         <TabsList className="mb-6">
           <TabsTrigger value="submissions">Submissions</TabsTrigger>
           <TabsTrigger value="artikelen">Artikelen</TabsTrigger>
+          <TabsTrigger value="gebruikers">Gebruikers</TabsTrigger>
+          <TabsTrigger value="account">Account</TabsTrigger>
         </TabsList>
 
         {/* ─── Submissions Tab ─── */}
