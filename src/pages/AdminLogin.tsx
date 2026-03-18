@@ -20,29 +20,52 @@ const AdminLogin = () => {
     setMessage("");
     setLoading(true);
 
-    if (isSignUp) {
-      const { error } = await supabase.auth.signUp({
-        email,
-        password,
-        options: {
-          data: { full_name: fullName },
-          emailRedirectTo: window.location.origin + "/admin",
-        },
-      });
-      if (error) {
-        setError(error.message);
+    try {
+      if (isSignUp) {
+        const { error } = await supabase.auth.signUp({
+          email,
+          password,
+          options: {
+            data: { full_name: fullName },
+            emailRedirectTo: window.location.origin + "/admin",
+          },
+        });
+
+        if (error) {
+          setError(error.message);
+        } else {
+          setMessage("Controleer je e-mail om je account te bevestigen.");
+        }
       } else {
-        setMessage("Controleer je e-mail om je account te bevestigen.");
-      }
-    } else {
-      const { error } = await supabase.auth.signInWithPassword({ email, password });
-      if (error) {
-        setError(error.message);
-      } else {
+        const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+
+        if (error) {
+          setError(error.message);
+          return;
+        }
+
+        const userId = data.user?.id;
+        if (!userId) {
+          setError("Inloggen mislukt. Probeer opnieuw.");
+          return;
+        }
+
+        const { data: isAdmin, error: roleError } = await supabase.rpc("has_role", {
+          _user_id: userId,
+          _role: "admin",
+        });
+
+        if (roleError || !isAdmin) {
+          await supabase.auth.signOut();
+          setError("Dit account heeft geen adminrechten.");
+          return;
+        }
+
         navigate("/admin");
       }
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   return (

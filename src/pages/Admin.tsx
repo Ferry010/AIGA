@@ -218,7 +218,13 @@ const Admin = () => {
     );
   }
 
-  if (!authenticated) return null;
+  if (!authenticated) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-background">
+        <p className="text-muted-foreground">Geen toegang. Je wordt doorgestuurd...</p>
+      </div>
+    );
+  }
 
   const total = submissions.length;
   const nogOpTeVolgen = submissions.filter((s) => !s.opgevolgd).length;
