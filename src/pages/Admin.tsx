@@ -8,6 +8,8 @@ import { Input } from "@/components/ui/input";
 import RichTextEditor from "@/components/RichTextEditor";
 import { Label } from "@/components/ui/label";
 import { Pencil, Plus, X, LogOut } from "lucide-react";
+import AdminUsers from "@/components/AdminUsers";
+import AdminAccount from "@/components/AdminAccount";
 
 const CATEGORIES = [
   "Wetten en regels",
