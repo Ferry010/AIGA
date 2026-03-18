@@ -9,9 +9,49 @@ import TrainerSection from "@/components/TrainerSection";
 import SocialProof from "@/components/SocialProof";
 import DefinitionBlock from "@/components/DefinitionBlock";
 import SEO from "@/components/SEO";
+import brandLogo from "@/assets/brand-humanizing-logo.png";
+import speakersLogo from "@/assets/speakers-academy-logo.png";
+import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
+import { useState, useRef } from "react";
+
+const faqItems = [
+  {
+    q: "Is deze training juridisch voldoende om te voldoen aan de AI Act?",
+    a: "Ja. De training is specifiek ontworpen op basis van Artikel 4 van de EU AI Act en gevalideerd door AI-rechtexperts. Het certificaat geldt als aantoonbaar bewijs bij een audit.",
+  },
+  {
+    q: "Wat als een medewerker het examen niet haalt?",
+    a: "Deelnemers mogen het examen herhalen. We zorgen dat iedereen het certificaat behaalt voordat de toegang verloopt.",
+  },
+  {
+    q: "Kunnen we de training integreren met ons eigen LMS of HR-systeem?",
+    a: "Voor grotere organisaties bieden we CSV-exports en op aanvraag integraties. Neem contact op voor maatwerk.",
+  },
+  {
+    q: "Hoe snel kunnen we starten?",
+    a: "Direct na boeking krijg je toegang tot het platform. Je kunt dezelfde dag nog medewerkers uitnodigen.",
+  },
+  {
+    q: "Is er een factuur / is dit BTW-aftrekbaar?",
+    a: "Ja, je ontvangt een factuur op bedrijfsnaam. Zakelijke trainingskosten zijn doorgaans BTW-aftrekbaar; check dit met je eigen fiscalist.",
+  },
+  {
+    q: "Wat als we een groot team hebben — zijn er volumekortingen?",
+    a: "Ja. Vraag een offerte aan via het contactformulier voor een prijsopgave op maat. Vanaf 50 seats ontvang je de Masterclass gratis.",
+  },
+];
 
 const Index = () => {
   const reduced = useReduceMotion();
+  const [videoPlaying, setVideoPlaying] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  const handlePlayVideo = () => {
+    if (videoRef.current) {
+      videoRef.current.play();
+      setVideoPlaying(true);
+    }
+  };
 
   return (
     <div className="min-h-screen">
@@ -36,6 +76,7 @@ const Index = () => {
           knowsAbout: ["AI-geletterdheid", "EU AI Act", "AI compliance", "AI training"],
         }}
       />
+
       {/* Hero */}
       <section className="min-h-[90vh] flex items-center relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32">
@@ -54,9 +95,13 @@ const Index = () => {
             <p className="mt-4 text-muted-foreground max-w-2xl leading-relaxed">
               Speciaal voor Nederlandse organisaties: onze training is volledig Nederlandstalig, gebaseerd op de vereisten van de EU AI Act zoals die in Nederland van toepassing zijn, en gevalideerd door AI-experts die dagelijks werken met Nederlandse bedrijven en overheidsinstellingen.
             </p>
-            <div className="mt-8">
+            {/* Fix 1: Two CTAs side by side */}
+            <div className="mt-8 flex flex-wrap gap-4">
               <Link to="/training" className="btn-neon px-7 py-3.5 rounded-lg text-[15px]">
-                Start direct
+                Bekijk de training
+              </Link>
+              <Link to="/risicoscan" className="btn-neon-outline px-7 py-3.5 rounded-lg text-[15px] font-semibold border-2">
+                Doe de gratis risicoscan
               </Link>
             </div>
             <div className="flex flex-wrap gap-6 mt-6 text-xs text-muted-foreground/70">
@@ -68,9 +113,22 @@ const Index = () => {
         </div>
       </section>
 
+      {/* Fix 6: Partner logos trust bar */}
+      <section className="py-6 bg-muted/50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col items-center gap-4">
+            <span className="text-xs font-medium uppercase tracking-[0.08em] text-muted-foreground font-body">Een samenwerking tussen</span>
+            <div className="flex items-center gap-8">
+              <img src={brandLogo} alt="Brand Humanizing Institute" className="h-12 rounded" />
+              <img src={speakersLogo} alt="Speakers Academy" className="h-12 rounded" />
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Urgency Banner */}
       <AnimatedSection>
-        <div className="bg-amber-50 border-l-[3px] border-warning mx-4 sm:mx-8 lg:mx-auto max-w-7xl px-6 py-5 rounded-r-lg">
+        <div className="bg-amber-50 border-l-[3px] border-warning mx-4 sm:mx-8 lg:mx-auto max-w-7xl px-6 py-5 rounded-r-lg mt-8">
           <div className="flex flex-col sm:flex-row sm:items-center gap-3">
             <span className="text-xs font-medium uppercase tracking-[0.08em] text-amber-700 font-body">Deadline</span>
             <p className="text-sm text-foreground leading-relaxed">
@@ -116,6 +174,25 @@ const Index = () => {
               </StaggerItem>
             ))}
           </StaggerContainer>
+        </div>
+      </section>
+
+      {/* Fix 2: Risico-scan CTA moved here (after Problem, before Solution) */}
+      <section className="py-24 bg-brand-dim border-y border-primary/10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <AnimatedSection>
+            <SectionLabel text="NIET ZEKER WAAR JE STAAT?" />
+            <h2 className="text-3xl sm:text-4xl font-display font-semibold text-foreground mt-2">
+              Doe de gratis AI Risico-scan.<br />
+              <span className="text-primary">In vijf minuten weet je waar je staat.</span>
+            </h2>
+            <p className="mt-4 text-muted-foreground max-w-xl mx-auto">
+              10 vragen. Direct resultaat. Inclusief persoonlijk advies op maat.
+            </p>
+            <Link to="/risicoscan" className="btn-neon inline-block mt-8 px-8 py-4 rounded-lg text-[15px]">
+              Start de AI Risico-scan
+            </Link>
+          </AnimatedSection>
         </div>
       </section>
 
@@ -176,27 +253,49 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Social Proof */}
-      <SocialProof />
-
-      {/* Risico-scan CTA */}
-      <section className="py-24 bg-brand-dim border-y border-primary/10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      {/* Fix 4: Video section moved here (after How it works, before Social Proof) */}
+      <section className="py-24">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection>
-            <SectionLabel text="HOE KWETSBAAR IS JOUW ORGANISATIE?" />
-            <h2 className="text-3xl sm:text-4xl font-display font-semibold text-foreground mt-2">
-              Doe de gratis AI Risico-scan.<br />
-              <span className="text-primary">In vijf minuten weet je waar je staat.</span>
+            <div className="text-center"><SectionLabel text="ZIE HET IN ACTIE" /></div>
+            <h2 className="text-3xl sm:text-4xl font-display font-semibold text-foreground mt-2 text-center">
+              Kijk hoe simpel het werkt. 👇
             </h2>
-            <p className="mt-4 text-muted-foreground max-w-xl mx-auto">
-              10 vragen. Direct resultaat. Inclusief persoonlijk advies op maat.
+            <p className="mt-4 text-muted-foreground text-center max-w-2xl mx-auto">
+              Van inschrijving tot audit-proof certificaat — uitgelegd in twee minuten.
             </p>
-            <Link to="/risicoscan" className="btn-neon inline-block mt-8 px-8 py-4 rounded-lg text-[15px]">
-              Start de AI Risico-scan
-            </Link>
+          </AnimatedSection>
+          <AnimatedSection delay={0.2} className="mt-10">
+            <div className="neon-border-lg rounded-2xl" style={{ padding: '3px' }}>
+              <div className="neon-inner bg-background rounded-2xl overflow-hidden relative">
+                <video
+                  ref={videoRef}
+                  src={trainingVideo}
+                  controls={videoPlaying}
+                  muted
+                  playsInline
+                  className="w-full rounded-2xl"
+                  onPlay={() => setVideoPlaying(true)}
+                />
+                {!videoPlaying && (
+                  <button
+                    onClick={handlePlayVideo}
+                    className="absolute inset-0 flex items-center justify-center bg-foreground/10 rounded-2xl transition-colors hover:bg-foreground/20"
+                    aria-label="Video afspelen"
+                  >
+                    <div className="w-20 h-20 rounded-full bg-background/90 flex items-center justify-center shadow-lg">
+                      <Play size={36} className="text-primary ml-1" />
+                    </div>
+                  </button>
+                )}
+              </div>
+            </div>
           </AnimatedSection>
         </div>
       </section>
+
+      {/* Social Proof */}
+      <SocialProof />
 
       {/* Ons Aanbod — Two product cards */}
       <section className="py-24">
@@ -216,6 +315,8 @@ const Index = () => {
                   <h3 className="text-xl font-semibold text-foreground">AI-Geletterdheid voor teams</h3>
                   <p className="text-sm text-muted-foreground mt-1">Online training met certificaat</p>
                   <p className="text-2xl font-bold text-foreground mt-4">249,- <span className="text-sm font-normal text-muted-foreground">per deelnemer (ex BTW)</span></p>
+                  {/* Fix 5: Price anchoring */}
+                  <p className="text-xs text-muted-foreground mt-1 italic">Minder dan één dag klassikale training — en meteen compliant.</p>
                   <ul className="space-y-2 mt-6 mb-8 flex-1">
                     {[
                       "Volledig online, in eigen tempo",
@@ -243,6 +344,8 @@ const Index = () => {
                 <p className="text-sm text-muted-foreground mt-1">Min. 5 deelnemers · op locatie</p>
                 <p className="text-2xl font-bold text-foreground mt-4">495,- <span className="text-sm font-normal text-muted-foreground">per deelnemer (ex BTW)</span></p>
                 <p className="text-xs text-muted-foreground mt-1">Gratis bij 50+ training seats</p>
+                {/* Fix 5: Price anchoring */}
+                <p className="text-xs text-muted-foreground mt-1 italic">Inclusief bij 50+ online seats — anders minder dan één middag extern advies.</p>
                 <ul className="space-y-2 mt-6 mb-8 flex-1">
                   {[
                     "In-company, ca. 2 uur",
@@ -261,34 +364,6 @@ const Index = () => {
               </div>
             </StaggerItem>
           </StaggerContainer>
-        </div>
-      </section>
-
-      {/* Video section */}
-      <section className="py-24">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <AnimatedSection>
-            <div className="text-center"><SectionLabel text="BEKIJK DE TRAINING" /></div>
-            <h2 className="text-3xl sm:text-4xl font-display font-semibold text-foreground mt-2 text-center">
-              Zie hoe het werkt,<br />
-              <span className="text-primary">in minder dan twee minuten.</span>
-            </h2>
-          </AnimatedSection>
-          <AnimatedSection delay={0.2} className="mt-10">
-            <div className="neon-border-lg rounded-2xl" style={{ padding: '3px' }}>
-              <div className="neon-inner bg-background rounded-2xl overflow-hidden">
-                <video
-                  src={trainingVideo}
-                  controls
-                  muted
-                  autoPlay
-                  loop
-                  playsInline
-                  className="w-full rounded-2xl"
-                />
-              </div>
-            </div>
-          </AnimatedSection>
         </div>
       </section>
 
@@ -366,6 +441,32 @@ const Index = () => {
 
       {/* About Ferry */}
       <TrainerSection bio="Ferry Hoes staat meermaals per maand op het podium voor organisaties als a.s.r. Verzekeringen, VodafoneZiggo en verschillende Ministeries. In 2020 won hij de Anti-Discriminatie AI-Hackathon. Hij weet precies hoe je AI-geletterdheid vertaalt naar actie, compliance en voordeel." />
+
+      {/* Fix 7: FAQ section */}
+      <section className="py-24">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+          <AnimatedSection>
+            <div className="text-center"><SectionLabel text="VEELGESTELDE VRAGEN" /></div>
+            <h2 className="text-3xl sm:text-4xl font-display font-semibold text-foreground mt-2 text-center">
+              Alles wat je wilt weten.
+            </h2>
+          </AnimatedSection>
+          <AnimatedSection delay={0.1} className="mt-10">
+            <Accordion type="single" collapsible className="w-full">
+              {faqItems.map((item, i) => (
+                <AccordionItem key={i} value={`faq-${i}`} className="border-border">
+                  <AccordionTrigger className="text-left text-foreground font-semibold text-[15px] hover:no-underline">
+                    {item.q}
+                  </AccordionTrigger>
+                  <AccordionContent className="text-muted-foreground leading-relaxed">
+                    {item.a}
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+          </AnimatedSection>
+        </div>
+      </section>
 
       {/* Final CTA */}
       <section className="py-28">
