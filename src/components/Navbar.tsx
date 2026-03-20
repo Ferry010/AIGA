@@ -46,7 +46,7 @@ const Navbar = () => {
 
           <div className="hidden lg:flex items-center gap-3">
             <Link
-              to="/risicoscan"
+              to="/gereedheidscan"
               className="btn-neon-outline text-sm font-semibold px-4 py-2"
             >
               Doe de scan
