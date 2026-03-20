@@ -12,7 +12,7 @@ const Privacyverklaring = () => (
       <article className="prose prose-neutral max-w-none dark:prose-invert">
         <h1>Privacyverklaring</h1>
         <p className="text-muted-foreground">
-          AI Geletterdheid Academy — Laatste update: 13 maart 2026
+          AI Geletterdheid Academy · Laatste update: 13 maart 2026
         </p>
         <p>
           Wij gaan zorgvuldig om met je persoonsgegevens. In deze privacyverklaring leggen we uit welke gegevens wij verzamelen, waarom we dat doen, hoe lang we ze bewaren en welke rechten jij hebt.
