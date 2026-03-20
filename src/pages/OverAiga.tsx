@@ -114,7 +114,7 @@ const OverAiga = () => {
                 Ferry staat meermaals per maand op het podium voor toonaangevende organisaties in heel Nederland. Zijn klanten omvatten a.s.r. Verzekeringen, VodafoneZiggo, meerdere Nederlandse ministeries, zorginstellingen, onderwijsorganisaties en MKB-bedrijven. Hij spreekt zowel op internationale conferenties als in besloten boardrooms.
               </p>
               <p>
-                In 2020 won Ferry de prestigieuze Anti-Discriminatie AI-Hackathon, georganiseerd door de Nederlandse overheid. Deze prijs bevestigde zijn expertise op het snijvlak van AI, ethiek en maatschappelijke verantwoordelijkheid — thema's die centraal staan in al zijn trainingen en presentaties.
+                In 2020 won Ferry de prestigieuze Anti-Discriminatie AI-Hackathon, georganiseerd door de Nederlandse overheid. Deze prijs bevestigde zijn expertise op het snijvlak van AI, ethiek en maatschappelijke verantwoordelijkheid. Thema's die centraal staan in al zijn trainingen en presentaties.
               </p>
               <p>
                 Ferry gelooft dat AI-geletterdheid niet gaat over het leren van technische vaardigheden, maar over het begrijpen van de impact van AI op mensen, organisaties en de samenleving. Zijn aanpak is altijd praktisch, menselijk en direct toepasbaar. Hij praat niet over AI vanuit een theorieboek — hij praat erover vanuit de boardrooms, de werkvloeren en de workshops waar hij wekelijks aanwezig is.
