@@ -12,7 +12,7 @@ const Licentie = () => (
       <article className="prose prose-neutral max-w-none dark:prose-invert">
         <h1>Licentie &amp; Gebruiksvoorwaarden</h1>
         <p className="text-muted-foreground">
-          AI Geletterdheid Academy — Laatste update: 13 maart 2026
+          AI Geletterdheid Academy · Laatste update: 13 maart 2026
         </p>
         <p>
           Deze licentie- en gebruiksvoorwaarden zijn van toepassing op alle content en materialen die beschikbaar worden gesteld via AI Geletterdheid Academy (AIGA), een dienst van Brand Humanizing Institute. Door gebruik te maken van onze producten ga je akkoord met de voorwaarden in dit document.
