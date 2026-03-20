@@ -1,44 +1,40 @@
 
 
-## Rebrand "AI Risicoscan" to "AI Gereedheidscan"
+## Add Pricing & Product Info to Training and Masterclass Pages
 
-### Rationale
-The current name "Risicoscan" frames the tool around AI risks (high/mid/low risk AI tools), which is misleading. The scan actually measures organizational readiness across 5 dimensions: AI-gebruik, bewustzijn van wetgeving, risicobeheer, leiderschap, en audit-readiness. "Gereedheidscan" (readiness scan) better reflects this.
+### Current state
+- **Homepage** has detailed pricing cards (€249/seat training, €495/seat masterclass) with feature lists and a comparison table
+- **Training page** only mentions "Kosten: 249,- (ex BTW) per deelnemer" as a bullet point, no proper pricing section, no tier info, no volume incentive
+- **Masterclass page** has "Prijs op aanvraag" and "Gratis bij 50+ seats" as small badges in the hero, but no dedicated pricing section with the €495 price or details
 
-### What changes
+### Changes
 
-**Naming updates across all files:**
-- "AI Risicoscan" / "AI Risico-scan" / "Risicoscan" → "AI Gereedheidscan"
-- "GRATIS AI RISICO-SCAN" → "GRATIS AI GEREEDHEIDSCAN"
-- URL route stays `/risicoscan` to avoid breaking existing links (or change to `/gereedheidscan` with a redirect)
+#### 1. Training page (`src/pages/Training.tsx`) — Add pricing section
+Insert a dedicated pricing section between "Waarom bij ons" and the FAQ. Include:
+- A pricing card showing **€249,- per deelnemer (ex BTW)**
+- Volume tiers as context: "Vanaf 50 seats: gratis Masterclass voor management inbegrepen"
+- Feature checklist: selfpaced, certificaat, voortgangsdashboard, adaptief examen, onbeperkt herkansen
+- "Wat is inbegrepen" list
+- CTA button linking to the contact form below
+- Price anchoring line: "Minder dan één dag klassikale training, en meteen compliant."
 
-**Tier badges reframed from risk to readiness:**
-- Tier 1 (0-40%): "HOOG RISICO" → "NIET GEREED" · heading: "Je team loopt risico" → "Jullie organisatie is nog niet gereed"
-- Tier 2 (41-70%): "BLINDE VLEKKEN" → "GEDEELTELIJK GEREED" · heading stays similar
-- Tier 3 (71-100%): "VOORLOPER" stays (already positive/readiness-framed)
+#### 2. Training page — Add "Hoe het werkt" steps section
+Insert a 3-step process section (similar to homepage) before pricing:
+- 01: Meld je team aan
+- 02: Medewerkers volgen de training zelfstandig
+- 03: Ontvang de certificaten
 
-**SEO & meta updates in `Quiz.tsx`:**
-- Title: "Gratis AI Gereedheidscan voor Organisaties | 3 Minuten | AIGA"
-- Description reframed around readiness instead of vulnerability
-- JSON-LD name/description updated
+#### 3. Masterclass page (`src/pages/Masterclass.tsx`) — Add pricing section
+Insert a pricing section replacing the current bare "Aanmelden als team" card (lines 153-171). Include:
+- Price: **€495,- per deelnemer (ex BTW)**, minimum 5 deelnemers
+- Highlight: "Gratis bij 50+ online training seats"
+- What's included: 2 uur live sessie, AI Literacy Leader bewijs, op locatie of online, live Q&A
+- CTA to the form below
 
-**Copy updates in `Quiz.tsx` intro:**
-- Reframe intro paragraphs from "hoe kwetsbaar" to "hoe gereed" your organisation is
+#### 4. Masterclass page — Add cross-sell to Training
+After the pricing section, add a small cross-reference: "Zoek je een training voor alle medewerkers? Bekijk de online training." linking to `/training`.
 
-**LinkedIn share text** in Quiz.tsx updated
-
-**Files to edit (7):**
-1. `src/pages/Quiz.tsx` – main rename + tier badges + SEO + intro copy + LinkedIn text
-2. `src/pages/Index.tsx` – CTA section references (2 occurrences)
-3. `src/components/Navbar.tsx` – nav button label
-4. `src/components/Footer.tsx` – footer link label
-5. `src/components/SocialProof.tsx` – link text
-6. `src/App.tsx` – route path (change to `/gereedheidscan`, keep `/risicoscan` as redirect)
-7. `public/sitemap.xml` – URL update
-
-**Database:** The `tier` column values in `risk_scan_submissions` stay unchanged (internal only).
-
-### URL strategy
-- Change primary route to `/gereedheidscan`
-- Add redirect from `/risicoscan` → `/gereedheidscan` via `_redirects` file and React Router redirect, so existing links keep working
+### Files to edit
+1. `src/pages/Training.tsx` — add pricing section + "hoe het werkt" section
+2. `src/pages/Masterclass.tsx` — replace/enhance pricing card section + add cross-sell
 
