@@ -50,7 +50,7 @@ const tiers: TierData[] = [
     minPct: 0, maxPct: 40,
     badge: "HOOG RISICO", color: "hsl(0, 84%, 60%)",
     heading: "Je team loopt risico",
-    body: "Jullie gebruiken waarschijnlijk al AI-tools — maar zonder gedeelde kennis of spelregels. Dat is een blinde vlek die organisaties geld, vertrouwen en straks ook compliance kost.",
+    body: "Jullie gebruiken waarschijnlijk al AI-tools, maar zonder gedeelde kennis of spelregels. Dat is een blinde vlek die organisaties geld, vertrouwen en straks ook compliance kost.",
     ctaHeading: "Laat ons helpen",
     ctaBody: "Vul je gegevens in en we nemen contact met je op om te kijken hoe we kunnen helpen.",
     buttonLabel: "Neem contact met mij op →",
