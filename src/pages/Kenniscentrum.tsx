@@ -30,14 +30,6 @@ interface Article {
   slug: string | null;
 }
 
-const riskColors: Record<AiTool["risk"], string> = {
-  Hoog: "bg-destructive text-destructive-foreground",
-  Beperkt: "bg-warning text-foreground",
-  Minimaal: "bg-success text-primary-foreground",
-};
-
-const riskFilters = ["Alle risico's", "Minimaal", "Beperkt", "Hoog", "Training vereist"] as const;
-type RiskFilter = (typeof riskFilters)[number];
 
 const Kenniscentrum = () => {
   // Article state
