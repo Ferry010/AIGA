@@ -1,12 +1,11 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, Calculator, ClipboardCheck, FileDown, FileText, ShieldCheck } from "lucide-react";
+import { ArrowRight, Calculator, ClipboardCheck, FileDown, FileText, Search, ShieldCheck } from "lucide-react";
 import { AnimatedSection, StaggerContainer, StaggerItem } from "@/components/AnimatedSection";
 import SectionLabel from "@/components/SectionLabel";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import BreadcrumbNav from "@/components/BreadcrumbNav";
 import SEO from "@/components/SEO";
-import AiUseCaseChecker from "@/components/AiUseCaseChecker";
 
 const scans = [
   {
