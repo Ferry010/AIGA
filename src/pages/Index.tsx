@@ -316,7 +316,7 @@ const Index = () => {
                   <p className="text-sm text-muted-foreground mt-1">Online training met certificaat</p>
                   <p className="text-2xl font-bold text-foreground mt-4">249,- <span className="text-sm font-normal text-muted-foreground">per deelnemer (ex BTW)</span></p>
                   {/* Fix 5: Price anchoring */}
-                  <p className="text-xs text-muted-foreground mt-1 italic">Minder dan één dag klassikale training — en meteen compliant.</p>
+                  <p className="text-xs text-muted-foreground mt-1 italic">Minder dan één dag klassikale training, en meteen compliant.</p>
                   <ul className="space-y-2 mt-6 mb-8 flex-1">
                     {[
                       "Volledig online, in eigen tempo",
