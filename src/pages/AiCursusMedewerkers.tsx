@@ -8,7 +8,7 @@ import BreadcrumbNav from "@/components/BreadcrumbNav";
 const AiCursusMedewerkers = () => (
   <div className="min-h-screen">
     <SEO
-      title="AI Cursus voor Medewerkers — Gecertificeerd & Praktisch | AIGA"
+      title="AI Cursus voor Medewerkers | Gecertificeerd & Praktisch | AIGA"
       description="AI cursus voor medewerkers: leer AI veilig en verantwoord gebruiken op de werkvloer. Online, selfpaced, 2-3 uur. AI Literacy Practitioner certificaat inbegrepen."
       canonical="/ai-cursus-medewerkers"
       jsonLd={{
@@ -16,7 +16,7 @@ const AiCursusMedewerkers = () => (
         "@type": "Course",
         name: "AI Cursus voor Medewerkers",
         description: "Praktische AI cursus voor medewerkers. Voldoe aan de EU AI Act met een audit-proof certificaat.",
-        provider: { "@type": "Organization", name: "AIGA — AI Geletterdheid Academy", url: "https://aigeletterdheid.academy" },
+        provider: { "@type": "Organization", name: "AIGA | AI Geletterdheid Academy", url: "https://aigeletterdheid.academy" },
         instructor: { "@type": "Person", name: "Ferry Hoes" },
         courseMode: "online",
         inLanguage: "nl",
@@ -32,7 +32,7 @@ const AiCursusMedewerkers = () => (
         <AnimatedSection>
           <SectionLabel text="AI CURSUS MEDEWERKERS" />
           <h1 className="text-4xl sm:text-5xl font-display font-bold text-foreground leading-tight mt-4">
-            AI Cursus voor Medewerkers —<br />
+            AI Cursus voor Medewerkers:<br />
             <span className="text-primary">Praktisch en Gecertificeerd</span>
           </h1>
           <p className="mt-6 text-lg text-muted-foreground leading-relaxed">
@@ -83,7 +83,7 @@ const AiCursusMedewerkers = () => (
           </h2>
           <div className="text-muted-foreground leading-relaxed space-y-4">
             <p>
-              De cursus kost <strong className="text-foreground">€249 per medewerker</strong> (exclusief BTW). Er is geen minimum aantal deelnemers — je kunt starten met 1 seat of direct je hele organisatie inschrijven. Voor grotere aantallen gelden staffelkortingen.
+              De cursus kost <strong className="text-foreground">€249 per medewerker</strong> (exclusief BTW). Er is geen minimum aantal deelnemers. Je kunt starten met 1 seat of direct je hele organisatie inschrijven. Voor grotere aantallen gelden staffelkortingen.
             </p>
             <p>
               Bij 50 of meer seats is een <Link to="/masterclass" className="text-primary hover:underline">live Masterclass voor leidinggevenden</Link> gratis inbegrepen.

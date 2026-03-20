@@ -29,7 +29,7 @@ const Training = () => (
         "@type": "Course",
         name: "AI-Geletterdheid voor Teams",
         description: "Online AI-geletterdheid training voor teams. Voldoe aan de EU AI Act met een audit-proof AI Literacy Practitioner certificaat.",
-        provider: { "@type": "Organization", name: "AIGA — AI Geletterdheid Academy", url: "https://aigeletterdheid.academy" },
+        provider: { "@type": "Organization", name: "AIGA | AI Geletterdheid Academy", url: "https://aigeletterdheid.academy" },
         instructor: { "@type": "Person", name: "Ferry Hoes" },
         educationalLevel: "Beginner tot Intermediate",
         teaches: ["AI-geletterdheid", "EU AI Act compliance", "Verantwoord AI-gebruik", "AI-risicobeheer"],

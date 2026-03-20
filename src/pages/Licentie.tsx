@@ -12,7 +12,7 @@ const Licentie = () => (
       <article className="prose prose-neutral max-w-none dark:prose-invert">
         <h1>Licentie &amp; Gebruiksvoorwaarden</h1>
         <p className="text-muted-foreground">
-          AI Geletterdheid Academy — Laatste update: 13 maart 2026
+          AI Geletterdheid Academy · Laatste update: 13 maart 2026
         </p>
         <p>
           Deze licentie- en gebruiksvoorwaarden zijn van toepassing op alle content en materialen die beschikbaar worden gesteld via AI Geletterdheid Academy (AIGA), een dienst van Brand Humanizing Institute. Door gebruik te maken van onze producten ga je akkoord met de voorwaarden in dit document.
@@ -20,7 +20,7 @@ const Licentie = () => (
 
         <h2>1. Eigendom van de content</h2>
         <p>
-          Alle content die beschikbaar wordt gesteld via AIGA — waaronder e-learning modules, cursusmateriaal, werkboeken, downloads en toetsvragen — is het intellectuele eigendom van Brand Humanizing Institute, tenzij uitdrukkelijk anders vermeld.
+          Alle content die beschikbaar wordt gesteld via AIGA, waaronder e-learning modules, cursusmateriaal, werkboeken, downloads en toetsvragen, is het intellectuele eigendom van Brand Humanizing Institute, tenzij uitdrukkelijk anders vermeld.
         </p>
         <p>
           De content is beschermd onder het auteursrecht en andere toepasselijke wet- en regelgeving. Het verlenen van toegang tot de materialen houdt geen overdracht van intellectuele eigendomsrechten in.
@@ -53,7 +53,7 @@ const Licentie = () => (
         <h2>3. Wat je niet mag doen</h2>
         <p>Het is uitdrukkelijk niet toegestaan om:</p>
         <ul>
-          <li>Materialen te kopiëren, reproduceren, afdrukken of distribueren — ook niet gedeeltelijk — zonder voorafgaande schriftelijke toestemming van Brand Humanizing Institute.</li>
+          <li>Materialen te kopiëren, reproduceren, afdrukken of distribueren, ook niet gedeeltelijk, zonder voorafgaande schriftelijke toestemming van Brand Humanizing Institute.</li>
           <li>Modules, werkboeken of andere content te delen met personen die geen actieve AIGA-licentie hebben.</li>
           <li>Content te gebruiken voor commerciële doeleinden, zoals het geven van trainingen of het ontwikkelen van eigen cursusmateriaal op basis van onze materialen.</li>
           <li>Het certificaat over te dragen aan een andere persoon. Het certificaat is strikt persoonsgebonden en gekoppeld aan de naam van de deelnemer die de opleiding heeft voltooid.</li>

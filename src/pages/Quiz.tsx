@@ -50,7 +50,7 @@ const tiers: TierData[] = [
     minPct: 0, maxPct: 40,
     badge: "HOOG RISICO", color: "hsl(0, 84%, 60%)",
     heading: "Je team loopt risico",
-    body: "Jullie gebruiken waarschijnlijk al AI-tools — maar zonder gedeelde kennis of spelregels. Dat is een blinde vlek die organisaties geld, vertrouwen en straks ook compliance kost.",
+    body: "Jullie gebruiken waarschijnlijk al AI-tools, maar zonder gedeelde kennis of spelregels. Dat is een blinde vlek die organisaties geld, vertrouwen en straks ook compliance kost.",
     ctaHeading: "Laat ons helpen",
     ctaBody: "Vul je gegevens in en we nemen contact met je op om te kijken hoe we kunnen helpen.",
     buttonLabel: "Neem contact met mij op →",
@@ -60,8 +60,8 @@ const tiers: TierData[] = [
   {
     minPct: 41, maxPct: 70,
     badge: "BLINDE VLEKKEN", color: "hsl(38, 92%, 50%)",
-    heading: "Jullie zijn op de goede weg — maar er zijn blinde vlekken",
-    body: "Een deel van je team begrijpt AI goed. Maar zonder gedeelde basis werkt niet iedereen vanuit dezelfde kennis. Dat zie je niet meteen — totdat het misgaat.",
+    heading: "Jullie zijn op de goede weg, maar er zijn blinde vlekken",
+    body: "Een deel van je team begrijpt AI goed. Maar zonder gedeelde basis werkt niet iedereen vanuit dezelfde kennis. Dat zie je niet meteen, totdat het misgaat.",
     ctaHeading: "Laat ons helpen verbeteren",
     ctaBody: "Vul je gegevens in en we kijken samen waar de verbeterpunten liggen.",
     buttonLabel: "Neem contact met mij op →",
@@ -72,7 +72,7 @@ const tiers: TierData[] = [
     minPct: 71, maxPct: 100,
     badge: "VOORLOPER", color: "hsl(160, 84%, 39%)",
     heading: "Jullie lopen voor op de meeste organisaties",
-    body: "Je team heeft een solide basis — en dat is zeldzamer dan je denkt. Dit is precies het moment om dat te formaliseren, voordat anderen bijkomen.",
+    body: "Je team heeft een solide basis, en dat is zeldzamer dan je denkt. Dit is precies het moment om dat te formaliseren, voordat anderen bijkomen.",
     ctaHeading: "Laat ons helpen dit vast te houden",
     ctaBody: "Vul je gegevens in en we bespreken hoe jullie deze voorsprong kunnen behouden en formaliseren.",
     buttonLabel: "Neem contact met mij op →",
@@ -141,7 +141,7 @@ const Quiz = () => {
 
   const handleLinkedInShare = () => {
     const text = encodeURIComponent(
-      `Onze organisatie scoort ${pct}% op de AIGA AI Risico Scan — en we lopen voor op 80% van de Nederlandse teams. Benieuwd hoe jullie scoren? ${window.location.origin}/risicoscan`
+      `Onze organisatie scoort ${pct}% op de AIGA AI Risico Scan en we lopen voor op 80% van de Nederlandse teams. Benieuwd hoe jullie scoren? ${window.location.origin}/risicoscan`
     );
     window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(window.location.origin + "/risicoscan")}&summary=${text}`, "_blank");
   };
@@ -163,7 +163,7 @@ const Quiz = () => {
             applicationCategory: "BusinessApplication",
             operatingSystem: "Any",
             offers: { "@type": "Offer", price: "0", priceCurrency: "EUR" },
-            provider: { "@type": "Organization", name: "AIGA — AI Geletterdheid Academy" },
+            provider: { "@type": "Organization", name: "AIGA | AI Geletterdheid Academy" },
           }}
         />
         <div className="max-w-3xl mx-auto px-4 pt-32 pb-24">
@@ -174,7 +174,7 @@ const Quiz = () => {
               <span className="text-primary">Nederlandse Organisaties</span>
             </h1>
             <p className="mt-6 text-lg text-muted-foreground leading-relaxed">
-              Sinds februari 2025 is AI-geletterdheid wettelijk verplicht onder de EU AI Act. Maar hoe weet je of jouw organisatie er klaar voor is? De AIGA AI Risicoscan geeft je in drie minuten een helder beeld van waar je staat — en waar de blinde vlekken zitten.
+              Sinds februari 2025 is AI-geletterdheid wettelijk verplicht onder de EU AI Act. Maar hoe weet je of jouw organisatie er klaar voor is? De AIGA AI Risicoscan geeft je in drie minuten een helder beeld van waar je staat, en waar de blinde vlekken zitten.
             </p>
             <p className="mt-4 text-muted-foreground leading-relaxed">
               De scan meet vijf dimensies: AI-gebruik, bewustzijn van wetgeving, risicobeheer, leiderschap en audit-readiness. Na afloop ontvang je direct je score, inclusief een uitsplitsing per dimensie en persoonlijk advies.
@@ -196,7 +196,7 @@ const Quiz = () => {
                 onClick={() => setPhase("quiz")}
                 className="btn-neon px-8 py-4 rounded-lg text-[15px]"
               >
-                Start de scan — 3 minuten
+                Start de scan · 3 minuten
               </button>
               <p className="mt-3 text-xs text-muted-foreground">10 vragen. Direct resultaat. Geen account nodig.</p>
             </div>
@@ -219,7 +219,7 @@ const Quiz = () => {
           </div>
           <p className="text-center text-xs text-muted-foreground pb-1">{current + 1} / 10</p>
           <p className="text-center text-[11px] text-muted-foreground/60 pb-2 italic">
-            Je ziet je resultaat meteen — we gooien geen formulier voor je neus.
+            Je ziet je resultaat meteen. We gooien geen formulier voor je neus.
           </p>
         </div>
 

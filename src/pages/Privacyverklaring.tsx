@@ -12,7 +12,7 @@ const Privacyverklaring = () => (
       <article className="prose prose-neutral max-w-none dark:prose-invert">
         <h1>Privacyverklaring</h1>
         <p className="text-muted-foreground">
-          AI Geletterdheid Academy — Laatste update: 13 maart 2026
+          AI Geletterdheid Academy · Laatste update: 13 maart 2026
         </p>
         <p>
           Wij gaan zorgvuldig om met je persoonsgegevens. In deze privacyverklaring leggen we uit welke gegevens wij verzamelen, waarom we dat doen, hoe lang we ze bewaren en welke rechten jij hebt.
@@ -35,7 +35,7 @@ const Privacyverklaring = () => (
 
         <h3>Contactformulieren en de AI Risico Scan</h3>
         <p>
-          Wanneer je een formulier invult op onze website — zoals na het uitvoeren van de AI Risico Scan — vragen wij om de volgende gegevens:
+          Wanneer je een formulier invult op onze website, zoals na het uitvoeren van de AI Risico Scan, vragen wij om de volgende gegevens:
         </p>
         <ul>
           <li>Naam</li>
@@ -85,20 +85,20 @@ const Privacyverklaring = () => (
           Wij verkopen je gegevens nooit aan derden. Wij maken gebruik van de volgende partijen die namens ons gegevens verwerken:
         </p>
         <ul>
-          <li><strong>Google LLC</strong> — voor Google Analytics (gegevensverwerking in de VS op basis van de standaard contractbepalingen van de Europese Commissie).</li>
-          <li><strong>Supabase</strong> — voor de opslag van formulierinzendingen (gegevens worden opgeslagen binnen de EU).</li>
+          <li><strong>Google LLC</strong>: voor Google Analytics (gegevensverwerking in de VS op basis van de standaard contractbepalingen van de Europese Commissie).</li>
+          <li><strong>Supabase</strong>: voor de opslag van formulierinzendingen (gegevens worden opgeslagen binnen de EU).</li>
         </ul>
         <p>Met alle verwerkers hebben wij de vereiste verwerkersovereenkomsten afgesloten.</p>
 
         <h2>5. Jouw rechten</h2>
         <p>Op grond van de Algemene Verordening Gegevensbescherming (AVG) heb je de volgende rechten:</p>
         <ul>
-          <li><strong>Recht op inzage</strong> — je kunt opvragen welke gegevens wij van je hebben.</li>
-          <li><strong>Recht op rectificatie</strong> — je kunt onjuiste gegevens laten corrigeren.</li>
-          <li><strong>Recht op verwijdering</strong> — je kunt vragen om verwijdering van je gegevens.</li>
-          <li><strong>Recht op beperking</strong> — je kunt vragen de verwerking tijdelijk te beperken.</li>
-          <li><strong>Recht op bezwaar</strong> — je kunt bezwaar maken tegen verwerking op grond van gerechtvaardigd belang.</li>
-          <li><strong>Recht op dataportabiliteit</strong> — je kunt je gegevens opvragen in een gangbaar formaat.</li>
+          <li><strong>Recht op inzage</strong>: je kunt opvragen welke gegevens wij van je hebben.</li>
+          <li><strong>Recht op rectificatie</strong>: je kunt onjuiste gegevens laten corrigeren.</li>
+          <li><strong>Recht op verwijdering</strong>: je kunt vragen om verwijdering van je gegevens.</li>
+          <li><strong>Recht op beperking</strong>: je kunt vragen de verwerking tijdelijk te beperken.</li>
+          <li><strong>Recht op bezwaar</strong>: je kunt bezwaar maken tegen verwerking op grond van gerechtvaardigd belang.</li>
+          <li><strong>Recht op dataportabiliteit</strong>: je kunt je gegevens opvragen in een gangbaar formaat.</li>
         </ul>
         <p>
           Wil je een van deze rechten uitoefenen? Neem dan contact met ons op via het{" "}
@@ -118,7 +118,7 @@ const Privacyverklaring = () => (
 
         <h2>7. Wijzigingen in deze verklaring</h2>
         <p>
-          Wij kunnen deze privacyverklaring van tijd tot tijd aanpassen — bijvoorbeeld als we nieuwe functionaliteit toevoegen aan de website. De meest actuele versie staat altijd op deze pagina met de datum van de laatste update.
+          Wij kunnen deze privacyverklaring van tijd tot tijd aanpassen, bijvoorbeeld als we nieuwe functionaliteit toevoegen aan de website. De meest actuele versie staat altijd op deze pagina met de datum van de laatste update.
         </p>
 
         <hr />

@@ -28,7 +28,7 @@ const OverAiga = () => {
   return (
     <div className="min-h-screen">
       <SEO
-        title="Over AIGA — AI Geletterdheid Academy Nederland | Ferry Hoes"
+        title="Over AIGA | AI Geletterdheid Academy Nederland | Ferry Hoes"
         description="AIGA helpt Nederlandse organisaties met AI-geletterdheid en EU AI Act compliance. Opgericht door Ferry Hoes, AI-expert en keynote spreker."
         canonical="/over-aiga"
         jsonLd={{
@@ -37,7 +37,7 @@ const OverAiga = () => {
           name: "Ferry Hoes",
           jobTitle: "AI-expert, Keynote Spreker & Mede-oprichter AIGA",
           url: "https://aigeletterdheid.academy/over-aiga",
-          worksFor: { "@type": "Organization", name: "AIGA — AI Geletterdheid Academy" },
+          worksFor: { "@type": "Organization", name: "AIGA | AI Geletterdheid Academy" },
           award: "Winnaar Anti-Discriminatie AI-Hackathon 2020, Nederlandse overheid",
           knowsAbout: ["Artificial Intelligence", "AI-geletterdheid", "EU AI Act", "AI compliance", "Machine Learning"],
           description: "Ferry Hoes is AI-expert en keynote spreker. Hij staat meermaals per maand op het podium voor organisaties als a.s.r. Verzekeringen, VodafoneZiggo en meerdere Nederlandse Ministeries.",
@@ -85,7 +85,7 @@ const OverAiga = () => {
               <div className="shrink-0">
                 <img
                   src={ferryImg}
-                  alt="Ferry Hoes — AI-expert en keynote spreker"
+                  alt="Ferry Hoes, AI-expert en keynote spreker"
                   className="w-48 h-48 rounded-2xl object-cover"
                   loading="lazy"
                   decoding="async"
@@ -114,10 +114,10 @@ const OverAiga = () => {
                 Ferry staat meermaals per maand op het podium voor toonaangevende organisaties in heel Nederland. Zijn klanten omvatten a.s.r. Verzekeringen, VodafoneZiggo, meerdere Nederlandse ministeries, zorginstellingen, onderwijsorganisaties en MKB-bedrijven. Hij spreekt zowel op internationale conferenties als in besloten boardrooms.
               </p>
               <p>
-                In 2020 won Ferry de prestigieuze Anti-Discriminatie AI-Hackathon, georganiseerd door de Nederlandse overheid. Deze prijs bevestigde zijn expertise op het snijvlak van AI, ethiek en maatschappelijke verantwoordelijkheid — thema's die centraal staan in al zijn trainingen en presentaties.
+                In 2020 won Ferry de prestigieuze Anti-Discriminatie AI-Hackathon, georganiseerd door de Nederlandse overheid. Deze prijs bevestigde zijn expertise op het snijvlak van AI, ethiek en maatschappelijke verantwoordelijkheid. Thema's die centraal staan in al zijn trainingen en presentaties.
               </p>
               <p>
-                Ferry gelooft dat AI-geletterdheid niet gaat over het leren van technische vaardigheden, maar over het begrijpen van de impact van AI op mensen, organisaties en de samenleving. Zijn aanpak is altijd praktisch, menselijk en direct toepasbaar. Hij praat niet over AI vanuit een theorieboek — hij praat erover vanuit de boardrooms, de werkvloeren en de workshops waar hij wekelijks aanwezig is.
+                Ferry gelooft dat AI-geletterdheid niet gaat over het leren van technische vaardigheden, maar over het begrijpen van de impact van AI op mensen, organisaties en de samenleving. Zijn aanpak is altijd praktisch, menselijk en direct toepasbaar. Hij praat niet over AI vanuit een theorieboek, maar vanuit de boardrooms, de werkvloeren en de workshops waar hij wekelijks aanwezig is.
               </p>
               <p>
                 Als mede-oprichter van AIGA heeft Ferry het curriculum ontwikkeld voor de AI-geletterdheid training en de masterclass voor leidinggevenden. Beide programma's zijn gebaseerd op zijn jarenlange ervaring met het opleiden van teams en directies in verantwoord AI-gebruik.

@@ -139,10 +139,10 @@ const Faq = () => (
             Waarom kiezen voor onze <span className="neon-text">AI-geletterdheidstraining</span>?
           </h2>
           <p className="text-muted-foreground leading-relaxed mb-10">
-            AI-geletterdheid lijkt misschien een technische vaardigheid die vooral interessant is voor IT'ers of data-analisten. Maar niets is minder waar. Kunstmatige intelligentie raakt inmiddels álle lagen van organisaties — van HR tot klantenservice, van management tot marketing. Toch weten veel professionals niet precies hoe AI werkt, waar de risico's zitten of wat de Europese wetgeving precies van hen verwacht. En dáár ligt precies de kracht van onze AI-geletterdheidstraining.
+            AI-geletterdheid lijkt misschien een technische vaardigheid die vooral interessant is voor IT'ers of data-analisten. Maar niets is minder waar. Kunstmatige intelligentie raakt inmiddels álle lagen van organisaties: van HR tot klantenservice, van management tot marketing. Toch weten veel professionals niet precies hoe AI werkt, waar de risico's zitten of wat de Europese wetgeving precies van hen verwacht. En dáár ligt precies de kracht van onze AI-geletterdheidstraining.
           </p>
           <p className="text-muted-foreground leading-relaxed mb-10">
-            Bij ons krijg je geen abstracte technische cursus, maar een praktisch programma dat speciaal is ontwikkeld om iedereen — ongeacht functie of achtergrond — AI te leren begrijpen én verantwoord toe te passen. Onze training onderscheidt zich op meerdere punten:
+            Bij ons krijg je geen abstracte technische cursus, maar een praktisch programma dat speciaal is ontwikkeld om iedereen, ongeacht functie of achtergrond, AI te leren begrijpen én verantwoord toe te passen. Onze training onderscheidt zich op meerdere punten:
           </p>
         </AnimatedSection>
 

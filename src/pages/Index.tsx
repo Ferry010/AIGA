@@ -36,7 +36,7 @@ const faqItems = [
     a: "Ja, je ontvangt een factuur op bedrijfsnaam. Zakelijke trainingskosten zijn doorgaans BTW-aftrekbaar; check dit met je eigen fiscalist.",
   },
   {
-    q: "Wat als we een groot team hebben — zijn er volumekortingen?",
+    q: "Wat als we een groot team hebben, zijn er volumekortingen?",
     a: "Ja. Vraag een offerte aan via het contactformulier voor een prijsopgave op maat. Vanaf 50 seats ontvang je de Masterclass gratis.",
   },
 ];
@@ -62,7 +62,7 @@ const Index = () => {
         jsonLd={{
           "@context": "https://schema.org",
           "@type": "EducationalOrganization",
-          name: "AIGA — AI Geletterdheid Academy",
+          name: "AIGA | AI Geletterdheid Academy",
           alternateName: "AIGA",
           url: "https://aigeletterdheid.academy",
           logo: "https://aigeletterdheid.academy/assets/AIGA_transparent-CxHDVoMM.png",
@@ -262,7 +262,7 @@ const Index = () => {
               Kijk hoe simpel het werkt. 👇
             </h2>
             <p className="mt-4 text-muted-foreground text-center max-w-2xl mx-auto">
-              Van inschrijving tot audit-proof certificaat — uitgelegd in twee minuten.
+              Van inschrijving tot audit-proof certificaat, uitgelegd in twee minuten.
             </p>
           </AnimatedSection>
           <AnimatedSection delay={0.2} className="mt-10">
@@ -316,7 +316,7 @@ const Index = () => {
                   <p className="text-sm text-muted-foreground mt-1">Online training met certificaat</p>
                   <p className="text-2xl font-bold text-foreground mt-4">249,- <span className="text-sm font-normal text-muted-foreground">per deelnemer (ex BTW)</span></p>
                   {/* Fix 5: Price anchoring */}
-                  <p className="text-xs text-muted-foreground mt-1 italic">Minder dan één dag klassikale training — en meteen compliant.</p>
+                  <p className="text-xs text-muted-foreground mt-1 italic">Minder dan één dag klassikale training, en meteen compliant.</p>
                   <ul className="space-y-2 mt-6 mb-8 flex-1">
                     {[
                       "Volledig online, in eigen tempo",
@@ -345,7 +345,7 @@ const Index = () => {
                 <p className="text-2xl font-bold text-foreground mt-4">495,- <span className="text-sm font-normal text-muted-foreground">per deelnemer (ex BTW)</span></p>
                 <p className="text-xs text-muted-foreground mt-1">Gratis bij 50+ training seats</p>
                 {/* Fix 5: Price anchoring */}
-                <p className="text-xs text-muted-foreground mt-1 italic">Inclusief bij 50+ online seats — anders minder dan één middag extern advies.</p>
+                <p className="text-xs text-muted-foreground mt-1 italic">Inclusief bij 50+ online seats, anders minder dan één middag extern advies.</p>
                 <ul className="space-y-2 mt-6 mb-8 flex-1">
                   {[
                     "In-company, ca. 2 uur",
