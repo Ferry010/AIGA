@@ -1,31 +1,42 @@
 
 
-## Update AI Tools Dataset & Table Structure
+## AI Use Case Checker — inline tool op /tools
 
-### Summary
-Complete rewrite of the AI tools data model and table on `/ai-tools-onder-de-ai-act`. New 5-column structure replacing the old 4-column layout, new filter pills, updated stats, info callout, and all 49 tools rewritten with new fields.
+### Wat wordt gebouwd
+Een nieuw component `AiUseCaseChecker` met een 3-staps inline flow (tool → use case → risico-oordeel), ingevoegd als eerste item in de "Scans & Calculators" sectie op de Tools pagina.
 
-### Changes
+### Bestanden
 
-**1. Rewrite `src/data/aiTools.ts`**
-- New `AiTool` interface: `name`, `vendor`, `category`, `type` (`"GPAI" | "Gespecialiseerd" | "Gespecialiseerd HR" | "Gespecialiseerd Finance" | "Gespecialiseerd Legal" | "Gespecialiseerd Zorg" | "Platform/Agent"`), `defaultCategory` (`"Minimaal risico" | "Beperkt risico" | "Hoog risico (altijd)"`), `highRiskWhen` (string — the use-case description), `trainingRequired` always `true`
-- Replace all 49 tool entries with the exact data from the user's tables
-- Export a new `TYPE_FILTERS` array: `["Alle tools", "GPAI", "Gespecialiseerd HR", "Gespecialiseerd Finance/Legal", "Gespecialiseerd Zorg", "Platform/Agent"]`
+| Actie | Bestand |
+|-------|---------|
+| Create | `src/components/AiUseCaseChecker.tsx` |
+| Create | `src/data/useCaseData.ts` |
+| Edit | `src/pages/Tools.tsx` — import checker, plaats boven het bestaande scan-grid |
 
-**2. Rewrite `src/pages/AiToolsOverzicht.tsx`**
-- **Filter pills**: Replace risk filters with type filters from `TYPE_FILTERS`. Filter logic maps pills to `type` field (e.g. "Gespecialiseerd Finance/Legal" matches both `"Gespecialiseerd Finance"` and `"Gespecialiseerd Legal"`)
-- **Stats row**: Replace with 4 cards: Totaal (49), Altijd hoog risico (14, red), Situationeel hoog risico (27, amber), Minimaal/Beperkt (8, green). Computed from `defaultCategory`
-- **Info callout** above table: bordered card with the explanatory text about EU AI Act categorizing use, not tools
-- **Table columns** (5): Tool | Type | Standaard categorie | Wordt hoog risico bij... | Training vereist?
-  - "Wordt hoog risico bij..." column: if `defaultCategory === "Hoog risico (altijd)"` → bold red text; else muted smaller text. Max 2 lines via `line-clamp-2`
-  - "Training vereist?" column: always shows "Ja" in green
-  - "Standaard categorie" column: badge with color based on category (red/amber/green)
-- **Footnote** under table: `* Artikel 4 EU AI Act verplicht AI-geletterdheid voor alle medewerkers die AI-systemen gebruiken — ongeacht risicocategorie.`
-- Keep search bar and category dropdown as-is
+### `src/data/useCaseData.ts`
+- Use case definitie interface: `{ id, label, sector, icon }` — 21 use cases
+- `toolUseCaseMap`: Record mapping tool name → array van use case IDs
+- `highRiskUseCases`: set van use case IDs die altijd hoog risico zijn (cv-screening, recruitment-interview, performance, credit-scoring, insurance-pricing, legal-decisions, medical-triage, medical-imaging, critical-infra, benefits-decisions)
+- `annexCategory`: Record mapping use case ID → Bijlage III tekst
+- `outOfScopeTools`: `["Spotify / Netflix aanbevelingen"]`
+- `alwaysHighRiskTools`: `["Microsoft Copilot Studio", "DataRobot", "Palantir AIP"]` — tools die bij elke hoog-risico use case sowieso triggeren
 
-### Files
-| Action | File |
-|--------|------|
-| Rewrite | `src/data/aiTools.ts` |
-| Edit | `src/pages/AiToolsOverzicht.tsx` |
+### `src/components/AiUseCaseChecker.tsx`
+- State: `selectedTool`, `selectedUseCase`, `step` (1/2/3)
+- **Stap 1**: Popover + Command component (bestaand uit project) als zoekbare dropdown, tools gegroepeerd per `AI_CATEGORIES` via `CommandGroup`. Import `aiTools` en `AI_CATEGORIES` uit `src/data/aiTools.ts`
+- **Stap 2**: Grid van klikbare Card chips met icoon + label, gefilterd via `toolUseCaseMap[selectedTool]`. Responsive: 2-3 kolommen
+- **Stap 3**: Uitkomstkaart met conditionele styling:
+  - **Hoog risico**: `bg-destructive/10 border-destructive` — kop, Bijlage III categorie, 3 bullets, CTA link naar `/training`
+  - **Beperkt risico**: `bg-yellow-500/10 border-yellow-500` — kop, 2 bullets, CTA
+  - **Buiten scope**: `bg-green-500/10 border-green-500` — korte tekst
+- "Opnieuw beginnen" knop reset state
+- Intro tekst boven het blok in muted
+
+### `src/pages/Tools.tsx` wijzigingen
+- Import `AiUseCaseChecker`
+- Plaats `<AiUseCaseChecker />` direct onder de `SectionLabel "SCANS & CALCULATORS"`, vóór het bestaande `StaggerContainer` grid
+- Geen andere wijzigingen aan de pagina
+
+### Iconen per use case
+Gebruik lucide-react iconen: `Users`, `BarChart3`, `MessageSquare`, `CreditCard`, `Shield`, `Scale`, `HeartPulse`, `ScanLine`, `Building2`, `Palette`, `Headphones`, `AlertTriangle`, `Code`, `PieChart`, `FileText`, `Mic`, `Languages`, `Image`, `Share2`, `Landmark`
 
