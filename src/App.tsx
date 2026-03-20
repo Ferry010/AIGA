@@ -66,6 +66,7 @@ const AppContent = () => {
           <Route path="/ai-cursus-medewerkers" element={<AiCursusMedewerkers />} />
           <Route path="/ai-tools-onder-de-ai-act" element={<AiToolsOverzicht />} />
           <Route path="/tools" element={<Tools />} />
+          <Route path="/ai-use-case-checker" element={<UseCaseChecker />} />
           <Route path="/admin" element={<Admin />} />
           <Route path="/admin/login" element={<AdminLogin />} />
           <Route path="/privacyverklaring" element={<Privacyverklaring />} />
