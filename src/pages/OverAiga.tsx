@@ -37,7 +37,7 @@ const OverAiga = () => {
           name: "Ferry Hoes",
           jobTitle: "AI-expert, Keynote Spreker & Mede-oprichter AIGA",
           url: "https://aigeletterdheid.academy/over-aiga",
-          worksFor: { "@type": "Organization", name: "AIGA — AI Geletterdheid Academy" },
+          worksFor: { "@type": "Organization", name: "AIGA | AI Geletterdheid Academy" },
           award: "Winnaar Anti-Discriminatie AI-Hackathon 2020, Nederlandse overheid",
           knowsAbout: ["Artificial Intelligence", "AI-geletterdheid", "EU AI Act", "AI compliance", "Machine Learning"],
           description: "Ferry Hoes is AI-expert en keynote spreker. Hij staat meermaals per maand op het podium voor organisaties als a.s.r. Verzekeringen, VodafoneZiggo en meerdere Nederlandse Ministeries.",
