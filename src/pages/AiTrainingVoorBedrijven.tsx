@@ -17,7 +17,7 @@ const AiTrainingVoorBedrijven = () => (
         name: "AI Training voor Bedrijven in Nederland",
         description: "Gecertificeerde AI-training voor Nederlandse bedrijven.",
         url: "https://aigeletterdheid.academy/ai-training-voor-bedrijven",
-        publisher: { "@type": "Organization", name: "AIGA — AI Geletterdheid Academy" },
+        publisher: { "@type": "Organization", name: "AIGA | AI Geletterdheid Academy" },
       }}
     />
     <BreadcrumbNav items={[{ label: "Home", href: "/" }, { label: "AI Training voor Bedrijven" }]} />
