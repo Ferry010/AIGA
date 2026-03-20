@@ -55,7 +55,7 @@ const AiActComplianceNederland = () => (
           <div className="space-y-4">
             {[
               { date: "Februari 2025", text: "AI-geletterdheid verplichting (Artikel 4) treedt in werking" },
-              { date: "Augustus 2025", text: "Start actieve handhaving — organisaties moeten compliant zijn" },
+              { date: "Augustus 2025", text: "Start actieve handhaving. Organisaties moeten compliant zijn." },
               { date: "Augustus 2026", text: "Volledige handhaving high-risk AI-systemen" },
             ].map((d) => (
               <div key={d.date} className="flex gap-4 p-4 bg-card border border-border rounded-xl">
