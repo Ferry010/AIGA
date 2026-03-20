@@ -262,7 +262,7 @@ const Index = () => {
               Kijk hoe simpel het werkt. 👇
             </h2>
             <p className="mt-4 text-muted-foreground text-center max-w-2xl mx-auto">
-              Van inschrijving tot audit-proof certificaat — uitgelegd in twee minuten.
+              Van inschrijving tot audit-proof certificaat, uitgelegd in twee minuten.
             </p>
           </AnimatedSection>
           <AnimatedSection delay={0.2} className="mt-10">
