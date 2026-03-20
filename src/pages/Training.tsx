@@ -251,7 +251,6 @@ const Training = () => (
                     "Gratis Masterclass voor management inbegrepen",
                     "Dedicated accountmanager",
                     "Voortgangsrapportages op organisatieniveau",
-                    "Facturatie op maat",
                   ].map((item) => (
                     <li key={item} className="flex items-start gap-3">
                       <Check size={16} className="text-primary mt-0.5 shrink-0" />
