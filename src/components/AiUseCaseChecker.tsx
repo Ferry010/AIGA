@@ -153,7 +153,12 @@ const AiUseCaseChecker = () => {
                   return (
                     <button
                       key={uc.id}
-                      onClick={() => setSelectedUseCase(uc.id)}
+                      onClick={() => {
+                        setSelectedUseCase(uc.id);
+                        setTimeout(() => {
+                          outcomeRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+                        }, 100);
+                      }}
                       className={cn(
                         "flex items-center gap-3 rounded-lg border p-3 text-left transition-all duration-200 hover:border-primary/40 active:scale-[0.97]",
                         isSelected
