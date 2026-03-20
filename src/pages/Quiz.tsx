@@ -48,9 +48,9 @@ interface TierData {
 const tiers: TierData[] = [
   {
     minPct: 0, maxPct: 40,
-    badge: "HOOG RISICO", color: "hsl(0, 84%, 60%)",
-    heading: "Je team loopt risico",
-    body: "Jullie gebruiken waarschijnlijk al AI-tools, maar zonder gedeelde kennis of spelregels. Dat is een blinde vlek die organisaties geld, vertrouwen en straks ook compliance kost.",
+    badge: "NIET GEREED", color: "hsl(0, 84%, 60%)",
+    heading: "Jullie organisatie is nog niet gereed",
+    body: "Jullie gebruiken waarschijnlijk al AI-tools, maar zonder gedeelde kennis of spelregels. Dat maakt jullie kwetsbaar bij een audit en kost straks ook compliance.",
     ctaHeading: "Laat ons helpen",
     ctaBody: "Vul je gegevens in en we nemen contact met je op om te kijken hoe we kunnen helpen.",
     buttonLabel: "Neem contact met mij op →",
@@ -59,7 +59,7 @@ const tiers: TierData[] = [
   },
   {
     minPct: 41, maxPct: 70,
-    badge: "BLINDE VLEKKEN", color: "hsl(38, 92%, 50%)",
+    badge: "GEDEELTELIJK GEREED", color: "hsl(38, 92%, 50%)",
     heading: "Jullie zijn op de goede weg, maar er zijn blinde vlekken",
     body: "Een deel van je team begrijpt AI goed. Maar zonder gedeelde basis werkt niet iedereen vanuit dezelfde kennis. Dat zie je niet meteen, totdat het misgaat.",
     ctaHeading: "Laat ons helpen verbeteren",
