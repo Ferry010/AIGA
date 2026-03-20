@@ -241,29 +241,27 @@ const Training = () => (
 
           {/* Enterprise tier */}
           <StaggerItem>
-            <div className="neon-border-lg h-full">
-              <div className="neon-inner bg-background rounded-2xl p-8 sm:p-10 h-full flex flex-col">
-                <span className="text-xs font-medium uppercase tracking-[0.08em] neon-text mb-2">ENTERPRISE</span>
-                <h3 className="text-xl font-semibold text-foreground">50+ deelnemers</h3>
-                <p className="text-4xl font-display font-bold text-foreground mt-4">Op maat</p>
-                <p className="text-sm text-muted-foreground mt-1">Neem contact op voor een voorstel</p>
-                <ul className="space-y-3 mt-6 mb-8 flex-1">
-                  {[
-                    "Alles uit het Standaard-pakket",
-                    "Gratis Masterclass voor management inbegrepen",
-                    "Dedicated accountmanager",
-                    "Voortgangsrapportages op organisatieniveau",
-                  ].map((item) => (
-                    <li key={item} className="flex items-start gap-3">
-                      <Check size={16} className="text-primary mt-0.5 shrink-0" />
-                      <span className="text-sm text-foreground">{item}</span>
-                    </li>
-                  ))}
-                </ul>
-                <a href="#offerte" className="btn-neon block text-center py-3 rounded-lg font-semibold text-sm">
-                  Neem contact op
-                </a>
-              </div>
+            <div className="bg-surface-2 border border-border rounded-2xl p-8 sm:p-10 h-full flex flex-col hover:border-neon-purple/20 transition-all duration-300">
+              <span className="text-xs font-medium uppercase tracking-[0.08em] text-muted-foreground mb-2">ENTERPRISE</span>
+              <h3 className="text-xl font-semibold text-foreground">50+ deelnemers</h3>
+              <p className="text-4xl font-display font-bold text-foreground mt-4">Op maat</p>
+              <p className="text-sm text-muted-foreground mt-1">Neem contact op voor een voorstel</p>
+              <ul className="space-y-3 mt-6 mb-8 flex-1">
+                {[
+                  "Alles uit het Standaard-pakket",
+                  "Gratis Masterclass voor management inbegrepen",
+                  "Dedicated accountmanager",
+                  "Voortgangsrapportages op organisatieniveau",
+                ].map((item) => (
+                  <li key={item} className="flex items-start gap-3">
+                    <Check size={16} className="text-primary mt-0.5 shrink-0" />
+                    <span className="text-sm text-foreground">{item}</span>
+                  </li>
+                ))}
+              </ul>
+              <a href="#offerte" className="btn-neon-outline text-center py-3 rounded-lg font-semibold text-sm">
+                Neem contact op
+              </a>
             </div>
           </StaggerItem>
         </StaggerContainer>
