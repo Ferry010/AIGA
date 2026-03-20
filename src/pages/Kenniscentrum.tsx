@@ -1,5 +1,6 @@
 import { useState, useEffect, useMemo } from "react";
 import { Link } from "react-router-dom";
+import { ArrowRight } from "lucide-react";
 import { ExternalLink, Search } from "lucide-react";
 import { AnimatedSection, StaggerContainer, StaggerItem } from "@/components/AnimatedSection";
 import SectionLabel from "@/components/SectionLabel";
@@ -141,8 +142,93 @@ const Kenniscentrum = () => {
         </div>
       </section>
 
+      {/* ── Kennisoverzichten cards ── */}
+      <section className="pb-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <AnimatedSection>
+            <SectionLabel text="KENNISOVERZICHTEN" />
+          </AnimatedSection>
+          <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
+            {/* Card 1 — live */}
+            <StaggerItem>
+              <a
+                href="#ai-tools-overzicht"
+                className="group bg-card border border-border rounded-2xl overflow-hidden hover:border-primary/40 neon-glow transition-all duration-300 flex flex-col h-full"
+              >
+                <div className="p-6 flex flex-col flex-1 gap-3">
+                  <Badge variant="default" className="w-fit text-xs">Kennisoverzicht</Badge>
+                  <h3 className="text-base font-semibold text-foreground leading-snug group-hover:text-primary transition-colors">
+                    Welke AI-tools vallen onder de EU AI Act?
+                  </h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    Overzicht van 49 veelgebruikte AI-tools — met risicocategorie, trainingsplicht en aandachtspunten per tool.
+                  </p>
+                  <span className="mt-auto flex items-center gap-1.5 text-sm font-semibold text-primary group-hover:gap-2.5 transition-all pt-2">
+                    Bekijk overzicht <ArrowRight size={16} />
+                  </span>
+                </div>
+              </a>
+            </StaggerItem>
+
+            {/* Card 2 — coming soon */}
+            <StaggerItem>
+              <div className="opacity-60 cursor-default bg-card border border-border rounded-2xl overflow-hidden flex flex-col h-full">
+                <div className="p-6 flex flex-col flex-1 gap-3">
+                  <div className="flex items-center gap-2">
+                    <Badge variant="secondary" className="w-fit text-xs">Sectoroverzicht</Badge>
+                    <Badge variant="outline" className="w-fit text-xs text-muted-foreground">Binnenkort</Badge>
+                  </div>
+                  <h3 className="text-base font-semibold text-foreground leading-snug">
+                    AI Act per sector: Financiële Dienstverlening
+                  </h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    Welke tools, risico's en extra regelgeving gelden specifiek voor financiële organisaties?
+                  </p>
+                </div>
+              </div>
+            </StaggerItem>
+
+            {/* Card 3 — coming soon */}
+            <StaggerItem>
+              <div className="opacity-60 cursor-default bg-card border border-border rounded-2xl overflow-hidden flex flex-col h-full">
+                <div className="p-6 flex flex-col flex-1 gap-3">
+                  <div className="flex items-center gap-2">
+                    <Badge variant="secondary" className="w-fit text-xs">Sectoroverzicht</Badge>
+                    <Badge variant="outline" className="w-fit text-xs text-muted-foreground">Binnenkort</Badge>
+                  </div>
+                  <h3 className="text-base font-semibold text-foreground leading-snug">
+                    AI Act per sector: Zorg &amp; Welzijn
+                  </h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    Medische beslissingsondersteuning, Wkkgz en AVG — wat betekent de AI Act voor zorgorganisaties?
+                  </p>
+                </div>
+              </div>
+            </StaggerItem>
+
+            {/* Card 4 — coming soon */}
+            <StaggerItem>
+              <div className="opacity-60 cursor-default bg-card border border-border rounded-2xl overflow-hidden flex flex-col h-full">
+                <div className="p-6 flex flex-col flex-1 gap-3">
+                  <div className="flex items-center gap-2">
+                    <Badge variant="secondary" className="w-fit text-xs">Samenvatting</Badge>
+                    <Badge variant="outline" className="w-fit text-xs text-muted-foreground">Binnenkort</Badge>
+                  </div>
+                  <h3 className="text-base font-semibold text-foreground leading-snug">
+                    EU AI Act in 1 A4
+                  </h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    Tijdlijn, risicocategorieën, verplichtingen en handhavingsschema. Printbaar en deelbaar.
+                  </p>
+                </div>
+              </div>
+            </StaggerItem>
+          </StaggerContainer>
+        </div>
+      </section>
+
       {/* ── Kennisoverzichten: AI-tools onder de AI Act ── */}
-      <section id="kennisoverzichten" className="pb-20">
+      <section id="ai-tools-overzicht" className="pb-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection>
             <SectionLabel text="KENNISOVERZICHTEN" />
@@ -296,11 +382,11 @@ const Kenniscentrum = () => {
         </div>
       </section>
 
-      {/* ── Artikelen ── */}
+      {/* ── Artikelen & Blogs ── */}
       <section className="pb-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection>
-            <SectionLabel text="ARTIKELEN" />
+            <SectionLabel text="ARTIKELEN & BLOGS" />
           </AnimatedSection>
           <div className="flex flex-wrap gap-2 mt-4">
             {articleCategories.map((cat) => (
