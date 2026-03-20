@@ -85,7 +85,7 @@ const OverAiga = () => {
               <div className="shrink-0">
                 <img
                   src={ferryImg}
-                  alt="Ferry Hoes — AI-expert en keynote spreker"
+                  alt="Ferry Hoes, AI-expert en keynote spreker"
                   className="w-48 h-48 rounded-2xl object-cover"
                   loading="lazy"
                   decoding="async"
