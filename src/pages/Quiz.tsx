@@ -163,7 +163,7 @@ const Quiz = () => {
             applicationCategory: "BusinessApplication",
             operatingSystem: "Any",
             offers: { "@type": "Offer", price: "0", priceCurrency: "EUR" },
-            provider: { "@type": "Organization", name: "AIGA — AI Geletterdheid Academy" },
+            provider: { "@type": "Organization", name: "AIGA | AI Geletterdheid Academy" },
           }}
         />
         <div className="max-w-3xl mx-auto px-4 pt-32 pb-24">
