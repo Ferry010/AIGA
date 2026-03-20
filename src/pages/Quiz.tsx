@@ -158,7 +158,7 @@ const Quiz = () => {
             "@context": "https://schema.org",
             "@type": "WebApplication",
             name: "AIGA AI Risicoscan",
-            description: "Gratis AI Risicoscan voor Nederlandse organisaties. Ontdek in 5 minuten hoe kwetsbaar jouw organisatie is voor AI Act overtredingen.",
+            description: "Gratis AI Risicoscan voor Nederlandse organisaties. Ontdek in 3 minuten hoe kwetsbaar jouw organisatie is voor AI Act overtredingen.",
             url: "https://aigeletterdheid.academy/risicoscan",
             applicationCategory: "BusinessApplication",
             operatingSystem: "Any",
