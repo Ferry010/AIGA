@@ -152,13 +152,13 @@ const Quiz = () => {
       <div className="min-h-screen">
         <SEO
           title="Gratis AI Risicoscan voor Organisaties | 5 Minuten | AIGA"
-          description="Doe de gratis AIGA AI Risicoscan en ontdek in 5 minuten hoe kwetsbaar jouw organisatie is voor AI Act overtredingen. 10 vragen, direct resultaat."
+          description="Doe de gratis AIGA AI Risicoscan en ontdek in 3 minuten hoe kwetsbaar jouw organisatie is voor AI Act overtredingen. 10 vragen, direct resultaat."
           canonical="/risicoscan"
           jsonLd={{
             "@context": "https://schema.org",
             "@type": "WebApplication",
             name: "AIGA AI Risicoscan",
-            description: "Gratis AI Risicoscan voor Nederlandse organisaties. Ontdek in 5 minuten hoe kwetsbaar jouw organisatie is voor AI Act overtredingen.",
+            description: "Gratis AI Risicoscan voor Nederlandse organisaties. Ontdek in 3 minuten hoe kwetsbaar jouw organisatie is voor AI Act overtredingen.",
             url: "https://aigeletterdheid.academy/risicoscan",
             applicationCategory: "BusinessApplication",
             operatingSystem: "Any",
@@ -174,7 +174,7 @@ const Quiz = () => {
               <span className="text-primary">Nederlandse Organisaties</span>
             </h1>
             <p className="mt-6 text-lg text-muted-foreground leading-relaxed">
-              Sinds februari 2025 is AI-geletterdheid wettelijk verplicht onder de EU AI Act. Maar hoe weet je of jouw organisatie er klaar voor is? De AIGA AI Risicoscan geeft je in vijf minuten een helder beeld van waar je staat — en waar de blinde vlekken zitten.
+              Sinds februari 2025 is AI-geletterdheid wettelijk verplicht onder de EU AI Act. Maar hoe weet je of jouw organisatie er klaar voor is? De AIGA AI Risicoscan geeft je in drie minuten een helder beeld van waar je staat — en waar de blinde vlekken zitten.
             </p>
             <p className="mt-4 text-muted-foreground leading-relaxed">
               De scan meet vijf dimensies: AI-gebruik, bewustzijn van wetgeving, risicobeheer, leiderschap en audit-readiness. Na afloop ontvang je direct je score, inclusief een uitsplitsing per dimensie en persoonlijk advies.
@@ -196,7 +196,7 @@ const Quiz = () => {
                 onClick={() => setPhase("quiz")}
                 className="btn-neon px-8 py-4 rounded-lg text-[15px]"
               >
-                Start de scan — 5 minuten
+                Start de scan — 3 minuten
               </button>
               <p className="mt-3 text-xs text-muted-foreground">10 vragen. Direct resultaat. Geen account nodig.</p>
             </div>
