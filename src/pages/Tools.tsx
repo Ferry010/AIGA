@@ -9,6 +9,13 @@ import SEO from "@/components/SEO";
 
 const scans = [
   {
+    title: "AI Use Case Checker",
+    description: "Controleer per AI-tool en toepassing of jouw gebruik onder hoog risico valt volgens de EU AI Act. Selecteer een tool, kies je use case en zie direct het oordeel.",
+    icon: Search,
+    href: "/ai-use-case-checker",
+    available: true,
+  },
+  {
     title: "AI Gereedheidscan",
     description: "Meet vijf dimensies: AI-gebruik, wetgeving, risicobeheer, leiderschap en audit-readiness. Direct je score met uitsplitsing per dimensie.",
     icon: ClipboardCheck,
