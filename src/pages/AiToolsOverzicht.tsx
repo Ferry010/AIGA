@@ -1,6 +1,6 @@
 import { useState, useMemo } from "react";
 import { Link } from "react-router-dom";
-import { Search } from "lucide-react";
+import { Search, Info } from "lucide-react";
 import { AnimatedSection } from "@/components/AnimatedSection";
 import SectionLabel from "@/components/SectionLabel";
 import { Badge } from "@/components/ui/badge";
@@ -23,40 +23,44 @@ import {
 } from "@/components/ui/table";
 import BreadcrumbNav from "@/components/BreadcrumbNav";
 import SEO from "@/components/SEO";
-import { aiTools, AI_CATEGORIES, type AiTool } from "@/data/aiTools";
+import { aiTools, AI_CATEGORIES, TYPE_FILTERS, type AiTool } from "@/data/aiTools";
 
-const riskColors: Record<AiTool["risk"], string> = {
-  Hoog: "bg-destructive text-destructive-foreground",
-  Beperkt: "bg-warning text-foreground",
-  Minimaal: "bg-success text-primary-foreground",
+type TypeFilter = (typeof TYPE_FILTERS)[number];
+
+const categoryBadgeClass: Record<AiTool["defaultCategory"], string> = {
+  "Hoog risico (altijd)": "bg-destructive text-destructive-foreground",
+  "Beperkt risico": "bg-warning text-foreground",
+  "Minimaal risico": "bg-success text-primary-foreground",
 };
-
-const riskFilters = ["Alle risico's", "Minimaal", "Beperkt", "Hoog", "Training vereist"] as const;
-type RiskFilter = (typeof riskFilters)[number];
 
 const AiToolsOverzicht = () => {
   const [toolSearch, setToolSearch] = useState("");
   const [toolCategory, setToolCategory] = useState("Alle categorieën");
-  const [toolRisk, setToolRisk] = useState<RiskFilter>("Alle risico's");
+  const [typeFilter, setTypeFilter] = useState<TypeFilter>("Alle tools");
 
   const filteredTools = useMemo(() => {
     return aiTools.filter((t) => {
       const q = toolSearch.toLowerCase();
       const matchSearch = !q || t.name.toLowerCase().includes(q) || t.vendor.toLowerCase().includes(q);
       const matchCat = toolCategory === "Alle categorieën" || t.category === toolCategory;
-      const matchRisk =
-        toolRisk === "Alle risico's" ||
-        (toolRisk === "Training vereist" ? t.trainingRequired : t.risk === toolRisk);
-      return matchSearch && matchCat && matchRisk;
+      let matchType = true;
+      if (typeFilter !== "Alle tools") {
+        if (typeFilter === "Gespecialiseerd Finance/Legal") {
+          matchType = t.type === "Gespecialiseerd Finance" || t.type === "Gespecialiseerd Legal";
+        } else {
+          matchType = t.type === typeFilter;
+        }
+      }
+      return matchSearch && matchCat && matchType;
     });
-  }, [toolSearch, toolCategory, toolRisk]);
+  }, [toolSearch, toolCategory, typeFilter]);
 
   const stats = useMemo(() => {
     const total = filteredTools.length;
-    const hoog = filteredTools.filter((t) => t.risk === "Hoog").length;
-    const beperkt = filteredTools.filter((t) => t.risk === "Beperkt").length;
-    const minimaal = filteredTools.filter((t) => t.risk === "Minimaal").length;
-    return { total, hoog, beperkt, minimaal };
+    const altijdHoog = filteredTools.filter((t) => t.defaultCategory === "Hoog risico (altijd)").length;
+    const situationeel = filteredTools.filter((t) => t.defaultCategory === "Beperkt risico").length;
+    const minimaal = filteredTools.filter((t) => t.defaultCategory === "Minimaal risico").length;
+    return { total, altijdHoog, situationeel, minimaal };
   }, [filteredTools]);
 
   const groupedTools = useMemo(() => {
@@ -73,7 +77,7 @@ const AiToolsOverzicht = () => {
     "@type": "Article",
     headline: "Welke AI-tools vallen onder de EU AI Act?",
     description:
-      "Overzicht van 49 veelgebruikte AI-tools in Nederlandse organisaties — met risicocategorie, trainingsplicht en aandachtspunten per tool.",
+      "Overzicht van 49 veelgebruikte AI-tools in Nederlandse organisaties — met type, standaard categorie, situationeel hoog risico en trainingsplicht.",
     author: { "@type": "Person", name: "Ferry Hoes" },
     publisher: {
       "@type": "EducationalOrganization",
@@ -87,7 +91,7 @@ const AiToolsOverzicht = () => {
     <div className="min-h-screen">
       <SEO
         title="Welke AI-tools vallen onder de EU AI Act? | AIGA"
-        description="Overzicht van 49 veelgebruikte AI-tools — met risicocategorie, trainingsplicht en aandachtspunten per tool volgens de EU AI Act."
+        description="Overzicht van 49 veelgebruikte AI-tools — met type, standaard categorie en wanneer ze hoog risico worden volgens de EU AI Act."
         canonical="/ai-tools-onder-de-ai-act"
         ogType="article"
         jsonLd={jsonLd}
@@ -109,7 +113,7 @@ const AiToolsOverzicht = () => {
               Welke AI-tools vallen onder de EU AI Act?
             </h1>
             <p className="mt-6 text-lg text-muted-foreground max-w-3xl leading-relaxed">
-              Overzicht van 40+ veelgebruikte AI-tools in Nederlandse organisaties — met risicocategorie, trainingsplicht en aandachtspunten per tool.
+              Overzicht van 49 veelgebruikte AI-tools in Nederlandse organisaties — met type, standaard categorie en wanneer ze hoog risico worden.
             </p>
           </AnimatedSection>
 
@@ -117,9 +121,9 @@ const AiToolsOverzicht = () => {
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mt-8">
             {[
               { label: "Totaal in overzicht", value: stats.total, color: "text-foreground" },
-              { label: "Hoog risico", value: stats.hoog, color: "text-destructive" },
-              { label: "Beperkt risico", value: stats.beperkt, color: "text-warning" },
-              { label: "Minimaal risico", value: stats.minimaal, color: "text-success" },
+              { label: "Altijd hoog risico", value: stats.altijdHoog, color: "text-destructive" },
+              { label: "Situationeel hoog risico", value: stats.situationeel, color: "text-warning" },
+              { label: "Minimaal / beperkt risico", value: stats.minimaal, color: "text-success" },
             ].map((s) => (
               <Card key={s.label} className="border-border">
                 <CardContent className="p-5">
@@ -128,6 +132,14 @@ const AiToolsOverzicht = () => {
                 </CardContent>
               </Card>
             ))}
+          </div>
+
+          {/* Info callout */}
+          <div className="mt-8 rounded-xl border border-border bg-card p-5 flex gap-3 items-start">
+            <Info size={20} className="text-primary shrink-0 mt-0.5" />
+            <p className="text-sm text-muted-foreground leading-relaxed">
+              De EU AI Act categoriseert geen tools, maar <span className="font-semibold text-foreground">gebruik</span>. Dezelfde tool kan minimaal risico zijn voor de ene medewerker en hoog risico voor de andere. De kolom 'Wordt hoog risico bij...' laat zien wanneer jouw organisatie extra verplichtingen krijgt onder Bijlage III.
+            </p>
           </div>
 
           {/* Filters */}
@@ -154,14 +166,14 @@ const AiToolsOverzicht = () => {
             </Select>
           </div>
 
-          {/* Risk pills */}
+          {/* Type pills */}
           <div className="mt-4 flex flex-wrap gap-2">
-            {riskFilters.map((f) => (
+            {TYPE_FILTERS.map((f) => (
               <button
                 key={f}
-                onClick={() => setToolRisk(f)}
+                onClick={() => setTypeFilter(f)}
                 className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 ${
-                  toolRisk === f
+                  typeFilter === f
                     ? "bg-primary text-primary-foreground"
                     : "bg-card border border-border text-muted-foreground hover:border-primary/40 hover:text-foreground"
                 }`}
@@ -180,16 +192,17 @@ const AiToolsOverzicht = () => {
               <TableHeader>
                 <TableRow className="bg-surface-2">
                   <TableHead className="min-w-[200px]">Tool</TableHead>
-                  <TableHead className="min-w-[130px]">Risicocategorie</TableHead>
-                  <TableHead className="min-w-[120px]">Training vereist?</TableHead>
-                  <TableHead className="min-w-[280px]">Aandachtspunten</TableHead>
+                  <TableHead className="min-w-[110px]">Type</TableHead>
+                  <TableHead className="min-w-[140px]">Standaard categorie</TableHead>
+                  <TableHead className="min-w-[280px]">Wordt hoog risico bij...</TableHead>
+                  <TableHead className="min-w-[100px]">Training vereist?</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
                 {groupedTools.map((group) => (
                   <>
                     <TableRow key={`cat-${group.category}`} className="bg-surface">
-                      <TableCell colSpan={4} className="py-2.5 px-4">
+                      <TableCell colSpan={5} className="py-2.5 px-4">
                         <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
                           {group.category}
                         </span>
@@ -202,21 +215,22 @@ const AiToolsOverzicht = () => {
                           <span className="block text-xs text-muted-foreground">{tool.vendor} · {tool.category}</span>
                         </TableCell>
                         <TableCell>
-                          <Badge className={`${riskColors[tool.risk]} border-0 text-xs`}>
-                            {tool.risk}
+                          <span className="text-sm text-muted-foreground">{tool.type}</span>
+                        </TableCell>
+                        <TableCell>
+                          <Badge className={`${categoryBadgeClass[tool.defaultCategory]} border-0 text-xs`}>
+                            {tool.defaultCategory}
                           </Badge>
                         </TableCell>
                         <TableCell>
-                          {tool.trainingRequired ? (
-                            <span className={`text-sm font-medium ${tool.risk === "Hoog" ? "text-warning" : "text-success"}`}>
-                              {tool.risk === "Hoog" ? "Ja/Hoog*" : "Ja"}
-                            </span>
+                          {tool.defaultCategory === "Hoog risico (altijd)" ? (
+                            <span className="text-sm font-semibold text-destructive line-clamp-2">{tool.highRiskWhen}</span>
                           ) : (
-                            <span className="text-sm text-text-faint">Nee</span>
+                            <span className="text-xs text-muted-foreground leading-relaxed line-clamp-2">{tool.highRiskWhen}</span>
                           )}
                         </TableCell>
                         <TableCell>
-                          <span className="text-xs text-muted-foreground leading-relaxed">{tool.note}</span>
+                          <span className="text-sm font-medium text-success">Ja</span>
                         </TableCell>
                       </TableRow>
                     ))}
@@ -224,7 +238,7 @@ const AiToolsOverzicht = () => {
                 ))}
                 {groupedTools.length === 0 && (
                   <TableRow>
-                    <TableCell colSpan={4} className="text-center text-muted-foreground py-12">
+                    <TableCell colSpan={5} className="text-center text-muted-foreground py-12">
                       Geen tools gevonden voor deze filters.
                     </TableCell>
                   </TableRow>
@@ -232,6 +246,11 @@ const AiToolsOverzicht = () => {
               </TableBody>
             </Table>
           </div>
+
+          {/* Footnote */}
+          <p className="mt-4 text-xs text-muted-foreground">
+            * Artikel 4 EU AI Act verplicht AI-geletterdheid voor alle medewerkers die AI-systemen gebruiken — ongeacht risicocategorie.
+          </p>
 
           {/* CTA bar */}
           <div className="mt-10 rounded-2xl neon-border-lg">
