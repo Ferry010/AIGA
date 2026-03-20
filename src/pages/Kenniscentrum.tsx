@@ -37,10 +37,6 @@ const Kenniscentrum = () => {
   const [articles, setArticles] = useState<Article[]>([]);
   const [loading, setLoading] = useState(true);
 
-  // Tool filter state
-  const [toolSearch, setToolSearch] = useState("");
-  const [toolCategory, setToolCategory] = useState("Alle categorieën");
-  const [toolRisk, setToolRisk] = useState<RiskFilter>("Alle risico's");
 
   useEffect(() => {
     supabase
