@@ -151,7 +151,7 @@ const Quiz = () => {
     return (
       <div className="min-h-screen">
         <SEO
-          title="Gratis AI Risicoscan voor Organisaties | 5 Minuten | AIGA"
+          title="Gratis AI Risicoscan voor Organisaties | 3 Minuten | AIGA"
           description="Doe de gratis AIGA AI Risicoscan en ontdek in 3 minuten hoe kwetsbaar jouw organisatie is voor AI Act overtredingen. 10 vragen, direct resultaat."
           canonical="/risicoscan"
           jsonLd={{

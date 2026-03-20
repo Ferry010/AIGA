@@ -184,7 +184,7 @@ const Index = () => {
             <SectionLabel text="NIET ZEKER WAAR JE STAAT?" />
             <h2 className="text-3xl sm:text-4xl font-display font-semibold text-foreground mt-2">
               Doe de gratis AI Risico-scan.<br />
-              <span className="text-primary">In vijf minuten weet je waar je staat.</span>
+              <span className="text-primary">In drie minuten weet je waar je staat.</span>
             </h2>
             <p className="mt-4 text-muted-foreground max-w-xl mx-auto">
               10 vragen. Direct resultaat. Inclusief persoonlijk advies op maat.

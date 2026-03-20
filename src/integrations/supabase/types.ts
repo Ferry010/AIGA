@@ -56,6 +56,42 @@ export type Database = {
         }
         Relationships: []
       }
+      masterclass_submissions: {
+        Row: {
+          created_at: string | null
+          email: string
+          functie: string | null
+          id: string
+          naam: string
+          organisatie: string
+          sessie_type: string
+          telefoon: string | null
+          vragen: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          email: string
+          functie?: string | null
+          id?: string
+          naam: string
+          organisatie: string
+          sessie_type: string
+          telefoon?: string | null
+          vragen?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          email?: string
+          functie?: string | null
+          id?: string
+          naam?: string
+          organisatie?: string
+          sessie_type?: string
+          telefoon?: string | null
+          vragen?: string | null
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           created_at: string | null

@@ -1,9 +1,10 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
 import { AnimatedSection, StaggerContainer, StaggerItem } from "@/components/AnimatedSection";
 import SectionLabel from "@/components/SectionLabel";
 import BreadcrumbNav from "@/components/BreadcrumbNav";
 import SEO from "@/components/SEO";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "sonner";
 
 const takeaways = [
   "Een helder beeld van wat de AI Act concreet van jouw organisatie vraagt",
@@ -24,10 +25,32 @@ const Masterclass = () => {
   const [form, setForm] = useState({
     naam: "", organisatie: "", functie: "", email: "", telefoon: "", sessieType: "", vragen: "",
   });
+  const [submitting, setSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Masterclass aanvraag:", form);
+    setSubmitting(true);
+
+    const { error } = await supabase.from("masterclass_submissions").insert({
+      naam: form.naam,
+      organisatie: form.organisatie,
+      functie: form.functie || null,
+      email: form.email,
+      telefoon: form.telefoon || null,
+      sessie_type: form.sessieType,
+      vragen: form.vragen || null,
+    });
+
+    setSubmitting(false);
+
+    if (error) {
+      toast.error("Er ging iets mis bij het versturen. Probeer het opnieuw.");
+      return;
+    }
+
+    setSubmitted(true);
+    toast.success("Aanvraag verstuurd! We nemen snel contact met je op.");
   };
 
   return (
@@ -57,14 +80,13 @@ const Masterclass = () => {
               <span className="px-3 py-1 rounded-full border border-neon-purple/30 bg-card">Prijs op aanvraag</span>
               <span className="px-3 py-1 rounded-full border border-neon-purple/30 bg-card neon-text font-semibold">Gratis bij 50+ training seats</span>
             </div>
-            <Link to="#aanmelden" className="btn-neon inline-block mt-8 px-7 py-3.5 rounded-lg">
+            <a href="#aanmelden" className="btn-neon inline-block mt-8 px-7 py-3.5 rounded-lg">
               Meld je aan of vraag een besloten sessie aan
-            </Link>
+            </a>
           </AnimatedSection>
         </div>
       </section>
 
-      {/* rest identical */}
       <section className="py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection>
@@ -140,9 +162,9 @@ const Masterclass = () => {
               <div className="bg-surface-2 border border-border rounded-2xl p-10 text-center flex flex-col hover:border-neon-purple/40 neon-glow transition-all duration-300">
                 <h3 className="text-lg font-semibold text-foreground mb-2">Besloten sessie</h3>
                 <p className="text-sm text-muted-foreground mb-6 flex-1">Plan een exclusieve sessie voor jouw MT of directie. Op locatie of online, op een datum die jullie past.</p>
-                <Link to="#aanmelden" className="btn-neon-outline py-3 font-semibold">
+                <a href="#aanmelden" className="btn-neon-outline py-3 font-semibold">
                   Vraag een besloten sessie aan
-                </Link>
+                </a>
               </div>
             </StaggerItem>
           </StaggerContainer>
@@ -160,51 +182,59 @@ const Masterclass = () => {
                Vul het formulier in en we nemen contact met je op.
              </p>
           </AnimatedSection>
-          <form onSubmit={handleSubmit} className="mt-10 space-y-4">
-            {[
-              { name: "naam", label: "Naam", required: true },
-              { name: "organisatie", label: "Organisatie", required: true },
-              { name: "functie", label: "Functie", required: false },
-              { name: "email", label: "E-mailadres", required: true, type: "email" },
-              { name: "telefoon", label: "Telefoonnummer", required: false, type: "tel" },
-            ].map((f) => (
-              <div key={f.name}>
-                <label className="text-sm text-muted-foreground mb-1 block">{f.label} {f.required && <span className="text-neon-purple">*</span>}</label>
-                <input
-                  type={f.type || "text"}
-                  required={f.required}
-                  value={form[f.name as keyof typeof form]}
-                  onChange={(e) => setForm({ ...form, [f.name]: e.target.value })}
+
+          {submitted ? (
+            <div className="mt-10 bg-card border border-neon-purple/30 rounded-2xl p-10 text-center">
+              <h3 className="text-xl font-semibold text-foreground mb-2">Bedankt voor je aanvraag!</h3>
+              <p className="text-muted-foreground">We nemen zo snel mogelijk contact met je op om een datum te plannen.</p>
+            </div>
+          ) : (
+            <form onSubmit={handleSubmit} className="mt-10 space-y-4">
+              {[
+                { name: "naam", label: "Naam", required: true },
+                { name: "organisatie", label: "Organisatie", required: true },
+                { name: "functie", label: "Functie", required: false },
+                { name: "email", label: "E-mailadres", required: true, type: "email" },
+                { name: "telefoon", label: "Telefoonnummer", required: false, type: "tel" },
+              ].map((f) => (
+                <div key={f.name}>
+                  <label className="text-sm text-muted-foreground mb-1 block">{f.label} {f.required && <span className="text-neon-purple">*</span>}</label>
+                  <input
+                    type={f.type || "text"}
+                    required={f.required}
+                    value={form[f.name as keyof typeof form]}
+                    onChange={(e) => setForm({ ...form, [f.name]: e.target.value })}
+                    className="w-full bg-card border border-border rounded-lg px-4 py-3 text-foreground text-sm focus:outline-none focus:border-neon-purple focus:ring-1 focus:ring-neon-purple/20 transition-all duration-300"
+                  />
+                </div>
+              ))}
+              <div>
+                <label className="text-sm text-muted-foreground mb-1 block">Type sessie <span className="text-neon-purple">*</span></label>
+                <select
+                  required
+                  value={form.sessieType}
+                  onChange={(e) => setForm({ ...form, sessieType: e.target.value })}
                   className="w-full bg-card border border-border rounded-lg px-4 py-3 text-foreground text-sm focus:outline-none focus:border-neon-purple focus:ring-1 focus:ring-neon-purple/20 transition-all duration-300"
+                >
+                  <option value="">Selecteer...</option>
+                  <option value="open">Open sessie</option>
+                  <option value="besloten">Besloten sessie</option>
+                </select>
+              </div>
+              <div>
+                <label className="text-sm text-muted-foreground mb-1 block">Vragen of opmerkingen</label>
+                <textarea
+                  value={form.vragen}
+                  onChange={(e) => setForm({ ...form, vragen: e.target.value })}
+                  rows={4}
+                  className="w-full bg-card border border-border rounded-lg px-4 py-3 text-foreground text-sm focus:outline-none focus:border-neon-purple focus:ring-1 focus:ring-neon-purple/20 transition-all duration-300 resize-none"
                 />
               </div>
-            ))}
-            <div>
-              <label className="text-sm text-muted-foreground mb-1 block">Type sessie <span className="text-neon-purple">*</span></label>
-              <select
-                required
-                value={form.sessieType}
-                onChange={(e) => setForm({ ...form, sessieType: e.target.value })}
-                className="w-full bg-card border border-border rounded-lg px-4 py-3 text-foreground text-sm focus:outline-none focus:border-neon-purple focus:ring-1 focus:ring-neon-purple/20 transition-all duration-300"
-              >
-                <option value="">Selecteer...</option>
-                <option value="open">Open sessie</option>
-                <option value="besloten">Besloten sessie</option>
-              </select>
-            </div>
-            <div>
-              <label className="text-sm text-muted-foreground mb-1 block">Vragen of opmerkingen</label>
-              <textarea
-                value={form.vragen}
-                onChange={(e) => setForm({ ...form, vragen: e.target.value })}
-                rows={4}
-                className="w-full bg-card border border-border rounded-lg px-4 py-3 text-foreground text-sm focus:outline-none focus:border-neon-purple focus:ring-1 focus:ring-neon-purple/20 transition-all duration-300 resize-none"
-              />
-            </div>
-            <button type="submit" className="btn-neon w-full py-3 rounded-lg">
-              Verstuur aanvraag
-            </button>
-          </form>
+              <button type="submit" disabled={submitting} className="btn-neon w-full py-3 rounded-lg disabled:opacity-50">
+                {submitting ? "Bezig met versturen..." : "Verstuur aanvraag"}
+              </button>
+            </form>
+          )}
           <p className="mt-6 text-sm text-muted-foreground text-center">
             Of neem direct contact op: <a href="mailto:robbert@speakersacademy.nl" className="text-primary hover:underline">robbert@speakersacademy.nl</a> of <a href="mailto:tom@speakersacademy.nl" className="text-primary hover:underline">tom@speakersacademy.nl</a> | <a href="tel:+31103167827" className="text-primary hover:underline">+31 (0)10 316 7827</a>
           </p>
