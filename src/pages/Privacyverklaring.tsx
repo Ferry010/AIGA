@@ -93,12 +93,12 @@ const Privacyverklaring = () => (
         <h2>5. Jouw rechten</h2>
         <p>Op grond van de Algemene Verordening Gegevensbescherming (AVG) heb je de volgende rechten:</p>
         <ul>
-          <li><strong>Recht op inzage</strong> — je kunt opvragen welke gegevens wij van je hebben.</li>
-          <li><strong>Recht op rectificatie</strong> — je kunt onjuiste gegevens laten corrigeren.</li>
-          <li><strong>Recht op verwijdering</strong> — je kunt vragen om verwijdering van je gegevens.</li>
-          <li><strong>Recht op beperking</strong> — je kunt vragen de verwerking tijdelijk te beperken.</li>
-          <li><strong>Recht op bezwaar</strong> — je kunt bezwaar maken tegen verwerking op grond van gerechtvaardigd belang.</li>
-          <li><strong>Recht op dataportabiliteit</strong> — je kunt je gegevens opvragen in een gangbaar formaat.</li>
+          <li><strong>Recht op inzage</strong>: je kunt opvragen welke gegevens wij van je hebben.</li>
+          <li><strong>Recht op rectificatie</strong>: je kunt onjuiste gegevens laten corrigeren.</li>
+          <li><strong>Recht op verwijdering</strong>: je kunt vragen om verwijdering van je gegevens.</li>
+          <li><strong>Recht op beperking</strong>: je kunt vragen de verwerking tijdelijk te beperken.</li>
+          <li><strong>Recht op bezwaar</strong>: je kunt bezwaar maken tegen verwerking op grond van gerechtvaardigd belang.</li>
+          <li><strong>Recht op dataportabiliteit</strong>: je kunt je gegevens opvragen in een gangbaar formaat.</li>
         </ul>
         <p>
           Wil je een van deze rechten uitoefenen? Neem dan contact met ons op via het{" "}
