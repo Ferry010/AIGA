@@ -50,35 +50,6 @@ const Kenniscentrum = () => {
       });
   }, []);
 
-  const filteredTools = useMemo(() => {
-    return aiTools.filter((t) => {
-      const q = toolSearch.toLowerCase();
-      const matchSearch = !q || t.name.toLowerCase().includes(q) || t.vendor.toLowerCase().includes(q);
-      const matchCat = toolCategory === "Alle categorieën" || t.category === toolCategory;
-      const matchRisk =
-        toolRisk === "Alle risico's" ||
-        (toolRisk === "Training vereist" ? t.trainingRequired : t.risk === toolRisk);
-      return matchSearch && matchCat && matchRisk;
-    });
-  }, [toolSearch, toolCategory, toolRisk]);
-
-  const stats = useMemo(() => {
-    const total = filteredTools.length;
-    const hoog = filteredTools.filter((t) => t.risk === "Hoog").length;
-    const beperkt = filteredTools.filter((t) => t.risk === "Beperkt").length;
-    const minimaal = filteredTools.filter((t) => t.risk === "Minimaal").length;
-    return { total, hoog, beperkt, minimaal };
-  }, [filteredTools]);
-
-  const groupedTools = useMemo(() => {
-    const groups: Record<string, AiTool[]> = {};
-    for (const t of filteredTools) {
-      if (!groups[t.category]) groups[t.category] = [];
-      groups[t.category].push(t);
-    }
-    return AI_CATEGORIES.filter((c) => groups[c]).map((c) => ({ category: c, tools: groups[c] }));
-  }, [filteredTools]);
-
   const filteredArticles = activeCategory === "Alle" ? articles : articles.filter((a) => a.category === activeCategory);
 
   return (
