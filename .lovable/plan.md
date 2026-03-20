@@ -1,27 +1,49 @@
 
 
-## Add Bulk Pricing Tiers to Training Page
+## Restructure: AI Tools Overview → Kenniscentrum + New /tools Page
 
 ### What changes
 
-Replace the single pricing card on the Training page with two side-by-side tier cards:
+**1. Kenniscentrum page (`src/pages/Kenniscentrum.tsx`)**
+Add a new "Kennisoverzichten" section above the existing articles grid containing the full 49-tool AI Act overview with search, category dropdown, risk filter pills, stats row, and grouped data table. This section gets its own anchor (`#kennisoverzichten`). The existing articles grid remains below under its own section label.
 
-**Tier 1 — Standard (1-49 seats)**
-- Price: €249,- per deelnemer (ex BTW)
-- Feature list stays the same (selfpaced, certificaat, dashboard, examen, etc.)
-- CTA: "Vraag een offerte aan" → scrolls to #offerte
+**2. New Tools page (`src/pages/Tools.tsx`)**
+A lightweight page with two sections of placeholder cards:
 
-**Tier 2 — Enterprise (50+ seats)**
-- "Neem contact op" / custom pricing
-- Highlight: gratis Masterclass voor management inbegrepen
-- Extra perks: dedicated accountmanager, voortgangsrapportages, facturatie op maat
-- CTA: "Neem contact op" → scrolls to #offerte (form pre-selects training)
+- **Scans & Calculators** (3 cards):
+  - "AI Risicoscan" → links to existing `/gereedheidscan`
+  - "Boetecalculator" → coming soon
+  - "AI Readiness Scan" → coming soon
 
-Use the same two-column card layout as the homepage "Ons Aanbod" section. Enterprise card gets the neon border treatment to draw attention.
+- **Downloads** (2 cards):
+  - "AI Act Compliance Checklist (PDF)" → coming soon
+  - "AI-beleid template" → coming soon
 
-Also update the homepage pricing cards and comparison section to reflect the same 2-tier structure (currently shows just "249,-" without tier context). Add "Vanaf 50 seats: neem contact op" to the homepage training card.
+Each coming-soon card uses the existing `Card` component with a `Badge` showing "Binnenkort beschikbaar".
 
-### Files to edit
-1. `src/pages/Training.tsx` — replace single pricing card with 2-tier grid
-2. `src/pages/Index.tsx` — add enterprise context to training card in "Ons Aanbod" section
+**3. Data file (`src/data/aiTools.ts`)**
+All 49 tools as a typed const array, keeping the page file clean.
+
+**4. Navigation (`src/components/Navbar.tsx`)**
+Add `{ to: "/tools", label: "Tools" }` after "Kenniscentrum" in `navLinks`.
+
+**5. Routing (`src/App.tsx`)**
+Add `/tools` route.
+
+### Technical details
+
+- The Kenniscentrum tools overview is fully client-side: `useState` for search/category/risk filters, `useMemo` for filtered results and stats.
+- Stats row: 4 `Card` components showing live-updating counts with color-coded text (destructive/amber/green).
+- Table uses existing `Table` components with category group header rows. Horizontal scroll on mobile.
+- Risk badges reuse `Badge` component with conditional className for color.
+- Filter pills wrap on mobile; stats grid collapses to 2×2.
+
+### Files
+| Action | File |
+|--------|------|
+| Create | `src/data/aiTools.ts` |
+| Create | `src/pages/Tools.tsx` |
+| Edit   | `src/pages/Kenniscentrum.tsx` — add tools overview section above articles |
+| Edit   | `src/components/Navbar.tsx` — add "Tools" nav item |
+| Edit   | `src/App.tsx` — add `/tools` route |
 
