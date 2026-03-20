@@ -201,47 +201,71 @@ const Training = () => (
 
     {/* Pricing */}
     <section className="py-24 bg-card">
-      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         <AnimatedSection>
           <SectionLabel text="INVESTERING" />
           <h2 className="text-3xl sm:text-4xl font-display font-semibold text-foreground mt-2 text-center">
-            Eén prijs. Alles inbegrepen.
+            Kies het pakket dat bij jouw team past.
           </h2>
         </AnimatedSection>
-        <AnimatedSection>
-          <div className="mt-12 bg-surface-2 border border-border rounded-2xl p-10 hover:border-neon-purple/40 neon-glow transition-all duration-300 neon-card-top">
-            <div className="text-center mb-8">
-              <span className="text-5xl font-display font-bold text-foreground">€249,-</span>
-              <p className="text-muted-foreground mt-1">per deelnemer, excl. BTW</p>
+        <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-12">
+          {/* Standard tier */}
+          <StaggerItem>
+            <div className="bg-surface-2 border border-border rounded-2xl p-8 sm:p-10 h-full flex flex-col hover:border-neon-purple/20 transition-all duration-300">
+              <span className="text-xs font-medium uppercase tracking-[0.08em] text-muted-foreground mb-2">STANDAARD</span>
+              <h3 className="text-xl font-semibold text-foreground">1 – 49 deelnemers</h3>
+              <p className="text-4xl font-display font-bold text-foreground mt-4">€249,-</p>
+              <p className="text-sm text-muted-foreground mt-1">per deelnemer, excl. BTW</p>
+              <p className="text-xs text-muted-foreground mt-1 italic">Minder dan één dag klassikale training — en meteen compliant.</p>
+              <ul className="space-y-3 mt-6 mb-8 flex-1">
+                {[
+                  "Volledige online training, selfpaced",
+                  "Adaptief examen met onbeperkt herkansen",
+                  "AI Literacy Practitioner certificaat",
+                  "Voortgangsdashboard voor de organisatie",
+                  "Geen technische voorkennis vereist",
+                ].map((item) => (
+                  <li key={item} className="flex items-start gap-3">
+                    <Check size={16} className="text-primary mt-0.5 shrink-0" />
+                    <span className="text-sm text-foreground">{item}</span>
+                  </li>
+                ))}
+              </ul>
+              <a href="#offerte" className="btn-neon-outline text-center py-3 rounded-lg font-semibold text-sm">
+                Vraag een offerte aan
+              </a>
             </div>
-            <ul className="space-y-3 mb-8">
-              {[
-                "Volledige online training, selfpaced",
-                "Adaptief examen met onbeperkt herkansen",
-                "AI Literacy Practitioner certificaat (digitaal ondertekend)",
-                "Voortgangsdashboard voor de organisatie",
-                "Geschikt voor teams van elke omvang",
-                "Geen technische voorkennis vereist",
-              ].map((item) => (
-                <li key={item} className="flex items-start gap-3">
-                  <Check size={16} className="text-primary mt-0.5 shrink-0" />
-                  <span className="text-sm text-foreground">{item}</span>
-                </li>
-              ))}
-            </ul>
-            <div className="bg-card border border-neon-purple/20 rounded-xl p-4 mb-8 text-center">
-              <p className="text-sm text-foreground font-medium">
-                🎁 Vanaf 50 seats: gratis <Link to="/masterclass" className="text-primary hover:underline">Masterclass voor management</Link> inbegrepen
-              </p>
+          </StaggerItem>
+
+          {/* Enterprise tier */}
+          <StaggerItem>
+            <div className="neon-border-lg h-full">
+              <div className="neon-inner bg-background rounded-2xl p-8 sm:p-10 h-full flex flex-col">
+                <span className="text-xs font-medium uppercase tracking-[0.08em] neon-text mb-2">ENTERPRISE</span>
+                <h3 className="text-xl font-semibold text-foreground">50+ deelnemers</h3>
+                <p className="text-4xl font-display font-bold text-foreground mt-4">Op maat</p>
+                <p className="text-sm text-muted-foreground mt-1">Neem contact op voor een voorstel</p>
+                <ul className="space-y-3 mt-6 mb-8 flex-1">
+                  {[
+                    "Alles uit het Standaard-pakket",
+                    "Gratis Masterclass voor management inbegrepen",
+                    "Dedicated accountmanager",
+                    "Voortgangsrapportages op organisatieniveau",
+                    "Facturatie op maat",
+                  ].map((item) => (
+                    <li key={item} className="flex items-start gap-3">
+                      <Check size={16} className="text-primary mt-0.5 shrink-0" />
+                      <span className="text-sm text-foreground">{item}</span>
+                    </li>
+                  ))}
+                </ul>
+                <a href="#offerte" className="btn-neon block text-center py-3 rounded-lg font-semibold text-sm">
+                  Neem contact op
+                </a>
+              </div>
             </div>
-            <a href="#offerte" className="btn-neon block text-center py-3.5 rounded-lg font-semibold">
-              Vraag een offerte aan
-            </a>
-            <p className="text-xs text-muted-foreground text-center mt-4">
-              Minder dan één dag klassikale training — en meteen compliant.
-            </p>
-          </div>
-        </AnimatedSection>
+          </StaggerItem>
+        </StaggerContainer>
       </div>
     </section>
 
