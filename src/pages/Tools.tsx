@@ -9,9 +9,9 @@ import SEO from "@/components/SEO";
 
 const scans = [
   {
-    title: "AI Risicoscan",
-    description: "Breng het AI-risicoprofiel van jouw organisatie in kaart en ontvang direct advies.",
-    icon: ShieldCheck,
+    title: "AI Gereedheidscan",
+    description: "Meet vijf dimensies: AI-gebruik, wetgeving, risicobeheer, leiderschap en audit-readiness. Direct je score met uitsplitsing per dimensie.",
+    icon: ClipboardCheck,
     href: "/gereedheidscan",
     available: true,
   },
@@ -23,9 +23,9 @@ const scans = [
     available: false,
   },
   {
-    title: "AI Readiness Scan",
-    description: "Hoe scoort jouw organisatie op AI-gereedheid? Ontdek het in 5 minuten.",
-    icon: ClipboardCheck,
+    title: "AI Risicoscan",
+    description: "Welke AI-tools gebruikt jouw organisatie en wat is het risiconiveau? Ontdek per tool of het laag, gemiddeld of hoog risico betreft.",
+    icon: ShieldCheck,
     href: null,
     available: false,
   },
