@@ -31,7 +31,7 @@ const AiTrainingVoorBedrijven = () => (
             <span className="text-primary">in Nederland</span>
           </h1>
           <p className="mt-6 text-lg text-muted-foreground leading-relaxed">
-            AI verandert de manier waarop bedrijven werken. Maar zonder de juiste kennis leidt het inzetten van AI-tools tot risico's: datalekken, bias in besluitvorming, compliance-problemen en reputatieschade. Een gerichte AI-training voor bedrijven is daarom geen luxe meer — het is een strategische noodzaak.
+            AI verandert de manier waarop bedrijven werken. Maar zonder de juiste kennis leidt het inzetten van AI-tools tot risico's: datalekken, bias in besluitvorming, compliance-problemen en reputatieschade. Een gerichte AI-training voor bedrijven is daarom geen luxe meer, het is een strategische noodzaak.
           </p>
         </AnimatedSection>
 

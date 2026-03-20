@@ -46,7 +46,7 @@ const AiGeletterdheidNederland = () => (
           </h2>
           <div className="text-muted-foreground leading-relaxed space-y-4">
             <p>
-              De EU AI Act is de eerste wetgeving ter wereld die specifiek gericht is op het reguleren van kunstmatige intelligentie. In Nederland wordt de wet gehandhaafd door de Autoriteit Persoonsgegevens (AP) en sectorspecifieke toezichthouders. Per augustus 2025 wordt actief gehandhaafd — organisaties die niet kunnen aantonen dat hun medewerkers AI-geletterd zijn, riskeren boetes tot 35 miljoen euro of 7% van de wereldwijde jaaromzet.
+              De EU AI Act is de eerste wetgeving ter wereld die specifiek gericht is op het reguleren van kunstmatige intelligentie. In Nederland wordt de wet gehandhaafd door de Autoriteit Persoonsgegevens (AP) en sectorspecifieke toezichthouders. Per augustus 2025 wordt actief gehandhaafd. Organisaties die niet kunnen aantonen dat hun medewerkers AI-geletterd zijn, riskeren boetes tot 35 miljoen euro of 7% van de wereldwijde jaaromzet.
             </p>
             <p>
               De wet maakt onderscheid tussen verschillende risiconiveaus van AI-systemen. Maar ongeacht het risiconiveau geldt Artikel 4: alle organisaties moeten investeren in AI-geletterdheid van hun medewerkers.

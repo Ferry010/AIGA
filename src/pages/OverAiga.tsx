@@ -117,7 +117,7 @@ const OverAiga = () => {
                 In 2020 won Ferry de prestigieuze Anti-Discriminatie AI-Hackathon, georganiseerd door de Nederlandse overheid. Deze prijs bevestigde zijn expertise op het snijvlak van AI, ethiek en maatschappelijke verantwoordelijkheid. Thema's die centraal staan in al zijn trainingen en presentaties.
               </p>
               <p>
-                Ferry gelooft dat AI-geletterdheid niet gaat over het leren van technische vaardigheden, maar over het begrijpen van de impact van AI op mensen, organisaties en de samenleving. Zijn aanpak is altijd praktisch, menselijk en direct toepasbaar. Hij praat niet over AI vanuit een theorieboek — hij praat erover vanuit de boardrooms, de werkvloeren en de workshops waar hij wekelijks aanwezig is.
+                Ferry gelooft dat AI-geletterdheid niet gaat over het leren van technische vaardigheden, maar over het begrijpen van de impact van AI op mensen, organisaties en de samenleving. Zijn aanpak is altijd praktisch, menselijk en direct toepasbaar. Hij praat niet over AI vanuit een theorieboek, maar vanuit de boardrooms, de werkvloeren en de workshops waar hij wekelijks aanwezig is.
               </p>
               <p>
                 Als mede-oprichter van AIGA heeft Ferry het curriculum ontwikkeld voor de AI-geletterdheid training en de masterclass voor leidinggevenden. Beide programma's zijn gebaseerd op zijn jarenlange ervaring met het opleiden van teams en directies in verantwoord AI-gebruik.

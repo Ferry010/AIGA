@@ -107,9 +107,9 @@ const AiActComplianceNederland = () => (
           <div className="mt-12 p-6 bg-card border border-border rounded-2xl">
             <h3 className="text-sm font-semibold text-foreground mb-3">Officiële bronnen</h3>
             <ul className="space-y-2 text-sm">
-              <li><a href="https://eur-lex.europa.eu/legal-content/NL/TXT/?uri=CELEX:32024R1689" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">EUR-Lex — Verordening (EU) 2024/1689 (AI Act)</a></li>
-              <li><a href="https://www.rijksoverheid.nl/onderwerpen/kunstmatige-intelligentie-ai" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">Rijksoverheid.nl — Kunstmatige Intelligentie</a></li>
-              <li><a href="https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">European Commission — AI Act</a></li>
+              <li><a href="https://eur-lex.europa.eu/legal-content/NL/TXT/?uri=CELEX:32024R1689" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">EUR-Lex: Verordening (EU) 2024/1689 (AI Act)</a></li>
+              <li><a href="https://www.rijksoverheid.nl/onderwerpen/kunstmatige-intelligentie-ai" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">Rijksoverheid.nl: Kunstmatige Intelligentie</a></li>
+              <li><a href="https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">European Commission: AI Act</a></li>
             </ul>
           </div>
         </AnimatedSection>

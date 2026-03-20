@@ -345,7 +345,7 @@ const Index = () => {
                 <p className="text-2xl font-bold text-foreground mt-4">495,- <span className="text-sm font-normal text-muted-foreground">per deelnemer (ex BTW)</span></p>
                 <p className="text-xs text-muted-foreground mt-1">Gratis bij 50+ training seats</p>
                 {/* Fix 5: Price anchoring */}
-                <p className="text-xs text-muted-foreground mt-1 italic">Inclusief bij 50+ online seats — anders minder dan één middag extern advies.</p>
+                <p className="text-xs text-muted-foreground mt-1 italic">Inclusief bij 50+ online seats, anders minder dan één middag extern advies.</p>
                 <ul className="space-y-2 mt-6 mb-8 flex-1">
                   {[
                     "In-company, ca. 2 uur",

@@ -83,7 +83,7 @@ const AiCursusMedewerkers = () => (
           </h2>
           <div className="text-muted-foreground leading-relaxed space-y-4">
             <p>
-              De cursus kost <strong className="text-foreground">€249 per medewerker</strong> (exclusief BTW). Er is geen minimum aantal deelnemers — je kunt starten met 1 seat of direct je hele organisatie inschrijven. Voor grotere aantallen gelden staffelkortingen.
+              De cursus kost <strong className="text-foreground">€249 per medewerker</strong> (exclusief BTW). Er is geen minimum aantal deelnemers. Je kunt starten met 1 seat of direct je hele organisatie inschrijven. Voor grotere aantallen gelden staffelkortingen.
             </p>
             <p>
               Bij 50 of meer seats is een <Link to="/masterclass" className="text-primary hover:underline">live Masterclass voor leidinggevenden</Link> gratis inbegrepen.

@@ -219,7 +219,7 @@ const Quiz = () => {
           </div>
           <p className="text-center text-xs text-muted-foreground pb-1">{current + 1} / 10</p>
           <p className="text-center text-[11px] text-muted-foreground/60 pb-2 italic">
-            Je ziet je resultaat meteen — we gooien geen formulier voor je neus.
+            Je ziet je resultaat meteen. We gooien geen formulier voor je neus.
           </p>
         </div>
 

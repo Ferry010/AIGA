@@ -17,7 +17,7 @@ const pillars = [
   {
     icon: Award,
     title: "Audit-proof certificaat",
-    text: "Iedere deelnemer ontvangt een digitaal ondertekend AI Literacy Practitioner certificaat — deelbaar via LinkedIn en geldig als bewijs bij een audit.",
+    text: "Iedere deelnemer ontvangt een digitaal ondertekend AI Literacy Practitioner certificaat, deelbaar via LinkedIn en geldig als bewijs bij een audit.",
   },
 ];
 

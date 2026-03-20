@@ -53,7 +53,7 @@ const Licentie = () => (
         <h2>3. Wat je niet mag doen</h2>
         <p>Het is uitdrukkelijk niet toegestaan om:</p>
         <ul>
-          <li>Materialen te kopiëren, reproduceren, afdrukken of distribueren — ook niet gedeeltelijk — zonder voorafgaande schriftelijke toestemming van Brand Humanizing Institute.</li>
+          <li>Materialen te kopiëren, reproduceren, afdrukken of distribueren, ook niet gedeeltelijk, zonder voorafgaande schriftelijke toestemming van Brand Humanizing Institute.</li>
           <li>Modules, werkboeken of andere content te delen met personen die geen actieve AIGA-licentie hebben.</li>
           <li>Content te gebruiken voor commerciële doeleinden, zoals het geven van trainingen of het ontwikkelen van eigen cursusmateriaal op basis van onze materialen.</li>
           <li>Het certificaat over te dragen aan een andere persoon. Het certificaat is strikt persoonsgebonden en gekoppeld aan de naam van de deelnemer die de opleiding heeft voltooid.</li>

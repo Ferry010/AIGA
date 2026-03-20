@@ -118,7 +118,7 @@ const Privacyverklaring = () => (
 
         <h2>7. Wijzigingen in deze verklaring</h2>
         <p>
-          Wij kunnen deze privacyverklaring van tijd tot tijd aanpassen — bijvoorbeeld als we nieuwe functionaliteit toevoegen aan de website. De meest actuele versie staat altijd op deze pagina met de datum van de laatste update.
+          Wij kunnen deze privacyverklaring van tijd tot tijd aanpassen, bijvoorbeeld als we nieuwe functionaliteit toevoegen aan de website. De meest actuele versie staat altijd op deze pagina met de datum van de laatste update.
         </p>
 
         <hr />
