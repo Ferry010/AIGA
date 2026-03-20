@@ -26,6 +26,7 @@ import AiGeletterdheidNederland from "./pages/AiGeletterdheidNederland";
 import AiTrainingVoorBedrijven from "./pages/AiTrainingVoorBedrijven";
 import AiActComplianceNederland from "./pages/AiActComplianceNederland";
 import AiCursusMedewerkers from "./pages/AiCursusMedewerkers";
+import Tools from "./pages/Tools";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();

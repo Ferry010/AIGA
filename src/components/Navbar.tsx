@@ -6,6 +6,7 @@ const navLinks = [
   { to: "/training", label: "Voor teams" },
   { to: "/masterclass", label: "Voor leidinggevenden" },
   { to: "/kenniscentrum", label: "Kenniscentrum" },
+  { to: "/tools", label: "Tools" },
   { to: "/over-aiga", label: "Over AIGA" },
 ];
 
