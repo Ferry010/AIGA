@@ -17,7 +17,7 @@ const AiGeletterdheidNederland = () => (
         name: "AI-Geletterdheid in Nederland",
         description: "Alles over AI-geletterdheid in Nederland en de EU AI Act.",
         url: "https://aigeletterdheid.academy/ai-geletterdheid-nederland",
-        publisher: { "@type": "Organization", name: "AIGA — AI Geletterdheid Academy" },
+        publisher: { "@type": "Organization", name: "AIGA | AI Geletterdheid Academy" },
       }}
     />
     <BreadcrumbNav items={[{ label: "Home", href: "/" }, { label: "AI-Geletterdheid Nederland" }]} />
