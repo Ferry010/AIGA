@@ -196,7 +196,7 @@ const Quiz = () => {
                 onClick={() => setPhase("quiz")}
                 className="btn-neon px-8 py-4 rounded-lg text-[15px]"
               >
-                Start de scan — 3 minuten
+                Start de scan · 3 minuten
               </button>
               <p className="mt-3 text-xs text-muted-foreground">10 vragen. Direct resultaat. Geen account nodig.</p>
             </div>
