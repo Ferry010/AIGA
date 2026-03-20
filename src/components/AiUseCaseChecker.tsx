@@ -182,6 +182,9 @@ const AiUseCaseChecker = () => {
 
           {/* Step 3 — Outcome */}
           {outcome === "high" && selectedUseCase && (
+            <div ref={outcomeRef}></div>
+          )}
+          {outcome === "high" && selectedUseCase && (
             <div className="rounded-lg border border-destructive/40 bg-destructive/10 p-6">
               <Badge className="bg-destructive/20 text-destructive border-destructive/30 mb-3">
                 Hoog risico — Bijlage III van toepassing
