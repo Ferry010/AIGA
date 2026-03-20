@@ -20,7 +20,7 @@ const Licentie = () => (
 
         <h2>1. Eigendom van de content</h2>
         <p>
-          Alle content die beschikbaar wordt gesteld via AIGA — waaronder e-learning modules, cursusmateriaal, werkboeken, downloads en toetsvragen — is het intellectuele eigendom van Brand Humanizing Institute, tenzij uitdrukkelijk anders vermeld.
+          Alle content die beschikbaar wordt gesteld via AIGA, waaronder e-learning modules, cursusmateriaal, werkboeken, downloads en toetsvragen, is het intellectuele eigendom van Brand Humanizing Institute, tenzij uitdrukkelijk anders vermeld.
         </p>
         <p>
           De content is beschermd onder het auteursrecht en andere toepasselijke wet- en regelgeving. Het verlenen van toegang tot de materialen houdt geen overdracht van intellectuele eigendomsrechten in.
