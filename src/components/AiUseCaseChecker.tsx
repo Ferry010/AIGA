@@ -24,6 +24,7 @@ const AiUseCaseChecker = () => {
   const [selectedTool, setSelectedTool] = useState<string | null>(null);
   const [selectedUseCase, setSelectedUseCase] = useState<string | null>(null);
   const [open, setOpen] = useState(false);
+  const outcomeRef = useRef<HTMLDivElement>(null);
 
   const toolsByCategory = useMemo(() => {
     const map: Record<string, string[]> = {};
