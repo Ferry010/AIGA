@@ -1,14 +1,20 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, Calculator, ClipboardCheck, FileDown, FileText, ShieldCheck } from "lucide-react";
+import { ArrowRight, Calculator, ClipboardCheck, FileDown, FileText, Search, ShieldCheck } from "lucide-react";
 import { AnimatedSection, StaggerContainer, StaggerItem } from "@/components/AnimatedSection";
 import SectionLabel from "@/components/SectionLabel";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import BreadcrumbNav from "@/components/BreadcrumbNav";
 import SEO from "@/components/SEO";
-import AiUseCaseChecker from "@/components/AiUseCaseChecker";
 
 const scans = [
+  {
+    title: "AI Use Case Checker",
+    description: "Controleer per AI-tool en toepassing of jouw gebruik onder hoog risico valt volgens de EU AI Act. Selecteer een tool, kies je use case en zie direct het oordeel.",
+    icon: Search,
+    href: "/ai-use-case-checker",
+    available: true,
+  },
   {
     title: "AI Gereedheidscan",
     description: "Meet vijf dimensies: AI-gebruik, wetgeving, risicobeheer, leiderschap en audit-readiness. Direct je score met uitsplitsing per dimensie.",
@@ -79,7 +85,6 @@ const Tools = () => {
           <AnimatedSection>
             <SectionLabel text="SCANS & CALCULATORS" />
           </AnimatedSection>
-          <AiUseCaseChecker />
           <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
             {scans.map((scan) => {
               const Icon = scan.icon;

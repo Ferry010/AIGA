@@ -28,6 +28,7 @@ import AiActComplianceNederland from "./pages/AiActComplianceNederland";
 import AiCursusMedewerkers from "./pages/AiCursusMedewerkers";
 import AiToolsOverzicht from "./pages/AiToolsOverzicht";
 import Tools from "./pages/Tools";
+import UseCaseChecker from "./pages/UseCaseChecker";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -65,6 +66,7 @@ const AppContent = () => {
           <Route path="/ai-cursus-medewerkers" element={<AiCursusMedewerkers />} />
           <Route path="/ai-tools-onder-de-ai-act" element={<AiToolsOverzicht />} />
           <Route path="/tools" element={<Tools />} />
+          <Route path="/ai-use-case-checker" element={<UseCaseChecker />} />
           <Route path="/admin" element={<Admin />} />
           <Route path="/admin/login" element={<AdminLogin />} />
           <Route path="/privacyverklaring" element={<Privacyverklaring />} />
