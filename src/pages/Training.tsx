@@ -263,7 +263,7 @@ const Training = () => (
     </section>
 
     {/* Contact form */}
-    <section className="py-24 bg-card">
+    <section id="offerte" className="py-24 bg-card">
       <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
         <AnimatedSection>
           <SectionLabel text="OFFERTE AANVRAGEN" />

@@ -152,24 +152,55 @@ const Masterclass = () => {
         </div>
       </section>
 
+      {/* Pricing */}
       <section className="py-24 bg-card">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection>
-            <h2 className="text-3xl font-display font-semibold text-foreground text-center">
-              Aanmelden <span className="text-primary">als team</span>
+            <SectionLabel text="INVESTERING" />
+            <h2 className="text-3xl sm:text-4xl font-display font-semibold text-foreground mt-2 text-center">
+              Wat kost een <span className="text-primary">besloten sessie?</span>
             </h2>
           </AnimatedSection>
-          <StaggerContainer className="mt-12 max-w-md mx-auto">
-            <StaggerItem>
-              <div className="bg-surface-2 border border-border rounded-2xl p-10 text-center flex flex-col hover:border-neon-purple/40 neon-glow transition-all duration-300">
-                <h3 className="text-lg font-semibold text-foreground mb-2">Besloten sessie</h3>
-                <p className="text-sm text-muted-foreground mb-6 flex-1">Plan een exclusieve sessie voor jouw MT of directie. Op locatie of online, op een datum die jullie past.</p>
-                <a href="#aanmelden" className="btn-neon-outline py-3 font-semibold">
-                  Vraag een besloten sessie aan
-                </a>
+          <AnimatedSection>
+            <div className="mt-12 bg-surface-2 border border-border rounded-2xl p-10 hover:border-neon-purple/40 neon-glow transition-all duration-300 neon-card-top">
+              <div className="text-center mb-8">
+                <span className="text-5xl font-display font-bold text-foreground">€495,-</span>
+                <p className="text-muted-foreground mt-1">per deelnemer, excl. BTW · minimaal 5 deelnemers</p>
               </div>
-            </StaggerItem>
-          </StaggerContainer>
+              <ul className="space-y-3 mb-8">
+                {[
+                  "2 uur live sessie met AI-expert Ferry Hoes",
+                  "Op locatie of online, op een datum die jullie past",
+                  "AI Literacy Leader bewijs van deelname",
+                  "Live Q&A met ruimte voor organisatie-specifieke vragen",
+                  "Geen technische achtergrond nodig",
+                ].map((item) => (
+                  <li key={item} className="flex items-start gap-3">
+                    <Check size={16} className="text-primary mt-0.5 shrink-0" />
+                    <span className="text-sm text-foreground">{item}</span>
+                  </li>
+                ))}
+              </ul>
+              <div className="bg-card border border-neon-purple/20 rounded-xl p-4 mb-8 text-center">
+                <p className="text-sm text-foreground font-medium">
+                  🎁 Gratis bij afname van 50+ <Link to="/training" className="text-primary hover:underline">online training</Link> seats
+                </p>
+              </div>
+              <a href="#aanmelden" className="btn-neon block text-center py-3.5 rounded-lg font-semibold">
+                Vraag een besloten sessie aan
+              </a>
+            </div>
+          </AnimatedSection>
+
+          {/* Cross-sell */}
+          <AnimatedSection>
+            <div className="mt-8 text-center">
+              <p className="text-muted-foreground text-sm">
+                Zoek je een training voor alle medewerkers?{" "}
+                <Link to="/training" className="text-primary hover:underline font-medium">Bekijk de online training →</Link>
+              </p>
+            </div>
+          </AnimatedSection>
         </div>
       </section>
 
