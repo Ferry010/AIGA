@@ -243,7 +243,7 @@ const AiToolsOverzicht = () => {
                 to="/gereedheidscan"
                 className="btn-neon text-sm px-6 py-3 rounded-lg whitespace-nowrap shrink-0"
               >
-                Doe de gratis Risicoscan →
+                Doe de gratis Gereedheidscan →
               </Link>
             </div>
           </div>
