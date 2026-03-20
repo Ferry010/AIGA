@@ -120,8 +120,8 @@ const Kenniscentrum = () => {
           <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
             {/* Card 1 — live */}
             <StaggerItem>
-              <a
-                href="#ai-tools-overzicht"
+              <Link
+                to="/ai-tools-onder-de-ai-act"
                 className="group bg-card border border-border rounded-2xl overflow-hidden hover:border-primary/40 neon-glow transition-all duration-300 flex flex-col h-full"
               >
                 <div className="p-6 flex flex-col flex-1 gap-3">
@@ -136,7 +136,7 @@ const Kenniscentrum = () => {
                     Bekijk overzicht <ArrowRight size={16} />
                   </span>
                 </div>
-              </a>
+              </Link>
             </StaggerItem>
 
             {/* Card 2 — coming soon */}
