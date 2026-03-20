@@ -28,7 +28,7 @@ const OverAiga = () => {
   return (
     <div className="min-h-screen">
       <SEO
-        title="Over AIGA — AI Geletterdheid Academy Nederland | Ferry Hoes"
+        title="Over AIGA | AI Geletterdheid Academy Nederland | Ferry Hoes"
         description="AIGA helpt Nederlandse organisaties met AI-geletterdheid en EU AI Act compliance. Opgericht door Ferry Hoes, AI-expert en keynote spreker."
         canonical="/over-aiga"
         jsonLd={{
