@@ -1,60 +1,44 @@
 
 
-## Dead Buttons Fix
+## Rebrand "AI Risicoscan" to "AI Gereedheidscan"
 
-### Issues Found
+### Rationale
+The current name "Risicoscan" frames the tool around AI risks (high/mid/low risk AI tools), which is misleading. The scan actually measures organizational readiness across 5 dimensions: AI-gebruik, bewustzijn van wetgeving, risicobeheer, leiderschap, en audit-readiness. "Gereedheidscan" (readiness scan) better reflects this.
 
-1. **Masterclass `to="#aanmelden"` links are dead** (2 occurrences in `Masterclass.tsx`, lines 60 and 143)
-   - React Router's `<Link to="#aanmelden">` doesn't scroll to the hash anchor. These buttons do nothing when clicked.
-   - Fix: Replace with native `<a href="#aanmelden">` tags.
+### What changes
 
-2. **Masterclass form submit does nothing** (`Masterclass.tsx`, line 28-31)
-   - `handleSubmit` only does `console.log`. The user fills in the form, clicks "Verstuur aanvraag", and nothing happens. No data is saved, no confirmation is shown.
-   - Fix: Save to database (create a `masterclass_submissions` table) and show confirmation, similar to the risk scan form.
+**Naming updates across all files:**
+- "AI Risicoscan" / "AI Risico-scan" / "Risicoscan" → "AI Gereedheidscan"
+- "GRATIS AI RISICO-SCAN" → "GRATIS AI GEREEDHEIDSCAN"
+- URL route stays `/risicoscan` to avoid breaking existing links (or change to `/gereedheidscan` with a redirect)
 
-3. **Remaining "5 Minuten" in Quiz SEO title** (`Quiz.tsx`, line 154)
-   - The SEO `<title>` tag still says "5 Minuten" instead of "3 Minuten". This was missed in the earlier update.
-   - Fix: Change to "3 Minuten".
+**Tier badges reframed from risk to readiness:**
+- Tier 1 (0-40%): "HOOG RISICO" → "NIET GEREED" · heading: "Je team loopt risico" → "Jullie organisatie is nog niet gereed"
+- Tier 2 (41-70%): "BLINDE VLEKKEN" → "GEDEELTELIJK GEREED" · heading stays similar
+- Tier 3 (71-100%): "VOORLOPER" stays (already positive/readiness-framed)
 
-4. **Remaining "vijf minuten" on homepage** (`Index.tsx`, line 187)
-   - The risico-scan CTA section on the homepage still says "In vijf minuten weet je waar je staat."
-   - Fix: Change to "drie minuten".
+**SEO & meta updates in `Quiz.tsx`:**
+- Title: "Gratis AI Gereedheidscan voor Organisaties | 3 Minuten | AIGA"
+- Description reframed around readiness instead of vulnerability
+- JSON-LD name/description updated
 
-### Plan
+**Copy updates in `Quiz.tsx` intro:**
+- Reframe intro paragraphs from "hoe kwetsbaar" to "hoe gereed" your organisation is
 
-#### 1. Fix hash links in Masterclass (no-code-change needed beyond HTML)
-- Replace `<Link to="#aanmelden">` with `<a href="#aanmelden">` in two places in `Masterclass.tsx`
+**LinkedIn share text** in Quiz.tsx updated
 
-#### 2. Make Masterclass form functional
-- Create a `masterclass_submissions` table via migration:
-  ```sql
-  CREATE TABLE public.masterclass_submissions (
-    id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
-    naam text NOT NULL,
-    organisatie text NOT NULL,
-    functie text,
-    email text NOT NULL,
-    telefoon text,
-    sessie_type text NOT NULL,
-    vragen text,
-    created_at timestamptz DEFAULT now()
-  );
-  ALTER TABLE public.masterclass_submissions ENABLE ROW LEVEL SECURITY;
-  CREATE POLICY "Allow anonymous inserts" ON public.masterclass_submissions FOR INSERT TO anon WITH CHECK (true);
-  CREATE POLICY "Allow authenticated inserts" ON public.masterclass_submissions FOR INSERT TO authenticated WITH CHECK (true);
-  CREATE POLICY "Allow authenticated select" ON public.masterclass_submissions FOR SELECT TO authenticated USING (true);
-  GRANT INSERT ON public.masterclass_submissions TO anon, authenticated;
-  GRANT SELECT ON public.masterclass_submissions TO authenticated;
-  ```
-- Update `Masterclass.tsx` to insert into the database and show success/error state (same pattern as Quiz form)
+**Files to edit (7):**
+1. `src/pages/Quiz.tsx` – main rename + tier badges + SEO + intro copy + LinkedIn text
+2. `src/pages/Index.tsx` – CTA section references (2 occurrences)
+3. `src/components/Navbar.tsx` – nav button label
+4. `src/components/Footer.tsx` – footer link label
+5. `src/components/SocialProof.tsx` – link text
+6. `src/App.tsx` – route path (change to `/gereedheidscan`, keep `/risicoscan` as redirect)
+7. `public/sitemap.xml` – URL update
 
-#### 3. Fix remaining duration text
-- `Quiz.tsx` line 154: "5 Minuten" → "3 Minuten"
-- `Index.tsx` line 187: "vijf minuten" → "drie minuten"
+**Database:** The `tier` column values in `risk_scan_submissions` stay unchanged (internal only).
 
-### Files to edit
-- `src/pages/Masterclass.tsx` (hash links + form functionality)
-- `src/pages/Quiz.tsx` (SEO title fix)
-- `src/pages/Index.tsx` (duration text fix)
-- New migration for `masterclass_submissions` table
+### URL strategy
+- Change primary route to `/gereedheidscan`
+- Add redirect from `/risicoscan` → `/gereedheidscan` via `_redirects` file and React Router redirect, so existing links keep working
 
