@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Check, Play } from "lucide-react";
+import { Check } from "lucide-react";
 import { AnimatedSection, StaggerContainer, StaggerItem } from "@/components/AnimatedSection";
 import SectionLabel from "@/components/SectionLabel";
 import TrainerSection from "@/components/TrainerSection";
@@ -172,6 +172,79 @@ const Training = () => (
       </div>
     </section>
 
+    {/* Hoe het werkt */}
+    <section className="py-24">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <AnimatedSection>
+          <SectionLabel text="HOE HET WERKT" />
+          <h2 className="text-3xl sm:text-4xl font-display font-semibold text-foreground mt-2">
+            In drie stappen<br /><span className="text-primary">naar een AI-geletterd team.</span>
+          </h2>
+        </AnimatedSection>
+        <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
+          {[
+            { step: "01", title: "Meld je team aan", desc: "Vraag een offerte aan en ontvang binnen twee werkdagen toegang tot het platform voor al je medewerkers." },
+            { step: "02", title: "Medewerkers volgen de training", desc: "Iedereen leert zelfstandig, in eigen tempo. Je volgt de voortgang via het dashboard." },
+            { step: "03", title: "Ontvang de certificaten", desc: "Na het adaptieve examen ontvangt elke deelnemer automatisch het AI Literacy Practitioner certificaat." },
+          ].map((s) => (
+            <StaggerItem key={s.step}>
+              <div className="p-6">
+                <span className="text-2xl font-mono font-bold neon-text">{s.step}</span>
+                <h3 className="text-lg font-semibold text-foreground mt-3 mb-2">{s.title}</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">{s.desc}</p>
+              </div>
+            </StaggerItem>
+          ))}
+        </StaggerContainer>
+      </div>
+    </section>
+
+    {/* Pricing */}
+    <section className="py-24 bg-card">
+      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+        <AnimatedSection>
+          <SectionLabel text="INVESTERING" />
+          <h2 className="text-3xl sm:text-4xl font-display font-semibold text-foreground mt-2 text-center">
+            Eén prijs. Alles inbegrepen.
+          </h2>
+        </AnimatedSection>
+        <AnimatedSection>
+          <div className="mt-12 bg-surface-2 border border-border rounded-2xl p-10 hover:border-neon-purple/40 neon-glow transition-all duration-300 neon-card-top">
+            <div className="text-center mb-8">
+              <span className="text-5xl font-display font-bold text-foreground">€249,-</span>
+              <p className="text-muted-foreground mt-1">per deelnemer, excl. BTW</p>
+            </div>
+            <ul className="space-y-3 mb-8">
+              {[
+                "Volledige online training, selfpaced",
+                "Adaptief examen met onbeperkt herkansen",
+                "AI Literacy Practitioner certificaat (digitaal ondertekend)",
+                "Voortgangsdashboard voor de organisatie",
+                "Geschikt voor teams van elke omvang",
+                "Geen technische voorkennis vereist",
+              ].map((item) => (
+                <li key={item} className="flex items-start gap-3">
+                  <Check size={16} className="text-primary mt-0.5 shrink-0" />
+                  <span className="text-sm text-foreground">{item}</span>
+                </li>
+              ))}
+            </ul>
+            <div className="bg-card border border-neon-purple/20 rounded-xl p-4 mb-8 text-center">
+              <p className="text-sm text-foreground font-medium">
+                🎁 Vanaf 50 seats: gratis <Link to="/masterclass" className="text-primary hover:underline">Masterclass voor management</Link> inbegrepen
+              </p>
+            </div>
+            <a href="#offerte" className="btn-neon block text-center py-3.5 rounded-lg font-semibold">
+              Vraag een offerte aan
+            </a>
+            <p className="text-xs text-muted-foreground text-center mt-4">
+              Minder dan één dag klassikale training — en meteen compliant.
+            </p>
+          </div>
+        </AnimatedSection>
+      </div>
+    </section>
+
     {/* FAQ */}
     <section className="py-24">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -190,7 +263,7 @@ const Training = () => (
     </section>
 
     {/* Contact form */}
-    <section className="py-24 bg-card">
+    <section id="offerte" className="py-24 bg-card">
       <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
         <AnimatedSection>
           <SectionLabel text="OFFERTE AANVRAGEN" />
