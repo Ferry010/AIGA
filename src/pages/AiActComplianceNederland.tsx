@@ -16,7 +16,7 @@ const AiActComplianceNederland = () => (
         name: "AI Act Compliance voor Nederlandse Organisaties",
         description: "Praktische gids voor AI Act compliance in Nederland.",
         url: "https://aigeletterdheid.academy/ai-act-compliance-nederland",
-        publisher: { "@type": "Organization", name: "AIGA — AI Geletterdheid Academy" },
+        publisher: { "@type": "Organization", name: "AIGA | AI Geletterdheid Academy" },
       }}
     />
     <BreadcrumbNav items={[{ label: "Home", href: "/" }, { label: "AI Act Compliance Nederland" }]} />
