@@ -62,6 +62,7 @@ const AppContent = () => {
           <Route path="/ai-training-voor-bedrijven" element={<AiTrainingVoorBedrijven />} />
           <Route path="/ai-act-compliance-nederland" element={<AiActComplianceNederland />} />
           <Route path="/ai-cursus-medewerkers" element={<AiCursusMedewerkers />} />
+          <Route path="/tools" element={<Tools />} />
           <Route path="/admin" element={<Admin />} />
           <Route path="/admin/login" element={<AdminLogin />} />
           <Route path="/privacyverklaring" element={<Privacyverklaring />} />
