@@ -141,9 +141,9 @@ const Quiz = () => {
 
   const handleLinkedInShare = () => {
     const text = encodeURIComponent(
-      `Onze organisatie scoort ${pct}% op de AIGA AI Risico Scan en we lopen voor op 80% van de Nederlandse teams. Benieuwd hoe jullie scoren? ${window.location.origin}/risicoscan`
+      `Onze organisatie scoort ${pct}% op de AIGA AI Gereedheidscan en we lopen voor op 80% van de Nederlandse teams. Benieuwd hoe gereed jullie zijn? ${window.location.origin}/gereedheidscan`
     );
-    window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(window.location.origin + "/risicoscan")}&summary=${text}`, "_blank");
+    window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(window.location.origin + "/gereedheidscan")}&summary=${text}`, "_blank");
   };
 
   // INTRO
