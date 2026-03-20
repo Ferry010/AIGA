@@ -85,8 +85,8 @@ const Privacyverklaring = () => (
           Wij verkopen je gegevens nooit aan derden. Wij maken gebruik van de volgende partijen die namens ons gegevens verwerken:
         </p>
         <ul>
-          <li><strong>Google LLC</strong> — voor Google Analytics (gegevensverwerking in de VS op basis van de standaard contractbepalingen van de Europese Commissie).</li>
-          <li><strong>Supabase</strong> — voor de opslag van formulierinzendingen (gegevens worden opgeslagen binnen de EU).</li>
+          <li><strong>Google LLC</strong>: voor Google Analytics (gegevensverwerking in de VS op basis van de standaard contractbepalingen van de Europese Commissie).</li>
+          <li><strong>Supabase</strong>: voor de opslag van formulierinzendingen (gegevens worden opgeslagen binnen de EU).</li>
         </ul>
         <p>Met alle verwerkers hebben wij de vereiste verwerkersovereenkomsten afgesloten.</p>
 
