@@ -1,32 +1,13 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { ArrowRight } from "lucide-react";
-import { ExternalLink, Search } from "lucide-react";
+import { ArrowRight, ExternalLink } from "lucide-react";
 import { AnimatedSection, StaggerContainer, StaggerItem } from "@/components/AnimatedSection";
 import SectionLabel from "@/components/SectionLabel";
 import { Badge } from "@/components/ui/badge";
-import { Card, CardContent } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
 import { supabase } from "@/integrations/supabase/client";
 import BreadcrumbNav from "@/components/BreadcrumbNav";
 import DefinitionBlock from "@/components/DefinitionBlock";
 import SEO from "@/components/SEO";
-import { aiTools, AI_CATEGORIES, type AiTool } from "@/data/aiTools";
 
 const articleCategories = [
   "Alle",
