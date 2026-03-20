@@ -81,7 +81,7 @@ const Navbar = () => {
             </Link>
           ))}
           <hr className="border-border" />
-          <Link to="/risicoscan" onClick={() => setOpen(false)} className="text-lg font-body neon-text font-semibold">
+          <Link to="/gereedheidscan" onClick={() => setOpen(false)} className="text-lg font-body neon-text font-semibold">
             Doe de scan
           </Link>
           <Link

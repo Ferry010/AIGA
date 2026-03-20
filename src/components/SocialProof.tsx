@@ -55,7 +55,7 @@ const SocialProof = () => (
             Offerte aanvragen
           </Link>{" "}
           of{" "}
-          <Link to="/risicoscan" className="text-primary underline underline-offset-4 hover:text-primary/80 transition-colors">
+          <Link to="/gereedheidscan" className="text-primary underline underline-offset-4 hover:text-primary/80 transition-colors">
             doe de scan
           </Link>
           .

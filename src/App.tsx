@@ -55,7 +55,8 @@ const AppContent = () => {
           <Route path="/over-aiga" element={<OverAiga />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/faq" element={<Faq />} />
-          <Route path="/risicoscan" element={<Quiz />} />
+          <Route path="/gereedheidscan" element={<Quiz />} />
+          <Route path="/risicoscan" element={<Navigate to="/gereedheidscan" replace />} />
           <Route path="/ai-geletterdheid-nederland" element={<AiGeletterdheidNederland />} />
           <Route path="/ai-training-voor-bedrijven" element={<AiTrainingVoorBedrijven />} />
           <Route path="/ai-act-compliance-nederland" element={<AiActComplianceNederland />} />
