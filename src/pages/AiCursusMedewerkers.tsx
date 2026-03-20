@@ -16,7 +16,7 @@ const AiCursusMedewerkers = () => (
         "@type": "Course",
         name: "AI Cursus voor Medewerkers",
         description: "Praktische AI cursus voor medewerkers. Voldoe aan de EU AI Act met een audit-proof certificaat.",
-        provider: { "@type": "Organization", name: "AIGA — AI Geletterdheid Academy", url: "https://aigeletterdheid.academy" },
+        provider: { "@type": "Organization", name: "AIGA | AI Geletterdheid Academy", url: "https://aigeletterdheid.academy" },
         instructor: { "@type": "Person", name: "Ferry Hoes" },
         courseMode: "online",
         inLanguage: "nl",
