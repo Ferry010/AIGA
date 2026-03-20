@@ -35,7 +35,7 @@ const Privacyverklaring = () => (
 
         <h3>Contactformulieren en de AI Risico Scan</h3>
         <p>
-          Wanneer je een formulier invult op onze website — zoals na het uitvoeren van de AI Risico Scan — vragen wij om de volgende gegevens:
+          Wanneer je een formulier invult op onze website, zoals na het uitvoeren van de AI Risico Scan, vragen wij om de volgende gegevens:
         </p>
         <ul>
           <li>Naam</li>
