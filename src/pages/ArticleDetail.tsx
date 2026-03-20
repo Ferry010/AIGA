@@ -96,7 +96,7 @@ const ArticleDetail = () => {
     const anchor = (e.target as HTMLElement).closest("a");
     if (!anchor) return;
     const href = anchor.getAttribute("href");
-    if (href && (href.startsWith("/kenniscentrum") || href.startsWith("/training") || href.startsWith("/masterclass") || href.startsWith("/faq") || href.startsWith("/over-aiga") || href.startsWith("/contact") || href.startsWith("/risicoscan"))) {
+    if (href && (href.startsWith("/kenniscentrum") || href.startsWith("/training") || href.startsWith("/masterclass") || href.startsWith("/faq") || href.startsWith("/over-aiga") || href.startsWith("/contact") || href.startsWith("/gereedheidscan") || href.startsWith("/risicoscan"))) {
       e.preventDefault();
       navigate(href);
     }
@@ -280,7 +280,7 @@ const ArticleDetail = () => {
                   remarkPlugins={[remarkGfm]}
                   components={{
                     a: ({ href, children, ...props }) => {
-                      if (href && (href.startsWith("/kenniscentrum") || href.startsWith("/training") || href.startsWith("/masterclass") || href.startsWith("/faq") || href.startsWith("/over-aiga") || href.startsWith("/contact") || href.startsWith("/risicoscan"))) {
+                      if (href && (href.startsWith("/kenniscentrum") || href.startsWith("/training") || href.startsWith("/masterclass") || href.startsWith("/faq") || href.startsWith("/over-aiga") || href.startsWith("/contact") || href.startsWith("/gereedheidscan") || href.startsWith("/risicoscan"))) {
                         return <Link to={href} className="text-primary hover:underline">{children}</Link>;
                       }
                       return <a href={href} target="_blank" rel="noopener noreferrer" {...props}>{children}</a>;

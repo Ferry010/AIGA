@@ -100,8 +100,8 @@ const Index = () => {
               <Link to="/training" className="btn-neon px-7 py-3.5 rounded-lg text-[15px]">
                 Bekijk de training
               </Link>
-              <Link to="/risicoscan" className="btn-neon-outline px-7 py-3.5 rounded-lg text-[15px] font-semibold border-2">
-                Doe de gratis risicoscan
+              <Link to="/gereedheidscan" className="btn-neon-outline px-7 py-3.5 rounded-lg text-[15px] font-semibold border-2">
+                Doe de gratis gereedheidscan
               </Link>
             </div>
             <div className="flex flex-wrap gap-6 mt-6 text-xs text-muted-foreground/70">
@@ -183,14 +183,14 @@ const Index = () => {
           <AnimatedSection>
             <SectionLabel text="NIET ZEKER WAAR JE STAAT?" />
             <h2 className="text-3xl sm:text-4xl font-display font-semibold text-foreground mt-2">
-              Doe de gratis AI Risico-scan.<br />
+              Doe de gratis AI Gereedheidscan.<br />
               <span className="text-primary">In drie minuten weet je waar je staat.</span>
             </h2>
             <p className="mt-4 text-muted-foreground max-w-xl mx-auto">
-              10 vragen. Direct resultaat. Inclusief persoonlijk advies op maat.
+              10 vragen over AI-gebruik, wetgeving, risicobeheer, leiderschap en audit-readiness. Direct resultaat.
             </p>
-            <Link to="/risicoscan" className="btn-neon inline-block mt-8 px-8 py-4 rounded-lg text-[15px]">
-              Start de AI Risico-scan
+            <Link to="/gereedheidscan" className="btn-neon inline-block mt-8 px-8 py-4 rounded-lg text-[15px]">
+              Start de AI Gereedheidscan
             </Link>
           </AnimatedSection>
         </div>

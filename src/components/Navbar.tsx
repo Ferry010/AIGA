@@ -46,7 +46,7 @@ const Navbar = () => {
 
           <div className="hidden lg:flex items-center gap-3">
             <Link
-              to="/risicoscan"
+              to="/gereedheidscan"
               className="btn-neon-outline text-sm font-semibold px-4 py-2"
             >
               Doe de scan
@@ -81,7 +81,7 @@ const Navbar = () => {
             </Link>
           ))}
           <hr className="border-border" />
-          <Link to="/risicoscan" onClick={() => setOpen(false)} className="text-lg font-body neon-text font-semibold">
+          <Link to="/gereedheidscan" onClick={() => setOpen(false)} className="text-lg font-body neon-text font-semibold">
             Doe de scan
           </Link>
           <Link

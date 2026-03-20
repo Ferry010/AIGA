@@ -9,7 +9,7 @@ const footerLinks = [
   { to: "/over-aiga", label: "Over AIGA" },
   { to: "/contact", label: "Contact" },
   { to: "/faq", label: "FAQ" },
-  { to: "/risicoscan", label: "AI Risico-scan" },
+  { to: "/gereedheidscan", label: "AI Gereedheidscan" },
 ];
 
 const seoLinks = [

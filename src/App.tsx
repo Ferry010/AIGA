@@ -1,5 +1,5 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
+import { BrowserRouter, Route, Routes, Navigate, useLocation } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
@@ -38,7 +38,7 @@ const ScrollToTop = () => {
 
 const AppContent = () => {
   const { pathname } = useLocation();
-  const isQuizActive = pathname === "/risicoscan";
+  const isQuizActive = pathname === "/gereedheidscan";
   const isAdminActive = pathname.startsWith("/admin");
 
   return (
@@ -55,7 +55,8 @@ const AppContent = () => {
           <Route path="/over-aiga" element={<OverAiga />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/faq" element={<Faq />} />
-          <Route path="/risicoscan" element={<Quiz />} />
+          <Route path="/gereedheidscan" element={<Quiz />} />
+          <Route path="/risicoscan" element={<Navigate to="/gereedheidscan" replace />} />
           <Route path="/ai-geletterdheid-nederland" element={<AiGeletterdheidNederland />} />
           <Route path="/ai-training-voor-bedrijven" element={<AiTrainingVoorBedrijven />} />
           <Route path="/ai-act-compliance-nederland" element={<AiActComplianceNederland />} />

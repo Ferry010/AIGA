@@ -48,9 +48,9 @@ interface TierData {
 const tiers: TierData[] = [
   {
     minPct: 0, maxPct: 40,
-    badge: "HOOG RISICO", color: "hsl(0, 84%, 60%)",
-    heading: "Je team loopt risico",
-    body: "Jullie gebruiken waarschijnlijk al AI-tools, maar zonder gedeelde kennis of spelregels. Dat is een blinde vlek die organisaties geld, vertrouwen en straks ook compliance kost.",
+    badge: "NIET GEREED", color: "hsl(0, 84%, 60%)",
+    heading: "Jullie organisatie is nog niet gereed",
+    body: "Jullie gebruiken waarschijnlijk al AI-tools, maar zonder gedeelde kennis of spelregels. Dat maakt jullie kwetsbaar bij een audit en kost straks ook compliance.",
     ctaHeading: "Laat ons helpen",
     ctaBody: "Vul je gegevens in en we nemen contact met je op om te kijken hoe we kunnen helpen.",
     buttonLabel: "Neem contact met mij op →",
@@ -59,7 +59,7 @@ const tiers: TierData[] = [
   },
   {
     minPct: 41, maxPct: 70,
-    badge: "BLINDE VLEKKEN", color: "hsl(38, 92%, 50%)",
+    badge: "GEDEELTELIJK GEREED", color: "hsl(38, 92%, 50%)",
     heading: "Jullie zijn op de goede weg, maar er zijn blinde vlekken",
     body: "Een deel van je team begrijpt AI goed. Maar zonder gedeelde basis werkt niet iedereen vanuit dezelfde kennis. Dat zie je niet meteen, totdat het misgaat.",
     ctaHeading: "Laat ons helpen verbeteren",
@@ -141,9 +141,9 @@ const Quiz = () => {
 
   const handleLinkedInShare = () => {
     const text = encodeURIComponent(
-      `Onze organisatie scoort ${pct}% op de AIGA AI Risico Scan en we lopen voor op 80% van de Nederlandse teams. Benieuwd hoe jullie scoren? ${window.location.origin}/risicoscan`
+      `Onze organisatie scoort ${pct}% op de AIGA AI Gereedheidscan en we lopen voor op 80% van de Nederlandse teams. Benieuwd hoe gereed jullie zijn? ${window.location.origin}/gereedheidscan`
     );
-    window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(window.location.origin + "/risicoscan")}&summary=${text}`, "_blank");
+    window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(window.location.origin + "/gereedheidscan")}&summary=${text}`, "_blank");
   };
 
   // INTRO
@@ -151,15 +151,15 @@ const Quiz = () => {
     return (
       <div className="min-h-screen">
         <SEO
-          title="Gratis AI Risicoscan voor Organisaties | 3 Minuten | AIGA"
-          description="Doe de gratis AIGA AI Risicoscan en ontdek in 3 minuten hoe kwetsbaar jouw organisatie is voor AI Act overtredingen. 10 vragen, direct resultaat."
-          canonical="/risicoscan"
+          title="Gratis AI Gereedheidscan voor Organisaties | 3 Minuten | AIGA"
+          description="Doe de gratis AIGA AI Gereedheidscan en ontdek in 3 minuten hoe gereed jouw organisatie is voor de EU AI Act. 10 vragen over AI-gebruik, wetgeving, risicobeheer, leiderschap en audit-readiness."
+          canonical="/gereedheidscan"
           jsonLd={{
             "@context": "https://schema.org",
             "@type": "WebApplication",
-            name: "AIGA AI Risicoscan",
-            description: "Gratis AI Risicoscan voor Nederlandse organisaties. Ontdek in 3 minuten hoe kwetsbaar jouw organisatie is voor AI Act overtredingen.",
-            url: "https://aigeletterdheid.academy/risicoscan",
+            name: "AIGA AI Gereedheidscan",
+            description: "Gratis AI Gereedheidscan voor Nederlandse organisaties. Ontdek in 3 minuten hoe gereed jouw organisatie is voor de EU AI Act.",
+            url: "https://aigeletterdheid.academy/gereedheidscan",
             applicationCategory: "BusinessApplication",
             operatingSystem: "Any",
             offers: { "@type": "Offer", price: "0", priceCurrency: "EUR" },
@@ -168,13 +168,13 @@ const Quiz = () => {
         />
         <div className="max-w-3xl mx-auto px-4 pt-32 pb-24">
           <AnimatedSection>
-            <SectionLabel text="GRATIS AI RISICO-SCAN" />
+            <SectionLabel text="GRATIS AI GEREEDHEIDSCAN" />
             <h1 className="text-4xl sm:text-5xl font-display font-bold text-foreground leading-tight mt-4">
-              Gratis AI Risicoscan voor<br />
+              Gratis AI Gereedheidscan voor<br />
               <span className="text-primary">Nederlandse Organisaties</span>
             </h1>
             <p className="mt-6 text-lg text-muted-foreground leading-relaxed">
-              Sinds februari 2025 is AI-geletterdheid wettelijk verplicht onder de EU AI Act. Maar hoe weet je of jouw organisatie er klaar voor is? De AIGA AI Risicoscan geeft je in drie minuten een helder beeld van waar je staat, en waar de blinde vlekken zitten.
+              Sinds februari 2025 is AI-geletterdheid wettelijk verplicht onder de EU AI Act. Maar hoe gereed is jouw organisatie? De AIGA AI Gereedheidscan geeft je in drie minuten een helder beeld van waar je staat op het gebied van AI-gebruik, wetgeving, risicobeheer, leiderschap en audit-readiness.
             </p>
             <p className="mt-4 text-muted-foreground leading-relaxed">
               De scan meet vijf dimensies: AI-gebruik, bewustzijn van wetgeving, risicobeheer, leiderschap en audit-readiness. Na afloop ontvang je direct je score, inclusief een uitsplitsing per dimensie en persoonlijk advies.
