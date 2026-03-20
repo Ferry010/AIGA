@@ -36,7 +36,7 @@ const faqItems = [
     a: "Ja, je ontvangt een factuur op bedrijfsnaam. Zakelijke trainingskosten zijn doorgaans BTW-aftrekbaar; check dit met je eigen fiscalist.",
   },
   {
-    q: "Wat als we een groot team hebben — zijn er volumekortingen?",
+    q: "Wat als we een groot team hebben, zijn er volumekortingen?",
     a: "Ja. Vraag een offerte aan via het contactformulier voor een prijsopgave op maat. Vanaf 50 seats ontvang je de Masterclass gratis.",
   },
 ];
