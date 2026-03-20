@@ -60,8 +60,8 @@ const tiers: TierData[] = [
   {
     minPct: 41, maxPct: 70,
     badge: "BLINDE VLEKKEN", color: "hsl(38, 92%, 50%)",
-    heading: "Jullie zijn op de goede weg — maar er zijn blinde vlekken",
-    body: "Een deel van je team begrijpt AI goed. Maar zonder gedeelde basis werkt niet iedereen vanuit dezelfde kennis. Dat zie je niet meteen — totdat het misgaat.",
+    heading: "Jullie zijn op de goede weg, maar er zijn blinde vlekken",
+    body: "Een deel van je team begrijpt AI goed. Maar zonder gedeelde basis werkt niet iedereen vanuit dezelfde kennis. Dat zie je niet meteen, totdat het misgaat.",
     ctaHeading: "Laat ons helpen verbeteren",
     ctaBody: "Vul je gegevens in en we kijken samen waar de verbeterpunten liggen.",
     buttonLabel: "Neem contact met mij op →",
