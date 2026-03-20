@@ -8,7 +8,7 @@ import BreadcrumbNav from "@/components/BreadcrumbNav";
 const AiCursusMedewerkers = () => (
   <div className="min-h-screen">
     <SEO
-      title="AI Cursus voor Medewerkers — Gecertificeerd & Praktisch | AIGA"
+      title="AI Cursus voor Medewerkers | Gecertificeerd & Praktisch | AIGA"
       description="AI cursus voor medewerkers: leer AI veilig en verantwoord gebruiken op de werkvloer. Online, selfpaced, 2-3 uur. AI Literacy Practitioner certificaat inbegrepen."
       canonical="/ai-cursus-medewerkers"
       jsonLd={{
