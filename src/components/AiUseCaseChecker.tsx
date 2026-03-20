@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useRef, useEffect } from "react";
 import { Check, ChevronsUpDown, RotateCcw, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
@@ -24,6 +24,7 @@ const AiUseCaseChecker = () => {
   const [selectedTool, setSelectedTool] = useState<string | null>(null);
   const [selectedUseCase, setSelectedUseCase] = useState<string | null>(null);
   const [open, setOpen] = useState(false);
+  const outcomeRef = useRef<HTMLDivElement>(null);
 
   const toolsByCategory = useMemo(() => {
     const map: Record<string, string[]> = {};
@@ -152,7 +153,12 @@ const AiUseCaseChecker = () => {
                   return (
                     <button
                       key={uc.id}
-                      onClick={() => setSelectedUseCase(uc.id)}
+                      onClick={() => {
+                        setSelectedUseCase(uc.id);
+                        setTimeout(() => {
+                          outcomeRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+                        }, 100);
+                      }}
                       className={cn(
                         "flex items-center gap-3 rounded-lg border p-3 text-left transition-all duration-200 hover:border-primary/40 active:scale-[0.97]",
                         isSelected
@@ -175,6 +181,7 @@ const AiUseCaseChecker = () => {
           )}
 
           {/* Step 3 — Outcome */}
+          <div ref={outcomeRef} />
           {outcome === "high" && selectedUseCase && (
             <div className="rounded-lg border border-destructive/40 bg-destructive/10 p-6">
               <Badge className="bg-destructive/20 text-destructive border-destructive/30 mb-3">
