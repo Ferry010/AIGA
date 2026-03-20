@@ -72,7 +72,7 @@ const tiers: TierData[] = [
     minPct: 71, maxPct: 100,
     badge: "VOORLOPER", color: "hsl(160, 84%, 39%)",
     heading: "Jullie lopen voor op de meeste organisaties",
-    body: "Je team heeft een solide basis — en dat is zeldzamer dan je denkt. Dit is precies het moment om dat te formaliseren, voordat anderen bijkomen.",
+    body: "Je team heeft een solide basis, en dat is zeldzamer dan je denkt. Dit is precies het moment om dat te formaliseren, voordat anderen bijkomen.",
     ctaHeading: "Laat ons helpen dit vast te houden",
     ctaBody: "Vul je gegevens in en we bespreken hoe jullie deze voorsprong kunnen behouden en formaliseren.",
     buttonLabel: "Neem contact met mij op →",
