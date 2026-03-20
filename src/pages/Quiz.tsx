@@ -174,7 +174,7 @@ const Quiz = () => {
               <span className="text-primary">Nederlandse Organisaties</span>
             </h1>
             <p className="mt-6 text-lg text-muted-foreground leading-relaxed">
-              Sinds februari 2025 is AI-geletterdheid wettelijk verplicht onder de EU AI Act. Maar hoe weet je of jouw organisatie er klaar voor is? De AIGA AI Risicoscan geeft je in drie minuten een helder beeld van waar je staat — en waar de blinde vlekken zitten.
+              Sinds februari 2025 is AI-geletterdheid wettelijk verplicht onder de EU AI Act. Maar hoe weet je of jouw organisatie er klaar voor is? De AIGA AI Risicoscan geeft je in drie minuten een helder beeld van waar je staat, en waar de blinde vlekken zitten.
             </p>
             <p className="mt-4 text-muted-foreground leading-relaxed">
               De scan meet vijf dimensies: AI-gebruik, bewustzijn van wetgeving, risicobeheer, leiderschap en audit-readiness. Na afloop ontvang je direct je score, inclusief een uitsplitsing per dimensie en persoonlijk advies.
