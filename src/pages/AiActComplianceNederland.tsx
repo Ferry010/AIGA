@@ -127,8 +127,8 @@ const AiActComplianceNederland = () => (
               <Link to="/training" className="btn-neon px-8 py-3 rounded-lg text-sm">
                 Bekijk de training
               </Link>
-              <Link to="/risicoscan" className="btn-neon-outline px-8 py-3 text-sm font-semibold">
-                Doe de gratis AI Risicoscan
+              <Link to="/gereedheidscan" className="btn-neon-outline px-8 py-3 text-sm font-semibold">
+                Doe de gratis AI Gereedheidscan
               </Link>
             </div>
           </div>
