@@ -100,8 +100,8 @@ const Index = () => {
               <Link to="/training" className="btn-neon px-7 py-3.5 rounded-lg text-[15px]">
                 Bekijk de training
               </Link>
-              <Link to="/risicoscan" className="btn-neon-outline px-7 py-3.5 rounded-lg text-[15px] font-semibold border-2">
-                Doe de gratis risicoscan
+              <Link to="/gereedheidscan" className="btn-neon-outline px-7 py-3.5 rounded-lg text-[15px] font-semibold border-2">
+                Doe de gratis gereedheidscan
               </Link>
             </div>
             <div className="flex flex-wrap gap-6 mt-6 text-xs text-muted-foreground/70">
