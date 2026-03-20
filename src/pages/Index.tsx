@@ -62,7 +62,7 @@ const Index = () => {
         jsonLd={{
           "@context": "https://schema.org",
           "@type": "EducationalOrganization",
-          name: "AIGA — AI Geletterdheid Academy",
+          name: "AIGA | AI Geletterdheid Academy",
           alternateName: "AIGA",
           url: "https://aigeletterdheid.academy",
           logo: "https://aigeletterdheid.academy/assets/AIGA_transparent-CxHDVoMM.png",
