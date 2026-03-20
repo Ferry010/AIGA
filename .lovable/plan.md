@@ -1,34 +1,60 @@
 
 
-## Remove Em Dashes ("—") From All Text
+## Dead Buttons Fix
 
-### Problem
-Em dashes (`—`) appear throughout the site's Dutch copy in 15 files with 242 occurrences. These are a telltale sign of AI-generated text.
+### Issues Found
 
-### Approach
-Replace all `—` characters with natural Dutch alternatives depending on context:
-- **Parenthetical clauses**: replace `—` with a comma, colon, or period
-- **Lists/enumerations**: replace with a colon or period
-- **Name separators** (e.g. "AIGA — AI Geletterdheid Academy"): replace with a pipe (`|`), dash (`-`), or remove entirely
-- **Date lines** (e.g. "Laatste update: 13 maart 2026"): replace `—` with `-` or restructure
+1. **Masterclass `to="#aanmelden"` links are dead** (2 occurrences in `Masterclass.tsx`, lines 60 and 143)
+   - React Router's `<Link to="#aanmelden">` doesn't scroll to the hash anchor. These buttons do nothing when clicked.
+   - Fix: Replace with native `<a href="#aanmelden">` tags.
 
-### Files to edit (15 files)
-1. `src/components/SocialProof.tsx`
-2. `src/components/TrainerSection.tsx`
-3. `src/pages/Faq.tsx`
-4. `src/pages/OverAiga.tsx`
-5. `src/pages/Licentie.tsx`
-6. `src/pages/Privacyverklaring.tsx`
-7. `src/pages/Training.tsx`
-8. `src/pages/AiGeletterdheidNederland.tsx`
-9. `src/pages/AiActComplianceNederland.tsx`
-10. `src/pages/AiCursusMedewerkers.tsx`
-11. `src/pages/AiTrainingVoorBedrijven.tsx`
-12. `src/pages/Index.tsx`
-13. `src/pages/Quiz.tsx`
-14. `src/pages/Kenniscentrum.tsx`
-15. `src/pages/Masterclass.tsx`
+2. **Masterclass form submit does nothing** (`Masterclass.tsx`, line 28-31)
+   - `handleSubmit` only does `console.log`. The user fills in the form, clicks "Verstuur aanvraag", and nothing happens. No data is saved, no confirmation is shown.
+   - Fix: Save to database (create a `masterclass_submissions` table) and show confirmation, similar to the risk scan form.
 
-### Replacement strategy
-Each occurrence will be reviewed in context and replaced with the most natural Dutch punctuation (comma, period, colon, or hyphen). No meaning or content will be changed — only the punctuation character.
+3. **Remaining "5 Minuten" in Quiz SEO title** (`Quiz.tsx`, line 154)
+   - The SEO `<title>` tag still says "5 Minuten" instead of "3 Minuten". This was missed in the earlier update.
+   - Fix: Change to "3 Minuten".
+
+4. **Remaining "vijf minuten" on homepage** (`Index.tsx`, line 187)
+   - The risico-scan CTA section on the homepage still says "In vijf minuten weet je waar je staat."
+   - Fix: Change to "drie minuten".
+
+### Plan
+
+#### 1. Fix hash links in Masterclass (no-code-change needed beyond HTML)
+- Replace `<Link to="#aanmelden">` with `<a href="#aanmelden">` in two places in `Masterclass.tsx`
+
+#### 2. Make Masterclass form functional
+- Create a `masterclass_submissions` table via migration:
+  ```sql
+  CREATE TABLE public.masterclass_submissions (
+    id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+    naam text NOT NULL,
+    organisatie text NOT NULL,
+    functie text,
+    email text NOT NULL,
+    telefoon text,
+    sessie_type text NOT NULL,
+    vragen text,
+    created_at timestamptz DEFAULT now()
+  );
+  ALTER TABLE public.masterclass_submissions ENABLE ROW LEVEL SECURITY;
+  CREATE POLICY "Allow anonymous inserts" ON public.masterclass_submissions FOR INSERT TO anon WITH CHECK (true);
+  CREATE POLICY "Allow authenticated inserts" ON public.masterclass_submissions FOR INSERT TO authenticated WITH CHECK (true);
+  CREATE POLICY "Allow authenticated select" ON public.masterclass_submissions FOR SELECT TO authenticated USING (true);
+  GRANT INSERT ON public.masterclass_submissions TO anon, authenticated;
+  GRANT SELECT ON public.masterclass_submissions TO authenticated;
+  ```
+- Update `Masterclass.tsx` to insert into the database and show success/error state (same pattern as Quiz form)
+
+#### 3. Fix remaining duration text
+- `Quiz.tsx` line 154: "5 Minuten" → "3 Minuten"
+- `Index.tsx` line 187: "vijf minuten" → "drie minuten"
+
+### Files to edit
+- `src/pages/Masterclass.tsx` (hash links + form functionality)
+- `src/pages/Quiz.tsx` (SEO title fix)
+- `src/pages/Index.tsx` (duration text fix)
+- New migration for `masterclass_submissions` table
 
