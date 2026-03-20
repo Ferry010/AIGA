@@ -32,7 +32,7 @@ const AiCursusMedewerkers = () => (
         <AnimatedSection>
           <SectionLabel text="AI CURSUS MEDEWERKERS" />
           <h1 className="text-4xl sm:text-5xl font-display font-bold text-foreground leading-tight mt-4">
-            AI Cursus voor Medewerkers —<br />
+            AI Cursus voor Medewerkers:<br />
             <span className="text-primary">Praktisch en Gecertificeerd</span>
           </h1>
           <p className="mt-6 text-lg text-muted-foreground leading-relaxed">
