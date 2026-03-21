@@ -198,49 +198,66 @@ const ArticleDetail = () => {
   const isHtmlContent = (text: string) => /^\s*<[a-z][\s\S]*>/i.test(text);
   const heroImgNorm = article.image_url ? article.image_url.replace(/^https?:\/\//, "").split("?")[0] : "";
 
-  const articleDescription = article.content ? article.content.slice(0, 155).replace(/[#*\n]/g, "") + "..." : "Lees dit artikel over AI-geletterdheid op het AIGA Kenniscentrum.";
+  const isWatIs = article.slug === "wat-is-ai-geletterdheid";
+  const seoTitle = isWatIs ? "Wat is AI-geletterdheid? Complete gids voor organisaties (2026)" : `${article.title} | AIGA Kenniscentrum`;
+  const seoDescription = isWatIs
+    ? "AI-geletterdheid is wettelijk verplicht sinds februari 2025. Lees wat het inhoudt, welke verplichtingen de EU AI Act stelt, wat voorbeelden zijn en hoe jij je organisatie compliant maakt."
+    : (article.content ? article.content.slice(0, 155).replace(/[#*\n]/g, "") + "..." : "Lees dit artikel over AI-geletterdheid op het AIGA Kenniscentrum.");
+
+  const articleJsonLd = isWatIs
+    ? {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        headline: "Wat is AI-geletterdheid? Complete gids voor organisaties (2026)",
+        description: seoDescription,
+        image: "https://aigeletterdheid.academy/assets/AIGA_transparent-CxHDVoMM.png",
+        datePublished: "2025-02-01",
+        dateModified: "2026-03-21",
+        wordCount,
+        keywords: ["AI-geletterdheid", "ai geletterdheid", "EU AI Act", "AI Act artikel 4", "AI geletterdheid certificaat", "AI geletterdheid verplicht", "wat is AI-geletterdheid"],
+        inLanguage: "nl-NL",
+        author: { "@type": "Person", name: "Ferry Hoes", url: "https://aigeletterdheid.academy/over-aiga", jobTitle: "AI Expert & Trainer", worksFor: { "@type": "Organization", name: "AIGA | AI Geletterdheid Academy" } },
+        publisher: { "@type": "Organization", name: "AIGA | AI Geletterdheid Academy", logo: { "@type": "ImageObject", url: "https://aigeletterdheid.academy/assets/AIGA_transparent-CxHDVoMM.png" } },
+        mainEntityOfPage: { "@type": "WebPage", "@id": "https://aigeletterdheid.academy/kenniscentrum/wat-is-ai-geletterdheid" },
+        about: { "@type": "Thing", name: "AI-geletterdheid", description: "Het vermogen van medewerkers om AI te begrijpen, ermee te werken en de gevolgen ervan te overzien binnen hun werkcontext, zoals vereist door artikel 4 van de EU AI Act." },
+      }
+    : {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        headline: article.title,
+        description: seoDescription,
+        image: article.image_url || FALLBACK_IMAGE,
+        datePublished: publishedDate,
+        dateModified: modifiedDate,
+        wordCount,
+        author: { "@type": "Person", name: "Ferry Hoes", url: "https://aigeletterdheid.academy/over-aiga", jobTitle: "AI-expert & Keynote Spreker", sameAs: "https://www.linkedin.com/in/ferryhoes" },
+        publisher: { "@type": "Organization", name: "AIGA — AI Geletterdheid Academy", logo: { "@type": "ImageObject", url: "https://aigeletterdheid.academy/assets/AIGA_transparent-CxHDVoMM.png" } },
+        mainEntityOfPage: { "@type": "WebPage", "@id": `https://aigeletterdheid.academy/kenniscentrum/${article.slug}` },
+        inLanguage: "nl",
+        about: { "@type": "Thing", name: "AI-geletterdheid" },
+      };
 
   return (
     <div className="min-h-screen">
       <SEO
-        title={`${article.title} | AIGA Kenniscentrum`}
-        description={articleDescription}
+        title={seoTitle}
+        description={seoDescription}
         canonical={`/kenniscentrum/${article.slug}`}
         ogImage={article.image_url || FALLBACK_IMAGE}
         ogType="article"
         articleMeta={{
-          publishedTime: publishedDate,
-          modifiedTime: modifiedDate,
+          publishedTime: isWatIs ? "2025-02-01" : publishedDate,
+          modifiedTime: isWatIs ? "2026-03-21" : modifiedDate,
           author: "Ferry Hoes",
           section: article.category,
         }}
-        jsonLd={{
-          "@context": "https://schema.org",
-          "@type": "Article",
-          headline: article.title,
-          description: articleDescription,
-          image: article.image_url || FALLBACK_IMAGE,
-          datePublished: publishedDate,
-          dateModified: modifiedDate,
-          wordCount,
-          author: {
-            "@type": "Person",
-            name: "Ferry Hoes",
-            url: "https://aigeletterdheid.academy/over-aiga",
-            jobTitle: "AI-expert & Keynote Spreker",
-            sameAs: "https://www.linkedin.com/in/ferryhoes",
-          },
-          publisher: {
-            "@type": "Organization",
-            name: "AIGA — AI Geletterdheid Academy",
-            logo: { "@type": "ImageObject", url: "https://aigeletterdheid.academy/assets/AIGA_transparent-CxHDVoMM.png" },
-          },
-          mainEntityOfPage: { "@type": "WebPage", "@id": `https://aigeletterdheid.academy/kenniscentrum/${article.slug}` },
-          inLanguage: "nl",
-          about: { "@type": "Thing", name: "AI-geletterdheid" },
-        }}
+        jsonLd={articleJsonLd}
       />
-
+      {isWatIs && (
+        <Helmet>
+          <script type="application/ld+json">{JSON.stringify(WAT_IS_FAQ_JSONLD)}</script>
+        </Helmet>
+      )}
       {/* Breadcrumb */}
       <BreadcrumbNav items={[
         { label: "Home", href: "/" },
