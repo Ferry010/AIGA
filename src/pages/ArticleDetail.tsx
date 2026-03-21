@@ -280,7 +280,17 @@ const ArticleDetail = () => {
                 <ArrowLeft size={16} /> Terug naar kenniscentrum
               </Link>
               <Badge variant="secondary" className="mb-3 text-xs block w-fit">{article.category}</Badge>
-              <h1 className="text-3xl sm:text-4xl font-display font-bold text-foreground leading-tight mb-2">{article.title}</h1>
+              <h1 className="text-3xl sm:text-4xl font-display font-bold text-foreground leading-tight mb-2">
+                {isWatIs ? "Wat is AI-geletterdheid?" : article.title}
+              </h1>
+              {isWatIs && (
+                <p className="text-lg text-muted-foreground leading-relaxed mt-4 mb-2">
+                  AI-geletterdheid is inmiddels net zo fundamenteel als lezen en schrijven. Niet omdat het modewoord van het jaar is, maar omdat de wet het verplicht. Sinds februari 2025 moeten alle organisaties in de EU die met AI-systemen werken aantoonbaar investeren in de AI-geletterdheid van hun medewerkers. Maar wat betekent dat precies? Wat verwacht de wet van jouw organisatie? En hoe pak je het concreet aan?
+                </p>
+                <p className="text-sm text-muted-foreground leading-relaxed mb-2">
+                  Dit is de meest complete Nederlandstalige gids over AI-geletterdheid: geschreven voor leidinggevenden, HR-professionals en beleidsmakers die helder willen begrijpen wat AI-geletterdheid is, waarom het urgent is en hoe ze er nu mee aan de slag kunnen.
+                </p>
+              )}
             </div>
 
             {/* Meta row */}
