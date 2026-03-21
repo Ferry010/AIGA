@@ -296,11 +296,14 @@ const ArticleDetail = () => {
             {/* Meta row */}
             <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground mb-8 pb-8 border-b border-border mt-4">
               <Link to="/over-aiga" className="hover:text-primary transition-colors" rel="author">Ferry Hoes</Link>
-              <span>{formatDate(publishedDate)}</span>
+              <span>{formatDate(isWatIs ? "2025-02-01T00:00:00Z" : publishedDate)}</span>
+              {isWatIs && <span>Laatst bijgewerkt: 21 maart 2026</span>}
               <span className="flex items-center gap-1"><Clock size={14} /> {readingTime} min leestijd</span>
-              <a href={article.url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-primary hover:underline">
-                Origineel artikel <ExternalLink size={14} />
-              </a>
+              {!isWatIs && (
+                <a href={article.url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-primary hover:underline">
+                  Origineel artikel <ExternalLink size={14} />
+                </a>
+              )}
             </div>
 
             {/* Table of Contents */}
