@@ -86,6 +86,26 @@ const EU_AI_ACT_SOURCES = [
   { label: "European Commission — AI Act", url: "https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai" },
 ];
 
+const WAT_IS_FAQ = [
+  { q: "Wat zijn voorbeelden van AI-geletterdheid?", a: "Voorbeelden van AI-geletterdheid zijn: een HR-medewerker die weet dat het recruitmentplatform AI gebruikt om cv's te rangschikken en dat resultaat kritisch beoordeelt in plaats van blindelings overneemt; een marketeer die ChatGPT gebruikt voor contentteksten maar de feiten altijd zelf verifieert; een manager die bij de aanschaf van nieuwe software vraagt of het AI-componenten bevat en welk risiconiveau die hebben; en een directeur die zijn team heeft laten certificeren zodat de organisatie bij een audit bewijs kan overleggen." },
+  { q: "Wat is het stappenplan voor AI-geletterdheid?", a: "Het stappenplan voor AI-geletterdheid bestaat uit zes stappen: 1) inventariseer welke AI-systemen en -tools je organisatie gebruikt; 2) bepaal per functiegroep welk kennisniveau nodig is; 3) kies een geschikte trainingsvorm (online, live of gecombineerd); 4) laat medewerkers trainen en certificeren, en leg dit vast in je HR-systeem; 5) verwerk AI-geletterdheid in je beleid, onboarding en inkoopproces; 6) herhaal jaarlijks en actualiseer op basis van nieuwe wetgeving." },
+  { q: "Welke 4 dimensies van AI-geletterdheid zijn er?", a: "De vier kerngebieden van AI-geletterdheid zijn: (1) kennis: begrijpen wat AI is en hoe het werkt; (2) vaardigheden: AI-tools effectief en verantwoord kunnen inzetten in je werk; (3) ethiek: AI-gerelateerde dilemma's herkennen en verantwoorde keuzes kunnen maken; en (4) wetgeving: weten welke regels gelden, met name de EU AI Act en de verplichtingen die die oplegt aan jouw organisatie." },
+  { q: "Hoe kan ik een AI-geletterdheid certificaat halen?", a: "Je kunt een AI-geletterdheid certificaat halen via een erkende online training zoals die van AIGA. Je volgt de training zelfstandig in eigen tempo (2-3 uur), maakt een adaptief examen, en ontvangt direct het AI Literacy Practitioner certificaat. Dit certificaat is digitaal ondertekend, deelbaar via LinkedIn en geldig als bewijs bij een audit in het kader van de EU AI Act." },
+  { q: "Is AI-geletterdheid wettelijk verplicht?", a: "Ja. Artikel 4 van de EU AI Act, die op 2 februari 2025 van kracht werd, verplicht alle aanbieders en gebruiksverantwoordelijken van AI-systemen om te zorgen voor een toereikend niveau van AI-geletterdheid bij hun personeel. Actieve handhaving door de Autoriteit Persoonsgegevens is gestart per augustus 2025. Boetes kunnen oplopen tot 35 miljoen euro of 7% van de jaaromzet." },
+  { q: "Wat is het verschil tussen AI-geletterdheid en digitale geletterdheid?", a: "Digitale geletterdheid gaat over het kunnen omgaan met digitale tools in het algemeen. AI-geletterdheid is specifieker: het gaat over het begrijpen van hoe AI-systemen werken, welke risico's ze meebrengen, en hoe je ze verantwoord inzet. AI-geletterdheid is een verdieping van digitale geletterdheid, specifiek gericht op de toenemende aanwezigheid van AI in werkprocessen." },
+  { q: "Voor wie geldt de AI-geletterdheidsplicht?", a: "De AI-geletterdheidsplicht geldt voor alle organisaties die AI-systemen aanbieden of gebruiken. In de praktijk valt vrijwel iedere Nederlandse organisatie hieronder: ook het gebruik van ChatGPT, Microsoft Copilot, AI-functies in CRM- of HR-systemen, of een geautomatiseerde chatbot maakt van jouw organisatie een gebruiksverantwoordelijke in de zin van de AI Act." },
+];
+
+const WAT_IS_FAQ_JSONLD = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: WAT_IS_FAQ.map((f) => ({
+    "@type": "Question",
+    name: f.q,
+    acceptedAnswer: { "@type": "Answer", text: f.a },
+  })),
+};
+
 const ArticleDetail = () => {
   const { slug } = useParams<{ slug: string }>();
   const [article, setArticle] = useState<Article | null>(null);
