@@ -3,9 +3,12 @@ import { useParams, Link, useNavigate } from "react-router-dom";
 import { ArrowLeft, ArrowRight, ExternalLink, Clock } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import { Helmet } from "react-helmet-async";
 import { supabase } from "@/integrations/supabase/client";
 import { AnimatedSection } from "@/components/AnimatedSection";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
 import BreadcrumbNav from "@/components/BreadcrumbNav";
 import ferryImg from "@/assets/ferry-hoes.gif";
 import SEO from "@/components/SEO";
@@ -82,6 +85,26 @@ const EU_AI_ACT_SOURCES = [
   { label: "Rijksoverheid.nl — Kunstmatige Intelligentie", url: "https://www.rijksoverheid.nl/onderwerpen/kunstmatige-intelligentie-ai" },
   { label: "European Commission — AI Act", url: "https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai" },
 ];
+
+const WAT_IS_FAQ = [
+  { q: "Wat zijn voorbeelden van AI-geletterdheid?", a: "Voorbeelden van AI-geletterdheid zijn: een HR-medewerker die weet dat het recruitmentplatform AI gebruikt om cv's te rangschikken en dat resultaat kritisch beoordeelt in plaats van blindelings overneemt; een marketeer die ChatGPT gebruikt voor contentteksten maar de feiten altijd zelf verifieert; een manager die bij de aanschaf van nieuwe software vraagt of het AI-componenten bevat en welk risiconiveau die hebben; en een directeur die zijn team heeft laten certificeren zodat de organisatie bij een audit bewijs kan overleggen." },
+  { q: "Wat is het stappenplan voor AI-geletterdheid?", a: "Het stappenplan voor AI-geletterdheid bestaat uit zes stappen: 1) inventariseer welke AI-systemen en -tools je organisatie gebruikt; 2) bepaal per functiegroep welk kennisniveau nodig is; 3) kies een geschikte trainingsvorm (online, live of gecombineerd); 4) laat medewerkers trainen en certificeren, en leg dit vast in je HR-systeem; 5) verwerk AI-geletterdheid in je beleid, onboarding en inkoopproces; 6) herhaal jaarlijks en actualiseer op basis van nieuwe wetgeving." },
+  { q: "Welke 4 dimensies van AI-geletterdheid zijn er?", a: "De vier kerngebieden van AI-geletterdheid zijn: (1) kennis: begrijpen wat AI is en hoe het werkt; (2) vaardigheden: AI-tools effectief en verantwoord kunnen inzetten in je werk; (3) ethiek: AI-gerelateerde dilemma's herkennen en verantwoorde keuzes kunnen maken; en (4) wetgeving: weten welke regels gelden, met name de EU AI Act en de verplichtingen die die oplegt aan jouw organisatie." },
+  { q: "Hoe kan ik een AI-geletterdheid certificaat halen?", a: "Je kunt een AI-geletterdheid certificaat halen via een erkende online training zoals die van AIGA. Je volgt de training zelfstandig in eigen tempo (2-3 uur), maakt een adaptief examen, en ontvangt direct het AI Literacy Practitioner certificaat. Dit certificaat is digitaal ondertekend, deelbaar via LinkedIn en geldig als bewijs bij een audit in het kader van de EU AI Act." },
+  { q: "Is AI-geletterdheid wettelijk verplicht?", a: "Ja. Artikel 4 van de EU AI Act, die op 2 februari 2025 van kracht werd, verplicht alle aanbieders en gebruiksverantwoordelijken van AI-systemen om te zorgen voor een toereikend niveau van AI-geletterdheid bij hun personeel. Actieve handhaving door de Autoriteit Persoonsgegevens is gestart per augustus 2025. Boetes kunnen oplopen tot 35 miljoen euro of 7% van de jaaromzet." },
+  { q: "Wat is het verschil tussen AI-geletterdheid en digitale geletterdheid?", a: "Digitale geletterdheid gaat over het kunnen omgaan met digitale tools in het algemeen. AI-geletterdheid is specifieker: het gaat over het begrijpen van hoe AI-systemen werken, welke risico's ze meebrengen, en hoe je ze verantwoord inzet. AI-geletterdheid is een verdieping van digitale geletterdheid, specifiek gericht op de toenemende aanwezigheid van AI in werkprocessen." },
+  { q: "Voor wie geldt de AI-geletterdheidsplicht?", a: "De AI-geletterdheidsplicht geldt voor alle organisaties die AI-systemen aanbieden of gebruiken. In de praktijk valt vrijwel iedere Nederlandse organisatie hieronder: ook het gebruik van ChatGPT, Microsoft Copilot, AI-functies in CRM- of HR-systemen, of een geautomatiseerde chatbot maakt van jouw organisatie een gebruiksverantwoordelijke in de zin van de AI Act." },
+];
+
+const WAT_IS_FAQ_JSONLD = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: WAT_IS_FAQ.map((f) => ({
+    "@type": "Question",
+    name: f.q,
+    acceptedAnswer: { "@type": "Answer", text: f.a },
+  })),
+};
 
 const ArticleDetail = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -175,49 +198,66 @@ const ArticleDetail = () => {
   const isHtmlContent = (text: string) => /^\s*<[a-z][\s\S]*>/i.test(text);
   const heroImgNorm = article.image_url ? article.image_url.replace(/^https?:\/\//, "").split("?")[0] : "";
 
-  const articleDescription = article.content ? article.content.slice(0, 155).replace(/[#*\n]/g, "") + "..." : "Lees dit artikel over AI-geletterdheid op het AIGA Kenniscentrum.";
+  const isWatIs = article.slug === "wat-is-ai-geletterdheid";
+  const seoTitle = isWatIs ? "Wat is AI-geletterdheid? Complete gids voor organisaties (2026)" : `${article.title} | AIGA Kenniscentrum`;
+  const seoDescription = isWatIs
+    ? "AI-geletterdheid is wettelijk verplicht sinds februari 2025. Lees wat het inhoudt, welke verplichtingen de EU AI Act stelt, wat voorbeelden zijn en hoe jij je organisatie compliant maakt."
+    : (article.content ? article.content.slice(0, 155).replace(/[#*\n]/g, "") + "..." : "Lees dit artikel over AI-geletterdheid op het AIGA Kenniscentrum.");
+
+  const articleJsonLd = isWatIs
+    ? {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        headline: "Wat is AI-geletterdheid? Complete gids voor organisaties (2026)",
+        description: seoDescription,
+        image: "https://aigeletterdheid.academy/assets/AIGA_transparent-CxHDVoMM.png",
+        datePublished: "2025-02-01",
+        dateModified: "2026-03-21",
+        wordCount,
+        keywords: ["AI-geletterdheid", "ai geletterdheid", "EU AI Act", "AI Act artikel 4", "AI geletterdheid certificaat", "AI geletterdheid verplicht", "wat is AI-geletterdheid"],
+        inLanguage: "nl-NL",
+        author: { "@type": "Person", name: "Ferry Hoes", url: "https://aigeletterdheid.academy/over-aiga", jobTitle: "AI Expert & Trainer", worksFor: { "@type": "Organization", name: "AIGA | AI Geletterdheid Academy" } },
+        publisher: { "@type": "Organization", name: "AIGA | AI Geletterdheid Academy", logo: { "@type": "ImageObject", url: "https://aigeletterdheid.academy/assets/AIGA_transparent-CxHDVoMM.png" } },
+        mainEntityOfPage: { "@type": "WebPage", "@id": "https://aigeletterdheid.academy/kenniscentrum/wat-is-ai-geletterdheid" },
+        about: { "@type": "Thing", name: "AI-geletterdheid", description: "Het vermogen van medewerkers om AI te begrijpen, ermee te werken en de gevolgen ervan te overzien binnen hun werkcontext, zoals vereist door artikel 4 van de EU AI Act." },
+      }
+    : {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        headline: article.title,
+        description: seoDescription,
+        image: article.image_url || FALLBACK_IMAGE,
+        datePublished: publishedDate,
+        dateModified: modifiedDate,
+        wordCount,
+        author: { "@type": "Person", name: "Ferry Hoes", url: "https://aigeletterdheid.academy/over-aiga", jobTitle: "AI-expert & Keynote Spreker", sameAs: "https://www.linkedin.com/in/ferryhoes" },
+        publisher: { "@type": "Organization", name: "AIGA — AI Geletterdheid Academy", logo: { "@type": "ImageObject", url: "https://aigeletterdheid.academy/assets/AIGA_transparent-CxHDVoMM.png" } },
+        mainEntityOfPage: { "@type": "WebPage", "@id": `https://aigeletterdheid.academy/kenniscentrum/${article.slug}` },
+        inLanguage: "nl",
+        about: { "@type": "Thing", name: "AI-geletterdheid" },
+      };
 
   return (
     <div className="min-h-screen">
       <SEO
-        title={`${article.title} | AIGA Kenniscentrum`}
-        description={articleDescription}
+        title={seoTitle}
+        description={seoDescription}
         canonical={`/kenniscentrum/${article.slug}`}
         ogImage={article.image_url || FALLBACK_IMAGE}
         ogType="article"
         articleMeta={{
-          publishedTime: publishedDate,
-          modifiedTime: modifiedDate,
+          publishedTime: isWatIs ? "2025-02-01" : publishedDate,
+          modifiedTime: isWatIs ? "2026-03-21" : modifiedDate,
           author: "Ferry Hoes",
           section: article.category,
         }}
-        jsonLd={{
-          "@context": "https://schema.org",
-          "@type": "Article",
-          headline: article.title,
-          description: articleDescription,
-          image: article.image_url || FALLBACK_IMAGE,
-          datePublished: publishedDate,
-          dateModified: modifiedDate,
-          wordCount,
-          author: {
-            "@type": "Person",
-            name: "Ferry Hoes",
-            url: "https://aigeletterdheid.academy/over-aiga",
-            jobTitle: "AI-expert & Keynote Spreker",
-            sameAs: "https://www.linkedin.com/in/ferryhoes",
-          },
-          publisher: {
-            "@type": "Organization",
-            name: "AIGA — AI Geletterdheid Academy",
-            logo: { "@type": "ImageObject", url: "https://aigeletterdheid.academy/assets/AIGA_transparent-CxHDVoMM.png" },
-          },
-          mainEntityOfPage: { "@type": "WebPage", "@id": `https://aigeletterdheid.academy/kenniscentrum/${article.slug}` },
-          inLanguage: "nl",
-          about: { "@type": "Thing", name: "AI-geletterdheid" },
-        }}
+        jsonLd={articleJsonLd}
       />
-
+      {isWatIs && (
+        <Helmet>
+          <script type="application/ld+json">{JSON.stringify(WAT_IS_FAQ_JSONLD)}</script>
+        </Helmet>
+      )}
       {/* Breadcrumb */}
       <BreadcrumbNav items={[
         { label: "Home", href: "/" },
@@ -240,17 +280,32 @@ const ArticleDetail = () => {
                 <ArrowLeft size={16} /> Terug naar kenniscentrum
               </Link>
               <Badge variant="secondary" className="mb-3 text-xs block w-fit">{article.category}</Badge>
-              <h1 className="text-3xl sm:text-4xl font-display font-bold text-foreground leading-tight mb-2">{article.title}</h1>
+              <h1 className="text-3xl sm:text-4xl font-display font-bold text-foreground leading-tight mb-2">
+                {isWatIs ? "Wat is AI-geletterdheid?" : article.title}
+              </h1>
+              {isWatIs && (
+                <>
+                  <p className="text-lg text-muted-foreground leading-relaxed mt-4 mb-2">
+                    AI-geletterdheid is inmiddels net zo fundamenteel als lezen en schrijven. Niet omdat het modewoord van het jaar is, maar omdat de wet het verplicht. Sinds februari 2025 moeten alle organisaties in de EU die met AI-systemen werken aantoonbaar investeren in de AI-geletterdheid van hun medewerkers. Maar wat betekent dat precies? Wat verwacht de wet van jouw organisatie? En hoe pak je het concreet aan?
+                  </p>
+                  <p className="text-sm text-muted-foreground leading-relaxed mb-2">
+                    Dit is de meest complete Nederlandstalige gids over AI-geletterdheid: geschreven voor leidinggevenden, HR-professionals en beleidsmakers die helder willen begrijpen wat AI-geletterdheid is, waarom het urgent is en hoe ze er nu mee aan de slag kunnen.
+                  </p>
+                </>
+              )}
             </div>
 
             {/* Meta row */}
             <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground mb-8 pb-8 border-b border-border mt-4">
               <Link to="/over-aiga" className="hover:text-primary transition-colors" rel="author">Ferry Hoes</Link>
-              <span>{formatDate(publishedDate)}</span>
+              <span>{formatDate(isWatIs ? "2025-02-01T00:00:00Z" : publishedDate)}</span>
+              {isWatIs && <span>Laatst bijgewerkt: 21 maart 2026</span>}
               <span className="flex items-center gap-1"><Clock size={14} /> {readingTime} min leestijd</span>
-              <a href={article.url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-primary hover:underline">
-                Origineel artikel <ExternalLink size={14} />
-              </a>
+              {!isWatIs && (
+                <a href={article.url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-primary hover:underline">
+                  Origineel artikel <ExternalLink size={14} />
+                </a>
+              )}
             </div>
 
             {/* Table of Contents */}
@@ -304,6 +359,40 @@ const ArticleDetail = () => {
               </article>
             )}
           </AnimatedSection>
+
+          {/* FAQ accordion for wat-is-ai-geletterdheid */}
+          {isWatIs && (
+            <AnimatedSection delay={0.05}>
+              <div className="mt-12">
+                <h2 className="text-2xl font-display font-bold text-foreground mb-6">Veelgestelde vragen over AI-geletterdheid</h2>
+                <Accordion type="single" collapsible className="w-full">
+                  {WAT_IS_FAQ.map((faq, i) => (
+                    <AccordionItem key={i} value={`faq-${i}`}>
+                      <AccordionTrigger className="text-left text-base font-semibold">{faq.q}</AccordionTrigger>
+                      <AccordionContent><p className="text-muted-foreground leading-relaxed">{faq.a}</p></AccordionContent>
+                    </AccordionItem>
+                  ))}
+                </Accordion>
+              </div>
+            </AnimatedSection>
+          )}
+
+          {/* CTA section for wat-is-ai-geletterdheid */}
+          {isWatIs && (
+            <AnimatedSection delay={0.1}>
+              <div className="mt-12 p-8 bg-card border border-border rounded-2xl text-center">
+                <h2 className="text-2xl font-display font-bold text-foreground mb-3">Klaar om je team AI-geletterd te maken?</h2>
+                <p className="text-muted-foreground mb-6 max-w-xl mx-auto">
+                  AIGA biedt de meest praktische en schaalbare AI-geletterdheid training voor Nederlandse organisaties. Volledig online, in eigen tempo, afsluitend met een audit-proof certificaat.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                  <Button asChild><Link to="/training">Bekijk de online training</Link></Button>
+                  <Button asChild variant="outline"><Link to="/gereedheidscan">Doe de gratis AI Gereedheidscan</Link></Button>
+                  <Button asChild variant="outline"><Link to="/contact">Vraag een offerte aan</Link></Button>
+                </div>
+              </div>
+            </AnimatedSection>
+          )}
 
           {/* External sources for legal articles */}
           {isLegalCategory && (
