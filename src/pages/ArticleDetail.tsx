@@ -358,6 +358,40 @@ const ArticleDetail = () => {
             )}
           </AnimatedSection>
 
+          {/* FAQ accordion for wat-is-ai-geletterdheid */}
+          {isWatIs && (
+            <AnimatedSection delay={0.05}>
+              <div className="mt-12">
+                <h2 className="text-2xl font-display font-bold text-foreground mb-6">Veelgestelde vragen over AI-geletterdheid</h2>
+                <Accordion type="single" collapsible className="w-full">
+                  {WAT_IS_FAQ.map((faq, i) => (
+                    <AccordionItem key={i} value={`faq-${i}`}>
+                      <AccordionTrigger className="text-left text-base font-semibold">{faq.q}</AccordionTrigger>
+                      <AccordionContent><p className="text-muted-foreground leading-relaxed">{faq.a}</p></AccordionContent>
+                    </AccordionItem>
+                  ))}
+                </Accordion>
+              </div>
+            </AnimatedSection>
+          )}
+
+          {/* CTA section for wat-is-ai-geletterdheid */}
+          {isWatIs && (
+            <AnimatedSection delay={0.1}>
+              <div className="mt-12 p-8 bg-card border border-border rounded-2xl text-center">
+                <h2 className="text-2xl font-display font-bold text-foreground mb-3">Klaar om je team AI-geletterd te maken?</h2>
+                <p className="text-muted-foreground mb-6 max-w-xl mx-auto">
+                  AIGA biedt de meest praktische en schaalbare AI-geletterdheid training voor Nederlandse organisaties. Volledig online, in eigen tempo, afsluitend met een audit-proof certificaat.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                  <Button asChild><Link to="/training">Bekijk de online training</Link></Button>
+                  <Button asChild variant="outline"><Link to="/gereedheidscan">Doe de gratis AI Gereedheidscan</Link></Button>
+                  <Button asChild variant="outline"><Link to="/contact">Vraag een offerte aan</Link></Button>
+                </div>
+              </div>
+            </AnimatedSection>
+          )}
+
           {/* External sources for legal articles */}
           {isLegalCategory && (
             <AnimatedSection delay={0.05}>
