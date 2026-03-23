@@ -133,7 +133,7 @@ const EuAiActA4 = () => {
             </div>
 
             {/* ── Blok 3: Risicocategorieën ── */}
-            <div className="mb-3">
+            <div className="mb-5 md:mb-3">
               <SectionLabel>Risicoclassificatie</SectionLabel>
               <div className="grid grid-cols-1 md:grid-cols-4 gap-2 mt-1">
                 {riskCategories.map((cat) => (
