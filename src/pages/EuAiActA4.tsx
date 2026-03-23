@@ -99,7 +99,7 @@ const EuAiActA4 = () => {
             <hr className="border-border mb-3" />
 
             {/* ── Blok 1: Achtergrond ── */}
-            <div className="mb-3">
+            <div className="mb-5 md:mb-3">
               <SectionLabel>Achtergrond</SectionLabel>
               <p>
                 De EU AI Act (Verordening 2024/1689) is de eerste bindende AI-wet ter wereld. Hij regelt hoe AI-systemen ontwikkeld, aangeboden en gebruikt mogen worden in de Europese Unie. De wet geldt voor alle organisaties die AI gebruiken — ongeacht of ze in de EU gevestigd zijn.
