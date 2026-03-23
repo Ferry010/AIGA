@@ -236,7 +236,7 @@ const Kenniscentrum = () => {
           {loading ? (
             <p className="text-muted-foreground">Laden...</p>
           ) : (
-            <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {filteredArticles.map((article) => {
                 const isImported = !!(article.content && article.slug);
                 const CardContentEl = (
@@ -272,7 +272,7 @@ const Kenniscentrum = () => {
                 );
 
                 return (
-                  <StaggerItem key={article.id}>
+                  <div key={article.id}>
                     {isImported ? (
                       <Link
                         to={`/kenniscentrum/${article.slug}`}
@@ -290,10 +290,10 @@ const Kenniscentrum = () => {
                         {CardContentEl}
                       </a>
                     )}
-                  </StaggerItem>
+                  </div>
                 );
               })}
-            </StaggerContainer>
+            </div>
           )}
         </div>
       </section>
