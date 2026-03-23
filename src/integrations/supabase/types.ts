@@ -56,6 +56,48 @@ export type Database = {
         }
         Relationships: []
       }
+      contact_submissions: {
+        Row: {
+          aantal: string | null
+          created_at: string | null
+          email: string
+          functie: string | null
+          hulp: string
+          id: string
+          naam: string
+          opgevolgd: boolean | null
+          opmerkingen: string | null
+          organisatie: string
+          telefoon: string | null
+        }
+        Insert: {
+          aantal?: string | null
+          created_at?: string | null
+          email: string
+          functie?: string | null
+          hulp: string
+          id?: string
+          naam: string
+          opgevolgd?: boolean | null
+          opmerkingen?: string | null
+          organisatie: string
+          telefoon?: string | null
+        }
+        Update: {
+          aantal?: string | null
+          created_at?: string | null
+          email?: string
+          functie?: string | null
+          hulp?: string
+          id?: string
+          naam?: string
+          opgevolgd?: boolean | null
+          opmerkingen?: string | null
+          organisatie?: string
+          telefoon?: string | null
+        }
+        Relationships: []
+      }
       masterclass_submissions: {
         Row: {
           created_at: string | null
@@ -63,6 +105,7 @@ export type Database = {
           functie: string | null
           id: string
           naam: string
+          opgevolgd: boolean | null
           organisatie: string
           sessie_type: string
           telefoon: string | null
@@ -74,6 +117,7 @@ export type Database = {
           functie?: string | null
           id?: string
           naam: string
+          opgevolgd?: boolean | null
           organisatie: string
           sessie_type: string
           telefoon?: string | null
@@ -85,6 +129,7 @@ export type Database = {
           functie?: string | null
           id?: string
           naam?: string
+          opgevolgd?: boolean | null
           organisatie?: string
           sessie_type?: string
           telefoon?: string | null
