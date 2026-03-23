@@ -71,6 +71,7 @@ interface Article {
   sort_order: number;
   content: string | null;
   slug: string | null;
+  labels: string[];
 }
 
 const tierLabels: Record<string, string> = {
