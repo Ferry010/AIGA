@@ -542,9 +542,26 @@ const Admin = () => {
                   <Label>URL</Label>
                   <Input value={form.url} onChange={(e) => setForm({ ...form, url: e.target.value })} placeholder="https://..." />
                 </div>
-                <div className="space-y-2">
-                  <Label>Afbeelding URL</Label>
-                  <Input value={form.image_url} onChange={(e) => setForm({ ...form, image_url: e.target.value })} placeholder="https://..." />
+                <div className="space-y-2 md:col-span-2">
+                  <Label>Afbeelding</Label>
+                  <div className="flex items-start gap-4">
+                    {form.image_url && (
+                      <img src={form.image_url} alt="Preview" className="w-24 h-16 object-cover rounded-md border border-border" />
+                    )}
+                    <div className="flex-1 space-y-2">
+                      <label className={`flex items-center gap-2 bg-card border border-border rounded-lg px-4 py-2 text-sm font-medium cursor-pointer hover:border-primary/40 transition-colors ${uploading ? "opacity-50 pointer-events-none" : ""}`}>
+                        <Upload size={16} />
+                        {uploading ? "Uploaden..." : "Afbeelding uploaden"}
+                        <input type="file" accept="image/*" onChange={handleImageUpload} className="hidden" />
+                      </label>
+                      <Input
+                        value={form.image_url}
+                        onChange={(e) => setForm({ ...form, image_url: e.target.value })}
+                        placeholder="Of plak een URL..."
+                        className="text-xs"
+                      />
+                    </div>
+                  </div>
                 </div>
                 <div className="space-y-2">
                   <Label>Slug (URL-pad)</Label>
