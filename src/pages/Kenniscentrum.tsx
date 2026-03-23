@@ -200,6 +200,33 @@ const Kenniscentrum = () => {
               </button>
             ))}
           </div>
+          {allLabels.length > 0 && (
+            <div className="flex flex-wrap gap-2 mt-3">
+              <button
+                onClick={() => setActiveLabel(null)}
+                className={`px-3 py-1.5 rounded-md text-xs font-medium transition-all duration-300 ${
+                  !activeLabel
+                    ? "bg-accent text-accent-foreground"
+                    : "bg-card border border-border text-muted-foreground hover:border-primary/40 hover:text-foreground"
+                }`}
+              >
+                Alle labels
+              </button>
+              {allLabels.map((label) => (
+                <button
+                  key={label}
+                  onClick={() => setActiveLabel(activeLabel === label ? null : label)}
+                  className={`px-3 py-1.5 rounded-md text-xs font-medium transition-all duration-300 ${
+                    activeLabel === label
+                      ? "bg-primary text-primary-foreground"
+                      : "bg-card border border-border text-muted-foreground hover:border-primary/40 hover:text-foreground"
+                  }`}
+                >
+                  {label}
+                </button>
+              ))}
+            </div>
+          )}
         </div>
       </section>
 
