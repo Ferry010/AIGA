@@ -87,7 +87,7 @@ const Index = () => {
               <span className="neon-text">Weet iedereen wat dat betekent?</span>
             </h1>
             <h2 className="text-xl sm:text-2xl font-display font-semibold text-primary mt-4">
-              De #1 AI Geletterdheid Training voor Nederlandse Organisaties
+              De #1 AI Geletterdheid Training voor Nederlandse Organisaties — ontwikkeld door Ferry Hoes, keynote speaker en AI-expert
             </h2>
             <p className="mt-6 text-lg text-muted-foreground max-w-2xl leading-relaxed">
               Sinds februari 2025 is AI-geletterdheid wettelijk verplicht voor organisaties in de EU. Wij helpen je team voldoen aan de AI Act, met een praktische online training en een digitaal certificaat dat telt bij een audit.
