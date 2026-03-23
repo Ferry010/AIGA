@@ -71,6 +71,7 @@ interface Article {
   sort_order: number;
   content: string | null;
   slug: string | null;
+  labels: string[];
 }
 
 const tierLabels: Record<string, string> = {
@@ -86,7 +87,7 @@ const hulpLabels: Record<string, string> = {
   anders: "Anders",
 };
 
-const emptyArticleForm = { title: "", category: CATEGORIES[0], url: "", image_url: "", published: true, sort_order: 0, content: "", slug: "" };
+const emptyArticleForm = { title: "", category: CATEGORIES[0], url: "", image_url: "", published: true, sort_order: 0, content: "", slug: "", labels: [] as string[] };
 
 const formatDate = (dateStr: string) => {
   const date = new Date(dateStr);
@@ -207,7 +208,7 @@ const Admin = () => {
 
   const openEditForm = (a: Article) => {
     setEditingId(a.id);
-    setForm({ title: a.title, category: a.category, url: a.url, image_url: a.image_url, published: a.published, sort_order: a.sort_order, content: a.content || "", slug: a.slug || "" });
+    setForm({ title: a.title, category: a.category, url: a.url, image_url: a.image_url, published: a.published, sort_order: a.sort_order, content: a.content || "", slug: a.slug || "", labels: a.labels || [] });
     setShowForm(true);
   };
 
@@ -235,6 +236,27 @@ const Admin = () => {
       console.error("Upload failed:", err);
     }
     setUploading(false);
+  };
+
+  const [labelInput, setLabelInput] = useState("");
+
+  // Collect all unique labels from existing articles for autocomplete
+  const allLabels = useMemo(() => {
+    const set = new Set<string>();
+    articles.forEach((a) => (a.labels || []).forEach((l) => set.add(l)));
+    return Array.from(set).sort();
+  }, [articles]);
+
+  const addLabel = (label: string) => {
+    const trimmed = label.trim();
+    if (trimmed && !form.labels.includes(trimmed)) {
+      setForm((prev) => ({ ...prev, labels: [...prev.labels, trimmed] }));
+    }
+    setLabelInput("");
+  };
+
+  const removeLabel = (label: string) => {
+    setForm((prev) => ({ ...prev, labels: prev.labels.filter((l) => l !== label) }));
   };
 
   const handleSave = async () => {
@@ -574,6 +596,34 @@ const Admin = () => {
                 <div className="flex items-center gap-3 pt-6">
                   <Switch checked={form.published} onCheckedChange={(v) => setForm({ ...form, published: v })} />
                   <Label>Gepubliceerd</Label>
+                </div>
+                <div className="space-y-2 md:col-span-2">
+                  <Label>Labels</Label>
+                  <div className="flex flex-wrap gap-2 mb-2">
+                    {form.labels.map((label) => (
+                      <Badge key={label} variant="secondary" className="flex items-center gap-1 text-xs">
+                        {label}
+                        <button type="button" onClick={() => removeLabel(label)} className="hover:text-destructive"><X size={12} /></button>
+                      </Badge>
+                    ))}
+                  </div>
+                  <div className="relative">
+                    <Input
+                      value={labelInput}
+                      onChange={(e) => setLabelInput(e.target.value)}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter") { e.preventDefault(); addLabel(labelInput); }
+                      }}
+                      placeholder="Typ een label en druk Enter..."
+                      className="text-sm"
+                      list="label-suggestions"
+                    />
+                    <datalist id="label-suggestions">
+                      {allLabels.filter((l) => !form.labels.includes(l)).map((l) => (
+                        <option key={l} value={l} />
+                      ))}
+                    </datalist>
+                  </div>
                 </div>
               </div>
               <div className="space-y-2">

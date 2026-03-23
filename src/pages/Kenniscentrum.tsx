@@ -28,20 +28,21 @@ interface Article {
   image_url: string;
   content: string | null;
   slug: string | null;
+  labels: string[];
 }
 
 
 const Kenniscentrum = () => {
   // Article state
   const [activeCategory, setActiveCategory] = useState<ArticleCategory>("Alle");
+  const [activeLabel, setActiveLabel] = useState<string | null>(null);
   const [articles, setArticles] = useState<Article[]>([]);
   const [loading, setLoading] = useState(true);
-
 
   useEffect(() => {
     supabase
       .from("articles")
-      .select("id, title, category, url, image_url, content, slug")
+      .select("id, title, category, url, image_url, content, slug, labels")
       .eq("published", true)
       .order("sort_order", { ascending: true })
       .then(({ data }) => {
@@ -50,7 +51,14 @@ const Kenniscentrum = () => {
       });
   }, []);
 
-  const filteredArticles = activeCategory === "Alle" ? articles : articles.filter((a) => a.category === activeCategory);
+  // Collect all unique labels
+  const allLabels = Array.from(new Set(articles.flatMap((a) => a.labels || []))).sort();
+
+  const filteredArticles = articles.filter((a) => {
+    if (activeCategory !== "Alle" && a.category !== activeCategory) return false;
+    if (activeLabel && !(a.labels || []).includes(activeLabel)) return false;
+    return true;
+  });
 
   return (
     <div className="min-h-screen">
@@ -192,6 +200,33 @@ const Kenniscentrum = () => {
               </button>
             ))}
           </div>
+          {allLabels.length > 0 && (
+            <div className="flex flex-wrap gap-2 mt-3">
+              <button
+                onClick={() => setActiveLabel(null)}
+                className={`px-3 py-1.5 rounded-md text-xs font-medium transition-all duration-300 ${
+                  !activeLabel
+                    ? "bg-accent text-accent-foreground"
+                    : "bg-card border border-border text-muted-foreground hover:border-primary/40 hover:text-foreground"
+                }`}
+              >
+                Alle labels
+              </button>
+              {allLabels.map((label) => (
+                <button
+                  key={label}
+                  onClick={() => setActiveLabel(activeLabel === label ? null : label)}
+                  className={`px-3 py-1.5 rounded-md text-xs font-medium transition-all duration-300 ${
+                    activeLabel === label
+                      ? "bg-primary text-primary-foreground"
+                      : "bg-card border border-border text-muted-foreground hover:border-primary/40 hover:text-foreground"
+                  }`}
+                >
+                  {label}
+                </button>
+              ))}
+            </div>
+          )}
         </div>
       </section>
 
@@ -215,9 +250,16 @@ const Kenniscentrum = () => {
                       />
                     </div>
                     <div className="p-6 flex flex-col flex-1">
-                      <Badge variant="secondary" className="w-fit mb-3 text-xs">
-                        {article.category}
-                      </Badge>
+                      <div className="flex flex-wrap gap-1.5 mb-3">
+                        <Badge variant="secondary" className="text-xs">
+                          {article.category}
+                        </Badge>
+                        {(article.labels || []).map((label) => (
+                          <Badge key={label} variant="outline" className="text-xs text-muted-foreground">
+                            {label}
+                          </Badge>
+                        ))}
+                      </div>
                       <h3 className="text-base font-semibold text-foreground mb-3 leading-snug group-hover:text-primary transition-colors flex-1">
                         {article.title}
                       </h3>

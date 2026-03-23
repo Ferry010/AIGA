@@ -21,6 +21,7 @@ export type Database = {
           created_at: string | null
           id: string
           image_url: string
+          labels: string[]
           published: boolean | null
           slug: string | null
           sort_order: number | null
@@ -34,6 +35,7 @@ export type Database = {
           created_at?: string | null
           id?: string
           image_url: string
+          labels?: string[]
           published?: boolean | null
           slug?: string | null
           sort_order?: number | null
@@ -47,6 +49,7 @@ export type Database = {
           created_at?: string | null
           id?: string
           image_url?: string
+          labels?: string[]
           published?: boolean | null
           slug?: string | null
           sort_order?: number | null
