@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { AnimatedSection, StaggerContainer, StaggerItem } from "@/components/AnimatedSection";
+import { AnimatedSection } from "@/components/AnimatedSection";
 import SectionLabel from "@/components/SectionLabel";
 import SEO from "@/components/SEO";
 import speakersLogo from "@/assets/speakers-academy-logo.png";
@@ -51,14 +51,6 @@ const SpeakersAcademy = () => (
             <Link to="/training" className="btn-neon inline-block px-6 py-3 rounded-lg text-[15px]">
               Bekijk de training
             </Link>
-            <a
-              href="https://www.speakersacademy.com/nl/spreker/ferry-hoes"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-neon-outline inline-block text-sm font-semibold px-6 py-3"
-            >
-              Spreek Ferry als keynote spreker
-            </a>
           </div>
         </AnimatedSection>
       </div>
@@ -184,58 +176,23 @@ const SpeakersAcademy = () => (
       </div>
     </section>
 
-    {/* 5. Twee opties */}
+    {/* 5. De volgende stap */}
     <section className="py-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <AnimatedSection>
-          <SectionLabel text="KIES JE STARTPUNT" />
-        </AnimatedSection>
-
-        <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-10">
-          <StaggerItem>
-            <div className="border border-border rounded-xl p-8 h-full flex flex-col hover:border-neon-purple/40 neon-glow transition-all duration-300">
-              <h3 className="text-xl font-display font-semibold text-foreground mb-3">Ferry boeken als spreker</h3>
-              <p className="text-muted-foreground leading-relaxed flex-1">
-                Wil je jouw team of event inspireren met een keynote of workshop over AI? Ferry vertaalt complexe technologie naar concrete inzichten die blijven hangen.
-              </p>
-              <div className="mt-6">
-                <a
-                  href="https://www.speakersacademy.com/nl/spreker/ferry-hoes"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn-neon-outline inline-block text-sm font-semibold px-6 py-3"
-                >
-                  Bekijk Ferry's profiel
-                </a>
-              </div>
-            </div>
-          </StaggerItem>
-
-          <StaggerItem>
-            <div className="neon-border-lg rounded-xl" style={{ padding: '2px' }}>
-              <div className="neon-inner bg-background rounded-xl p-8 h-full flex flex-col">
-                <h3 className="text-xl font-display font-semibold text-foreground mb-3">Team certificeren via AIGA</h3>
-                <p className="text-muted-foreground leading-relaxed flex-1">
-                  Zorg dat jouw organisatie voldoet aan de AI Act. De AIGA training biedt modules, praktijkcases, een adaptief examen en een audit-proof certificaat per medewerker.
-                </p>
-                <div className="mt-6">
-                  <Link to="/training" className="btn-neon inline-block px-6 py-3 rounded-lg text-[15px]">
-                    Bekijk de training
-                  </Link>
-                </div>
-              </div>
-            </div>
-          </StaggerItem>
-        </StaggerContainer>
-
-        {/* Banner */}
-        <AnimatedSection delay={0.2} className="mt-8">
-          <div className="bg-muted/50 rounded-xl p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-            <p className="text-foreground font-medium text-center sm:text-left">
-              Allebei? Vraag naar de mogelijkheden.
-            </p>
-            <Link to="/contact" className="btn-neon-outline inline-block text-sm font-semibold px-6 py-3 shrink-0">
-              Neem contact op
+          <SectionLabel text="DE VOLGENDE STAP" />
+          <h2 className="text-3xl sm:text-4xl font-display font-semibold text-foreground mt-2">
+            Jouw team AI-geletterd maken.
+          </h2>
+          <p className="mt-6 text-muted-foreground max-w-3xl leading-relaxed">
+            Organisaties die Ferry kennen via Speakers Academy weten wat hij brengt. AIGA vertaalt die kennis naar jouw hele team. Online, selfpaced, schaalbaar tot 1000+ medewerkers. Met een audit-proof certificaat per deelnemer.
+          </p>
+          <div className="flex flex-wrap gap-4 mt-8">
+            <Link to="/voor-teams" className="btn-neon inline-block px-6 py-3 rounded-lg text-[15px]">
+              Bekijk de training
+            </Link>
+            <Link to="/contact" className="btn-neon-outline inline-block text-sm font-semibold px-6 py-3">
+              Vraag een offerte aan
             </Link>
           </div>
         </AnimatedSection>
@@ -253,14 +210,6 @@ const SpeakersAcademy = () => (
             <Link to="/training" className="btn-neon inline-block px-8 py-4 rounded-lg text-[15px]">
               Bekijk de AIGA training
             </Link>
-            <a
-              href="https://www.speakersacademy.com/nl/spreker/ferry-hoes"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-neon-outline inline-block text-sm font-semibold px-8 py-4"
-            >
-              Boek Ferry als spreker
-            </a>
           </div>
         </AnimatedSection>
       </div>
