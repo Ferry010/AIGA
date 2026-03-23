@@ -93,6 +93,18 @@ const formatDate = (dateStr: string) => {
   return `${String(date.getDate()).padStart(2, "0")}-${String(date.getMonth() + 1).padStart(2, "0")}-${date.getFullYear()}`;
 };
 
+type InboxItem = {
+  id: string;
+  type: "contact" | "masterclass" | "risicoscan";
+  created_at: string;
+  naam: string;
+  org: string;
+  email: string;
+  telefoon: string | null;
+  opgevolgd: boolean;
+  raw: ContactSubmission | MasterclassSubmission | RiskSubmission;
+};
+
 const Admin = () => {
   const navigate = useNavigate();
   const [authenticated, setAuthenticated] = useState(false);
@@ -109,6 +121,12 @@ const Admin = () => {
   const [form, setForm] = useState(emptyArticleForm);
   const [saving, setSaving] = useState(false);
   const [importing, setImporting] = useState<Record<string, boolean>>({});
+
+  // Inbox state
+  const [inboxFilter, setInboxFilter] = useState<"alle" | "contact" | "masterclass" | "risicoscan">("alle");
+  const [showOpgevolgd, setShowOpgevolgd] = useState(false);
+  const [expandedId, setExpandedId] = useState<string | null>(null);
+  const [searchQuery, setSearchQuery] = useState("");
 
   // Check auth + admin role
   useEffect(() => {
@@ -180,21 +198,6 @@ const Admin = () => {
     navigate("/admin/login");
   };
 
-  const toggleRiskOpgevolgd = async (id: string, current: boolean) => {
-    setRiskSubmissions((prev) => prev.map((s) => (s.id === id ? { ...s, opgevolgd: !current } : s)));
-    await supabase.from("risk_scan_submissions").update({ opgevolgd: !current }).eq("id", id);
-  };
-
-  const toggleContactOpgevolgd = async (id: string, current: boolean) => {
-    setContactSubmissions((prev) => prev.map((s) => (s.id === id ? { ...s, opgevolgd: !current } : s)));
-    await supabase.from("contact_submissions").update({ opgevolgd: !current }).eq("id", id);
-  };
-
-  const toggleMasterclassOpgevolgd = async (id: string, current: boolean) => {
-    setMasterclassSubmissions((prev) => prev.map((s) => (s.id === id ? { ...s, opgevolgd: !current } : s)));
-    await supabase.from("masterclass_submissions").update({ opgevolgd: !current }).eq("id", id);
-  };
-
   const openNewForm = () => {
     setEditingId(null);
     setForm({ ...emptyArticleForm, sort_order: articles.length + 1 });
@@ -252,6 +255,106 @@ const Admin = () => {
     for (const a of articles) await importArticle(a);
   };
 
+  // Inbox computed values
+  const contactNog = contactSubmissions.filter((s) => !s.opgevolgd).length;
+  const masterclassNog = masterclassSubmissions.filter((s) => !s.opgevolgd).length;
+  const riskNog = riskSubmissions.filter((s) => !s.opgevolgd).length;
+  const totalNog = contactNog + masterclassNog + riskNog;
+
+  const inboxItems = useMemo<InboxItem[]>(() => {
+    const items: InboxItem[] = [
+      ...contactSubmissions.map((s) => ({
+        id: s.id, type: "contact" as const, created_at: s.created_at, naam: s.naam,
+        org: s.organisatie, email: s.email, telefoon: s.telefoon, opgevolgd: s.opgevolgd, raw: s,
+      })),
+      ...masterclassSubmissions.map((s) => ({
+        id: s.id, type: "masterclass" as const, created_at: s.created_at, naam: s.naam,
+        org: s.organisatie, email: s.email, telefoon: s.telefoon, opgevolgd: s.opgevolgd, raw: s,
+      })),
+      ...riskSubmissions.map((s) => ({
+        id: s.id, type: "risicoscan" as const, created_at: s.created_at, naam: s.naam,
+        org: s.bedrijfsnaam, email: s.email, telefoon: null, opgevolgd: s.opgevolgd, raw: s,
+      })),
+    ];
+    return items.sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
+  }, [contactSubmissions, masterclassSubmissions, riskSubmissions]);
+
+  const filteredInbox = useMemo(() => {
+    let items = inboxItems;
+    if (inboxFilter !== "alle") items = items.filter((i) => i.type === inboxFilter);
+    if (!showOpgevolgd) items = items.filter((i) => !i.opgevolgd);
+    if (searchQuery.trim()) {
+      const q = searchQuery.toLowerCase();
+      items = items.filter((i) => i.naam.toLowerCase().includes(q) || i.org.toLowerCase().includes(q) || i.email.toLowerCase().includes(q));
+    }
+    return items;
+  }, [inboxItems, inboxFilter, showOpgevolgd, searchQuery]);
+
+  const toggleOpgevolgd = async (item: InboxItem) => {
+    const newVal = !item.opgevolgd;
+    if (item.type === "contact") {
+      setContactSubmissions((prev) => prev.map((s) => (s.id === item.id ? { ...s, opgevolgd: newVal } : s)));
+      await supabase.from("contact_submissions").update({ opgevolgd: newVal }).eq("id", item.id);
+    } else if (item.type === "masterclass") {
+      setMasterclassSubmissions((prev) => prev.map((s) => (s.id === item.id ? { ...s, opgevolgd: newVal } : s)));
+      await supabase.from("masterclass_submissions").update({ opgevolgd: newVal }).eq("id", item.id);
+    } else {
+      setRiskSubmissions((prev) => prev.map((s) => (s.id === item.id ? { ...s, opgevolgd: newVal } : s)));
+      await supabase.from("risk_scan_submissions").update({ opgevolgd: newVal }).eq("id", item.id);
+    }
+  };
+
+  const typeBadge = (type: InboxItem["type"]) => {
+    const config = {
+      contact: { label: "Contact", className: "bg-purple-500/15 text-purple-700 dark:text-purple-300 border-purple-500/20" },
+      masterclass: { label: "Masterclass", className: "bg-blue-500/15 text-blue-700 dark:text-blue-300 border-blue-500/20" },
+      risicoscan: { label: "Risicoscan", className: "bg-orange-500/15 text-orange-700 dark:text-orange-300 border-orange-500/20" },
+    };
+    const c = config[type];
+    return <Badge variant="outline" className={c.className}>{c.label}</Badge>;
+  };
+
+  const renderDetails = (item: InboxItem) => {
+    if (item.type === "contact") {
+      const s = item.raw as ContactSubmission;
+      return (
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
+          {s.functie && <div><span className="text-muted-foreground">Functie:</span> <span className="text-foreground">{s.functie}</span></div>}
+          <div><span className="text-muted-foreground">Hulp:</span> <span className="text-foreground">{hulpLabels[s.hulp] || s.hulp}</span></div>
+          {s.aantal && <div><span className="text-muted-foreground">Aantal:</span> <span className="text-foreground">{s.aantal}</span></div>}
+          {s.opmerkingen && <div className="md:col-span-2"><span className="text-muted-foreground">Opmerkingen:</span> <span className="text-foreground">{s.opmerkingen}</span></div>}
+        </div>
+      );
+    }
+    if (item.type === "masterclass") {
+      const s = item.raw as MasterclassSubmission;
+      return (
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
+          {s.functie && <div><span className="text-muted-foreground">Functie:</span> <span className="text-foreground">{s.functie}</span></div>}
+          <div><span className="text-muted-foreground">Sessie type:</span> <span className="text-foreground capitalize">{s.sessie_type}</span></div>
+          {s.vragen && <div className="md:col-span-2"><span className="text-muted-foreground">Vragen:</span> <span className="text-foreground">{s.vragen}</span></div>}
+        </div>
+      );
+    }
+    const s = item.raw as RiskSubmission;
+    return (
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
+        <div><span className="text-muted-foreground">Score:</span> <span className="text-foreground font-mono">{s.totaal_score}%</span></div>
+        <div><span className="text-muted-foreground">Tier:</span> <span className="text-foreground">{tierLabels[s.tier] || s.tier}</span></div>
+        {s.dimensie_scores && (
+          <div className="md:col-span-2">
+            <span className="text-muted-foreground">Dimensie scores:</span>
+            <div className="mt-1 flex flex-wrap gap-2">
+              {Object.entries(s.dimensie_scores).map(([key, val]) => (
+                <span key={key} className="bg-muted text-muted-foreground text-xs rounded-md px-2 py-1">{key}: {String(val)}</span>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+    );
+  };
+
   if (checkingAuth) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-background">
@@ -268,10 +371,6 @@ const Admin = () => {
     );
   }
 
-  const contactNog = contactSubmissions.filter((s) => !s.opgevolgd).length;
-  const masterclassNog = masterclassSubmissions.filter((s) => !s.opgevolgd).length;
-  const riskNog = riskSubmissions.filter((s) => !s.opgevolgd).length;
-
   return (
     <div className="min-h-screen bg-background p-6">
       <div className="flex items-center justify-between mb-6">
@@ -281,150 +380,111 @@ const Admin = () => {
         </button>
       </div>
 
-      <Tabs defaultValue="contact">
+      <Tabs defaultValue="inbox">
         <TabsList className="mb-6">
-          <TabsTrigger value="contact">
-            Contact {contactNog > 0 && <span className="ml-1.5 bg-primary text-primary-foreground text-xs rounded-full px-1.5 py-0.5">{contactNog}</span>}
-          </TabsTrigger>
-          <TabsTrigger value="masterclass">
-            Masterclass {masterclassNog > 0 && <span className="ml-1.5 bg-primary text-primary-foreground text-xs rounded-full px-1.5 py-0.5">{masterclassNog}</span>}
-          </TabsTrigger>
-          <TabsTrigger value="risicoscan">
-            Risicoscan {riskNog > 0 && <span className="ml-1.5 bg-primary text-primary-foreground text-xs rounded-full px-1.5 py-0.5">{riskNog}</span>}
+          <TabsTrigger value="inbox">
+            Inbox {totalNog > 0 && <span className="ml-1.5 bg-primary text-primary-foreground text-xs rounded-full px-1.5 py-0.5">{totalNog}</span>}
           </TabsTrigger>
           <TabsTrigger value="artikelen">Artikelen</TabsTrigger>
           <TabsTrigger value="gebruikers">Gebruikers</TabsTrigger>
           <TabsTrigger value="account">Account</TabsTrigger>
         </TabsList>
 
-        {/* ─── Contact Tab ─── */}
-        <TabsContent value="contact">
-          <div className="grid grid-cols-2 gap-4 mb-8 max-w-md">
-            <div className="bg-card border border-border rounded-lg p-4">
-              <p className="text-xs text-muted-foreground">Totaal</p>
-              <p className="text-2xl font-mono font-bold text-foreground">{contactSubmissions.length}</p>
+        {/* ─── Inbox Tab ─── */}
+        <TabsContent value="inbox">
+          {/* Filters */}
+          <div className="flex flex-col sm:flex-row sm:items-center gap-3 mb-6">
+            <div className="flex gap-2 flex-wrap">
+              {([
+                { key: "alle", label: "Alle", count: inboxItems.filter(i => !i.opgevolgd).length },
+                { key: "contact", label: "Contact", count: contactNog },
+                { key: "masterclass", label: "Masterclass", count: masterclassNog },
+                { key: "risicoscan", label: "Risicoscan", count: riskNog },
+              ] as const).map((f) => (
+                <button
+                  key={f.key}
+                  onClick={() => setInboxFilter(f.key)}
+                  className={`text-sm px-3 py-1.5 rounded-md border transition-colors ${
+                    inboxFilter === f.key
+                      ? "bg-primary text-primary-foreground border-primary"
+                      : "bg-card text-foreground border-border hover:border-primary/40"
+                  }`}
+                >
+                  {f.label}
+                  {f.count > 0 && <span className="ml-1.5 text-xs opacity-80">({f.count})</span>}
+                </button>
+              ))}
             </div>
-            <div className="bg-card border border-border rounded-lg p-4">
-              <p className="text-xs text-muted-foreground">Nog op te volgen</p>
-              <p className="text-2xl font-mono font-bold text-foreground">{contactNog}</p>
-            </div>
-          </div>
-          {loading ? <p className="text-muted-foreground">Laden...</p> : (
-            <div className="overflow-x-auto">
-              <table className="w-full text-sm">
-                <thead>
-                  <tr className="border-b border-border text-left">
-                    <th className="py-3 px-2 text-muted-foreground font-medium">Datum</th>
-                    <th className="py-3 px-2 text-muted-foreground font-medium">Naam</th>
-                    <th className="py-3 px-2 text-muted-foreground font-medium">Organisatie</th>
-                    <th className="py-3 px-2 text-muted-foreground font-medium">E-mail</th>
-                    <th className="py-3 px-2 text-muted-foreground font-medium">Hulp</th>
-                    <th className="py-3 px-2 text-muted-foreground font-medium">Aantal</th>
-                    <th className="py-3 px-2 text-muted-foreground font-medium">Opgevolgd</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {contactSubmissions.map((s) => (
-                    <tr key={s.id} className="border-b border-border">
-                      <td className="py-3 px-2 text-foreground">{formatDate(s.created_at)}</td>
-                      <td className="py-3 px-2 text-foreground">{s.naam}</td>
-                      <td className="py-3 px-2 text-foreground">{s.organisatie}</td>
-                      <td className="py-3 px-2"><a href={`mailto:${s.email}`} className="text-primary hover:underline">{s.email}</a></td>
-                      <td className="py-3 px-2 text-foreground">{hulpLabels[s.hulp] || s.hulp}</td>
-                      <td className="py-3 px-2 text-foreground">{s.aantal || "—"}</td>
-                      <td className="py-3 px-2"><Checkbox checked={s.opgevolgd} onCheckedChange={() => toggleContactOpgevolgd(s.id, s.opgevolgd)} /></td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          )}
-        </TabsContent>
-
-        {/* ─── Masterclass Tab ─── */}
-        <TabsContent value="masterclass">
-          <div className="grid grid-cols-2 gap-4 mb-8 max-w-md">
-            <div className="bg-card border border-border rounded-lg p-4">
-              <p className="text-xs text-muted-foreground">Totaal</p>
-              <p className="text-2xl font-mono font-bold text-foreground">{masterclassSubmissions.length}</p>
-            </div>
-            <div className="bg-card border border-border rounded-lg p-4">
-              <p className="text-xs text-muted-foreground">Nog op te volgen</p>
-              <p className="text-2xl font-mono font-bold text-foreground">{masterclassNog}</p>
-            </div>
-          </div>
-          {loading ? <p className="text-muted-foreground">Laden...</p> : (
-            <div className="overflow-x-auto">
-              <table className="w-full text-sm">
-                <thead>
-                  <tr className="border-b border-border text-left">
-                    <th className="py-3 px-2 text-muted-foreground font-medium">Datum</th>
-                    <th className="py-3 px-2 text-muted-foreground font-medium">Naam</th>
-                    <th className="py-3 px-2 text-muted-foreground font-medium">Organisatie</th>
-                    <th className="py-3 px-2 text-muted-foreground font-medium">E-mail</th>
-                    <th className="py-3 px-2 text-muted-foreground font-medium">Sessie type</th>
-                    <th className="py-3 px-2 text-muted-foreground font-medium">Opgevolgd</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {masterclassSubmissions.map((s) => (
-                    <tr key={s.id} className="border-b border-border">
-                      <td className="py-3 px-2 text-foreground">{formatDate(s.created_at)}</td>
-                      <td className="py-3 px-2 text-foreground">{s.naam}</td>
-                      <td className="py-3 px-2 text-foreground">{s.organisatie}</td>
-                      <td className="py-3 px-2"><a href={`mailto:${s.email}`} className="text-primary hover:underline">{s.email}</a></td>
-                      <td className="py-3 px-2 text-foreground capitalize">{s.sessie_type}</td>
-                      <td className="py-3 px-2"><Checkbox checked={s.opgevolgd} onCheckedChange={() => toggleMasterclassOpgevolgd(s.id, s.opgevolgd)} /></td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          )}
-        </TabsContent>
-
-        {/* ─── Risicoscan Tab ─── */}
-        <TabsContent value="risicoscan">
-          <div className="grid grid-cols-3 gap-4 mb-8 max-w-xl">
-            {[
-              { label: "Totaal", value: riskSubmissions.length },
-              { label: "Nog op te volgen", value: riskNog },
-              { label: "Gemiddelde score", value: `${riskSubmissions.length > 0 ? Math.round(riskSubmissions.reduce((sum, s) => sum + s.totaal_score, 0) / riskSubmissions.length) : 0}%` },
-            ].map((stat) => (
-              <div key={stat.label} className="bg-card border border-border rounded-lg p-4">
-                <p className="text-xs text-muted-foreground">{stat.label}</p>
-                <p className="text-2xl font-mono font-bold text-foreground">{stat.value}</p>
+            <div className="flex items-center gap-3 sm:ml-auto">
+              <div className="relative">
+                <Search size={14} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-muted-foreground" />
+                <Input
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  placeholder="Zoeken..."
+                  className="pl-8 h-9 w-48"
+                />
               </div>
-            ))}
+              <label className="flex items-center gap-2 text-sm text-muted-foreground cursor-pointer whitespace-nowrap">
+                <Switch checked={showOpgevolgd} onCheckedChange={setShowOpgevolgd} />
+                Toon opgevolgde
+              </label>
+            </div>
           </div>
-          {loading ? <p className="text-muted-foreground">Laden...</p> : (
-            <div className="overflow-x-auto">
-              <table className="w-full text-sm">
-                <thead>
-                  <tr className="border-b border-border text-left">
-                    <th className="py-3 px-2 text-muted-foreground font-medium">Datum</th>
-                    <th className="py-3 px-2 text-muted-foreground font-medium">Naam</th>
-                    <th className="py-3 px-2 text-muted-foreground font-medium">Bedrijfsnaam</th>
-                    <th className="py-3 px-2 text-muted-foreground font-medium">E-mail</th>
-                    <th className="py-3 px-2 text-muted-foreground font-medium">Score</th>
-                    <th className="py-3 px-2 text-muted-foreground font-medium">Tier</th>
-                    <th className="py-3 px-2 text-muted-foreground font-medium">Opgevolgd</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {riskSubmissions.map((s) => (
-                    <tr key={s.id} className="border-b border-border">
-                      <td className="py-3 px-2 text-foreground">{formatDate(s.created_at)}</td>
-                      <td className="py-3 px-2 text-foreground">{s.naam}</td>
-                      <td className="py-3 px-2 text-foreground">{s.bedrijfsnaam}</td>
-                      <td className="py-3 px-2"><a href={`mailto:${s.email}`} className="text-primary hover:underline">{s.email}</a></td>
-                      <td className="py-3 px-2 font-mono text-foreground">{s.totaal_score}%</td>
-                      <td className="py-3 px-2 text-foreground">{tierLabels[s.tier] || s.tier}</td>
-                      <td className="py-3 px-2"><Checkbox checked={s.opgevolgd} onCheckedChange={() => toggleRiskOpgevolgd(s.id, s.opgevolgd)} /></td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+
+          {/* Items */}
+          {loading ? (
+            <p className="text-muted-foreground">Laden...</p>
+          ) : filteredInbox.length === 0 ? (
+            <div className="text-center py-12 text-muted-foreground">
+              <p className="text-lg font-medium">Geen inzendingen</p>
+              <p className="text-sm mt-1">{showOpgevolgd ? "Er zijn geen inzendingen in deze categorie." : "Alle inzendingen zijn opgevolgd! Schakel 'Toon opgevolgde' in om ze te bekijken."}</p>
+            </div>
+          ) : (
+            <div className="space-y-3">
+              {filteredInbox.map((item) => {
+                const isExpanded = expandedId === item.id;
+                return (
+                  <div key={item.id} className="bg-card border border-border rounded-lg overflow-hidden hover:border-primary/30 transition-colors">
+                    <div
+                      className="flex items-start gap-4 p-4 cursor-pointer"
+                      onClick={() => setExpandedId(isExpanded ? null : item.id)}
+                    >
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center gap-2 mb-1">
+                          {typeBadge(item.type)}
+                          <span className="text-xs text-muted-foreground">{formatDate(item.created_at)}</span>
+                        </div>
+                        <p className="font-medium text-foreground truncate">{item.naam} — {item.org}</p>
+                        <div className="flex items-center gap-3 mt-1 text-sm text-muted-foreground">
+                          <a href={`mailto:${item.email}`} onClick={(e) => e.stopPropagation()} className="flex items-center gap-1 hover:text-primary truncate">
+                            <Mail size={12} /> {item.email}
+                          </a>
+                          {item.telefoon && (
+                            <a href={`tel:${item.telefoon}`} onClick={(e) => e.stopPropagation()} className="flex items-center gap-1 hover:text-primary">
+                              <Phone size={12} /> {item.telefoon}
+                            </a>
+                          )}
+                          {item.type === "contact" && <span>{hulpLabels[(item.raw as ContactSubmission).hulp] || (item.raw as ContactSubmission).hulp}</span>}
+                          {item.type === "masterclass" && <span className="capitalize">{(item.raw as MasterclassSubmission).sessie_type}</span>}
+                          {item.type === "risicoscan" && <span className="font-mono">{(item.raw as RiskSubmission).totaal_score}% · {tierLabels[(item.raw as RiskSubmission).tier] || (item.raw as RiskSubmission).tier}</span>}
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-3 shrink-0">
+                        <div onClick={(e) => e.stopPropagation()}>
+                          <Checkbox checked={item.opgevolgd} onCheckedChange={() => toggleOpgevolgd(item)} />
+                        </div>
+                        {isExpanded ? <ChevronUp size={16} className="text-muted-foreground" /> : <ChevronDown size={16} className="text-muted-foreground" />}
+                      </div>
+                    </div>
+                    {isExpanded && (
+                      <div className="px-4 pb-4 border-t border-border pt-3">
+                        {renderDetails(item)}
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
             </div>
           )}
         </TabsContent>
@@ -511,7 +571,7 @@ const Admin = () => {
                     <td className="py-3 px-2 text-foreground">{a.category}</td>
                     <td className="py-3 px-2">
                       {a.content ? (
-                        <span className="text-xs text-green-400">✓ Geïmporteerd</span>
+                        <span className="text-xs text-green-600 dark:text-green-400">✓ Geïmporteerd</span>
                       ) : (
                         <button onClick={() => importArticle(a)} disabled={importing[a.id]} className="text-xs text-primary hover:underline disabled:opacity-50">
                           {importing[a.id] ? "Bezig..." : "Importeer"}
