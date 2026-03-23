@@ -1,16 +1,24 @@
 
 
-## Countdown verbeteren: CTA-knop + kleuraccent
+## Twee aanpassingen: countdown verwijderen + sticky announcement bar
 
-### Wijzigingen in `src/pages/Index.tsx` — CountdownTimer component (regels 67-84)
+### 1. Countdown verwijderen uit hero (`src/pages/Index.tsx`)
+- Verwijder de `CountdownTimer` component (regels 44-88) en het `TARGET_DATE` const
+- Verwijder `<CountdownTimer />` aanroep (regel 159-160)
+- Houd de `TARGET_DATE` berekening beschikbaar voor de announcement bar (of herbereken inline)
 
-**1. CTA-knop toevoegen**
-Direct onder "Is jouw organisatie er klaar voor?" een `Link` knop toevoegen naar `/gereedheidscan` met tekst "Doe de gratis gereedheidscan →". Stijl: `btn-neon` class (bestaande magenta/paars gradient knop).
+### 2. Sticky announcement bar toevoegen (`src/App.tsx`)
+- Maak een `AnnouncementBar` component (inline of apart) met:
+  - Dynamische dagenberekening naar `2026-08-02`
+  - Tekst: `⏳ Nog [X] dagen — 2 augustus 2026 treedt de volledige EU AI Act in werking.`
+  - Stijl: `position: sticky`, `top: 0`, `z-index: 60` (hoger dan nav z-50), `btn-neon` achtergrondkleur (magenta/paurs gradient), witte tekst, padding 8px, font-size 14px, gecentreerd
+- Render boven `<Navbar />` in `AppContent`, alleen als `!isAdminActive`
+- Pas `pt-16` op `<main>` aan naar `pt-[calc(4rem+36px)]` (nav 64px + bar ~36px) zodat content niet overlapt
 
-**2. Countdown visueel urgenter maken**
-- Blokjes achtergrond wijzigen van `bg-card` naar een lichte magenta/paurs tint: `bg-gradient-to-br from-neon-purple/5 to-neon-pink/10`
-- Border sterker: `border-neon-pink/30` → `border-neon-pink/40`
-- De cijfers gebruiken al `neon-text` (paars→roze gradient), dat blijft
+### Bestanden
 
-Alleen de CountdownTimer return JSX wordt aangepast, geen andere wijzigingen.
+| Bestand | Wijziging |
+|---------|-----------|
+| `src/pages/Index.tsx` | CountdownTimer component + aanroep verwijderen |
+| `src/App.tsx` | AnnouncementBar toevoegen boven Navbar, main padding aanpassen |
 
