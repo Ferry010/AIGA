@@ -80,10 +80,10 @@ const EuAiActA4 = () => {
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 print:p-0 print:max-w-none">
         <div
           id="a4-document"
-          className="bg-white border border-border shadow-sm mx-auto print:border-none print:shadow-none print:mx-0"
-          style={{ maxWidth: "794px", aspectRatio: "1/1.414" }}
+          className="bg-white border border-border shadow-sm mx-auto print:border-none print:shadow-none print:mx-0 md:aspect-[1/1.414]"
+          style={{ maxWidth: "794px" }}
         >
-          <div className="p-6 sm:p-8 flex flex-col h-full text-foreground" style={{ fontSize: "12px", lineHeight: "1.5" }}>
+          <div className="p-5 sm:p-8 flex flex-col h-full text-foreground text-sm md:text-[12px] leading-relaxed md:leading-[1.5]">
             {/* ── Header ── */}
             <div className="flex justify-between items-start mb-4">
               <div>
