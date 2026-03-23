@@ -4,7 +4,7 @@ import BreadcrumbNav from "@/components/BreadcrumbNav";
 import SEO from "@/components/SEO";
 
 const SectionLabel = ({ children, className = "" }: { children: React.ReactNode; className?: string }) => (
-  <h3 className={`text-[11px] font-bold uppercase tracking-wider neon-text mb-2 ${className}`}>{children}</h3>
+  <h3 className={`text-xs md:text-[11px] font-bold uppercase tracking-wider neon-text mb-2 ${className}`}>{children}</h3>
 );
 
 const mailtoHref =
