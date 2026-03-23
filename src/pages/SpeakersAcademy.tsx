@@ -51,14 +51,6 @@ const SpeakersAcademy = () => (
             <Link to="/training" className="btn-neon inline-block px-6 py-3 rounded-lg text-[15px]">
               Bekijk de training
             </Link>
-            <a
-              href="https://www.speakersacademy.com/nl/spreker/ferry-hoes"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-neon-outline inline-block text-sm font-semibold px-6 py-3"
-            >
-              Spreek Ferry als keynote spreker
-            </a>
           </div>
         </AnimatedSection>
       </div>
