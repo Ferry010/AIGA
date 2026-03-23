@@ -1,24 +1,48 @@
 
 
-## Twee aanpassingen: countdown verwijderen + sticky announcement bar
+## SEO + Content overhaul voor /kenniscentrum/wat-is-ai-geletterdheid
 
-### 1. Countdown verwijderen uit hero (`src/pages/Index.tsx`)
-- Verwijder de `CountdownTimer` component (regels 44-88) en het `TARGET_DATE` const
-- Verwijder `<CountdownTimer />` aanroep (regel 159-160)
-- Houd de `TARGET_DATE` berekening beschikbaar voor de announcement bar (of herbereken inline)
+### Aanpak
+De artikelpagina wordt aangestuurd door `ArticleDetail.tsx` dat content uit de database rendert. Voor dit specifieke slug voegen we overrides toe in de bestaande component, plus een database-update met de nieuwe content.
 
-### 2. Sticky announcement bar toevoegen (`src/App.tsx`)
-- Maak een `AnnouncementBar` component (inline of apart) met:
-  - Dynamische dagenberekening naar `2026-08-02`
-  - Tekst: `⏳ Nog [X] dagen — 2 augustus 2026 treedt de volledige EU AI Act in werking.`
-  - Stijl: `position: sticky`, `top: 0`, `z-index: 60` (hoger dan nav z-50), `btn-neon` achtergrondkleur (magenta/paurs gradient), witte tekst, padding 8px, font-size 14px, gecentreerd
-- Render boven `<Navbar />` in `AppContent`, alleen als `!isAdminActive`
-- Pas `pt-16` op `<main>` aan naar `pt-[calc(4rem+36px)]` (nav 64px + bar ~36px) zodat content niet overlapt
+### Wijzigingen
+
+**1. Database migration — update article content**
+- Update de `articles` row met `slug = 'wat-is-ai-geletterdheid'`
+- Nieuwe markdown content (volledige tekst zoals opgegeven), maar zonder de FAQ-sectie en CTA-sectie (die worden apart gerenderd)
+
+**2. Edit `src/pages/ArticleDetail.tsx`**
+
+Slug-specifieke overrides voor `wat-is-ai-geletterdheid`:
+
+- **SEO override**: Custom title "Wat is AI-geletterdheid? Complete gids voor organisaties (2026)" en custom meta description. Canonical al correct via bestaande logica.
+- **Article JSON-LD override**: Verrijkte versie met `keywords`, `about`, `inLanguage: "nl-NL"`, `datePublished: "2025-02-01"`, `dateModified: "2026-03-21"`, uitgebreidere author/publisher data.
+- **Extra FAQPage JSON-LD**: Tweede `<script type="application/ld+json">` blok via de `breadcrumbJsonLd` slot van SEO component (hernoemen/uitbreiden) of via aparte Helmet.
+- **"Laatst bijgewerkt" regel**: Zichtbare datum onder de titel/auteur meta-rij.
+- **FAQ accordion**: Na de artikel-content, render de 7 FAQ-items als Accordion component (al beschikbaar in `src/components/ui/accordion.tsx`). Vragen als `AccordionTrigger`, antwoorden als `AccordionContent`.
+- **CTA buttons**: Drie knoppen onderaan, voor de auteur-bio:
+  - "Bekijk de online training" → `/training` (primary)
+  - "Doe de gratis AI Gereedheidscan" → `/gereedheidscan` (outline)
+  - "Vraag een offerte aan" → `/contact` (outline)
 
 ### Bestanden
 
-| Bestand | Wijziging |
-|---------|-----------|
-| `src/pages/Index.tsx` | CountdownTimer component + aanroep verwijderen |
-| `src/App.tsx` | AnnouncementBar toevoegen boven Navbar, main padding aanpassen |
+| Actie | Bestand |
+|-------|---------|
+| Migration | Update article content in database |
+| Edit | `src/pages/ArticleDetail.tsx` — slug-specifieke SEO, JSON-LD, FAQ accordion, CTA's, "Laatst bijgewerkt" |
+
+### Structuur in ArticleDetail.tsx
+
+```text
+const isWatIsAiGeletterdheid = slug === "wat-is-ai-geletterdheid";
+
+// SEO: conditional title/description override
+// JSON-LD: conditional enriched Article schema + FAQPage schema
+// Meta row: add "Laatst bijgewerkt: 21 maart 2026" visible line
+// After article content: if isWatIsAiGeletterdheid → render FAQ Accordion + CTA block
+// Then existing: author bio, related, prev/next
+```
+
+De FAQ-data en het FAQPage schema worden als constanten bovenaan het bestand gedefinieerd om ArticleDetail leesbaar te houden.
 

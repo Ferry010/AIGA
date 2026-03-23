@@ -12,7 +12,7 @@ import SEO from "@/components/SEO";
 import brandLogo from "@/assets/brand-humanizing-logo.png";
 import speakersLogo from "@/assets/speakers-academy-logo.png";
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 
 const faqItems = [
   {
@@ -40,7 +40,6 @@ const faqItems = [
     a: "Ja. Vraag een offerte aan via het contactformulier voor een prijsopgave op maat. Vanaf 50 seats ontvang je de Masterclass gratis.",
   },
 ];
-
 
 const Index = () => {
   const reduced = useReduceMotion();
@@ -88,10 +87,10 @@ const Index = () => {
               <span className="neon-text">Weet iedereen wat dat betekent?</span>
             </h1>
             <h2 className="text-xl sm:text-2xl font-display font-semibold text-primary mt-4">
-              De #1 AI Geletterdheid Training voor Nederlandse Organisaties — ontwikkeld door Ferry Hoes, keynote speaker en AI-expert
+              De #1 AI Geletterdheid Training voor Nederlandse Organisaties
             </h2>
             <p className="mt-6 text-lg text-muted-foreground max-w-2xl leading-relaxed">
-              Sinds februari 2025 is AI-geletterdheid wettelijk verplicht voor organisaties in de EU. Wij helpen je team voldoen aan de AI Act — en AI ook echt effectief en mensgericht inzetten. Met een praktische online training en een digitaal certificaat dat telt bij een audit.
+              Sinds februari 2025 is AI-geletterdheid wettelijk verplicht voor organisaties in de EU. Wij helpen je team voldoen aan de AI Act, met een praktische online training en een digitaal certificaat dat telt bij een audit.
             </p>
             <p className="mt-4 text-muted-foreground max-w-2xl leading-relaxed">
               Speciaal voor Nederlandse organisaties: onze training is volledig Nederlandstalig, gebaseerd op de vereisten van de EU AI Act zoals die in Nederland van toepassing zijn, en gevalideerd door AI-experts die dagelijks werken met Nederlandse bedrijven en overheidsinstellingen.
@@ -110,8 +109,6 @@ const Index = () => {
               <span className="flex items-center gap-1.5"><Check size={14} className="text-primary/60" /> Gratis Masterclass vanaf 50 seats</span>
               <span className="flex items-center gap-1.5"><Check size={14} className="text-primary/60" /> Direct starten</span>
             </div>
-
-
           </motion.div>
         </div>
       </section>
@@ -135,7 +132,7 @@ const Index = () => {
           <div className="flex flex-col sm:flex-row sm:items-center gap-3">
             <span className="text-xs font-medium uppercase tracking-[0.08em] text-amber-700 font-body">Deadline</span>
             <p className="text-sm text-foreground leading-relaxed">
-              Per 2 augustus 2026 treedt de volledige EU AI Act in werking. Organisaties zonder gecertificeerde medewerkers riskeren boetes tot 7% van de wereldwijde jaaromzet.
+              Per augustus 2025 wordt de AI Act actief gehandhaafd. Organisaties zonder gecertificeerde medewerkers riskeren boetes.
             </p>
           </div>
         </div>
