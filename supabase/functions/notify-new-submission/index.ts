@@ -8,35 +8,6 @@ const corsHeaders = {
 
 const GATEWAY_URL = "https://connector-gateway.lovable.dev/slack/api";
 const SLACK_CHANNEL_ID = "C0AN9L9877C"; // #aiga-requests
-const NOTIFICATION_EMAIL = "robbert@speakersacademy.nl";
-
-async function findChannelId(
-  channelName: string,
-  lovableKey: string,
-  slackKey: string
-): Promise<string | null> {
-  let cursor = "";
-  do {
-    const url = `${GATEWAY_URL}/conversations.list?types=public_channel&limit=200${cursor ? `&cursor=${cursor}` : ""}`;
-    const res = await fetch(url, {
-      headers: {
-        Authorization: `Bearer ${lovableKey}`,
-        "X-Connection-Api-Key": slackKey,
-      },
-    });
-    const data = await res.json();
-    if (!data.ok) {
-      console.error("Slack conversations.list error:", data.error);
-      return null;
-    }
-    const found = data.channels?.find(
-      (c: { name: string }) => c.name === channelName
-    );
-    if (found) return found.id;
-    cursor = data.response_metadata?.next_cursor || "";
-  } while (cursor);
-  return null;
-}
 
 serve(async (req) => {
   if (req.method === "OPTIONS") {
@@ -61,7 +32,6 @@ serve(async (req) => {
       minute: "2-digit",
     });
 
-    // Build Slack message
     const typeLabels: Record<string, string> = {
       contact: "📬 Contact",
       masterclass: "🎓 Masterclass",
@@ -77,43 +47,24 @@ serve(async (req) => {
     if (extra) slackText += `*Details:* ${extra}\n`;
     slackText += `*Datum:* ${datum}`;
 
-    // Find channel
-    const channelId = await findChannelId(
-      SLACK_CHANNEL_NAME,
-      LOVABLE_API_KEY,
-      SLACK_API_KEY
-    );
-
-    if (channelId) {
-      const slackRes = await fetch(`${GATEWAY_URL}/chat.postMessage`, {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${LOVABLE_API_KEY}`,
-          "X-Connection-Api-Key": SLACK_API_KEY,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          channel: channelId,
-          text: slackText,
-          username: "AIGA Formulieren",
-          icon_emoji: ":incoming_envelope:",
-        }),
-      });
-      const slackData = await slackRes.json();
-      if (!slackData.ok) {
-        console.error("Slack postMessage error:", slackData.error);
-      }
-    } else {
-      console.error(
-        `Slack channel #${SLACK_CHANNEL_NAME} not found. Message not sent.`
-      );
+    const slackRes = await fetch(`${GATEWAY_URL}/chat.postMessage`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${LOVABLE_API_KEY}`,
+        "X-Connection-Api-Key": SLACK_API_KEY,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        channel: SLACK_CHANNEL_ID,
+        text: slackText,
+        username: "AIGA Formulieren",
+        icon_emoji: ":incoming_envelope:",
+      }),
+    });
+    const slackData = await slackRes.json();
+    if (!slackData.ok) {
+      console.error("Slack postMessage error:", slackData.error);
     }
-
-    // Email notification via Supabase (if transactional email is set up later, this is a placeholder)
-    // For now we log the email intent
-    console.log(
-      `Email notification would be sent to ${NOTIFICATION_EMAIL} for ${type} from ${naam} (${email})`
-    );
 
     return new Response(JSON.stringify({ success: true }), {
       status: 200,
