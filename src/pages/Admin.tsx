@@ -220,6 +220,23 @@ const Admin = () => {
   const generateSlug = (title: string) =>
     title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setUploading(true);
+    try {
+      const ext = file.name.split(".").pop();
+      const fileName = `${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`;
+      const { error } = await supabase.storage.from("article-images").upload(fileName, file);
+      if (error) throw error;
+      const { data: { publicUrl } } = supabase.storage.from("article-images").getPublicUrl(fileName);
+      setForm((prev) => ({ ...prev, image_url: publicUrl }));
+    } catch (err) {
+      console.error("Upload failed:", err);
+    }
+    setUploading(false);
+  };
+
   const handleSave = async () => {
     if (!form.title || !form.url || !form.image_url) return;
     setSaving(true);
