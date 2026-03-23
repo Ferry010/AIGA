@@ -136,7 +136,7 @@ const Index = () => {
           <div className="flex flex-col sm:flex-row sm:items-center gap-3">
             <span className="text-xs font-medium uppercase tracking-[0.08em] text-amber-700 font-body">Deadline</span>
             <p className="text-sm text-foreground leading-relaxed">
-              Per augustus 2025 wordt de AI Act actief gehandhaafd. Organisaties zonder gecertificeerde medewerkers riskeren boetes.
+              Per 2 augustus 2026 treedt de volledige EU AI Act in werking. Organisaties zonder gecertificeerde medewerkers riskeren boetes tot 7% van de wereldwijde jaaromzet.
             </p>
           </div>
         </div>
