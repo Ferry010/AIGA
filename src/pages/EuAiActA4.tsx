@@ -169,9 +169,9 @@ const EuAiActA4 = () => {
             </div>
 
             {/* ── Blok 5: Hoog risico verplichtingen ── */}
-            <div className="mb-3">
+            <div className="mb-5 md:mb-3">
               <SectionLabel>Hoog risico — extra verplichtingen</SectionLabel>
-              <div className="grid grid-cols-2 gap-3 mt-1">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-3 mt-1">
                 <div>
                   <p className="font-bold text-sm md:text-[10px] mb-1">Voor aanbieders (providers):</p>
                   <ul className="space-y-1 md:space-y-0.5">
