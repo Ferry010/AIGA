@@ -1,48 +1,29 @@
 
 
-## SEO + Content overhaul voor /kenniscentrum/wat-is-ai-geletterdheid
+## Vier aanpassingen op de homepage
 
-### Aanpak
-De artikelpagina wordt aangestuurd door `ArticleDetail.tsx` dat content uit de database rendert. Voor dit specifieke slug voegen we overrides toe in de bestaande component, plus een database-update met de nieuwe content.
+### Aanpassing 1 — Datumtekst fixen
+Regel 135 in `src/pages/Index.tsx`: vervang de urgency banner tekst.
 
-### Wijzigingen
+### Aanpassing 2 — Live countdown
+Nieuw blok tussen de hero CTA's (regel 111) en de "Een samenwerking tussen" sectie (regel 117). Bevat:
+- `useEffect` + `useState` voor real-time countdown naar `2026-08-02T00:00:00` (Europe/Amsterdam)
+- Vier blokjes (dagen/uren/minuten/seconden) met neon-pink/purple styling
+- Tekst erboven: "TIJD TOT VOLLEDIGE AI ACT HANDHAVING" (small caps)
+- Tekst eronder: "Is jouw organisatie er klaar voor?"
+- Op mobiel (`< sm`): 2x2 grid; op desktop: 4 kolommen naast elkaar
 
-**1. Database migration — update article content**
-- Update de `articles` row met `slug = 'wat-is-ai-geletterdheid'`
-- Nieuwe markdown content (volledige tekst zoals opgegeven), maar zonder de FAQ-sectie en CTA-sectie (die worden apart gerenderd)
+### Aanpassing 3 — Hero paragraaf
+Regel 93: vervang de zin met de nieuwe versie inclusief "en AI ook echt effectief en mensgericht inzetten".
 
-**2. Edit `src/pages/ArticleDetail.tsx`**
-
-Slug-specifieke overrides voor `wat-is-ai-geletterdheid`:
-
-- **SEO override**: Custom title "Wat is AI-geletterdheid? Complete gids voor organisaties (2026)" en custom meta description. Canonical al correct via bestaande logica.
-- **Article JSON-LD override**: Verrijkte versie met `keywords`, `about`, `inLanguage: "nl-NL"`, `datePublished: "2025-02-01"`, `dateModified: "2026-03-21"`, uitgebreidere author/publisher data.
-- **Extra FAQPage JSON-LD**: Tweede `<script type="application/ld+json">` blok via de `breadcrumbJsonLd` slot van SEO component (hernoemen/uitbreiden) of via aparte Helmet.
-- **"Laatst bijgewerkt" regel**: Zichtbare datum onder de titel/auteur meta-rij.
-- **FAQ accordion**: Na de artikel-content, render de 7 FAQ-items als Accordion component (al beschikbaar in `src/components/ui/accordion.tsx`). Vragen als `AccordionTrigger`, antwoorden als `AccordionContent`.
-- **CTA buttons**: Drie knoppen onderaan, voor de auteur-bio:
-  - "Bekijk de online training" → `/training` (primary)
-  - "Doe de gratis AI Gereedheidscan" → `/gereedheidscan` (outline)
-  - "Vraag een offerte aan" → `/contact` (outline)
+### Aanpassing 4 — Subheadline
+Regel 90: voeg "— ontwikkeld door Ferry Hoes, keynote speaker en AI-expert" toe.
 
 ### Bestanden
 
-| Actie | Bestand |
-|-------|---------|
-| Migration | Update article content in database |
-| Edit | `src/pages/ArticleDetail.tsx` — slug-specifieke SEO, JSON-LD, FAQ accordion, CTA's, "Laatst bijgewerkt" |
+| Bestand | Wijziging |
+|---------|-----------|
+| `src/pages/Index.tsx` | 4 tekstwijzigingen + countdown component inline |
 
-### Structuur in ArticleDetail.tsx
-
-```text
-const isWatIsAiGeletterdheid = slug === "wat-is-ai-geletterdheid";
-
-// SEO: conditional title/description override
-// JSON-LD: conditional enriched Article schema + FAQPage schema
-// Meta row: add "Laatst bijgewerkt: 21 maart 2026" visible line
-// After article content: if isWatIsAiGeletterdheid → render FAQ Accordion + CTA block
-// Then existing: author bio, related, prev/next
-```
-
-De FAQ-data en het FAQPage schema worden als constanten bovenaan het bestand gedefinieerd om ArticleDetail leesbaar te houden.
+Geen nieuwe bestanden, geen layout-wijzigingen, geen andere componenten geraakt.
 
