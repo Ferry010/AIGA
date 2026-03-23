@@ -1,29 +1,16 @@
 
 
-## Vier aanpassingen op de homepage
+## Countdown verbeteren: CTA-knop + kleuraccent
 
-### Aanpassing 1 — Datumtekst fixen
-Regel 135 in `src/pages/Index.tsx`: vervang de urgency banner tekst.
+### Wijzigingen in `src/pages/Index.tsx` — CountdownTimer component (regels 67-84)
 
-### Aanpassing 2 — Live countdown
-Nieuw blok tussen de hero CTA's (regel 111) en de "Een samenwerking tussen" sectie (regel 117). Bevat:
-- `useEffect` + `useState` voor real-time countdown naar `2026-08-02T00:00:00` (Europe/Amsterdam)
-- Vier blokjes (dagen/uren/minuten/seconden) met neon-pink/purple styling
-- Tekst erboven: "TIJD TOT VOLLEDIGE AI ACT HANDHAVING" (small caps)
-- Tekst eronder: "Is jouw organisatie er klaar voor?"
-- Op mobiel (`< sm`): 2x2 grid; op desktop: 4 kolommen naast elkaar
+**1. CTA-knop toevoegen**
+Direct onder "Is jouw organisatie er klaar voor?" een `Link` knop toevoegen naar `/gereedheidscan` met tekst "Doe de gratis gereedheidscan →". Stijl: `btn-neon` class (bestaande magenta/paars gradient knop).
 
-### Aanpassing 3 — Hero paragraaf
-Regel 93: vervang de zin met de nieuwe versie inclusief "en AI ook echt effectief en mensgericht inzetten".
+**2. Countdown visueel urgenter maken**
+- Blokjes achtergrond wijzigen van `bg-card` naar een lichte magenta/paurs tint: `bg-gradient-to-br from-neon-purple/5 to-neon-pink/10`
+- Border sterker: `border-neon-pink/30` → `border-neon-pink/40`
+- De cijfers gebruiken al `neon-text` (paars→roze gradient), dat blijft
 
-### Aanpassing 4 — Subheadline
-Regel 90: voeg "— ontwikkeld door Ferry Hoes, keynote speaker en AI-expert" toe.
-
-### Bestanden
-
-| Bestand | Wijziging |
-|---------|-----------|
-| `src/pages/Index.tsx` | 4 tekstwijzigingen + countdown component inline |
-
-Geen nieuwe bestanden, geen layout-wijzigingen, geen andere componenten geraakt.
+Alleen de CountdownTimer return JSX wordt aangepast, geen andere wijzigingen.
 
