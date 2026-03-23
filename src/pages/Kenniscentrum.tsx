@@ -28,6 +28,7 @@ interface Article {
   image_url: string;
   content: string | null;
   slug: string | null;
+  labels: string[];
 }
 
 
