@@ -168,3 +168,45 @@ html.a11y-reduce-motion * {
   transition: none !important;
   animation: none !important;
 }
+
+/* Print stylesheet — EU AI Act A4 one-pager */
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 1cm;
+  }
+
+  body {
+    background: white !important;
+    color: black !important;
+    font-size: 12px !important;
+    line-height: 1.5 !important;
+  }
+
+  nav,
+  footer,
+  .print\\:hidden,
+  [class*="breadcrumb"],
+  [class*="CookieBanner"],
+  [class*="AccessibilityWidget"] {
+    display: none !important;
+  }
+
+  main {
+    padding: 0 !important;
+  }
+
+  #a4-document {
+    border: none !important;
+    box-shadow: none !important;
+    max-width: 100% !important;
+    width: 100% !important;
+    aspect-ratio: auto !important;
+  }
+
+  .neon-text {
+    -webkit-text-fill-color: black !important;
+    color: black !important;
+    background: none !important;
+  }
+}
