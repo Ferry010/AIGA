@@ -90,7 +90,7 @@ const Index = () => {
               De #1 AI Geletterdheid Training voor Nederlandse Organisaties — ontwikkeld door Ferry Hoes, keynote speaker en AI-expert
             </h2>
             <p className="mt-6 text-lg text-muted-foreground max-w-2xl leading-relaxed">
-              Sinds februari 2025 is AI-geletterdheid wettelijk verplicht voor organisaties in de EU. Wij helpen je team voldoen aan de AI Act, met een praktische online training en een digitaal certificaat dat telt bij een audit.
+              Sinds februari 2025 is AI-geletterdheid wettelijk verplicht voor organisaties in de EU. Wij helpen je team voldoen aan de AI Act — en AI ook echt effectief en mensgericht inzetten. Met een praktische online training en een digitaal certificaat dat telt bij een audit.
             </p>
             <p className="mt-4 text-muted-foreground max-w-2xl leading-relaxed">
               Speciaal voor Nederlandse organisaties: onze training is volledig Nederlandstalig, gebaseerd op de vereisten van de EU AI Act zoals die in Nederland van toepassing zijn, en gevalideerd door AI-experts die dagelijks werken met Nederlandse bedrijven en overheidsinstellingen.
