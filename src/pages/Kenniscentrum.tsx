@@ -35,14 +35,14 @@ interface Article {
 const Kenniscentrum = () => {
   // Article state
   const [activeCategory, setActiveCategory] = useState<ArticleCategory>("Alle");
+  const [activeLabel, setActiveLabel] = useState<string | null>(null);
   const [articles, setArticles] = useState<Article[]>([]);
   const [loading, setLoading] = useState(true);
-
 
   useEffect(() => {
     supabase
       .from("articles")
-      .select("id, title, category, url, image_url, content, slug")
+      .select("id, title, category, url, image_url, content, slug, labels")
       .eq("published", true)
       .order("sort_order", { ascending: true })
       .then(({ data }) => {
@@ -51,7 +51,14 @@ const Kenniscentrum = () => {
       });
   }, []);
 
-  const filteredArticles = activeCategory === "Alle" ? articles : articles.filter((a) => a.category === activeCategory);
+  // Collect all unique labels
+  const allLabels = Array.from(new Set(articles.flatMap((a) => a.labels || []))).sort();
+
+  const filteredArticles = articles.filter((a) => {
+    if (activeCategory !== "Alle" && a.category !== activeCategory) return false;
+    if (activeLabel && !(a.labels || []).includes(activeLabel)) return false;
+    return true;
+  });
 
   return (
     <div className="min-h-screen">
