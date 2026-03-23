@@ -12,7 +12,7 @@ import SEO from "@/components/SEO";
 import brandLogo from "@/assets/brand-humanizing-logo.png";
 import speakersLogo from "@/assets/speakers-academy-logo.png";
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 
 const faqItems = [
   {
