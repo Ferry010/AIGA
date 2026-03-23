@@ -1,34 +1,20 @@
 
 
-## Plan: Blog labels en filterfunctie verbeteren
+## Plan: Fix article category filter bug
 
-### Huidige situatie
-- Artikelen hebben één `category` veld (bijv. "Wetten en regels")
-- Kenniscentrum toont die category als badge en filtert erop
-- Dit werkt correct, maar er is geen mogelijkheid om meerdere labels toe te kennen
+### Root Cause
+The `StaggerContainer` and `StaggerItem` components use framer-motion's `whileInView` with `viewport={{ once: true }}`. Once the stagger animation plays on initial load, it never re-triggers. When the user switches categories, new article cards mount in the `hidden` variant (opacity: 0, y: 20) and stay invisible because the container won't re-animate.
 
-### Wat verandert
+### Fix
+In `src/pages/Kenniscentrum.tsx`, replace `StaggerContainer`/`StaggerItem` in the articles grid with simple `div` elements (or `motion.div` with `animate` instead of `whileInView`). The category filter is interactive — it doesn't need scroll-triggered animation, it needs immediate rendering.
 
-**1. Database: `labels` kolom toevoegen aan `articles`**
-- Nieuw veld: `labels text[] default '{}'` — een array van tags
-- Geen nieuwe tabel nodig, een simpele text-array volstaat
+The Kennisoverzichten section above can keep `StaggerContainer` since those cards are static.
 
-**2. Admin: Labels beheren per artikel**
-- Voeg een "Labels" veld toe aan het artikelformulier
-- Input met chips: typ een label, druk Enter, label verschijnt als badge
-- Klikbaar kruisje om labels te verwijderen
-- Voorgestelde labels uit bestaande labels in de database (autocomplete)
+### Changes
 
-**3. Kenniscentrum: Labels tonen en filteren**
-- Toon labels als kleine badges onder de category-badge op elke artikelkaart
-- Voeg een extra filterrij toe onder de category-filters met alle unieke labels
-- Filteren op label werkt naast het bestaande category-filter (AND-logica)
+| File | Change |
+|------|--------|
+| `src/pages/Kenniscentrum.tsx` | Replace `StaggerContainer`/`StaggerItem` wrapping the filtered articles grid with plain `div` elements. Optionally add a simple fade-in via CSS transition or a keyed motion wrapper. |
 
-### Bestanden
-
-| Actie | Bestand |
-|-------|---------|
-| Migratie | `labels text[] default '{}'` kolom toevoegen aan `articles` |
-| Edit | `src/pages/Admin.tsx` — labels input in artikelformulier |
-| Edit | `src/pages/Kenniscentrum.tsx` — labels tonen + filteroptie |
+No database changes needed.
 
