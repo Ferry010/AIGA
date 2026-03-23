@@ -149,7 +149,7 @@ const EuAiActA4 = () => {
             </div>
 
             {/* ── Blok 4: Artikel 4 ── */}
-            <div className="mb-3">
+            <div className="mb-5 md:mb-3">
               <SectionLabel>Jouw verplichting</SectionLabel>
               <p className="mb-1.5">
                 Artikel 4 geldt voor alle organisaties die AI gebruiken — ongeacht risicocategorie. De verplichting is al van kracht sinds 2 februari 2025.
