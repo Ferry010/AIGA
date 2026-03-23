@@ -11,8 +11,8 @@ const pillars = [
   },
   {
     icon: Mic,
-    title: "Ontwikkeld door een erkend AI-expert",
-    text: "Ferry Hoes spreekt maandelijks voor organisaties als a.s.r. Verzekeringen, VodafoneZiggo en meerdere Nederlandse Ministeries. De training komt rechtstreeks uit de praktijk.",
+    title: "Een van Nederlands meest gevraagde AI-sprekers",
+    text: "Ferry Hoes behoort tot de meest gevraagde AI-sprekers van Nederland, via Speakers Academy. Dat vertrouwen vormt de basis van AIGA. De training komt rechtstreeks uit de praktijk, voor organisaties als a.s.r. Verzekeringen, VodafoneZiggo en meerdere Nederlandse Ministeries.",
   },
   {
     icon: Award,
