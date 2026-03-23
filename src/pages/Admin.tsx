@@ -7,7 +7,7 @@ import { Switch } from "@/components/ui/switch";
 import { Input } from "@/components/ui/input";
 import RichTextEditor from "@/components/RichTextEditor";
 import { Label } from "@/components/ui/label";
-import { Pencil, Plus, X, LogOut, ChevronDown, ChevronUp, Mail, Phone, Search } from "lucide-react";
+import { Pencil, Plus, X, LogOut, ChevronDown, ChevronUp, Mail, Phone, Search, Upload, ImageIcon } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import AdminUsers from "@/components/AdminUsers";
 import AdminAccount from "@/components/AdminAccount";
