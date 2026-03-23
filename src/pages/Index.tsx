@@ -12,7 +12,7 @@ import SEO from "@/components/SEO";
 import brandLogo from "@/assets/brand-humanizing-logo.png";
 import speakersLogo from "@/assets/speakers-academy-logo.png";
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 
 const faqItems = [
   {
@@ -40,6 +40,49 @@ const faqItems = [
     a: "Ja. Vraag een offerte aan via het contactformulier voor een prijsopgave op maat. Vanaf 50 seats ontvang je de Masterclass gratis.",
   },
 ];
+
+const TARGET_DATE = new Date("2026-08-02T00:00:00+02:00");
+
+const CountdownTimer = () => {
+  const [now, setNow] = useState(new Date());
+
+  useEffect(() => {
+    const id = setInterval(() => setNow(new Date()), 1000);
+    return () => clearInterval(id);
+  }, []);
+
+  const diff = Math.max(0, TARGET_DATE.getTime() - now.getTime());
+  const days = Math.floor(diff / 86400000);
+  const hours = Math.floor((diff % 86400000) / 3600000);
+  const minutes = Math.floor((diff % 3600000) / 60000);
+  const seconds = Math.floor((diff % 60000) / 1000);
+
+  const blocks = [
+    { value: days, label: "Dagen" },
+    { value: hours, label: "Uren" },
+    { value: minutes, label: "Minuten" },
+    { value: seconds, label: "Seconden" },
+  ];
+
+  return (
+    <div className="mt-10 text-center">
+      <p className="text-xs font-medium uppercase tracking-[0.15em] text-muted-foreground mb-4">
+        Tijd tot volledige AI Act handhaving
+      </p>
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 max-w-md mx-auto sm:mx-0">
+        {blocks.map((b) => (
+          <div key={b.label} className="rounded-xl border border-neon-pink/30 bg-card px-4 py-3">
+            <span className="block text-3xl font-display font-bold neon-text">{String(b.value).padStart(2, "0")}</span>
+            <span className="text-[11px] uppercase tracking-wider text-muted-foreground">{b.label}</span>
+          </div>
+        ))}
+      </div>
+      <p className="mt-4 text-sm font-medium text-foreground">
+        Is jouw organisatie er klaar voor?
+      </p>
+    </div>
+  );
+};
 
 const Index = () => {
   const reduced = useReduceMotion();
@@ -87,10 +130,10 @@ const Index = () => {
               <span className="neon-text">Weet iedereen wat dat betekent?</span>
             </h1>
             <h2 className="text-xl sm:text-2xl font-display font-semibold text-primary mt-4">
-              De #1 AI Geletterdheid Training voor Nederlandse Organisaties
+              De #1 AI Geletterdheid Training voor Nederlandse Organisaties — ontwikkeld door Ferry Hoes, keynote speaker en AI-expert
             </h2>
             <p className="mt-6 text-lg text-muted-foreground max-w-2xl leading-relaxed">
-              Sinds februari 2025 is AI-geletterdheid wettelijk verplicht voor organisaties in de EU. Wij helpen je team voldoen aan de AI Act, met een praktische online training en een digitaal certificaat dat telt bij een audit.
+              Sinds februari 2025 is AI-geletterdheid wettelijk verplicht voor organisaties in de EU. Wij helpen je team voldoen aan de AI Act — en AI ook echt effectief en mensgericht inzetten. Met een praktische online training en een digitaal certificaat dat telt bij een audit.
             </p>
             <p className="mt-4 text-muted-foreground max-w-2xl leading-relaxed">
               Speciaal voor Nederlandse organisaties: onze training is volledig Nederlandstalig, gebaseerd op de vereisten van de EU AI Act zoals die in Nederland van toepassing zijn, en gevalideerd door AI-experts die dagelijks werken met Nederlandse bedrijven en overheidsinstellingen.
@@ -109,6 +152,10 @@ const Index = () => {
               <span className="flex items-center gap-1.5"><Check size={14} className="text-primary/60" /> Gratis Masterclass vanaf 50 seats</span>
               <span className="flex items-center gap-1.5"><Check size={14} className="text-primary/60" /> Direct starten</span>
             </div>
+
+            {/* Countdown */}
+            <CountdownTimer />
+
           </motion.div>
         </div>
       </section>
@@ -132,7 +179,7 @@ const Index = () => {
           <div className="flex flex-col sm:flex-row sm:items-center gap-3">
             <span className="text-xs font-medium uppercase tracking-[0.08em] text-amber-700 font-body">Deadline</span>
             <p className="text-sm text-foreground leading-relaxed">
-              Per augustus 2025 wordt de AI Act actief gehandhaafd. Organisaties zonder gecertificeerde medewerkers riskeren boetes.
+              Per 2 augustus 2026 treedt de volledige EU AI Act in werking. Organisaties zonder gecertificeerde medewerkers riskeren boetes tot 7% van de wereldwijde jaaromzet.
             </p>
           </div>
         </div>
