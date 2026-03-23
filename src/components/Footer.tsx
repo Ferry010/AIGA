@@ -10,6 +10,7 @@ const footerLinks = [
   { to: "/contact", label: "Contact" },
   { to: "/faq", label: "FAQ" },
   { to: "/gereedheidscan", label: "AI Gereedheidscan" },
+  { to: "/speakers-academy", label: "Speakers Academy" },
 ];
 
 const seoLinks = [
