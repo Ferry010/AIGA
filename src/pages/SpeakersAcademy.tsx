@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { AnimatedSection, StaggerContainer, StaggerItem } from "@/components/AnimatedSection";
+import { AnimatedSection } from "@/components/AnimatedSection";
 import SectionLabel from "@/components/SectionLabel";
 import SEO from "@/components/SEO";
 import speakersLogo from "@/assets/speakers-academy-logo.png";
