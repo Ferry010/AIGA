@@ -87,7 +87,7 @@ const hulpLabels: Record<string, string> = {
   anders: "Anders",
 };
 
-const emptyArticleForm = { title: "", category: CATEGORIES[0], url: "", image_url: "", published: true, sort_order: 0, content: "", slug: "" };
+const emptyArticleForm = { title: "", category: CATEGORIES[0], url: "", image_url: "", published: true, sort_order: 0, content: "", slug: "", labels: [] as string[] };
 
 const formatDate = (dateStr: string) => {
   const date = new Date(dateStr);
