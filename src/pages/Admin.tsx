@@ -238,6 +238,27 @@ const Admin = () => {
     setUploading(false);
   };
 
+  const [labelInput, setLabelInput] = useState("");
+
+  // Collect all unique labels from existing articles for autocomplete
+  const allLabels = useMemo(() => {
+    const set = new Set<string>();
+    articles.forEach((a) => (a.labels || []).forEach((l) => set.add(l)));
+    return Array.from(set).sort();
+  }, [articles]);
+
+  const addLabel = (label: string) => {
+    const trimmed = label.trim();
+    if (trimmed && !form.labels.includes(trimmed)) {
+      setForm((prev) => ({ ...prev, labels: [...prev.labels, trimmed] }));
+    }
+    setLabelInput("");
+  };
+
+  const removeLabel = (label: string) => {
+    setForm((prev) => ({ ...prev, labels: prev.labels.filter((l) => l !== label) }));
+  };
+
   const handleSave = async () => {
     if (!form.title || !form.url || !form.image_url) return;
     setSaving(true);
