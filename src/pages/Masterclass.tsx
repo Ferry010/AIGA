@@ -51,6 +51,18 @@ const Masterclass = () => {
       return;
     }
 
+    // Send notification (fire-and-forget)
+    supabase.functions.invoke("notify-new-submission", {
+      body: {
+        type: "masterclass",
+        naam: form.naam,
+        organisatie: form.organisatie,
+        email: form.email,
+        telefoon: form.telefoon || null,
+        extra: `Sessie type: ${form.sessieType}`,
+      },
+    }).catch(console.error);
+
     setSubmitted(true);
     toast.success("Aanvraag verstuurd! We nemen snel contact met je op.");
   };

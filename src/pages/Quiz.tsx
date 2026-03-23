@@ -135,6 +135,16 @@ const Quiz = () => {
     if (error) {
       setSubmitError(true);
     } else {
+      // Send notification (fire-and-forget)
+      supabase.functions.invoke("notify-new-submission", {
+        body: {
+          type: "risicoscan",
+          naam: formData.naam,
+          organisatie: formData.bedrijf,
+          email: formData.email,
+          extra: `Score: ${pct}% · Tier: ${pct <= 40 ? "Hoog risico" : pct <= 70 ? "Gemengd" : "Laag risico"}`,
+        },
+      }).catch(console.error);
       setSubmitted(true);
     }
   };
