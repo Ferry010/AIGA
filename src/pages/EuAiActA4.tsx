@@ -83,7 +83,7 @@ const EuAiActA4 = () => {
           className="bg-white border border-border shadow-sm mx-auto print:border-none print:shadow-none print:mx-0 md:aspect-[1/1.414]"
           style={{ maxWidth: "794px" }}
         >
-          <div className="p-5 sm:p-8 flex flex-col h-full text-foreground text-base md:text-[12px] leading-relaxed md:leading-[1.5]">
+          <div className="p-6 sm:p-8 flex flex-col h-full text-foreground text-base md:text-[12px] leading-relaxed md:leading-[1.5]">
             {/* ── Header ── */}
             <div className="flex justify-between items-start mb-4">
               <div>
@@ -99,7 +99,7 @@ const EuAiActA4 = () => {
             <hr className="border-border mb-3" />
 
             {/* ── Blok 1: Achtergrond ── */}
-            <div className="mb-3">
+            <div className="mb-5 md:mb-3">
               <SectionLabel>Achtergrond</SectionLabel>
               <p>
                 De EU AI Act (Verordening 2024/1689) is de eerste bindende AI-wet ter wereld. Hij regelt hoe AI-systemen ontwikkeld, aangeboden en gebruikt mogen worden in de Europese Unie. De wet geldt voor alle organisaties die AI gebruiken — ongeacht of ze in de EU gevestigd zijn.
@@ -107,9 +107,9 @@ const EuAiActA4 = () => {
             </div>
 
             {/* ── Blok 2: Tijdlijn ── */}
-            <div className="mb-3">
+            <div className="mb-5 md:mb-3">
               <SectionLabel>Inwerkingtreding</SectionLabel>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-0 mt-2 md:mt-1 relative">
+              <div className="grid grid-cols-1 md:grid-cols-4 gap-4 md:gap-0 mt-2 md:mt-1 relative">
                 {/* Connecting line — desktop only */}
                 <div className="hidden md:block absolute top-[7px] left-[7px] right-[7px] h-[2px] bg-border" />
                 {timelineItems.map((item, i) => (
@@ -133,7 +133,7 @@ const EuAiActA4 = () => {
             </div>
 
             {/* ── Blok 3: Risicocategorieën ── */}
-            <div className="mb-3">
+            <div className="mb-5 md:mb-3">
               <SectionLabel>Risicoclassificatie</SectionLabel>
               <div className="grid grid-cols-1 md:grid-cols-4 gap-2 mt-1">
                 {riskCategories.map((cat) => (
@@ -149,7 +149,7 @@ const EuAiActA4 = () => {
             </div>
 
             {/* ── Blok 4: Artikel 4 ── */}
-            <div className="mb-3">
+            <div className="mb-5 md:mb-3">
               <SectionLabel>Jouw verplichting</SectionLabel>
               <p className="mb-1.5">
                 Artikel 4 geldt voor alle organisaties die AI gebruiken — ongeacht risicocategorie. De verplichting is al van kracht sinds 2 februari 2025.
@@ -169,9 +169,9 @@ const EuAiActA4 = () => {
             </div>
 
             {/* ── Blok 5: Hoog risico verplichtingen ── */}
-            <div className="mb-3">
+            <div className="mb-5 md:mb-3">
               <SectionLabel>Hoog risico — extra verplichtingen</SectionLabel>
-              <div className="grid grid-cols-2 gap-3 mt-1">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-3 mt-1">
                 <div>
                   <p className="font-bold text-sm md:text-[10px] mb-1">Voor aanbieders (providers):</p>
                   <ul className="space-y-1 md:space-y-0.5">
@@ -198,7 +198,7 @@ const EuAiActA4 = () => {
             </div>
 
             {/* ── Blok 6: Boetes ── */}
-            <div className="mb-3">
+            <div className="mb-5 md:mb-3">
               <SectionLabel>Handhaving</SectionLabel>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 mt-1">
                 {[
