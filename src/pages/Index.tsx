@@ -119,8 +119,8 @@ const Index = () => {
           <div className="flex flex-col items-center gap-4">
             <span className="text-xs font-medium uppercase tracking-[0.08em] text-muted-foreground font-body">Een samenwerking tussen</span>
             <div className="flex items-center gap-8">
-              <img src={brandLogo} alt="Brand Humanizing Institute" className="h-12 rounded" />
-              <img src={speakersLogo} alt="Speakers Academy" className="h-12 rounded" />
+              <img src={brandLogo} alt="Brand Humanizing Institute" className="rounded" style={{ height: '65px' }} />
+              <img src={speakersLogo} alt="Speakers Academy" className="rounded" style={{ height: '65px' }} />
             </div>
           </div>
         </div>
