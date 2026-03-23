@@ -1,25 +1,16 @@
 
 
-## Drie aanpassingen op /speakers-academy
+## Aanpassing: middelste kaart in "WAAROM AIGA"
 
-Alleen `src/pages/SpeakersAcademy.tsx` wordt gewijzigd.
+### Bestand
+`src/components/SocialProof.tsx`, regels 13-15
 
-### 1. Hero: tweede CTA verwijderen
-Regels 54-61 (de `<a>` naar speakersacademy.com) verwijderen. Alleen de "Bekijk de training" Link blijft staan.
+### Wijziging
+Vervang titel en tekst van het tweede item in de `reasons` array:
 
-### 2. "KIES JE STARTPUNT" vervangen door "DE VOLGENDE STAP"
-Regels 187-243 (sectie 5 inclusief StaggerContainer, twee kaarten en banner) volledig vervangen door:
-- SectionLabel "DE VOLGENDE STAP"
-- H2: "Jouw team AI-geletterd maken."
-- Bodytekst over AIGA, selfpaced, schaalbaar, certificaat (geen streepjes)
-- Twee knoppen: "Bekijk de training" (btn-neon, link /voor-teams) + "Vraag een offerte aan" (btn-neon-outline, link /contact)
+- **Titel**: "Een van Nederlands meest gevraagde AI-sprekers"
+- **Tekst**: "Ferry Hoes behoort tot de meest gevraagde AI-sprekers van Nederland, via Speakers Academy. Dat vertrouwen vormt de basis van AIGA. De training komt rechtstreeks uit de praktijk, voor organisaties als a.s.r. Verzekeringen, VodafoneZiggo en meerdere Nederlandse Ministeries."
+- **Icoon**: `Mic` blijft ongewijzigd
 
-Gebruikt `AnimatedSection` in dezelfde stijl als de andere secties. `StaggerContainer`/`StaggerItem` import kan verwijderd worden als niet meer nodig.
-
-### 3. Footer CTA: tweede knop verwijderen
-Regels 256-263 (de `<a>` naar speakersacademy.com "Boek Ferry als spreker") verwijderen. Alleen "Bekijk de AIGA training" blijft.
-
-| Bestand | Wijziging |
-|---------|-----------|
-| `src/pages/SpeakersAcademy.tsx` | 3 edits: hero CTA, sectie 5 vervangen, footer CTA |
+Geen andere bestanden worden aangepast.
 
