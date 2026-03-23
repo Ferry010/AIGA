@@ -71,7 +71,7 @@ const CountdownTimer = () => {
       </p>
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 max-w-md mx-auto sm:mx-0">
         {blocks.map((b) => (
-          <div key={b.label} className="rounded-xl border border-neon-pink/30 bg-card px-4 py-3">
+          <div key={b.label} className="rounded-xl border border-neon-pink/40 bg-gradient-to-br from-neon-purple/5 to-neon-pink/10 px-4 py-3">
             <span className="block text-3xl font-display font-bold neon-text">{String(b.value).padStart(2, "0")}</span>
             <span className="text-[11px] uppercase tracking-wider text-muted-foreground">{b.label}</span>
           </div>
@@ -80,6 +80,9 @@ const CountdownTimer = () => {
       <p className="mt-4 text-sm font-medium text-foreground">
         Is jouw organisatie er klaar voor?
       </p>
+      <Link to="/gereedheidscan" className="btn-neon inline-block mt-4 rounded-lg px-6 py-2.5 text-sm">
+        Doe de gratis gereedheidscan →
+      </Link>
     </div>
   );
 };
