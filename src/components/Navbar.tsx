@@ -8,6 +8,7 @@ const navLinks = [
   { to: "/kenniscentrum", label: "Kenniscentrum" },
   { to: "/tools", label: "Tools" },
   { to: "/over-aiga", label: "Over AIGA" },
+  { to: "/speakers-academy", label: "Speakers Academy" },
 ];
 
 const Navbar = () => {
