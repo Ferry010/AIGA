@@ -109,23 +109,25 @@ const EuAiActA4 = () => {
             {/* ── Blok 2: Tijdlijn ── */}
             <div className="mb-3">
               <SectionLabel>Inwerkingtreding</SectionLabel>
-              <div className="flex items-start gap-0 mt-1 relative">
-                {/* Connecting line */}
-                <div className="absolute top-[7px] left-[7px] right-[7px] h-[2px] bg-border" />
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-0 mt-2 md:mt-1 relative">
+                {/* Connecting line — desktop only */}
+                <div className="hidden md:block absolute top-[7px] left-[7px] right-[7px] h-[2px] bg-border" />
                 {timelineItems.map((item, i) => (
-                  <div key={i} className="flex-1 relative z-10 flex flex-col items-center text-center px-1">
-                    <div className={`w-[14px] h-[14px] rounded-full border-2 ${item.warn ? "border-amber-500 bg-amber-100" : item.active ? "border-primary bg-primary" : "border-border bg-background"}`} />
-                    <span className="font-bold text-[10px] mt-1 leading-tight">{item.date}</span>
-                    {item.badge && (
-                      <span className={`text-[8px] font-bold px-1 rounded mt-0.5 ${item.warn ? "bg-amber-100 text-amber-700" : "bg-primary/10 text-primary"}`}>
-                        {item.badge === "ACTIEF" ? "✓ " : "⚠ "}{item.badge}
-                      </span>
-                    )}
-                    <span className="text-[9px] text-muted-foreground leading-tight mt-0.5">{item.label}</span>
+                  <div key={i} className="relative z-10 flex md:flex-col items-start md:items-center md:text-center gap-2 md:gap-0 px-0 md:px-1">
+                    <div className={`w-[14px] h-[14px] rounded-full border-2 shrink-0 ${item.warn ? "border-amber-500 bg-amber-100" : item.active ? "border-primary bg-primary" : "border-border bg-background"}`} />
+                    <div className="flex flex-col md:items-center">
+                      <span className="font-bold text-xs md:text-[10px] leading-tight md:mt-1">{item.date}</span>
+                      {item.badge && (
+                        <span className={`text-[10px] md:text-[8px] font-bold px-1 rounded mt-0.5 w-fit ${item.warn ? "bg-amber-100 text-amber-700" : "bg-primary/10 text-primary"}`}>
+                          {item.badge === "ACTIEF" ? "✓ " : "⚠ "}{item.badge}
+                        </span>
+                      )}
+                      <span className="text-[11px] md:text-[9px] text-muted-foreground leading-tight mt-0.5">{item.label}</span>
+                    </div>
                   </div>
                 ))}
               </div>
-              <p className="text-[9px] text-muted-foreground italic mt-1.5">
+              <p className="text-[11px] md:text-[9px] text-muted-foreground italic mt-2 md:mt-1.5">
                 De AI-geletterdheidsplicht geldt al — organisaties zijn nu al verplicht medewerkers te trainen.
               </p>
             </div>
