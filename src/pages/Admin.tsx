@@ -121,6 +121,7 @@ const Admin = () => {
   const [form, setForm] = useState(emptyArticleForm);
   const [saving, setSaving] = useState(false);
   const [importing, setImporting] = useState<Record<string, boolean>>({});
+  const [uploading, setUploading] = useState(false);
 
   // Inbox state
   const [inboxFilter, setInboxFilter] = useState<"alle" | "contact" | "masterclass" | "risicoscan">("alle");
