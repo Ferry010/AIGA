@@ -1,62 +1,33 @@
 
 
-## Plan: HubSpot-achtige unified inbox
+## Plan: Hero-afbeelding upload voor artikelen
 
-### Wat verandert
-De drie aparte tabbladen (Contact, Masterclass, Risicoscan) worden vervangen door één **Inbox** tab met een chronologische lijst van alle inzendingen. Elke inzending krijgt een kleur-label dat aangeeft waar hij vandaan komt.
+### Probleem
+De artikelafbeeldingen verwijzen naar de oude WordPress-server (`aigeletterdheid.academy/wp-content/uploads/...`). Die URLs werken niet meer, waardoor alle hero-images verdwenen zijn.
 
-### Ontwerp
-
-```text
-┌─────────────────────────────────────────────────┐
-│  Inbox (6)  │  Artikelen  │  Gebruikers  │ ...  │
-├─────────────────────────────────────────────────┤
-│  Filter: [Alle] [Contact] [Masterclass] [Scan]  │
-│                                                  │
-│  ┌──────────────────────────────────────────┐    │
-│  │ 🟣 Contact  ·  23-03-2026               │    │
-│  │ Ferry de Boer — BrandHumanizing          │    │
-│  │ ferry@brand... · Training · 2-49 seats   │    │
-│  │ □ Opgevolgd                              │    │
-│  ├──────────────────────────────────────────┤    │
-│  │ 🔵 Masterclass  ·  22-03-2026            │    │
-│  │ Jan Jansen — Acme BV                     │    │
-│  │ jan@acme.nl · Keynote                    │    │
-│  │ □ Opgevolgd                              │    │
-│  ├──────────────────────────────────────────┤    │
-│  │ 🟠 Risicoscan  ·  21-03-2026             │    │
-│  │ Piet Pietersen — Corp NL                 │    │
-│  │ piet@corp.nl · Score: 72% · Hoog risico  │    │
-│  │ ☑ Opgevolgd                              │    │
-│  └──────────────────────────────────────────┘    │
-└─────────────────────────────────────────────────┘
-```
+### Oplossing
+Een bestandsupload-functie toevoegen aan het admin-artikelformulier, met opslag in Lovable Cloud.
 
 ### Stappen
 
-**1. Refactor Admin.tsx — Inbox tab**
-- Merge alle drie submission arrays in één gesorteerde lijst (op `created_at` desc)
-- Elk item krijgt een `type` property: `"contact"` / `"masterclass"` / `"risicoscan"`
-- Render als kaarten (niet als tabel), met:
-  - **Kleur-label/badge** bovenaan (paars = Contact, blauw = Masterclass, oranje = Risicoscan)
-  - Naam, organisatie/bedrijfsnaam, e-mail
-  - Type-specifieke details (hulp/aantal voor contact, sessie_type voor masterclass, score/tier voor risicoscan)
-  - Datum rechts bovenin
-  - Opgevold checkbox
-- **Filterknoppen** bovenaan: Alle, Contact, Masterclass, Risicoscan — met badge-counter per type
-- Standaard filter: alleen niet-opgevolgde items (toggle om alles te tonen)
+**1. Storage bucket aanmaken** (database migratie)
+- Maak een publieke `article-images` bucket aan
+- RLS-policies zodat admins kunnen uploaden en iedereen kan lezen
 
-**2. Verwijder oude tabs**
-- Verwijder de aparte Contact, Masterclass en Risicoscan `TabsContent` secties
-- Vervang door één "Inbox" tab
+**2. Admin.tsx — Upload knop toevoegen**
+- Vervang het kale "Afbeelding URL" tekstveld door een combinatie van:
+  - **Upload knop** — bestand selecteren, uploaden naar `article-images` bucket, public URL automatisch invullen in `image_url`
+  - **Preview** — kleine thumbnail van de huidige afbeelding
+  - **Optioneel handmatig URL-veld** — voor het geval je een externe URL wilt plakken
+- Na upload wordt de publieke URL opgeslagen in het bestaande `image_url` veld (geen DB-wijziging nodig)
 
-**3. Click-to-expand detail**
-- Klikken op een kaart toont extra details (opmerkingen, vragen, dimensie_scores) in een uitklapbaar paneel
+**3. Bestaande afbeeldingen herstellen**
+- De huidige WordPress-URLs in de database zijn gebroken. Na de upload-functie kun je per artikel een nieuwe afbeelding uploaden om ze te herstellen.
 
 ### Bestanden
+
 | Actie | Bestand |
 |-------|---------|
-| Edit | `src/pages/Admin.tsx` — Inbox refactor |
-
-Geen database wijzigingen nodig.
+| Migratie | Storage bucket `article-images` + RLS policies |
+| Edit | `src/pages/Admin.tsx` — upload component in artikelformulier |
 
