@@ -1,39 +1,22 @@
 
 
-## Plan: Optimize EU AI Act A4 mobile font sizes
+## Plan: More breathing room and stacked blocks on mobile
 
-### Problem
-Many text elements use fixed small sizes like `text-[11px]`, `text-[10px]`, `text-[9px]` without mobile-first overrides, making them hard to read on phones.
+### Changes in `src/pages/EuAiActA4.tsx`
 
-### Fix
-Increase all mobile font sizes throughout `src/pages/EuAiActA4.tsx`:
+**1. Increase spacing between content blocks on mobile**
+- Change all `mb-3` section dividers to `mb-5 md:mb-3` — adds vertical breathing room on mobile while keeping the compact A4 layout on desktop.
 
-| Element | Current | New mobile / md desktop |
-|---------|---------|------------------------|
-| Body text container | `text-sm md:text-[12px]` | `text-base md:text-[12px]` |
-| SectionLabel | `text-xs md:text-[11px]` | `text-sm md:text-[11px]` |
-| Header subtitle | `text-[11px] md:text-[9px]` | `text-xs md:text-[9px]` |
-| Header description | `text-xs md:text-[11px]` | `text-sm md:text-[11px]` |
-| Version label | `text-[11px] md:text-[9px]` | `text-xs md:text-[9px]` |
-| Timeline dates | `text-xs md:text-[10px]` | `text-sm md:text-[10px]` |
-| Timeline badges | `text-[10px] md:text-[8px]` | `text-xs md:text-[8px]` |
-| Timeline labels | `text-[11px] md:text-[9px]` | `text-sm md:text-[9px]` |
-| Timeline note | `text-[11px] md:text-[9px]` | `text-sm md:text-[9px]` |
-| Risk card label | `text-[11px] md:text-[10px]` | `text-sm md:text-[10px]` |
-| Risk card examples | `text-[11px] md:text-[9px]` | `text-sm md:text-[9px]` |
-| High-risk subheads | `text-xs md:text-[10px]` | `text-sm md:text-[10px]` |
-| Fine amounts | `text-sm md:text-[12px]` | `text-base md:text-[12px]` |
-| Fine percentages | `text-[11px] md:text-[9px]` | `text-sm md:text-[9px]` |
-| Fine descriptions | `text-xs md:text-[10px]` | `text-sm md:text-[10px]` |
-| Footer text | `text-[11px] md:text-[9px]` | `text-sm md:text-[9px]` |
-| Enforcement note | `text-[11px] md:text-[9px]` | `text-sm md:text-[9px]` |
+**2. Stack timeline items vertically on mobile**
+- Change timeline grid from `grid-cols-2 md:grid-cols-4` to `grid-cols-1 md:grid-cols-4`
+- Each timeline item becomes a horizontal row (dot + text) on mobile, stacked vertically
 
-Also increase risk category grid to `grid-cols-1 md:grid-cols-4` (stack on mobile for more room) and fines grid stays `grid-cols-1 sm:grid-cols-3`.
+**3. Stack "Hoog risico" columns on mobile**
+- Change from `grid-cols-2` to `grid-cols-1 md:grid-cols-2` so the providers/deployers lists stack on mobile with more room
 
-### Files
-| File | Change |
-|------|--------|
-| `src/pages/EuAiActA4.tsx` | Bump all mobile font sizes as listed above |
+**4. Add padding/spacing tweaks**
+- Increase mobile padding on the document container from `p-5` to `p-6`
+- Add `gap-4 md:gap-3` on the timeline for more vertical space between items on mobile
 
 No database changes.
 
