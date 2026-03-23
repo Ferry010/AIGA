@@ -250,9 +250,16 @@ const Kenniscentrum = () => {
                       />
                     </div>
                     <div className="p-6 flex flex-col flex-1">
-                      <Badge variant="secondary" className="w-fit mb-3 text-xs">
-                        {article.category}
-                      </Badge>
+                      <div className="flex flex-wrap gap-1.5 mb-3">
+                        <Badge variant="secondary" className="text-xs">
+                          {article.category}
+                        </Badge>
+                        {(article.labels || []).map((label) => (
+                          <Badge key={label} variant="outline" className="text-xs text-muted-foreground">
+                            {label}
+                          </Badge>
+                        ))}
+                      </div>
                       <h3 className="text-base font-semibold text-foreground mb-3 leading-snug group-hover:text-primary transition-colors flex-1">
                         {article.title}
                       </h3>

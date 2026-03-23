@@ -597,6 +597,34 @@ const Admin = () => {
                   <Switch checked={form.published} onCheckedChange={(v) => setForm({ ...form, published: v })} />
                   <Label>Gepubliceerd</Label>
                 </div>
+                <div className="space-y-2 md:col-span-2">
+                  <Label>Labels</Label>
+                  <div className="flex flex-wrap gap-2 mb-2">
+                    {form.labels.map((label) => (
+                      <Badge key={label} variant="secondary" className="flex items-center gap-1 text-xs">
+                        {label}
+                        <button type="button" onClick={() => removeLabel(label)} className="hover:text-destructive"><X size={12} /></button>
+                      </Badge>
+                    ))}
+                  </div>
+                  <div className="relative">
+                    <Input
+                      value={labelInput}
+                      onChange={(e) => setLabelInput(e.target.value)}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter") { e.preventDefault(); addLabel(labelInput); }
+                      }}
+                      placeholder="Typ een label en druk Enter..."
+                      className="text-sm"
+                      list="label-suggestions"
+                    />
+                    <datalist id="label-suggestions">
+                      {allLabels.filter((l) => !form.labels.includes(l)).map((l) => (
+                        <option key={l} value={l} />
+                      ))}
+                    </datalist>
+                  </div>
+                </div>
               </div>
               <div className="space-y-2">
                 <Label>Content</Label>
