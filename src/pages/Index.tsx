@@ -41,6 +41,49 @@ const faqItems = [
   },
 ];
 
+const TARGET_DATE = new Date("2026-08-02T00:00:00+02:00");
+
+const CountdownTimer = () => {
+  const [now, setNow] = useState(new Date());
+
+  useEffect(() => {
+    const id = setInterval(() => setNow(new Date()), 1000);
+    return () => clearInterval(id);
+  }, []);
+
+  const diff = Math.max(0, TARGET_DATE.getTime() - now.getTime());
+  const days = Math.floor(diff / 86400000);
+  const hours = Math.floor((diff % 86400000) / 3600000);
+  const minutes = Math.floor((diff % 3600000) / 60000);
+  const seconds = Math.floor((diff % 60000) / 1000);
+
+  const blocks = [
+    { value: days, label: "Dagen" },
+    { value: hours, label: "Uren" },
+    { value: minutes, label: "Minuten" },
+    { value: seconds, label: "Seconden" },
+  ];
+
+  return (
+    <div className="mt-10 text-center">
+      <p className="text-xs font-medium uppercase tracking-[0.15em] text-muted-foreground mb-4">
+        Tijd tot volledige AI Act handhaving
+      </p>
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 max-w-md mx-auto sm:mx-0">
+        {blocks.map((b) => (
+          <div key={b.label} className="rounded-xl border border-neon-pink/30 bg-card px-4 py-3">
+            <span className="block text-3xl font-display font-bold neon-text">{String(b.value).padStart(2, "0")}</span>
+            <span className="text-[11px] uppercase tracking-wider text-muted-foreground">{b.label}</span>
+          </div>
+        ))}
+      </div>
+      <p className="mt-4 text-sm font-medium text-foreground">
+        Is jouw organisatie er klaar voor?
+      </p>
+    </div>
+  );
+};
+
 const Index = () => {
   const reduced = useReduceMotion();
   const [videoPlaying, setVideoPlaying] = useState(false);
