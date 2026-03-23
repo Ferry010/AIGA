@@ -219,7 +219,7 @@ const EuAiActA4 = () => {
             </div>
 
             {/* ── Document footer ── */}
-            <div className="mt-auto pt-2 border-t border-border flex items-center justify-between text-[9px] text-muted-foreground">
+            <div className="mt-auto pt-2 border-t border-border flex flex-col sm:flex-row items-start sm:items-center justify-between gap-1 text-[11px] md:text-[9px] text-muted-foreground">
               <span className="font-bold neon-text print:text-black">AIGA</span>
               <span>© 2026 AI Geletterdheid Academy — aigeletterdheid.academy</span>
               <span>Artikel 4 EU AI Act training: €249 per medewerker</span>
