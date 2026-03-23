@@ -39,6 +39,18 @@ const ScrollToTop = () => {
   return null;
 };
 
+const AnnouncementBar = () => {
+  const now = new Date();
+  const target = new Date("2026-08-02T00:00:00+02:00");
+  const days = Math.max(0, Math.ceil((target.getTime() - now.getTime()) / 86400000));
+
+  return (
+    <div className="sticky top-0 z-[60] w-full text-center py-2 text-white text-sm" style={{ background: "linear-gradient(135deg, hsl(263 70% 58%), hsl(330 81% 60%))" }}>
+      ⏳ Nog {days} dagen — 2 augustus 2026 treedt de volledige EU AI Act in werking.
+    </div>
+  );
+};
+
 const AppContent = () => {
   const { pathname } = useLocation();
   const isQuizActive = pathname === "/gereedheidscan";
@@ -47,8 +59,9 @@ const AppContent = () => {
   return (
     <>
       <ScrollToTop />
+      {!isAdminActive && <AnnouncementBar />}
       {!isAdminActive && <Navbar />}
-      <main className={isAdminActive ? "" : "pt-16"}>
+      <main className={isAdminActive ? "" : "pt-[calc(4rem+36px)]"}>
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/training" element={<Training />} />
