@@ -87,13 +87,13 @@ const EuAiActA4 = () => {
             {/* ── Header ── */}
             <div className="flex justify-between items-start mb-4">
               <div>
-                <p className="text-[9px] text-muted-foreground tracking-wide">AI Geletterdheid Academy — aigeletterdheid.academy</p>
+                <p className="text-[11px] md:text-[9px] text-muted-foreground tracking-wide">AI Geletterdheid Academy — aigeletterdheid.academy</p>
                 <h1 className="text-2xl sm:text-3xl font-bold mt-1 leading-tight" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
                   EU AI Act in 1 A4
                 </h1>
-                <p className="text-muted-foreground text-[11px] mt-0.5">De Europese AI-verordening — wat je moet weten als organisatie</p>
+                <p className="text-muted-foreground text-xs md:text-[11px] mt-0.5">De Europese AI-verordening — wat je moet weten als organisatie</p>
               </div>
-              <span className="text-[9px] text-muted-foreground whitespace-nowrap mt-1">Versie maart 2026</span>
+              <span className="text-[11px] md:text-[9px] text-muted-foreground whitespace-nowrap mt-1">Versie maart 2026</span>
             </div>
 
             <hr className="border-border mb-3" />
