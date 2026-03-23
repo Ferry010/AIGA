@@ -173,8 +173,8 @@ const EuAiActA4 = () => {
               <SectionLabel>Hoog risico — extra verplichtingen</SectionLabel>
               <div className="grid grid-cols-2 gap-3 mt-1">
                 <div>
-                  <p className="font-bold text-[10px] mb-1">Voor aanbieders (providers):</p>
-                  <ul className="space-y-0.5">
+                  <p className="font-bold text-xs md:text-[10px] mb-1">Voor aanbieders (providers):</p>
+                  <ul className="space-y-1 md:space-y-0.5">
                     {["Conformiteitsbeoordeling uitvoeren", "Technische documentatie opstellen", "Registratie in EU-database", "CE-markering aanbrengen"].map((t) => (
                       <li key={t} className="flex items-start gap-1.5">
                         <CheckCircle2 size={11} className="text-primary shrink-0 mt-0.5 print:text-black" />
