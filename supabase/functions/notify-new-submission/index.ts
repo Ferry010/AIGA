@@ -7,7 +7,7 @@ const corsHeaders = {
 };
 
 const GATEWAY_URL = "https://connector-gateway.lovable.dev/slack/api";
-const SLACK_CHANNEL_NAME = "aiga-requests";
+const SLACK_CHANNEL_ID = "C0AN9L9877C"; // #aiga-requests
 const NOTIFICATION_EMAIL = "robbert@speakersacademy.nl";
 
 async function findChannelId(
