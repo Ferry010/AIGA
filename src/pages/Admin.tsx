@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -7,7 +7,8 @@ import { Switch } from "@/components/ui/switch";
 import { Input } from "@/components/ui/input";
 import RichTextEditor from "@/components/RichTextEditor";
 import { Label } from "@/components/ui/label";
-import { Pencil, Plus, X, LogOut } from "lucide-react";
+import { Pencil, Plus, X, LogOut, ChevronDown, ChevronUp, Mail, Phone, Search } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
 import AdminUsers from "@/components/AdminUsers";
 import AdminAccount from "@/components/AdminAccount";
 
