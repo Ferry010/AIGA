@@ -198,7 +198,7 @@ const EuAiActA4 = () => {
             </div>
 
             {/* ── Blok 6: Boetes ── */}
-            <div className="mb-3">
+            <div className="mb-5 md:mb-3">
               <SectionLabel>Handhaving</SectionLabel>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 mt-1">
                 {[
