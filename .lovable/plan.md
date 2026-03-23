@@ -1,20 +1,39 @@
 
 
-## Plan: Fix article category filter bug
+## Plan: Optimize EU AI Act A4 mobile font sizes
 
-### Root Cause
-The `StaggerContainer` and `StaggerItem` components use framer-motion's `whileInView` with `viewport={{ once: true }}`. Once the stagger animation plays on initial load, it never re-triggers. When the user switches categories, new article cards mount in the `hidden` variant (opacity: 0, y: 20) and stay invisible because the container won't re-animate.
+### Problem
+Many text elements use fixed small sizes like `text-[11px]`, `text-[10px]`, `text-[9px]` without mobile-first overrides, making them hard to read on phones.
 
 ### Fix
-In `src/pages/Kenniscentrum.tsx`, replace `StaggerContainer`/`StaggerItem` in the articles grid with simple `div` elements (or `motion.div` with `animate` instead of `whileInView`). The category filter is interactive — it doesn't need scroll-triggered animation, it needs immediate rendering.
+Increase all mobile font sizes throughout `src/pages/EuAiActA4.tsx`:
 
-The Kennisoverzichten section above can keep `StaggerContainer` since those cards are static.
+| Element | Current | New mobile / md desktop |
+|---------|---------|------------------------|
+| Body text container | `text-sm md:text-[12px]` | `text-base md:text-[12px]` |
+| SectionLabel | `text-xs md:text-[11px]` | `text-sm md:text-[11px]` |
+| Header subtitle | `text-[11px] md:text-[9px]` | `text-xs md:text-[9px]` |
+| Header description | `text-xs md:text-[11px]` | `text-sm md:text-[11px]` |
+| Version label | `text-[11px] md:text-[9px]` | `text-xs md:text-[9px]` |
+| Timeline dates | `text-xs md:text-[10px]` | `text-sm md:text-[10px]` |
+| Timeline badges | `text-[10px] md:text-[8px]` | `text-xs md:text-[8px]` |
+| Timeline labels | `text-[11px] md:text-[9px]` | `text-sm md:text-[9px]` |
+| Timeline note | `text-[11px] md:text-[9px]` | `text-sm md:text-[9px]` |
+| Risk card label | `text-[11px] md:text-[10px]` | `text-sm md:text-[10px]` |
+| Risk card examples | `text-[11px] md:text-[9px]` | `text-sm md:text-[9px]` |
+| High-risk subheads | `text-xs md:text-[10px]` | `text-sm md:text-[10px]` |
+| Fine amounts | `text-sm md:text-[12px]` | `text-base md:text-[12px]` |
+| Fine percentages | `text-[11px] md:text-[9px]` | `text-sm md:text-[9px]` |
+| Fine descriptions | `text-xs md:text-[10px]` | `text-sm md:text-[10px]` |
+| Footer text | `text-[11px] md:text-[9px]` | `text-sm md:text-[9px]` |
+| Enforcement note | `text-[11px] md:text-[9px]` | `text-sm md:text-[9px]` |
 
-### Changes
+Also increase risk category grid to `grid-cols-1 md:grid-cols-4` (stack on mobile for more room) and fines grid stays `grid-cols-1 sm:grid-cols-3`.
 
+### Files
 | File | Change |
 |------|--------|
-| `src/pages/Kenniscentrum.tsx` | Replace `StaggerContainer`/`StaggerItem` wrapping the filtered articles grid with plain `div` elements. Optionally add a simple fade-in via CSS transition or a keyed motion wrapper. |
+| `src/pages/EuAiActA4.tsx` | Bump all mobile font sizes as listed above |
 
-No database changes needed.
+No database changes.
 
