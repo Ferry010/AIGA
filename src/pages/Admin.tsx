@@ -19,7 +19,7 @@ const CATEGORIES = [
   "Praktijk en sectoren",
 ];
 
-interface Submission {
+interface RiskSubmission {
   id: string;
   created_at: string;
   naam: string;
@@ -28,6 +28,33 @@ interface Submission {
   totaal_score: number;
   tier: string;
   dimensie_scores: Record<string, number>;
+  opgevolgd: boolean;
+}
+
+interface ContactSubmission {
+  id: string;
+  created_at: string;
+  naam: string;
+  organisatie: string;
+  email: string;
+  functie: string | null;
+  telefoon: string | null;
+  hulp: string;
+  aantal: string | null;
+  opmerkingen: string | null;
+  opgevolgd: boolean;
+}
+
+interface MasterclassSubmission {
+  id: string;
+  created_at: string;
+  naam: string;
+  organisatie: string;
+  email: string;
+  functie: string | null;
+  telefoon: string | null;
+  sessie_type: string;
+  vragen: string | null;
   opgevolgd: boolean;
 }
 
@@ -51,13 +78,27 @@ const tierLabels: Record<string, string> = {
   laag_risico: "Laag risico",
 };
 
+const hulpLabels: Record<string, string> = {
+  training: "Online Training",
+  masterclass: "Masterclass",
+  beide: "Beide",
+  anders: "Anders",
+};
+
 const emptyArticleForm = { title: "", category: CATEGORIES[0], url: "", image_url: "", published: true, sort_order: 0, content: "", slug: "" };
+
+const formatDate = (dateStr: string) => {
+  const date = new Date(dateStr);
+  return `${String(date.getDate()).padStart(2, "0")}-${String(date.getMonth() + 1).padStart(2, "0")}-${date.getFullYear()}`;
+};
 
 const Admin = () => {
   const navigate = useNavigate();
   const [authenticated, setAuthenticated] = useState(false);
   const [checkingAuth, setCheckingAuth] = useState(true);
-  const [submissions, setSubmissions] = useState<Submission[]>([]);
+  const [riskSubmissions, setRiskSubmissions] = useState<RiskSubmission[]>([]);
+  const [contactSubmissions, setContactSubmissions] = useState<ContactSubmission[]>([]);
+  const [masterclassSubmissions, setMasterclassSubmissions] = useState<MasterclassSubmission[]>([]);
   const [articles, setArticles] = useState<Article[]>([]);
   const [loading, setLoading] = useState(false);
 
@@ -84,7 +125,6 @@ const Admin = () => {
       setCheckingAuth(false);
     };
 
-    // Check current session first
     supabase.auth.getSession().then(({ data: { session } }) => {
       if (cancelled) return;
       if (!session) {
@@ -96,7 +136,6 @@ const Admin = () => {
       checkAdmin(session.user.id);
     });
 
-    // Listen for future auth changes
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
       if (!session) {
         setAuthenticated(false);
@@ -123,9 +162,13 @@ const Admin = () => {
     setLoading(true);
     Promise.all([
       supabase.from("risk_scan_submissions").select("*").order("created_at", { ascending: false }),
+      supabase.from("contact_submissions").select("*").order("created_at", { ascending: false }),
+      supabase.from("masterclass_submissions").select("*").order("created_at", { ascending: false }),
       supabase.from("articles").select("*").order("sort_order", { ascending: true }),
-    ]).then(([subRes, artRes]) => {
-      setSubmissions((subRes.data as Submission[]) || []);
+    ]).then(([riskRes, contactRes, masterclassRes, artRes]) => {
+      setRiskSubmissions((riskRes.data as RiskSubmission[]) || []);
+      setContactSubmissions((contactRes.data as ContactSubmission[]) || []);
+      setMasterclassSubmissions((masterclassRes.data as MasterclassSubmission[]) || []);
       setArticles((artRes.data as Article[]) || []);
       setLoading(false);
     });
@@ -136,9 +179,19 @@ const Admin = () => {
     navigate("/admin/login");
   };
 
-  const toggleOpgevolgd = async (id: string, current: boolean) => {
-    setSubmissions((prev) => prev.map((s) => (s.id === id ? { ...s, opgevolgd: !current } : s)));
+  const toggleRiskOpgevolgd = async (id: string, current: boolean) => {
+    setRiskSubmissions((prev) => prev.map((s) => (s.id === id ? { ...s, opgevolgd: !current } : s)));
     await supabase.from("risk_scan_submissions").update({ opgevolgd: !current }).eq("id", id);
+  };
+
+  const toggleContactOpgevolgd = async (id: string, current: boolean) => {
+    setContactSubmissions((prev) => prev.map((s) => (s.id === id ? { ...s, opgevolgd: !current } : s)));
+    await supabase.from("contact_submissions").update({ opgevolgd: !current }).eq("id", id);
+  };
+
+  const toggleMasterclassOpgevolgd = async (id: string, current: boolean) => {
+    setMasterclassSubmissions((prev) => prev.map((s) => (s.id === id ? { ...s, opgevolgd: !current } : s)));
+    await supabase.from("masterclass_submissions").update({ opgevolgd: !current }).eq("id", id);
   };
 
   const openNewForm = () => {
@@ -166,12 +219,7 @@ const Admin = () => {
     if (!form.title || !form.url || !form.image_url) return;
     setSaving(true);
     const slug = form.slug || (form.content ? generateSlug(form.title) : null);
-    const payload = {
-      ...form,
-      content: form.content || null,
-      slug,
-      updated_at: new Date().toISOString(),
-    };
+    const payload = { ...form, content: form.content || null, slug, updated_at: new Date().toISOString() };
     if (editingId) {
       await supabase.from("articles").update(payload).eq("id", editingId);
     } else {
@@ -187,17 +235,12 @@ const Admin = () => {
     await supabase.from("articles").update({ published: !a.published, updated_at: new Date().toISOString() }).eq("id", a.id);
   };
 
-
   const importArticle = async (a: Article) => {
     setImporting((prev) => ({ ...prev, [a.id]: true }));
     try {
-      const { data, error } = await supabase.functions.invoke("scrape-article", {
-        body: { article_id: a.id, url: a.url },
-      });
+      const { data, error } = await supabase.functions.invoke("scrape-article", { body: { article_id: a.id, url: a.url } });
       if (error) throw error;
-      if (data?.success) {
-        await fetchArticles();
-      }
+      if (data?.success) await fetchArticles();
     } catch (e) {
       console.error("Import failed:", e);
     }
@@ -205,9 +248,7 @@ const Admin = () => {
   };
 
   const importAll = async () => {
-    for (const a of articles) {
-      await importArticle(a);
-    }
+    for (const a of articles) await importArticle(a);
   };
 
   if (checkingAuth) {
@@ -226,9 +267,9 @@ const Admin = () => {
     );
   }
 
-  const total = submissions.length;
-  const nogOpTeVolgen = submissions.filter((s) => !s.opgevolgd).length;
-  const gemiddeldeScore = total > 0 ? Math.round(submissions.reduce((sum, s) => sum + s.totaal_score, 0) / total) : 0;
+  const contactNog = contactSubmissions.filter((s) => !s.opgevolgd).length;
+  const masterclassNog = masterclassSubmissions.filter((s) => !s.opgevolgd).length;
+  const riskNog = riskSubmissions.filter((s) => !s.opgevolgd).length;
 
   return (
     <div className="min-h-screen bg-background p-6">
@@ -239,21 +280,115 @@ const Admin = () => {
         </button>
       </div>
 
-      <Tabs defaultValue="submissions">
+      <Tabs defaultValue="contact">
         <TabsList className="mb-6">
-          <TabsTrigger value="submissions">Submissions</TabsTrigger>
+          <TabsTrigger value="contact">
+            Contact {contactNog > 0 && <span className="ml-1.5 bg-primary text-primary-foreground text-xs rounded-full px-1.5 py-0.5">{contactNog}</span>}
+          </TabsTrigger>
+          <TabsTrigger value="masterclass">
+            Masterclass {masterclassNog > 0 && <span className="ml-1.5 bg-primary text-primary-foreground text-xs rounded-full px-1.5 py-0.5">{masterclassNog}</span>}
+          </TabsTrigger>
+          <TabsTrigger value="risicoscan">
+            Risicoscan {riskNog > 0 && <span className="ml-1.5 bg-primary text-primary-foreground text-xs rounded-full px-1.5 py-0.5">{riskNog}</span>}
+          </TabsTrigger>
           <TabsTrigger value="artikelen">Artikelen</TabsTrigger>
           <TabsTrigger value="gebruikers">Gebruikers</TabsTrigger>
           <TabsTrigger value="account">Account</TabsTrigger>
         </TabsList>
 
-        {/* ─── Submissions Tab ─── */}
-        <TabsContent value="submissions">
+        {/* ─── Contact Tab ─── */}
+        <TabsContent value="contact">
+          <div className="grid grid-cols-2 gap-4 mb-8 max-w-md">
+            <div className="bg-card border border-border rounded-lg p-4">
+              <p className="text-xs text-muted-foreground">Totaal</p>
+              <p className="text-2xl font-mono font-bold text-foreground">{contactSubmissions.length}</p>
+            </div>
+            <div className="bg-card border border-border rounded-lg p-4">
+              <p className="text-xs text-muted-foreground">Nog op te volgen</p>
+              <p className="text-2xl font-mono font-bold text-foreground">{contactNog}</p>
+            </div>
+          </div>
+          {loading ? <p className="text-muted-foreground">Laden...</p> : (
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="border-b border-border text-left">
+                    <th className="py-3 px-2 text-muted-foreground font-medium">Datum</th>
+                    <th className="py-3 px-2 text-muted-foreground font-medium">Naam</th>
+                    <th className="py-3 px-2 text-muted-foreground font-medium">Organisatie</th>
+                    <th className="py-3 px-2 text-muted-foreground font-medium">E-mail</th>
+                    <th className="py-3 px-2 text-muted-foreground font-medium">Hulp</th>
+                    <th className="py-3 px-2 text-muted-foreground font-medium">Aantal</th>
+                    <th className="py-3 px-2 text-muted-foreground font-medium">Opgevolgd</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {contactSubmissions.map((s) => (
+                    <tr key={s.id} className="border-b border-border">
+                      <td className="py-3 px-2 text-foreground">{formatDate(s.created_at)}</td>
+                      <td className="py-3 px-2 text-foreground">{s.naam}</td>
+                      <td className="py-3 px-2 text-foreground">{s.organisatie}</td>
+                      <td className="py-3 px-2"><a href={`mailto:${s.email}`} className="text-primary hover:underline">{s.email}</a></td>
+                      <td className="py-3 px-2 text-foreground">{hulpLabels[s.hulp] || s.hulp}</td>
+                      <td className="py-3 px-2 text-foreground">{s.aantal || "—"}</td>
+                      <td className="py-3 px-2"><Checkbox checked={s.opgevolgd} onCheckedChange={() => toggleContactOpgevolgd(s.id, s.opgevolgd)} /></td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </TabsContent>
+
+        {/* ─── Masterclass Tab ─── */}
+        <TabsContent value="masterclass">
+          <div className="grid grid-cols-2 gap-4 mb-8 max-w-md">
+            <div className="bg-card border border-border rounded-lg p-4">
+              <p className="text-xs text-muted-foreground">Totaal</p>
+              <p className="text-2xl font-mono font-bold text-foreground">{masterclassSubmissions.length}</p>
+            </div>
+            <div className="bg-card border border-border rounded-lg p-4">
+              <p className="text-xs text-muted-foreground">Nog op te volgen</p>
+              <p className="text-2xl font-mono font-bold text-foreground">{masterclassNog}</p>
+            </div>
+          </div>
+          {loading ? <p className="text-muted-foreground">Laden...</p> : (
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="border-b border-border text-left">
+                    <th className="py-3 px-2 text-muted-foreground font-medium">Datum</th>
+                    <th className="py-3 px-2 text-muted-foreground font-medium">Naam</th>
+                    <th className="py-3 px-2 text-muted-foreground font-medium">Organisatie</th>
+                    <th className="py-3 px-2 text-muted-foreground font-medium">E-mail</th>
+                    <th className="py-3 px-2 text-muted-foreground font-medium">Sessie type</th>
+                    <th className="py-3 px-2 text-muted-foreground font-medium">Opgevolgd</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {masterclassSubmissions.map((s) => (
+                    <tr key={s.id} className="border-b border-border">
+                      <td className="py-3 px-2 text-foreground">{formatDate(s.created_at)}</td>
+                      <td className="py-3 px-2 text-foreground">{s.naam}</td>
+                      <td className="py-3 px-2 text-foreground">{s.organisatie}</td>
+                      <td className="py-3 px-2"><a href={`mailto:${s.email}`} className="text-primary hover:underline">{s.email}</a></td>
+                      <td className="py-3 px-2 text-foreground capitalize">{s.sessie_type}</td>
+                      <td className="py-3 px-2"><Checkbox checked={s.opgevolgd} onCheckedChange={() => toggleMasterclassOpgevolgd(s.id, s.opgevolgd)} /></td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </TabsContent>
+
+        {/* ─── Risicoscan Tab ─── */}
+        <TabsContent value="risicoscan">
           <div className="grid grid-cols-3 gap-4 mb-8 max-w-xl">
             {[
-              { label: "Totaal", value: total },
-              { label: "Nog op te volgen", value: nogOpTeVolgen },
-              { label: "Gemiddelde score", value: `${gemiddeldeScore}%` },
+              { label: "Totaal", value: riskSubmissions.length },
+              { label: "Nog op te volgen", value: riskNog },
+              { label: "Gemiddelde score", value: `${riskSubmissions.length > 0 ? Math.round(riskSubmissions.reduce((sum, s) => sum + s.totaal_score, 0) / riskSubmissions.length) : 0}%` },
             ].map((stat) => (
               <div key={stat.label} className="bg-card border border-border rounded-lg p-4">
                 <p className="text-xs text-muted-foreground">{stat.label}</p>
@@ -261,10 +396,7 @@ const Admin = () => {
               </div>
             ))}
           </div>
-
-          {loading ? (
-            <p className="text-muted-foreground">Laden...</p>
-          ) : (
+          {loading ? <p className="text-muted-foreground">Laden...</p> : (
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
                 <thead>
@@ -279,25 +411,17 @@ const Admin = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {submissions.map((s) => {
-                    const date = new Date(s.created_at);
-                    const formatted = `${String(date.getDate()).padStart(2, "0")}-${String(date.getMonth() + 1).padStart(2, "0")}-${date.getFullYear()}`;
-                    return (
-                      <tr key={s.id} className="border-b border-border">
-                        <td className="py-3 px-2 text-foreground">{formatted}</td>
-                        <td className="py-3 px-2 text-foreground">{s.naam}</td>
-                        <td className="py-3 px-2 text-foreground">{s.bedrijfsnaam}</td>
-                        <td className="py-3 px-2">
-                          <a href={`mailto:${s.email}`} className="text-primary hover:underline">{s.email}</a>
-                        </td>
-                        <td className="py-3 px-2 font-mono text-foreground">{s.totaal_score}%</td>
-                        <td className="py-3 px-2 text-foreground">{tierLabels[s.tier] || s.tier}</td>
-                        <td className="py-3 px-2">
-                          <Checkbox checked={s.opgevolgd} onCheckedChange={() => toggleOpgevolgd(s.id, s.opgevolgd)} />
-                        </td>
-                      </tr>
-                    );
-                  })}
+                  {riskSubmissions.map((s) => (
+                    <tr key={s.id} className="border-b border-border">
+                      <td className="py-3 px-2 text-foreground">{formatDate(s.created_at)}</td>
+                      <td className="py-3 px-2 text-foreground">{s.naam}</td>
+                      <td className="py-3 px-2 text-foreground">{s.bedrijfsnaam}</td>
+                      <td className="py-3 px-2"><a href={`mailto:${s.email}`} className="text-primary hover:underline">{s.email}</a></td>
+                      <td className="py-3 px-2 font-mono text-foreground">{s.totaal_score}%</td>
+                      <td className="py-3 px-2 text-foreground">{tierLabels[s.tier] || s.tier}</td>
+                      <td className="py-3 px-2"><Checkbox checked={s.opgevolgd} onCheckedChange={() => toggleRiskOpgevolgd(s.id, s.opgevolgd)} /></td>
+                    </tr>
+                  ))}
                 </tbody>
               </table>
             </div>
@@ -331,11 +455,7 @@ const Admin = () => {
                 </div>
                 <div className="space-y-2">
                   <Label>Categorie</Label>
-                  <select
-                    value={form.category}
-                    onChange={(e) => setForm({ ...form, category: e.target.value })}
-                    className="w-full border border-border rounded-lg px-3 py-2 bg-background text-foreground text-sm"
-                  >
+                  <select value={form.category} onChange={(e) => setForm({ ...form, category: e.target.value })} className="w-full border border-border rounded-lg px-3 py-2 bg-background text-foreground text-sm">
                     {CATEGORIES.map((c) => <option key={c} value={c}>{c}</option>)}
                   </select>
                 </div>
@@ -362,16 +482,9 @@ const Admin = () => {
               </div>
               <div className="space-y-2">
                 <Label>Content</Label>
-                <RichTextEditor
-                  content={form.content}
-                  onChange={(html) => setForm({ ...form, content: html })}
-                />
+                <RichTextEditor content={form.content} onChange={(html) => setForm({ ...form, content: html })} />
               </div>
-              <button
-                onClick={handleSave}
-                disabled={saving || !form.title || !form.url || !form.image_url}
-                className="bg-primary text-primary-foreground rounded-lg px-6 py-2 text-sm font-medium disabled:opacity-50"
-              >
+              <button onClick={handleSave} disabled={saving || !form.title || !form.url || !form.image_url} className="bg-primary text-primary-foreground rounded-lg px-6 py-2 text-sm font-medium disabled:opacity-50">
                 {saving ? "Opslaan..." : "Opslaan"}
               </button>
             </div>
@@ -380,14 +493,14 @@ const Admin = () => {
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                 <tr className="border-b border-border text-left">
-                   <th className="py-3 px-2 text-muted-foreground font-medium">#</th>
-                   <th className="py-3 px-2 text-muted-foreground font-medium">Titel</th>
-                   <th className="py-3 px-2 text-muted-foreground font-medium">Categorie</th>
-                   <th className="py-3 px-2 text-muted-foreground font-medium">Content</th>
-                   <th className="py-3 px-2 text-muted-foreground font-medium">Gepubliceerd</th>
-                   <th className="py-3 px-2 text-muted-foreground font-medium"></th>
-                 </tr>
+                <tr className="border-b border-border text-left">
+                  <th className="py-3 px-2 text-muted-foreground font-medium">#</th>
+                  <th className="py-3 px-2 text-muted-foreground font-medium">Titel</th>
+                  <th className="py-3 px-2 text-muted-foreground font-medium">Categorie</th>
+                  <th className="py-3 px-2 text-muted-foreground font-medium">Content</th>
+                  <th className="py-3 px-2 text-muted-foreground font-medium">Gepubliceerd</th>
+                  <th className="py-3 px-2 text-muted-foreground font-medium"></th>
+                </tr>
               </thead>
               <tbody>
                 {articles.map((a) => (
@@ -395,27 +508,19 @@ const Admin = () => {
                     <td className="py-3 px-2 text-muted-foreground font-mono">{a.sort_order}</td>
                     <td className="py-3 px-2 text-foreground max-w-xs truncate">{a.title}</td>
                     <td className="py-3 px-2 text-foreground">{a.category}</td>
-                     <td className="py-3 px-2">
-                       {a.content ? (
-                         <span className="text-xs text-green-400">✓ Geïmporteerd</span>
-                       ) : (
-                         <button
-                           onClick={() => importArticle(a)}
-                           disabled={importing[a.id]}
-                           className="text-xs text-primary hover:underline disabled:opacity-50"
-                         >
-                           {importing[a.id] ? "Bezig..." : "Importeer"}
-                         </button>
-                       )}
-                     </td>
-                     <td className="py-3 px-2">
-                       <Switch checked={a.published} onCheckedChange={() => togglePublished(a)} />
-                     </td>
-                     <td className="py-3 px-2">
-                       <button onClick={() => openEditForm(a)} className="text-muted-foreground hover:text-primary">
-                         <Pencil size={16} />
-                       </button>
-                     </td>
+                    <td className="py-3 px-2">
+                      {a.content ? (
+                        <span className="text-xs text-green-400">✓ Geïmporteerd</span>
+                      ) : (
+                        <button onClick={() => importArticle(a)} disabled={importing[a.id]} className="text-xs text-primary hover:underline disabled:opacity-50">
+                          {importing[a.id] ? "Bezig..." : "Importeer"}
+                        </button>
+                      )}
+                    </td>
+                    <td className="py-3 px-2"><Switch checked={a.published} onCheckedChange={() => togglePublished(a)} /></td>
+                    <td className="py-3 px-2">
+                      <button onClick={() => openEditForm(a)} className="text-muted-foreground hover:text-primary"><Pencil size={16} /></button>
+                    </td>
                   </tr>
                 ))}
               </tbody>
