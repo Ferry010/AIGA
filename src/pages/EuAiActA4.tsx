@@ -107,9 +107,9 @@ const EuAiActA4 = () => {
             </div>
 
             {/* ── Blok 2: Tijdlijn ── */}
-            <div className="mb-3">
+            <div className="mb-5 md:mb-3">
               <SectionLabel>Inwerkingtreding</SectionLabel>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-0 mt-2 md:mt-1 relative">
+              <div className="grid grid-cols-1 md:grid-cols-4 gap-4 md:gap-0 mt-2 md:mt-1 relative">
                 {/* Connecting line — desktop only */}
                 <div className="hidden md:block absolute top-[7px] left-[7px] right-[7px] h-[2px] bg-border" />
                 {timelineItems.map((item, i) => (
