@@ -200,20 +200,20 @@ const EuAiActA4 = () => {
             {/* ── Blok 6: Boetes ── */}
             <div className="mb-3">
               <SectionLabel>Handhaving</SectionLabel>
-              <div className="grid grid-cols-3 gap-2 mt-1">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 mt-1">
                 {[
                   { amount: "Tot €35 miljoen", pct: "of 7% wereldwijde omzet", desc: "Verboden AI-praktijken" },
                   { amount: "Tot €15 miljoen", pct: "of 3% wereldwijde omzet", desc: "Overtreding verplichtingen hoog-risico systemen" },
                   { amount: "Tot €7,5 miljoen", pct: "of 1,5% wereldwijde omzet", desc: "Onjuiste informatie aan toezichthouder" },
                 ].map((fine) => (
-                  <div key={fine.amount} className="border border-border rounded-lg p-2 text-center">
-                    <p className="font-bold text-[12px] leading-tight neon-text print:text-black">{fine.amount}</p>
-                    <p className="text-[9px] text-muted-foreground">{fine.pct}</p>
-                    <p className="text-[10px] mt-1 leading-tight">{fine.desc}</p>
+                  <div key={fine.amount} className="border border-border rounded-lg p-3 md:p-2 text-center">
+                    <p className="font-bold text-sm md:text-[12px] leading-tight neon-text print:text-black">{fine.amount}</p>
+                    <p className="text-[11px] md:text-[9px] text-muted-foreground">{fine.pct}</p>
+                    <p className="text-xs md:text-[10px] mt-1 leading-tight">{fine.desc}</p>
                   </div>
                 ))}
               </div>
-              <p className="text-[9px] text-muted-foreground mt-1">
+              <p className="text-[11px] md:text-[9px] text-muted-foreground mt-1">
                 De hoogste boete geldt voor de zwaarste overtreding. Voor MKB gelden proportionele maxima.
               </p>
             </div>
