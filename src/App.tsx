@@ -29,6 +29,7 @@ import AiCursusMedewerkers from "./pages/AiCursusMedewerkers";
 import AiToolsOverzicht from "./pages/AiToolsOverzicht";
 import Tools from "./pages/Tools";
 import UseCaseChecker from "./pages/UseCaseChecker";
+import SpeakersAcademy from "./pages/SpeakersAcademy";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
