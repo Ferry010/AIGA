@@ -64,8 +64,8 @@ const Footer = () => (
             </a>
             <p className="mt-4 text-xs">Een samenwerking tussen</p>
             <div className="flex items-center gap-4 mt-2">
-              <img src={brandLogo} alt="Brand Humanizing Institute" className="h-10 rounded" />
-              <img src={speakersLogo} alt="Speakers Academy" className="h-10 rounded" />
+              <img src={brandLogo} alt="Brand Humanizing Institute" className="h-12 rounded" />
+              <img src={speakersLogo} alt="Speakers Academy" className="h-12 rounded" />
             </div>
           </div>
         </div>
