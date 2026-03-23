@@ -146,22 +146,25 @@ const Kenniscentrum = () => {
               </div>
             </StaggerItem>
 
-            {/* Card 4 — coming soon */}
+            {/* Card 4 — EU AI Act in 1 A4 */}
             <StaggerItem>
-              <div className="opacity-60 cursor-default bg-card border border-border rounded-2xl overflow-hidden flex flex-col h-full">
+              <Link
+                to="/kenniscentrum/eu-ai-act-in-1-a4"
+                className="group bg-card border border-border rounded-2xl overflow-hidden hover:border-primary/40 neon-glow transition-all duration-300 flex flex-col h-full"
+              >
                 <div className="p-6 flex flex-col flex-1 gap-3">
-                  <div className="flex items-center gap-2">
-                    <Badge variant="secondary" className="w-fit text-xs">Samenvatting</Badge>
-                    <Badge variant="outline" className="w-fit text-xs text-muted-foreground">Binnenkort</Badge>
-                  </div>
-                  <h3 className="text-base font-semibold text-foreground leading-snug">
+                  <Badge variant="default" className="w-fit text-xs">Samenvatting</Badge>
+                  <h3 className="text-base font-semibold text-foreground leading-snug group-hover:text-primary transition-colors">
                     EU AI Act in 1 A4
                   </h3>
                   <p className="text-sm text-muted-foreground leading-relaxed">
                     Tijdlijn, risicocategorieën, verplichtingen en handhavingsschema. Printbaar en deelbaar.
                   </p>
+                  <span className="mt-auto flex items-center gap-1.5 text-sm font-semibold text-primary group-hover:gap-2.5 transition-all pt-2">
+                    Bekijk de samenvatting <ArrowRight size={16} />
+                  </span>
                 </div>
-              </div>
+              </Link>
             </StaggerItem>
           </StaggerContainer>
         </div>
