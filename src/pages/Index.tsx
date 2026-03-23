@@ -111,8 +111,6 @@ const Index = () => {
               <span className="flex items-center gap-1.5"><Check size={14} className="text-primary/60" /> Direct starten</span>
             </div>
 
-            {/* Countdown */}
-            <CountdownTimer />
 
           </motion.div>
         </div>
