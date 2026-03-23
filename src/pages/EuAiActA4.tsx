@@ -135,14 +135,14 @@ const EuAiActA4 = () => {
             {/* ── Blok 3: Risicocategorieën ── */}
             <div className="mb-3">
               <SectionLabel>Risicoclassificatie</SectionLabel>
-              <div className="grid grid-cols-4 gap-2 mt-1">
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-2 mt-1">
                 {riskCategories.map((cat) => (
-                  <div key={cat.label} className={`border rounded-lg p-2 ${cat.color}`}>
+                  <div key={cat.label} className={`border rounded-lg p-2.5 md:p-2 ${cat.color}`}>
                     <div className="flex items-center gap-1 mb-1">
                       <div className={`w-2 h-2 rounded-full ${cat.dotColor} print:border print:border-current`} />
-                      <span className="font-bold text-[10px] leading-tight">{cat.label}</span>
+                      <span className="font-bold text-[11px] md:text-[10px] leading-tight">{cat.label}</span>
                     </div>
-                    <p className="text-[9px] leading-snug">{cat.examples}</p>
+                    <p className="text-[11px] md:text-[9px] leading-snug">{cat.examples}</p>
                   </div>
                 ))}
               </div>
