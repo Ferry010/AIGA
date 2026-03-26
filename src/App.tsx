@@ -32,6 +32,7 @@ import UseCaseChecker from "./pages/UseCaseChecker";
 import SpeakersAcademy from "./pages/SpeakersAcademy";
 import EuAiActA4 from "./pages/EuAiActA4";
 import Boetecalculator from "./pages/Boetecalculator";
+import AiRisicoscan from "./pages/AiRisicoscan";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -73,6 +74,7 @@ const AppContent = () => {
           <Route path="/speakers-academy" element={<SpeakersAcademy />} />
           <Route path="/kenniscentrum/eu-ai-act-in-1-a4" element={<EuAiActA4 />} />
           <Route path="/tools/boetecalculator" element={<Boetecalculator />} />
+          <Route path="/tools/ai-risicoscan" element={<AiRisicoscan />} />
           <Route path="/admin" element={<Admin />} />
           <Route path="/admin/login" element={<AdminLogin />} />
           <Route path="/privacyverklaring" element={<Privacyverklaring />} />
