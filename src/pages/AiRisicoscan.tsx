@@ -211,11 +211,58 @@ const AiRisicoscan = () => {
             {Object.keys(groupedTools).length === 0 && (
               <p className="text-muted-foreground text-center py-12">Geen tools gevonden voor "{search}"</p>
             )}
-            {AI_CATEGORIES.filter((cat) => groupedTools[cat as string]).map((cat) => (
+            {/* Popular tools section */}
+            {activeCategory === "Alle" && !search && (() => {
+              const popularToolObjects = POPULAR_TOOLS
+                .map((name) => allTools.find((t) => t.name === name))
+                .filter(Boolean) as AiTool[];
+              if (!popularToolObjects.length) return null;
+              return (
+                <div className="mb-8">
+                  <h2 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground mb-3">🔥 Meest gebruikt in Nederlandse organisaties</h2>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
+                    {popularToolObjects.map((tool) => {
+                      const isSelected = selectedIds.has(tool.name);
+                      const risk = classifyRisk(tool);
+                      return (
+                        <button
+                          key={tool.name}
+                          onClick={() => toggle(tool.name)}
+                          className={`relative text-left p-4 rounded-xl border-2 transition-all duration-200 ${
+                            isSelected
+                              ? "border-primary bg-accent shadow-md"
+                              : "border-border bg-card hover:border-primary/30"
+                          }`}
+                        >
+                          {isSelected && (
+                            <div className="absolute top-2 right-2 w-5 h-5 rounded-full bg-primary flex items-center justify-center">
+                              <Check size={12} className="text-primary-foreground" />
+                            </div>
+                          )}
+                          <p className="font-semibold text-foreground text-sm leading-tight pr-6">{tool.name}</p>
+                          <p className="text-xs text-muted-foreground mt-0.5">{tool.vendor}</p>
+                          <Badge variant="outline" className={`mt-2 text-[10px] ${riskBadgeClasses(risk)}`}>
+                            <span className={`w-1.5 h-1.5 rounded-full mr-1 ${riskDot(risk)}`} />
+                            {risk}
+                          </Badge>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+              );
+            })()}
+
+            {AI_CATEGORIES.filter((cat) => groupedTools[cat as string]).map((cat) => {
+              const toolsInCat = groupedTools[cat as string]!.filter(
+                (tool) => search || activeCategory !== "Alle" || !POPULAR_SET.has(tool.name)
+              );
+              if (!toolsInCat.length) return null;
+              return (
               <div key={cat} className="mb-8">
                 <h2 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground mb-3">{cat}</h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
-                  {groupedTools[cat as string]!.map((tool) => {
+                  {toolsInCat.map((tool) => {
                     const isSelected = selectedIds.has(tool.name);
                     const risk = classifyRisk(tool);
                     return (
