@@ -146,7 +146,7 @@ const AiRisicoscan = () => {
     ? `Je gebruikt ${counts.hoog} tool${counts.hoog > 1 ? "s" : ""} die altijd onder de verplichtingen van Bijlage III ${counts.hoog > 1 ? "vallen" : "valt"}. Directe actie vereist.`
     : overallVerdict === "GEMIDDELD"
     ? `Je gebruikt ${counts.situationeel} tool${counts.situationeel > 1 ? "s" : ""} met situationeel hoog risico. Beoordeel per use case of je de hoog-risico drempel bereikt.`
-    : "Je AI-gebruik valt grotendeels onder minimaal of beperkt risico. Zorg wel voor AI-geletterdheid (Art. 4).";
+    : "Goed bezig! Je AI-gebruik valt onder minimaal of beperkt risico. Jouw organisatie is proactief en goed voorbereid op de EU AI Act.";
 
   /* ────────── PHASE: SELECT ────────── */
   if (phase === "select") {
