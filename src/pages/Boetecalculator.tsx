@@ -278,10 +278,14 @@ const Boetecalculator = () => {
   return (
     <div className="min-h-screen">
       <SEO
-        title="Boetecalculator | AI Act Boeterisico Berekenen | AIGA"
-        description="Bereken in twee minuten hoeveel boete jouw organisatie riskeert onder de EU AI Act. Gebaseerd op Artikel 99."
+        title="Boetecalculator EU AI Act | Wat kost niet-compliance jouw organisatie? | AIGA"
+        description="Bereken in 2 minuten hoeveel boete jouw organisatie riskeert onder de EU AI Act. Gratis calculator op basis van Artikel 99 — voor MKB en grote bedrijven."
         canonical="/tools/boetecalculator"
+        jsonLd={webAppJsonLd}
       />
+      <Helmet>
+        <script type="application/ld+json">{JSON.stringify(faqJsonLd)}</script>
+      </Helmet>
       <BreadcrumbNav items={[{ label: "Home", href: "/" }, { label: "Tools", href: "/tools" }, { label: "Boetecalculator" }]} />
 
       {/* Hero */}
@@ -290,11 +294,14 @@ const Boetecalculator = () => {
           <AnimatedSection>
             <SectionLabel text="BOETECALCULATOR" />
             <h1 className="text-4xl sm:text-5xl font-display font-bold text-foreground leading-tight mt-4">
-              Wat kost niet-compliance<br />
+              EU AI Act Boetecalculator: wat kost niet-compliance<br />
               <span className="text-primary">jouw organisatie?</span>
             </h1>
             <p className="mt-6 text-lg text-muted-foreground max-w-2xl leading-relaxed">
-              Bereken in twee minuten hoeveel boete jouw organisatie riskeert onder de EU AI Act. Gebaseerd op de officiële boetestructuur van Artikel 99.
+              Bereken in twee minuten hoeveel boete jouw organisatie riskeert onder de EU AI Act. Gebaseerd op de officiele boetestructuur van Artikel 99.
+            </p>
+            <p className="mt-4 text-base text-muted-foreground max-w-2xl leading-relaxed">
+              De EU AI Act (Verordening 2024/1689) wordt gefaseerd gehandhaafd. Sinds februari 2025 geldt de AI-geletterdheidsplicht voor alle organisaties die AI inzetten, en vanaf augustus 2025 wordt ook de AI Act handhaving van GPAI-verplichtingen actief. Bij niet-compliance lopen de EU AI Act boetes op tot 35 miljoen euro of 7% van de wereldwijde jaaromzet voor verboden praktijken, tot 15 miljoen euro of 3% voor hoog-risico AI, en tot 7,5 miljoen euro of 1,5% voor overige overtredingen. Artikel 99 AI Act bepaalt dat MKB-bedrijven het laagste bedrag betalen. Steeds meer Nederlandse organisaties berekenen daarom nu hun AI wet boete-risico, zodat AI Act niet-compliance geen verrassing wordt. Gebruik deze gratis boetecalculator om in kaart te brengen waar jouw organisatie staat en welke stappen je kunt nemen voor een boete AI Act Nederland scenario.
             </p>
           </AnimatedSection>
         </div>
