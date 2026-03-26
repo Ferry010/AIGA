@@ -291,7 +291,8 @@ const AiRisicoscan = () => {
                   })}
                 </div>
               </div>
-            ))}
+              );
+            })}
 
             {/* Custom tool */}
             <div className="mt-4">
