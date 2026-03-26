@@ -221,29 +221,27 @@ const AiUseCaseChecker = () => {
           )}
 
           {outcome === "limited" && (
-            <div className="rounded-lg border border-yellow-500/40 bg-yellow-500/10 p-6">
-              <Badge className="bg-yellow-500/20 text-yellow-700 dark:text-yellow-400 border-yellow-500/30 mb-3">
-                Beperkt risico — transparantieverplichtingen gelden
+            <div className="rounded-lg border border-green-500/40 bg-green-500/10 p-6">
+              <Badge className="bg-green-500/20 text-green-700 dark:text-green-400 border-green-500/30 mb-3">
+                Goed nieuws — beperkt risico
               </Badge>
-              <h3 className="text-lg font-display font-semibold text-foreground mb-4">
-                Dit gebruik valt onder beperkt risico
+              <h3 className="text-lg font-display font-semibold text-foreground mb-2">
+                Goed bezig! Dit gebruik valt onder beperkt risico.
               </h3>
+              <p className="text-sm text-muted-foreground mb-4">
+                Jouw toepassing is geen hoog-risico AI. Let wel op de transparantieverplichtingen:
+              </p>
               <ul className="space-y-2 mb-6 text-sm text-muted-foreground">
                 <li className="flex gap-2">
-                  <span className="text-yellow-600 font-bold">•</span>
+                  <span className="text-green-600 font-bold">•</span>
                   <span><strong>Transparantieverplichting</strong> — gebruikers en klanten moeten weten dat ze met AI interageren</span>
                 </li>
                 <li className="flex gap-2">
-                  <span className="text-yellow-600 font-bold">•</span>
-                  <span><strong>AI-geletterdheid verplicht</strong> — Artikel 4 geldt voor alle medewerkers die AI gebruiken, ongeacht risicocategorie</span>
+                  <span className="text-green-600 font-bold">•</span>
+                  <span><strong>AI-geletterdheid verplicht</strong> — Artikel 4 geldt voor alle medewerkers die AI gebruiken</span>
                 </li>
               </ul>
               <div className="flex flex-wrap gap-3">
-                <Button asChild size="sm">
-                  <Link to="/training" className="gap-1.5">
-                    Bekijk de AIGA-certificering <ArrowRight size={14} />
-                  </Link>
-                </Button>
                 <Button variant="ghost" size="sm" onClick={reset} className="gap-1.5">
                   <RotateCcw className="h-3.5 w-3.5" /> Opnieuw beginnen
                 </Button>

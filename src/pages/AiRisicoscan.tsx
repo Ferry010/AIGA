@@ -50,6 +50,23 @@ function riskDot(risk: RiskLevel): string {
   }
 }
 
+/* ────────── popular tools ────────── */
+
+const POPULAR_TOOLS = [
+  "ChatGPT (Free/Pro)",
+  "Microsoft Copilot (M365)",
+  "Google Gemini",
+  "Claude (Anthropic)",
+  "GitHub Copilot",
+  "Grammarly AI",
+  "DeepL",
+  "HubSpot AI",
+  "Fireflies.ai",
+  "LinkedIn Talent AI",
+];
+
+const POPULAR_SET = new Set(POPULAR_TOOLS);
+
 /* ────────── component ────────── */
 
 const AiRisicoscan = () => {
@@ -129,7 +146,7 @@ const AiRisicoscan = () => {
     ? `Je gebruikt ${counts.hoog} tool${counts.hoog > 1 ? "s" : ""} die altijd onder de verplichtingen van Bijlage III ${counts.hoog > 1 ? "vallen" : "valt"}. Directe actie vereist.`
     : overallVerdict === "GEMIDDELD"
     ? `Je gebruikt ${counts.situationeel} tool${counts.situationeel > 1 ? "s" : ""} met situationeel hoog risico. Beoordeel per use case of je de hoog-risico drempel bereikt.`
-    : "Je AI-gebruik valt grotendeels onder minimaal of beperkt risico. Zorg wel voor AI-geletterdheid (Art. 4).";
+    : "Goed bezig! Je AI-gebruik valt onder minimaal of beperkt risico. Jouw organisatie is proactief en goed voorbereid op de EU AI Act.";
 
   /* ────────── PHASE: SELECT ────────── */
   if (phase === "select") {
@@ -194,11 +211,58 @@ const AiRisicoscan = () => {
             {Object.keys(groupedTools).length === 0 && (
               <p className="text-muted-foreground text-center py-12">Geen tools gevonden voor "{search}"</p>
             )}
-            {AI_CATEGORIES.filter((cat) => groupedTools[cat as string]).map((cat) => (
+            {/* Popular tools section */}
+            {activeCategory === "Alle" && !search && (() => {
+              const popularToolObjects = POPULAR_TOOLS
+                .map((name) => allTools.find((t) => t.name === name))
+                .filter(Boolean) as AiTool[];
+              if (!popularToolObjects.length) return null;
+              return (
+                <div className="mb-8">
+                  <h2 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground mb-3">🔥 Meest gebruikt in Nederlandse organisaties</h2>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
+                    {popularToolObjects.map((tool) => {
+                      const isSelected = selectedIds.has(tool.name);
+                      const risk = classifyRisk(tool);
+                      return (
+                        <button
+                          key={tool.name}
+                          onClick={() => toggle(tool.name)}
+                          className={`relative text-left p-4 rounded-xl border-2 transition-all duration-200 ${
+                            isSelected
+                              ? "border-primary bg-accent shadow-md"
+                              : "border-border bg-card hover:border-primary/30"
+                          }`}
+                        >
+                          {isSelected && (
+                            <div className="absolute top-2 right-2 w-5 h-5 rounded-full bg-primary flex items-center justify-center">
+                              <Check size={12} className="text-primary-foreground" />
+                            </div>
+                          )}
+                          <p className="font-semibold text-foreground text-sm leading-tight pr-6">{tool.name}</p>
+                          <p className="text-xs text-muted-foreground mt-0.5">{tool.vendor}</p>
+                          <Badge variant="outline" className={`mt-2 text-[10px] ${riskBadgeClasses(risk)}`}>
+                            <span className={`w-1.5 h-1.5 rounded-full mr-1 ${riskDot(risk)}`} />
+                            {risk}
+                          </Badge>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+              );
+            })()}
+
+            {AI_CATEGORIES.filter((cat) => groupedTools[cat as string]).map((cat) => {
+              const toolsInCat = groupedTools[cat as string]!.filter(
+                (tool) => search || activeCategory !== "Alle" || !POPULAR_SET.has(tool.name)
+              );
+              if (!toolsInCat.length) return null;
+              return (
               <div key={cat} className="mb-8">
                 <h2 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground mb-3">{cat}</h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
-                  {groupedTools[cat as string]!.map((tool) => {
+                  {toolsInCat.map((tool) => {
                     const isSelected = selectedIds.has(tool.name);
                     const risk = classifyRisk(tool);
                     return (
@@ -227,7 +291,8 @@ const AiRisicoscan = () => {
                   })}
                 </div>
               </div>
-            ))}
+              );
+            })}
 
             {/* Custom tool */}
             <div className="mt-4">
@@ -429,25 +494,40 @@ const AiRisicoscan = () => {
       {/* Section D — CTA */}
       <section className="pb-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <Card className="border-border bg-accent/30">
-            <CardContent className="p-8 text-center">
-              <h2 className="text-2xl sm:text-3xl font-display font-bold text-foreground mb-3">Klaar om compliant te worden?</h2>
-              <p className="text-muted-foreground max-w-xl mx-auto mb-6">
-                De AIGA-training dekt de AI-geletterdheidsplicht voor al jouw medewerkers — voor alle tools in dit overzicht.
-              </p>
-              <div className="flex flex-wrap justify-center gap-3 mb-6">
-                <Button asChild className="neon-glow">
-                  <Link to="/training">Bekijk de training <ArrowRight size={16} /></Link>
-                </Button>
-                <Button asChild variant="outline">
-                  <Link to="/contact">Vraag offerte aan</Link>
-                </Button>
-              </div>
-              <Link to="/gereedheidscan" className="text-sm text-primary font-medium hover:underline">
-                Of doe eerst de AI Gereedheidscan voor een breder beeld →
-              </Link>
-            </CardContent>
-          </Card>
+          {overallVerdict === "LAAG" ? (
+            <Card className="border-border bg-emerald-50/50">
+              <CardContent className="p-8 text-center">
+                <span className="text-4xl mb-3 block">🎉</span>
+                <h2 className="text-2xl sm:text-3xl font-display font-bold text-foreground mb-3">Goed voorbereid!</h2>
+                <p className="text-muted-foreground max-w-xl mx-auto mb-6">
+                  Jouw organisatie heeft een laag risicoprofiel onder de EU AI Act. Blijf alert op veranderingen in je AI-gebruik en houd je kennis actueel.
+                </p>
+                <Link to="/tools" className="text-sm text-primary font-medium hover:underline">
+                  Bekijk onze andere gratis tools →
+                </Link>
+              </CardContent>
+            </Card>
+          ) : (
+            <Card className="border-border bg-accent/30">
+              <CardContent className="p-8 text-center">
+                <h2 className="text-2xl sm:text-3xl font-display font-bold text-foreground mb-3">Klaar om compliant te worden?</h2>
+                <p className="text-muted-foreground max-w-xl mx-auto mb-6">
+                  De AIGA-training dekt de AI-geletterdheidsplicht voor al jouw medewerkers — voor alle tools in dit overzicht.
+                </p>
+                <div className="flex flex-wrap justify-center gap-3 mb-6">
+                  <Button asChild className="neon-glow">
+                    <Link to="/training">Bekijk de training <ArrowRight size={16} /></Link>
+                  </Button>
+                  <Button asChild variant="outline">
+                    <Link to="/contact">Vraag offerte aan</Link>
+                  </Button>
+                </div>
+                <Link to="/gereedheidscan" className="text-sm text-primary font-medium hover:underline">
+                  Of doe eerst de AI Gereedheidscan voor een breder beeld →
+                </Link>
+              </CardContent>
+            </Card>
+          )}
 
           {/* Restart */}
           <div className="mt-6 text-center">
