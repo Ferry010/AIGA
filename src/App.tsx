@@ -31,6 +31,7 @@ import Tools from "./pages/Tools";
 import UseCaseChecker from "./pages/UseCaseChecker";
 import SpeakersAcademy from "./pages/SpeakersAcademy";
 import EuAiActA4 from "./pages/EuAiActA4";
+import Boetecalculator from "./pages/Boetecalculator";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
