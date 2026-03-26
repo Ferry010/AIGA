@@ -33,8 +33,8 @@ const scans = [
     title: "AI Risicoscan",
     description: "Welke AI-tools gebruikt jouw organisatie en wat is het risiconiveau? Ontdek per tool of het laag, gemiddeld of hoog risico betreft.",
     icon: ShieldCheck,
-    href: null,
-    available: false,
+    href: "/tools/ai-risicoscan",
+    available: true,
   },
 ];
 
