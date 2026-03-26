@@ -26,8 +26,8 @@ const scans = [
     title: "Boetecalculator",
     description: "Wat kost niet-compliance jouw organisatie? Bereken het risico op basis van de AI Act.",
     icon: Calculator,
-    href: null,
-    available: false,
+    href: "/tools/boetecalculator",
+    available: true,
   },
   {
     title: "AI Risicoscan",
