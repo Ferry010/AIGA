@@ -76,6 +76,7 @@ const SLUG_DATES: Record<string, string> = {
   "5-ai-fouten-die-organisaties-maken": "2025-01-15",
   "waarom-ai-geletterdheid-de-nieuwe-digitale-vaardigheid-is": "2025-01-10",
   "wat-is-ai-geletterdheid": "2025-01-05",
+  "eu-ai-act-boetes-maximale-bedragen": "2025-06-20",
 };
 
 const FALLBACK_IMAGE = "https://aigeletterdheid.academy/assets/AIGA_transparent-CxHDVoMM.png";
@@ -96,10 +97,28 @@ const WAT_IS_FAQ = [
   { q: "Voor wie geldt de AI-geletterdheidsplicht?", a: "De AI-geletterdheidsplicht geldt voor alle organisaties die AI-systemen aanbieden of gebruiken. In de praktijk valt vrijwel iedere Nederlandse organisatie hieronder: ook het gebruik van ChatGPT, Microsoft Copilot, AI-functies in CRM- of HR-systemen, of een geautomatiseerde chatbot maakt van jouw organisatie een gebruiksverantwoordelijke in de zin van de AI Act." },
 ];
 
+const BOETES_FAQ = [
+  { q: "Wat zijn de maximale boetes onder de EU AI Act?", a: "De maximale boete is €35.000.000 of 7% van de wereldwijde jaaromzet voor het gebruik van verboden AI-praktijken. Voor niet-naleving van verplichtingen voor hoog-risico AI geldt een maximum van €15.000.000 of 3% van de omzet." },
+  { q: "Wanneer worden AI Act boetes opgelegd in Nederland?", a: "De Autoriteit Persoonsgegevens handhaaft actief vanaf augustus 2025. De verboden AI-praktijken zijn al van kracht sinds februari 2025." },
+  { q: "Geldt de boete ook voor kleine bedrijven?", a: "Ja, maar voor MKB en startups geldt Artikel 99 lid 6: de boete is het laagste van het percentage of het vaste bedrag. Voor een klein bedrijf is dat vaak aanzienlijk minder dan de nominale maximum bedragen." },
+  { q: "Wat is de boete voor het niet trainen van medewerkers in AI-geletterdheid?", a: "Artikel 4 heeft geen eigen boetebedrag, maar niet-naleving valt onder de algemene deployer-verplichtingen van Categorie 2: maximaal €15.000.000 of 3% van de omzet." },
+  { q: "Hoe bereken ik mijn boeterisico onder de EU AI Act?", a: "Gebruik de gratis AIGA Boetecalculator op aigeletterdheid.academy/tools/boetecalculator. De calculator combineert jouw organisatieprofiel, de tools die je gebruikt en jouw huidige compliancestatus." },
+];
+
 const WAT_IS_FAQ_JSONLD = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
   mainEntity: WAT_IS_FAQ.map((f) => ({
+    "@type": "Question",
+    name: f.q,
+    acceptedAnswer: { "@type": "Answer", text: f.a },
+  })),
+};
+
+const BOETES_FAQ_JSONLD = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: BOETES_FAQ.map((f) => ({
     "@type": "Question",
     name: f.q,
     acceptedAnswer: { "@type": "Answer", text: f.a },
@@ -199,9 +218,16 @@ const ArticleDetail = () => {
   const heroImgNorm = article.image_url ? article.image_url.replace(/^https?:\/\//, "").split("?")[0] : "";
 
   const isWatIs = article.slug === "wat-is-ai-geletterdheid";
-  const seoTitle = isWatIs ? "Wat is AI-geletterdheid? Complete gids voor organisaties (2026)" : `${article.title} | AIGA Kenniscentrum`;
+  const isBoetes = article.slug === "eu-ai-act-boetes-maximale-bedragen";
+  const seoTitle = isWatIs
+    ? "Wat is AI-geletterdheid? Complete gids voor organisaties (2026)"
+    : isBoetes
+    ? "EU AI Act boetes: wat zijn de maximale bedragen? | AIGA"
+    : `${article.title} | AIGA Kenniscentrum`;
   const seoDescription = isWatIs
     ? "AI-geletterdheid is wettelijk verplicht sinds februari 2025. Lees wat het inhoudt, welke verplichtingen de EU AI Act stelt, wat voorbeelden zijn en hoe jij je organisatie compliant maakt."
+    : isBoetes
+    ? "Wat zijn de maximale boetes onder de EU AI Act? Artikel 99 legt de bedragen vast. Lees wat jouw organisatie riskeert en bereken het direct."
     : (article.content ? article.content.slice(0, 155).replace(/[#*\n]/g, "") + "..." : "Lees dit artikel over AI-geletterdheid op het AIGA Kenniscentrum.");
 
   const articleJsonLd = isWatIs
@@ -256,6 +282,11 @@ const ArticleDetail = () => {
       {isWatIs && (
         <Helmet>
           <script type="application/ld+json">{JSON.stringify(WAT_IS_FAQ_JSONLD)}</script>
+        </Helmet>
+      )}
+      {isBoetes && (
+        <Helmet>
+          <script type="application/ld+json">{JSON.stringify(BOETES_FAQ_JSONLD)}</script>
         </Helmet>
       )}
       {/* Breadcrumb */}
@@ -367,6 +398,23 @@ const ArticleDetail = () => {
                 <h2 className="text-2xl font-display font-bold text-foreground mb-6">Veelgestelde vragen over AI-geletterdheid</h2>
                 <Accordion type="single" collapsible className="w-full">
                   {WAT_IS_FAQ.map((faq, i) => (
+                    <AccordionItem key={i} value={`faq-${i}`}>
+                      <AccordionTrigger className="text-left text-base font-semibold">{faq.q}</AccordionTrigger>
+                      <AccordionContent><p className="text-muted-foreground leading-relaxed">{faq.a}</p></AccordionContent>
+                    </AccordionItem>
+                  ))}
+                </Accordion>
+              </div>
+            </AnimatedSection>
+          )}
+
+          {/* FAQ accordion for boetes article */}
+          {isBoetes && (
+            <AnimatedSection delay={0.05}>
+              <div className="mt-12">
+                <h2 className="text-2xl font-display font-bold text-foreground mb-6">Veelgestelde vragen over AI Act boetes</h2>
+                <Accordion type="single" collapsible className="w-full">
+                  {BOETES_FAQ.map((faq, i) => (
                     <AccordionItem key={i} value={`faq-${i}`}>
                       <AccordionTrigger className="text-left text-base font-semibold">{faq.q}</AccordionTrigger>
                       <AccordionContent><p className="text-muted-foreground leading-relaxed">{faq.a}</p></AccordionContent>
