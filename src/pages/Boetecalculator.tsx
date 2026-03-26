@@ -468,16 +468,18 @@ const Boetecalculator = () => {
                     )}
                   </div>
 
-                  {/* Compliance cost comparison */}
-                  <div className="flex items-start gap-3 p-4 rounded-lg bg-green-50 border border-green-100">
-                    <span className="text-lg">🟢</span>
-                    <div>
-                      <p className="text-sm font-semibold text-foreground">Kosten van compliance nu</p>
-                      <p className="text-sm text-muted-foreground">
-                        Certificeer je medewerkers voor €{results.complianceCost.toLocaleString("nl-NL")} (€249 p.p.) — een fractie van je risico
-                      </p>
+                  {/* Compliance cost comparison — only show when not already compliant */}
+                  {!results.isZeroRisk && results.riskLevel !== "LAAG" && (
+                    <div className="flex items-start gap-3 p-4 rounded-lg bg-green-50 border border-green-100">
+                      <span className="text-lg">🟢</span>
+                      <div>
+                        <p className="text-sm font-semibold text-foreground">Kosten van compliance nu</p>
+                        <p className="text-sm text-muted-foreground">
+                          Certificeer je medewerkers voor €{results.complianceCost.toLocaleString("nl-NL")} (€249 p.p.) — een fractie van je risico
+                        </p>
+                      </div>
                     </div>
-                  </div>
+                  )}
                 </CardContent>
               </Card>
 
