@@ -590,6 +590,26 @@ const Boetecalculator = () => {
           )}
         </div>
       </section>
+
+      {/* FAQ Section */}
+      <section className="pb-16">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+          <AnimatedSection>
+            <SectionLabel text="VEELGESTELDE VRAGEN" />
+            <h2 className="text-2xl sm:text-3xl font-display font-bold text-foreground mt-4 mb-8">
+              Veelgestelde vragen over de <span className="text-primary">AI Act boetes</span>
+            </h2>
+            <div className="space-y-6">
+              {faqItems.map((item, i) => (
+                <div key={i} className="border border-border rounded-lg p-5">
+                  <h3 className="font-display font-semibold text-foreground mb-2">{item.q}</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">{item.a}</p>
+                </div>
+              ))}
+            </div>
+          </AnimatedSection>
+        </div>
+      </section>
     </div>
   );
 };
