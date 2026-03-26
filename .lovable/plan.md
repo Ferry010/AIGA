@@ -1,42 +1,61 @@
 
 
-## Plan: AI Risicoscan page at /tools/ai-risicoscan
+## Plan: Downloads page with lead capture and two document pages
 
 ### Overview
-Interactive tool selection page where users pick AI tools their organisation uses, then get a per-tool risk profile and overall compliance summary. Reuses the existing `aiTools` dataset from `src/data/aiTools.ts`.
+Three new pages + one DB table + updates to Tools page and router. Lead capture form saves to a new `download_leads` table before showing the document.
 
-### New file: `src/pages/AiRisicoscan.tsx`
+### Database migration
+New table `download_leads`:
+```sql
+create table public.download_leads (
+  id uuid primary key default gen_random_uuid(),
+  voornaam text not null,
+  achternaam text not null,
+  email text not null,
+  organisatie text not null,
+  functie text,
+  document text not null,
+  newsletter_optin boolean default true,
+  created_at timestamptz default now()
+);
+alter table public.download_leads enable row level security;
+create policy "Allow anonymous inserts" on public.download_leads for insert to anon with check (true);
+```
 
-**Two-phase page: Selection → Results**
+### New files
 
-**Phase 1 — Tool Selection**
-- Hero with SectionLabel "AI RISICOSCAN", heading with teal accent, subtext
-- Search bar ("Zoek een tool...") + category filter tabs (using `AI_CATEGORIES` from existing data)
-- Tool cards grouped by category, each showing: name (bold), vendor (gray), risk badge (color-coded using same `categoryBadgeClass` pattern as AiToolsOverzicht)
-- Click to select/deselect: selected cards get purple border + checkmark
-- "Staat jouw tool er niet bij?" link opens inline text input, adds custom tool with "Beperkt risico" default
-- Sticky bottom bar: "X tools geselecteerd" + "Bekijk mijn risicoprofiel →" CTA (enabled when ≥1 selected)
+**`src/pages/Downloads.tsx`** — Landing page at `/tools/downloads`
+- Hero with SectionLabel "GRATIS DOWNLOADS", heading with teal accent, subtext
+- Two side-by-side cards (Compliance Checklist + AI-beleid template) with icons, descriptions, "PDF · Gratis · Bijgewerkt 2025" badge, gradient CTA button
+- Clicking a button opens a Dialog modal with lead-capture form (voornaam, achternaam, email, organisatie, functie dropdown, newsletter checkbox pre-checked+disabled)
+- On submit: insert into `download_leads`, show thank-you message with "Klik hier om direct te bekijken" link navigating to the document page
+- Uses existing components: SectionLabel, BreadcrumbNav, SEO, Card, Button, Dialog, Input, Label, Select
 
-**Phase 2 — Results (replaces selection)**
+**`src/pages/ComplianceChecklist.tsx`** — Document at `/tools/downloads/ai-act-compliance-checklist`
+- A4-proportioned print-ready layout (max-w-[210mm], white bg, print CSS)
+- "Print / Opslaan als PDF" button top-right (calls `window.print()`)
+- Full checklist content as specified: header block, introductie, leeswijzer legend (colored dots), 10 sections with checkbox items, each prefixed with colored emoji indicators (red/yellow/green), deadline badges, toelichting blocks, Bijlage III summary list, timeline section, footer watermark
+- BreadcrumbNav + SEO + no lead gate on direct visit (document is public, gate is on the downloads hub)
 
-- **Section A — Samenvatting**: Count badges (red/orange/yellow/green) for hoog/situationeel/beperkt/minimaal. Overall verdict badge. Context sentence based on counts.
-- **Section B — Per tool cards**: Each selected tool gets a card with name, vendor, risk badge, obligations text (from `highRiskWhen` field + role-specific obligations for "Hoog risico (altijd)" tools), "Meer info" link to `/ai-tools-onder-de-ai-act`
-- **Section C — Actielijst**: Prioritised checklist based on selected tool risk levels (conformiteitsbeoordeling for always-high, use-case review for situational, Art. 4 training always, documentation always)
-- **Section D — CTA**: "Klaar om compliant te worden?" heading, training/offerte buttons, gereedheidscan link, disclaimer
-
-**Risk classification logic:**
-- `"Hoog risico (altijd)"` → red badge, "Hoog risico (altijd)"
-- `"Beperkt risico"` with `highRiskWhen` content → amber badge, "Situationeel hoog risico" (escalation trigger shown)
-- `"Beperkt risico"` → yellow badge
-- `"Minimaal risico"` → green badge
-- Custom tools → yellow badge, "Beperkt risico"
+**`src/pages/AiBeleidstemplate.tsx`** — Document at `/tools/downloads/ai-beleid-template`
+- Same A4 print-ready layout
+- Template content with `[HAAKJES]` placeholders styled distinctly (e.g. highlighted background)
+- All 9 sections as specified, tables rendered as HTML tables with placeholder cells
+- Print button, footer watermark, BreadcrumbNav
 
 ### Modified files
 
 | File | Change |
 |------|--------|
-| `src/App.tsx` | Add import + route for `/tools/ai-risicoscan` |
-| `src/pages/Tools.tsx` | Update AI Risicoscan entry: `available: true`, `href: "/tools/ai-risicoscan"` |
+| `src/App.tsx` | Import + 3 new routes: `/tools/downloads`, `/tools/downloads/ai-act-compliance-checklist`, `/tools/downloads/ai-beleid-template` |
+| `src/pages/Tools.tsx` | Update `downloads` array: set `available: true`, add `href: "/tools/downloads"` to both items. Render them as clickable Links like the scans section |
 
-No database changes needed. All data sourced from existing `src/data/aiTools.ts`.
+### Technical details
+- Lead form uses `supabase.from("download_leads").insert(...)` directly (anon insert policy)
+- Form validation with required fields, email format check via HTML5 `type="email"`
+- Dialog component from shadcn/ui for the modal
+- Print styles via `@media print` hiding nav, footer, buttons
+- Document pages hide Navbar/Footer print-only via CSS, not routing logic
+- Placeholder fields in template styled with `bg-primary/10 px-1 rounded font-mono text-sm`
 
