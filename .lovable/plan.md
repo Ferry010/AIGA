@@ -1,44 +1,61 @@
 
 
-## Plan: Boetecalculator Page
+## Plan: Rebuild Boetecalculator with legally accurate EU AI Act fine logic
 
-### New Files
+### What changes
 
-**`src/pages/Boetecalculator.tsx`** — Full interactive page with:
+Complete rewrite of `src/pages/Boetecalculator.tsx` — new 4-step flow replacing the current 3-step one, with an entirely new calculation engine.
 
-1. **Hero section** — Uses `SectionLabel`, heading with teal accent on "jouw organisatie?", descriptive subtext referencing Artikel 99
-2. **3-step calculator form** with progress bar (Step 1/2/3):
-   - Step 1: Organisation size — 4 clickable cards (micro/klein/middelgroot/groot) with emoji icons, title, subtitle. Single-select, highlights on selection.
-   - Step 2: AI usage — 7 checkbox cards (multi-select) for AI application types
-   - Step 3: Compliance status — 4 single-select cards for current compliance level
-   - Navigation buttons: "Volgende stap" / "Vorige stap" / "Bereken mijn risico"
-3. **Results section** (replaces form after submission):
-   - Risk badge (LAAG/GEMIDDELD/HOOG RISICO) with green/orange/red coloring
-   - Large estimated fine range
-   - Three output rows: max fine, likely fine, compliance cost (seats x €249)
-   - "Wat nu?" CTA with gradient primary button → /training, outline button → /contact
-   - Legal disclaimer
+### New step flow
 
-**Fine calculation logic:**
-- Turnover estimates: micro=€1M, small=€5M, medium=€25M, large=€100M
-- If biometric or medical AI selected → prohibited tier (7% / €35M cap)
-- Else if automated decisions or monitoring selected → high-risk tier (3% / €15M cap)
-- Else → general tier (1.5% / €7.5M cap)
-- Compliance multiplier: full=0.1, partial=0.4, barely=0.7, none=1.0
-- Range: `[tier% × turnover × multiplier × 0.5]` to `[tier% × turnover × multiplier]`
-- Risk level: multiplier ≤0.1 → LAAG, ≤0.4 → GEMIDDELD, else HOOG
+| Step | Question | Type |
+|------|----------|------|
+| 1. Rol | "Wat is de rol van jouw organisatie ten opzichte van AI?" | Single-select: Provider / Deployer / Beide / Weet ik niet (with inline explainer) |
+| 2. AI-toepassingen | "Welke AI-toepassingen gebruikt of ontwikkelt jouw organisatie?" | Multi-select, grouped into A (Verboden), B (Hoog risico), C (Beperkt risico), D (Minimaal risico) with group headers |
+| 3. Compliancestatus | Dynamic question based on highest group selected | If Group D only: 3 literacy-specific options. If A/B/C: broader compliance options about documentation, oversight, transparency |
+| 4. Organisatiegrootte | Same as old Step 1 | Single-select: Micro/Klein/Middelgroot/Groot |
 
-### Modified Files
+Progress bar updates to "Stap X van 4".
+
+### New calculation engine
+
+```
+Determine highest tier from AI selections:
+- Any Group A → Tier 1: €35M / 7%
+- Any Group B → Tier 2: €15M / 3%
+- Any Group C → Tier 3: €7.5M / 1.5%
+- Group D only → Tier 4: €5K–€50K (member state, no EU max)
+
+SME cap (Art. 99(6)):
+- For micro/klein: fine = MIN(flat cap, % of turnover)
+- For medium/large: fine = MAX(flat cap, % of turnover)
+- Exception: Group A + not compliant → no SME cap
+
+Compliance multiplier:
+- Full → GEEN/LAAG risk, show €0 for Group D, 0% of max for others
+- Partial → GEMIDDELD, 20–40% of tier max
+- Not compliant → HOOG, 60–100% of tier max
+
+Edge cases:
+- Group D + fully compliant → "€0 verwacht boeterisico" green result
+- Group D + not compliant → "€5.000 – €50.000 per audit"
+- Group A + not compliant → always max tier, no cap
+```
+
+### Results section
+
+Three output blocks:
+1. **Risicoprofiel** — Badge (GEEN / LAAG / GEMIDDELD / HOOG) + which Articles apply
+2. **Geschat boetebedrag** — min–max range with Art. 99 footnote
+3. **Kosten van compliance** — seats x €249
+
+CTA buttons + updated disclaimer text (Verordening 2024/1689 reference).
+
+### Files changed
 
 | File | Change |
 |------|--------|
-| `src/pages/Tools.tsx` | Update Boetecalculator entry: `available: true`, `href: "/tools/boetecalculator"` |
-| `src/App.tsx` | Add import + route for `/tools/boetecalculator` → `Boetecalculator` |
+| `src/pages/Boetecalculator.tsx` | Full rewrite with 4-step flow, grouped AI options, dynamic compliance questions, new calculation engine, updated results layout |
 
-### Patterns
-- Uses same component imports as Quiz/Tools pages: `SectionLabel`, `BreadcrumbNav`, `SEO`, `Button`, `Card`, `AnimatedSection`
-- Follows existing design system: `neon-text` gradient for accents, `font-display` headings, `font-body` body text
-- All text in Dutch, no exclamation marks, no em-dashes per content style rules
-
-No database changes needed.
+No other files need changes (route already exists).
 
