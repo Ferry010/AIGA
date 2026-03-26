@@ -218,9 +218,16 @@ const ArticleDetail = () => {
   const heroImgNorm = article.image_url ? article.image_url.replace(/^https?:\/\//, "").split("?")[0] : "";
 
   const isWatIs = article.slug === "wat-is-ai-geletterdheid";
-  const seoTitle = isWatIs ? "Wat is AI-geletterdheid? Complete gids voor organisaties (2026)" : `${article.title} | AIGA Kenniscentrum`;
+  const isBoetes = article.slug === "eu-ai-act-boetes-maximale-bedragen";
+  const seoTitle = isWatIs
+    ? "Wat is AI-geletterdheid? Complete gids voor organisaties (2026)"
+    : isBoetes
+    ? "EU AI Act boetes: wat zijn de maximale bedragen? | AIGA"
+    : `${article.title} | AIGA Kenniscentrum`;
   const seoDescription = isWatIs
     ? "AI-geletterdheid is wettelijk verplicht sinds februari 2025. Lees wat het inhoudt, welke verplichtingen de EU AI Act stelt, wat voorbeelden zijn en hoe jij je organisatie compliant maakt."
+    : isBoetes
+    ? "Wat zijn de maximale boetes onder de EU AI Act? Artikel 99 legt de bedragen vast. Lees wat jouw organisatie riskeert en bereken het direct."
     : (article.content ? article.content.slice(0, 155).replace(/[#*\n]/g, "") + "..." : "Lees dit artikel over AI-geletterdheid op het AIGA Kenniscentrum.");
 
   const articleJsonLd = isWatIs
