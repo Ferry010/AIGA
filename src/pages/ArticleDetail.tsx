@@ -408,6 +408,23 @@ const ArticleDetail = () => {
             </AnimatedSection>
           )}
 
+          {/* FAQ accordion for boetes article */}
+          {isBoetes && (
+            <AnimatedSection delay={0.05}>
+              <div className="mt-12">
+                <h2 className="text-2xl font-display font-bold text-foreground mb-6">Veelgestelde vragen over AI Act boetes</h2>
+                <Accordion type="single" collapsible className="w-full">
+                  {BOETES_FAQ.map((faq, i) => (
+                    <AccordionItem key={i} value={`faq-${i}`}>
+                      <AccordionTrigger className="text-left text-base font-semibold">{faq.q}</AccordionTrigger>
+                      <AccordionContent><p className="text-muted-foreground leading-relaxed">{faq.a}</p></AccordionContent>
+                    </AccordionItem>
+                  ))}
+                </Accordion>
+              </div>
+            </AnimatedSection>
+          )}
+
           {/* CTA section for wat-is-ai-geletterdheid */}
           {isWatIs && (
             <AnimatedSection delay={0.1}>
