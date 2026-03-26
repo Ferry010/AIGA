@@ -43,13 +43,15 @@ const downloads = [
     title: "AI Act Compliance Checklist (PDF)",
     description: "Stap-voor-stap checklist om te voldoen aan de EU AI Act verplichtingen.",
     icon: FileDown,
-    available: false,
+    href: "/tools/downloads",
+    available: true,
   },
   {
     title: "AI-beleid opstellen — gratis template",
     description: "Download een kant-en-klaar template om jouw organisatie-breed AI-beleid op te stellen.",
     icon: FileText,
-    available: false,
+    href: "/tools/downloads",
+    available: true,
   },
 ];
 

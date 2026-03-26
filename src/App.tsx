@@ -78,6 +78,9 @@ const AppContent = () => {
           <Route path="/kenniscentrum/eu-ai-act-in-1-a4" element={<EuAiActA4 />} />
           <Route path="/tools/boetecalculator" element={<Boetecalculator />} />
           <Route path="/tools/ai-risicoscan" element={<AiRisicoscan />} />
+          <Route path="/tools/downloads" element={<Downloads />} />
+          <Route path="/tools/downloads/ai-act-compliance-checklist" element={<ComplianceChecklist />} />
+          <Route path="/tools/downloads/ai-beleid-template" element={<AiBeleidstemplate />} />
           <Route path="/admin" element={<Admin />} />
           <Route path="/admin/login" element={<AdminLogin />} />
           <Route path="/privacyverklaring" element={<Privacyverklaring />} />
