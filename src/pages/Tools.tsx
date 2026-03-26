@@ -31,7 +31,7 @@ const scans = [
   },
   {
     title: "AI Risicoscan",
-    description: "Welke AI-tools gebruikt jouw organisatie en wat is het risiconiveau? Ontdek per tool of het laag, gemiddeld of hoog risico betreft.",
+    description: "Organisatiebreed overzicht: selecteer alle AI-tools die jullie gebruiken en ontvang een compleet risicoprofiel met actielijst en complianceverplichtingen.",
     icon: ShieldCheck,
     href: "/tools/ai-risicoscan",
     available: true,
