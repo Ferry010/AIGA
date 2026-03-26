@@ -50,6 +50,23 @@ function riskDot(risk: RiskLevel): string {
   }
 }
 
+/* ────────── popular tools ────────── */
+
+const POPULAR_TOOLS = [
+  "ChatGPT (Free/Pro)",
+  "Microsoft Copilot (M365)",
+  "Google Gemini",
+  "Claude (Anthropic)",
+  "GitHub Copilot",
+  "Grammarly AI",
+  "DeepL",
+  "HubSpot AI",
+  "Fireflies.ai",
+  "LinkedIn Talent AI",
+];
+
+const POPULAR_SET = new Set(POPULAR_TOOLS);
+
 /* ────────── component ────────── */
 
 const AiRisicoscan = () => {
