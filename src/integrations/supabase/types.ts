@@ -101,6 +101,42 @@ export type Database = {
         }
         Relationships: []
       }
+      download_leads: {
+        Row: {
+          achternaam: string
+          created_at: string | null
+          document: string
+          email: string
+          functie: string | null
+          id: string
+          newsletter_optin: boolean | null
+          organisatie: string
+          voornaam: string
+        }
+        Insert: {
+          achternaam: string
+          created_at?: string | null
+          document: string
+          email: string
+          functie?: string | null
+          id?: string
+          newsletter_optin?: boolean | null
+          organisatie: string
+          voornaam: string
+        }
+        Update: {
+          achternaam?: string
+          created_at?: string | null
+          document?: string
+          email?: string
+          functie?: string | null
+          id?: string
+          newsletter_optin?: boolean | null
+          organisatie?: string
+          voornaam?: string
+        }
+        Relationships: []
+      }
       masterclass_submissions: {
         Row: {
           created_at: string | null
