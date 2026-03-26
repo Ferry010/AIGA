@@ -43,13 +43,15 @@ const downloads = [
     title: "AI Act Compliance Checklist (PDF)",
     description: "Stap-voor-stap checklist om te voldoen aan de EU AI Act verplichtingen.",
     icon: FileDown,
-    available: false,
+    href: "/tools/downloads",
+    available: true,
   },
   {
     title: "AI-beleid opstellen — gratis template",
     description: "Download een kant-en-klaar template om jouw organisatie-breed AI-beleid op te stellen.",
     icon: FileText,
-    available: false,
+    href: "/tools/downloads",
+    available: true,
   },
 ];
 
@@ -133,22 +135,23 @@ const Tools = () => {
           <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-6">
             {downloads.map((dl) => {
               const Icon = dl.icon;
+              const inner = (
+                <Card className="h-full border-border hover:border-primary/40 neon-glow transition-all duration-300 group">
+                  <CardContent className="p-6 flex flex-col gap-4">
+                    <div className="w-12 h-12 rounded-xl bg-accent flex items-center justify-center">
+                      <Icon size={24} className="text-primary" />
+                    </div>
+                    <h3 className="text-lg font-display font-semibold text-foreground">{dl.title}</h3>
+                    <p className="text-sm text-muted-foreground leading-relaxed">{dl.description}</p>
+                    <span className="mt-auto flex items-center gap-1.5 text-sm font-semibold text-primary group-hover:gap-2.5 transition-all">
+                      Download gratis <ArrowRight size={16} />
+                    </span>
+                  </CardContent>
+                </Card>
+              );
               return (
                 <StaggerItem key={dl.title}>
-                  <div className="opacity-75 cursor-default">
-                    <Card className="h-full border-border">
-                      <CardContent className="p-6 flex flex-col gap-4">
-                        <div className="w-12 h-12 rounded-xl bg-accent flex items-center justify-center">
-                          <Icon size={24} className="text-primary" />
-                        </div>
-                        <div className="flex items-start justify-between gap-2">
-                          <h3 className="text-lg font-display font-semibold text-foreground">{dl.title}</h3>
-                          <Badge variant="secondary" className="text-xs shrink-0">Binnenkort beschikbaar</Badge>
-                        </div>
-                        <p className="text-sm text-muted-foreground leading-relaxed">{dl.description}</p>
-                      </CardContent>
-                    </Card>
-                  </div>
+                  <Link to={dl.href} className="block h-full">{inner}</Link>
                 </StaggerItem>
               );
             })}

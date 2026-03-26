@@ -33,6 +33,9 @@ import SpeakersAcademy from "./pages/SpeakersAcademy";
 import EuAiActA4 from "./pages/EuAiActA4";
 import Boetecalculator from "./pages/Boetecalculator";
 import AiRisicoscan from "./pages/AiRisicoscan";
+import Downloads from "./pages/Downloads";
+import ComplianceChecklist from "./pages/ComplianceChecklist";
+import AiBeleidstemplate from "./pages/AiBeleidstemplate";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -75,6 +78,9 @@ const AppContent = () => {
           <Route path="/kenniscentrum/eu-ai-act-in-1-a4" element={<EuAiActA4 />} />
           <Route path="/tools/boetecalculator" element={<Boetecalculator />} />
           <Route path="/tools/ai-risicoscan" element={<AiRisicoscan />} />
+          <Route path="/tools/downloads" element={<Downloads />} />
+          <Route path="/tools/downloads/ai-act-compliance-checklist" element={<ComplianceChecklist />} />
+          <Route path="/tools/downloads/ai-beleid-template" element={<AiBeleidstemplate />} />
           <Route path="/admin" element={<Admin />} />
           <Route path="/admin/login" element={<AdminLogin />} />
           <Route path="/privacyverklaring" element={<Privacyverklaring />} />
