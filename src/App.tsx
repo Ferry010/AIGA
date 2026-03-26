@@ -33,6 +33,9 @@ import SpeakersAcademy from "./pages/SpeakersAcademy";
 import EuAiActA4 from "./pages/EuAiActA4";
 import Boetecalculator from "./pages/Boetecalculator";
 import AiRisicoscan from "./pages/AiRisicoscan";
+import Downloads from "./pages/Downloads";
+import ComplianceChecklist from "./pages/ComplianceChecklist";
+import AiBeleidstemplate from "./pages/AiBeleidstemplate";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
