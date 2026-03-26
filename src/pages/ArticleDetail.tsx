@@ -76,6 +76,7 @@ const SLUG_DATES: Record<string, string> = {
   "5-ai-fouten-die-organisaties-maken": "2025-01-15",
   "waarom-ai-geletterdheid-de-nieuwe-digitale-vaardigheid-is": "2025-01-10",
   "wat-is-ai-geletterdheid": "2025-01-05",
+  "eu-ai-act-boetes-maximale-bedragen": "2025-06-20",
 };
 
 const FALLBACK_IMAGE = "https://aigeletterdheid.academy/assets/AIGA_transparent-CxHDVoMM.png";
