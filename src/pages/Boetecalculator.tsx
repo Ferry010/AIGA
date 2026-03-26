@@ -291,18 +291,49 @@ const Boetecalculator = () => {
                   )}
 
                   {/* Step 2 — AI applications */}
-                  {step === 2 && (
+                  {step === 2 && (() => {
+                    const popularItems = [
+                      { key: "d_genai", label: "Generatieve AI intern (ChatGPT, Copilot, Gemini) — alleen voor medewerkers" },
+                      { key: "c_chatbot", label: "Chatbots of AI-gegenereerde content die aan klanten/gebruikers wordt getoond" },
+                      { key: "b_hr", label: "AI voor werving, selectie of beoordeling van medewerkers (CV-screening, scoring)" },
+                      { key: "d_marketing", label: "AI voor marketing of contentcreatie (intern)" },
+                    ];
+                    const popularKeys = new Set(popularItems.map((i) => i.key));
+                    return (
                     <div>
                       <h2 className="text-xl font-display font-semibold text-foreground mb-2">Welke AI-toepassingen gebruikt of ontwikkelt jouw organisatie?</h2>
                       <p className="text-sm text-muted-foreground mb-6">Meerdere antwoorden mogelijk</p>
+
+                      {/* Popular selections */}
+                      <div className="mb-6">
+                        <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-3">🔥 Meest voorkomend in Nederlandse organisaties</p>
+                        <div className="grid grid-cols-1 gap-2">
+                          {popularItems.map((item) => (
+                            <button
+                              key={item.key}
+                              onClick={() => toggleAi(item.key)}
+                              className={cn(
+                                "text-left p-3 rounded-lg border-2 transition-all duration-200 text-sm",
+                                aiSelections.includes(item.key) ? "border-primary bg-accent" : "border-border hover:border-primary/40 bg-background"
+                              )}
+                            >
+                              <span className="text-foreground">{item.label}</span>
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+
                       <div className="space-y-6">
-                        {aiGroups.map((group) => (
+                        {aiGroups.map((group) => {
+                          const filteredItems = group.items.filter((item) => !popularKeys.has(item.key));
+                          if (!filteredItems.length) return null;
+                          return (
                           <div key={group.id}>
                             <p className={cn("text-xs font-semibold uppercase tracking-wide mb-3", group.color)}>
                               Groep {group.id} — {group.label}
                             </p>
                             <div className="grid grid-cols-1 gap-2">
-                              {group.items.map((item) => (
+                              {filteredItems.map((item) => (
                                 <button
                                   key={item.key}
                                   onClick={() => toggleAi(item.key)}
@@ -316,10 +347,12 @@ const Boetecalculator = () => {
                               ))}
                             </div>
                           </div>
-                        ))}
+                          );
+                        })}
                       </div>
                     </div>
-                  )}
+                    );
+                  })()}
 
                   {/* Step 3 — Compliance */}
                   {step === 3 && (
