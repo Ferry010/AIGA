@@ -449,22 +449,39 @@ const Boetecalculator = () => {
               </Card>
 
               {/* CTA */}
-              <Card className="border-border mb-6">
-                <CardContent className="p-6 sm:p-8 text-center">
-                  <h2 className="text-2xl font-display font-bold text-foreground mb-3">Verklein je risico vandaag nog.</h2>
-                  <p className="text-muted-foreground mb-6 max-w-lg mx-auto">
-                    De meest directe manier om compliant te worden is het certificeren van je medewerkers. Dat kost minder dan één procent van je mogelijke boete.
-                  </p>
-                  <div className="flex flex-col sm:flex-row gap-3 justify-center">
-                    <Button asChild className="bg-gradient-to-r from-[hsl(var(--neon-purple))] to-[hsl(var(--neon-pink))] text-white border-0 hover:opacity-90">
-                      <Link to="/training">Bekijk de training <ArrowRight size={16} /></Link>
-                    </Button>
-                    <Button asChild variant="outline">
-                      <Link to="/contact">Vraag een offerte aan</Link>
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
+              {results.isZeroRisk || results.riskLevel === "LAAG" ? (
+                <Card className="border-border mb-6 bg-emerald-50/50">
+                  <CardContent className="p-6 sm:p-8 text-center">
+                    <span className="text-4xl mb-3 block">🎉</span>
+                    <h2 className="text-2xl font-display font-bold text-foreground mb-3">Goed bezig!</h2>
+                    <p className="text-muted-foreground mb-6 max-w-lg mx-auto">
+                      {results.isZeroRisk
+                        ? "Je organisatie loopt geen direct boeterisico. Uitstekend voorbereid!"
+                        : "Je boeterisico is laag. Blijf alert en houd je compliance actueel."}
+                    </p>
+                    <Link to="/tools" className="text-sm text-primary font-medium hover:underline">
+                      Bekijk onze andere gratis tools →
+                    </Link>
+                  </CardContent>
+                </Card>
+              ) : (
+                <Card className="border-border mb-6">
+                  <CardContent className="p-6 sm:p-8 text-center">
+                    <h2 className="text-2xl font-display font-bold text-foreground mb-3">Verklein je risico vandaag nog.</h2>
+                    <p className="text-muted-foreground mb-6 max-w-lg mx-auto">
+                      De meest directe manier om compliant te worden is het certificeren van je medewerkers. Dat kost minder dan één procent van je mogelijke boete.
+                    </p>
+                    <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                      <Button asChild className="bg-gradient-to-r from-[hsl(var(--neon-purple))] to-[hsl(var(--neon-pink))] text-white border-0 hover:opacity-90">
+                        <Link to="/training">Bekijk de training <ArrowRight size={16} /></Link>
+                      </Button>
+                      <Button asChild variant="outline">
+                        <Link to="/contact">Vraag een offerte aan</Link>
+                      </Button>
+                    </div>
+                  </CardContent>
+                </Card>
+              )}
 
               <div className="flex justify-center mb-6">
                 <Button variant="ghost" onClick={handleReset}>

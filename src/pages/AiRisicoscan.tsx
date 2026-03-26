@@ -494,25 +494,40 @@ const AiRisicoscan = () => {
       {/* Section D — CTA */}
       <section className="pb-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <Card className="border-border bg-accent/30">
-            <CardContent className="p-8 text-center">
-              <h2 className="text-2xl sm:text-3xl font-display font-bold text-foreground mb-3">Klaar om compliant te worden?</h2>
-              <p className="text-muted-foreground max-w-xl mx-auto mb-6">
-                De AIGA-training dekt de AI-geletterdheidsplicht voor al jouw medewerkers — voor alle tools in dit overzicht.
-              </p>
-              <div className="flex flex-wrap justify-center gap-3 mb-6">
-                <Button asChild className="neon-glow">
-                  <Link to="/training">Bekijk de training <ArrowRight size={16} /></Link>
-                </Button>
-                <Button asChild variant="outline">
-                  <Link to="/contact">Vraag offerte aan</Link>
-                </Button>
-              </div>
-              <Link to="/gereedheidscan" className="text-sm text-primary font-medium hover:underline">
-                Of doe eerst de AI Gereedheidscan voor een breder beeld →
-              </Link>
-            </CardContent>
-          </Card>
+          {overallVerdict === "LAAG" ? (
+            <Card className="border-border bg-emerald-50/50">
+              <CardContent className="p-8 text-center">
+                <span className="text-4xl mb-3 block">🎉</span>
+                <h2 className="text-2xl sm:text-3xl font-display font-bold text-foreground mb-3">Goed voorbereid!</h2>
+                <p className="text-muted-foreground max-w-xl mx-auto mb-6">
+                  Jouw organisatie heeft een laag risicoprofiel onder de EU AI Act. Blijf alert op veranderingen in je AI-gebruik en houd je kennis actueel.
+                </p>
+                <Link to="/tools" className="text-sm text-primary font-medium hover:underline">
+                  Bekijk onze andere gratis tools →
+                </Link>
+              </CardContent>
+            </Card>
+          ) : (
+            <Card className="border-border bg-accent/30">
+              <CardContent className="p-8 text-center">
+                <h2 className="text-2xl sm:text-3xl font-display font-bold text-foreground mb-3">Klaar om compliant te worden?</h2>
+                <p className="text-muted-foreground max-w-xl mx-auto mb-6">
+                  De AIGA-training dekt de AI-geletterdheidsplicht voor al jouw medewerkers — voor alle tools in dit overzicht.
+                </p>
+                <div className="flex flex-wrap justify-center gap-3 mb-6">
+                  <Button asChild className="neon-glow">
+                    <Link to="/training">Bekijk de training <ArrowRight size={16} /></Link>
+                  </Button>
+                  <Button asChild variant="outline">
+                    <Link to="/contact">Vraag offerte aan</Link>
+                  </Button>
+                </div>
+                <Link to="/gereedheidscan" className="text-sm text-primary font-medium hover:underline">
+                  Of doe eerst de AI Gereedheidscan voor een breder beeld →
+                </Link>
+              </CardContent>
+            </Card>
+          )}
 
           {/* Restart */}
           <div className="mt-6 text-center">
