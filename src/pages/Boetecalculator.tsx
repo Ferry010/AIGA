@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight, ArrowLeft } from "lucide-react";
+import { Helmet } from "react-helmet-async";
 import { AnimatedSection } from "@/components/AnimatedSection";
 import SectionLabel from "@/components/SectionLabel";
 import { Button } from "@/components/ui/button";
@@ -10,6 +11,57 @@ import { Badge } from "@/components/ui/badge";
 import BreadcrumbNav from "@/components/BreadcrumbNav";
 import SEO from "@/components/SEO";
 import { cn } from "@/lib/utils";
+
+const webAppJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "EU AI Act Boetecalculator",
+  "description": "Bereken het boeterisico van jouw organisatie onder de EU AI Act op basis van Artikel 99.",
+  "url": "https://aigeletterdheid.academy/tools/boetecalculator",
+  "applicationCategory": "BusinessApplication",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" },
+  "provider": { "@type": "Organization", "name": "AIGA Academy", "url": "https://aigeletterdheid.academy" }
+};
+
+const faqItems = [
+  {
+    q: "Wat zijn de boetes onder de EU AI Act?",
+    a: "De EU AI Act kent drie boetetiers. Verboden AI-praktijken (Artikel 5): tot 35 miljoen euro of 7% van de wereldwijde jaaromzet. Hoog-risico AI (Bijlage III): tot 15 miljoen euro of 3% van de omzet. Transparantieverplichtingen en AI-geletterdheid: tot 7,5 miljoen euro of 1,5% van de omzet. Voor MKB-bedrijven geldt het laagste van beide bedragen."
+  },
+  {
+    q: "Wanneer wordt de EU AI Act gehandhaafd in Nederland?",
+    a: "De handhaving van de EU AI Act verloopt gefaseerd. Sinds 2 februari 2025 gelden de verboden AI-praktijken (Artikel 5) en de AI-geletterdheidsplicht (Artikel 4). Vanaf 2 augustus 2025 worden GPAI-verplichtingen en governance-bepalingen gehandhaafd. De volledige toepassing, inclusief alle hoog-risico verplichtingen, gaat in op 2 augustus 2026."
+  },
+  {
+    q: "Geldt de AI Act ook voor het MKB?",
+    a: "Ja, de EU AI Act geldt voor alle organisaties die AI-systemen gebruiken of aanbieden binnen de EU, ongeacht grootte. Wel biedt Artikel 99 lid 6 bescherming voor MKB-bedrijven: voor hen geldt het laagste van het vaste boetebedrag of het omzetpercentage. Micro-ondernemingen en kleine bedrijven betalen dus proportioneel minder."
+  },
+  {
+    q: "Wat is de boete voor het niet trainen van medewerkers in AI-geletterdheid?",
+    a: "Artikel 4 van de EU AI Act verplicht alle organisaties om te zorgen voor AI-geletterdheid van medewerkers die AI-systemen gebruiken. Handhaving hiervan is per 2 februari 2025 van kracht. Lidstaten bepalen de sancties, maar schattingen lopen van 5.000 tot 50.000 euro per audit, afhankelijk van de mate van niet-compliance en de grootte van de organisatie."
+  },
+  {
+    q: "Hoe bereken ik mijn AI Act boeterisico?",
+    a: "Gebruik de AIGA Boetecalculator: selecteer je rol (provider of deployer), geef aan welke AI-toepassingen je gebruikt, hoe compliant je bent en hoe groot je organisatie is. Op basis van deze vier factoren berekent de tool een indicatief boetebedrag conform Artikel 99 van de EU AI Act."
+  },
+  {
+    q: "Wat is Artikel 99 van de EU AI Act?",
+    a: "Artikel 99 van de EU AI Act (Verordening 2024/1689) bevat de boetebepalingen. Het definieert drie tiers van boetes op basis van de ernst van de overtreding, specifieke plafonds voor MKB-bedrijven en de bevoegdheid van lidstaten om aanvullende sancties vast te stellen. De boetes zijn gemodelleerd naar het GDPR-boetesysteem."
+  }
+];
+
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqItems.map((item) => ({
+    "@type": "Question",
+    "name": item.q,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": item.a
+    }
+  }))
+};
 
 /* ── Types ── */
 type Role = "provider" | "deployer" | "both" | "unknown" | null;
