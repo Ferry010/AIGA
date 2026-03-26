@@ -10,7 +10,7 @@ import SEO from "@/components/SEO";
 const scans = [
   {
     title: "AI Use Case Checker",
-    description: "Controleer per AI-tool en toepassing of jouw gebruik onder hoog risico valt volgens de EU AI Act. Selecteer een tool, kies je use case en zie direct het oordeel.",
+    description: "Eén tool, één toepassing — is het hoog risico? Selecteer een AI-tool en een specifieke use case om direct te zien of die combinatie onder Bijlage III valt.",
     icon: Search,
     href: "/ai-use-case-checker",
     available: true,
