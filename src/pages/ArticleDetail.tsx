@@ -154,7 +154,7 @@ const ArticleDetail = () => {
       setLoading(true);
       const { data: current } = await supabase
         .from("articles")
-        .select("id, title, category, url, image_url, content, slug, sort_order, created_at, updated_at, published_date, read_time_minutes, meta_description")
+        .select("id, title, category, url, image_url, content, slug, sort_order, created_at, updated_at, published_date, read_time_minutes, meta_description, seo_keywords, h1_override")
         .eq("slug", slug)
         .eq("published", true)
         .single();
