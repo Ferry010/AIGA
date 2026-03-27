@@ -26,6 +26,12 @@ const relatedTools = [
 ];
 
 const BeleidstemplateLanding = () => {
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const navigate = useNavigate();
+
+  const handleSuccess = () => {
+    navigate("/tools/downloads/ai-beleid-opstellen/document");
+  };
 
   return (
     <div className="min-h-screen">

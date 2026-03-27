@@ -25,6 +25,12 @@ const relatedTools = [
 ];
 
 const ChecklistLanding = () => {
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const navigate = useNavigate();
+
+  const handleSuccess = () => {
+    navigate("/tools/downloads/ai-act-compliance-checklist/document");
+  };
 
   return (
     <div className="min-h-screen">
