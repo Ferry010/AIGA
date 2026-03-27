@@ -97,12 +97,10 @@ const ChecklistLanding = () => {
             </p>
             <Button
               size="lg"
-              asChild
+              onClick={() => setShowLeadDialog(true)}
               className="mt-8 bg-gradient-to-r from-[hsl(var(--primary))] to-[hsl(330,80%,55%)] hover:opacity-90 text-white"
             >
-              <Link to="/tools/downloads/ai-act-compliance-checklist/document">
-                Download gratis <ArrowRight size={16} />
-              </Link>
+              Download gratis <ArrowRight size={16} />
             </Button>
           </AnimatedSection>
         </div>
