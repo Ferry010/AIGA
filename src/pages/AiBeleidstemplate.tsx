@@ -1,8 +1,8 @@
-import { Printer } from "lucide-react";
+import { Printer, Link as LinkIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import BreadcrumbNav from "@/components/BreadcrumbNav";
 import SEO from "@/components/SEO";
-import ShareDocumentButton from "@/components/ShareDocumentButton";
+import { toast } from "sonner";
 
 const Placeholder = ({ children }: { children: React.ReactNode }) => (
   <span className="bg-primary/10 px-1 rounded font-mono text-sm text-primary">{children}</span>
