@@ -581,7 +581,14 @@ const Admin = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <Label>Titel</Label>
-                  <Input value={form.title} onChange={(e) => setForm({ ...form, title: e.target.value })} placeholder="Titel van het artikel" />
+                  <Input value={form.title} onChange={(e) => {
+                    const newTitle = e.target.value;
+                    const updates: Partial<typeof form> = { title: newTitle };
+                    if (!editingId && (!form.slug || form.slug === generateSlug(form.title))) {
+                      updates.slug = generateSlug(newTitle);
+                    }
+                    setForm((prev) => ({ ...prev, ...updates }));
+                  }} placeholder="Titel van het artikel" />
                 </div>
                 <div className="space-y-2">
                   <Label>Categorie</Label>
