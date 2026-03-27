@@ -649,6 +649,20 @@ const Admin = () => {
                   />
                   <p className="text-xs text-muted-foreground">{form.meta_description.length}/160</p>
                 </div>
+                <div className="space-y-2 md:col-span-2">
+                  <Label>H1 (optioneel)</Label>
+                  <Input value={form.h1_override} onChange={(e) => setForm({ ...form, h1_override: e.target.value })} placeholder="Standaard: titel wordt als H1 gebruikt" />
+                </div>
+                <div className="space-y-2 md:col-span-2">
+                  <Label>Zoektermen (SEO)</Label>
+                  <textarea
+                    value={form.seo_keywords}
+                    onChange={(e) => setForm({ ...form, seo_keywords: e.target.value })}
+                    placeholder="bijv. AI Act, AI-geletterdheid, compliance"
+                    rows={2}
+                    className="w-full border border-border rounded-lg px-3 py-2 bg-background text-foreground text-sm resize-none"
+                  />
+                </div>
                 <div className="flex items-center gap-3 pt-6">
                   <Switch checked={form.published} onCheckedChange={(v) => setForm({ ...form, published: v })} />
                   <Label>Gepubliceerd</Label>
