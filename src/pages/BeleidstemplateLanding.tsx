@@ -24,13 +24,6 @@ const relatedTools = [
 ];
 
 const BeleidstemplateLanding = () => {
-  const [dialogOpen, setDialogOpen] = useState(false);
-  const navigate = useNavigate();
-
-  const handleSuccess = () => {
-    navigate("/tools/downloads/ai-beleid-opstellen/document");
-  };
-
   return (
     <div className="min-h-screen">
       <SEO
@@ -65,17 +58,13 @@ const BeleidstemplateLanding = () => {
             </p>
             <Button
               size="lg"
-              onClick={() => setDialogOpen(true)}
+              asChild
               className="mt-8 bg-gradient-to-r from-[hsl(var(--primary))] to-[hsl(330,80%,55%)] hover:opacity-90 text-white"
             >
-              Download gratis <ArrowRight size={16} />
+              <Link to="/tools/downloads/ai-beleid-opstellen/document">
+                Download gratis <ArrowRight size={16} />
+              </Link>
             </Button>
-            <DownloadLeadDialog
-              open={dialogOpen}
-              onOpenChange={setDialogOpen}
-              document="template"
-              onSuccess={handleSuccess}
-            />
           </AnimatedSection>
         </div>
       </section>
