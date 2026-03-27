@@ -57,7 +57,9 @@ const ComplianceChecklist = () => {
       <div className="max-w-[210mm] mx-auto bg-white px-8 sm:px-12 py-10 print:px-[20mm] print:py-[15mm] print:shadow-none shadow-lg my-8 print:my-0">
         {/* Print button */}
         <div className="flex justify-end gap-2 mb-6 print:hidden">
-          <ShareDocumentButton document="checklist" documentUrl="/tools/downloads/ai-act-compliance-checklist/document" />
+          <Button variant="outline" size="sm" onClick={() => { navigator.clipboard.writeText(window.location.href); toast.success("Link gekopieerd!"); }}>
+            <LinkIcon size={16} /> Kopieer link
+          </Button>
           <Button variant="outline" size="sm" onClick={() => window.print()}>
             <Printer size={16} /> Print / PDF
           </Button>
