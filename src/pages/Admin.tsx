@@ -612,6 +612,14 @@ const Admin = () => {
                   <Label>Volgorde</Label>
                   <Input type="number" value={form.sort_order} onChange={(e) => setForm({ ...form, sort_order: parseInt(e.target.value) || 0 })} />
                 </div>
+                <div className="space-y-2">
+                  <Label>Publicatiedatum</Label>
+                  <Input type="date" value={form.published_date} onChange={(e) => setForm({ ...form, published_date: e.target.value })} />
+                </div>
+                <div className="space-y-2">
+                  <Label>Leestijd (min, optioneel)</Label>
+                  <Input type="number" value={form.read_time_minutes} onChange={(e) => setForm({ ...form, read_time_minutes: e.target.value })} placeholder="Auto-berekend indien leeg" />
+                </div>
                 <div className="flex items-center gap-3 pt-6">
                   <Switch checked={form.published} onCheckedChange={(v) => setForm({ ...form, published: v })} />
                   <Label>Gepubliceerd</Label>
