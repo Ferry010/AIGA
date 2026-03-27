@@ -10,9 +10,9 @@ import { Helmet } from "react-helmet-async";
 
 const deadlines = [
   { date: "2 februari 2025", label: "Al van kracht", description: "AI-geletterdheidsplicht voor alle medewerkers en verbod op onaanvaardbare AI-toepassingen (zoals sociale scoring en real-time biometrische identificatie in openbare ruimtes).", active: true },
-  { date: "2 augustus 2025", label: "Binnenkort", description: "Verplichtingen voor aanbieders van general-purpose AI-modellen (GPAI), zoals grote taalmodellen. Transparantie-eisen en documentatieplichten treden in werking.", active: false },
-  { date: "2 augustus 2026", label: "In voorbereiding", description: "Verplichtingen voor hoog-risico AI-systemen uit Bijlage III. Dit raakt deployers het hardst: conformiteitsbeoordelingen, menselijk toezicht, logging en incidentmelding worden verplicht.", active: false },
-  { date: "2 augustus 2027", label: "Volledige handhaving", description: "Alle overige bepalingen van de AI Act worden gehandhaafd. Vanaf dit moment zijn alle verplichtingen volledig van kracht voor alle partijen in de AI-waardeketen.", active: false },
+  { date: "2 augustus 2025", label: "Al van kracht", description: "Verplichtingen voor aanbieders van general-purpose AI-modellen (GPAI), zoals grote taalmodellen. Transparantie-eisen en documentatieplichten treden in werking.", active: true },
+  { date: "2 augustus 2026", label: "Al van kracht", description: "Verplichtingen voor hoog-risico AI-systemen uit Bijlage III. Dit raakt deployers het hardst: conformiteitsbeoordelingen, menselijk toezicht, logging en incidentmelding worden verplicht.", active: true },
+  { date: "2 augustus 2027", label: "Binnenkort", description: "Alle overige bepalingen van de AI Act worden gehandhaafd. Vanaf dit moment zijn alle verplichtingen volledig van kracht voor alle partijen in de AI-waardeketen.", active: false },
 ];
 
 const faqItems = [
@@ -167,7 +167,7 @@ const AiActDeadlines = () => {
               <Button
                 size="lg"
                 asChild
-                className="bg-gradient-to-r from-[hsl(var(--primary))] to-[hsl(330,80%,55%)] hover:opacity-90 text-white"
+                className="btn-neon"
               >
                 <Link to="/gereedheidscan">
                   Doe de gratis AI Gereedheidscan <ArrowRight size={16} />
