@@ -167,7 +167,7 @@ const AiActDeadlines = () => {
               <Button
                 size="lg"
                 asChild
-                className="bg-gradient-to-r from-[hsl(var(--primary))] to-[hsl(330,80%,55%)] hover:opacity-90 text-white"
+                className="btn-neon"
               >
                 <Link to="/gereedheidscan">
                   Doe de gratis AI Gereedheidscan <ArrowRight size={16} />

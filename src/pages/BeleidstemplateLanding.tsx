@@ -99,7 +99,7 @@ const BeleidstemplateLanding = () => {
             <Button
               size="lg"
               onClick={() => setShowLeadDialog(true)}
-              className="mt-8 bg-gradient-to-r from-[hsl(var(--primary))] to-[hsl(330,80%,55%)] hover:opacity-90 text-white"
+              className="mt-8 btn-neon"
             >
               Download gratis <ArrowRight size={16} />
             </Button>

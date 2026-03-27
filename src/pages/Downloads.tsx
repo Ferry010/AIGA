@@ -78,7 +78,7 @@ const Downloads = () => {
                       </Badge>
                       <Button
                         asChild
-                        className="mt-auto w-fit bg-gradient-to-r from-[hsl(var(--primary))] to-[hsl(330,80%,55%)] hover:opacity-90 text-white"
+                        className="mt-auto w-fit btn-neon"
                       >
                         <Link to={doc.href}>Download gratis <ArrowRight size={16} /></Link>
                       </Button>
