@@ -314,6 +314,11 @@ const ArticleDetail = () => {
           <script type="application/ld+json">{JSON.stringify(BOETES_FAQ_JSONLD)}</script>
         </Helmet>
       )}
+      {is5Stappen && (
+        <Helmet>
+          <script type="application/ld+json">{JSON.stringify(VIJF_STAPPEN_FAQ_JSONLD)}</script>
+        </Helmet>
+      )}
       {/* Breadcrumb */}
       <BreadcrumbNav items={[
         { label: "Home", href: "/" },
