@@ -5,7 +5,7 @@ import {
 import type { TemplateEntry } from './registry.ts'
 
 const SITE_NAME = "Ferry van AI Geletterdheid Academy"
-const LOGO_URL = "https://aigeletterdheid.academy/assets/AIGA_transparent-CxHDVoMM.png"
+const LOGO_URL = "https://zomldsagozipnelyuhzy.supabase.co/storage/v1/object/public/article-images/email-assets/aiga-logo.jpg"
 
 interface DocumentDownloadProps {
   voornaam?: string
