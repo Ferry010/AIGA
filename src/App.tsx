@@ -81,8 +81,11 @@ const AppContent = () => {
           <Route path="/tools/boetecalculator" element={<Boetecalculator />} />
           <Route path="/tools/ai-risicoscan" element={<AiRisicoscan />} />
           <Route path="/tools/downloads" element={<Downloads />} />
-          <Route path="/tools/downloads/ai-act-compliance-checklist" element={<ComplianceChecklist />} />
-          <Route path="/tools/downloads/ai-beleid-template" element={<AiBeleidstemplate />} />
+          <Route path="/tools/downloads/ai-act-compliance-checklist" element={<ChecklistLanding />} />
+          <Route path="/tools/downloads/ai-act-compliance-checklist/document" element={<ComplianceChecklist />} />
+          <Route path="/tools/downloads/ai-beleid-opstellen" element={<BeleidstemplateLanding />} />
+          <Route path="/tools/downloads/ai-beleid-opstellen/document" element={<AiBeleidstemplate />} />
+          <Route path="/tools/downloads/ai-beleid-template" element={<Navigate to="/tools/downloads/ai-beleid-opstellen" replace />} />
           <Route path="/admin" element={<Admin />} />
           <Route path="/admin/login" element={<AdminLogin />} />
           <Route path="/privacyverklaring" element={<Privacyverklaring />} />
