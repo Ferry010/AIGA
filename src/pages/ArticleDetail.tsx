@@ -362,11 +362,6 @@ const ArticleDetail = () => {
               <span>{formatDate(isWatIs ? "2025-02-01T00:00:00Z" : publishedDate)}</span>
               <span>Bijgewerkt: {new Date(modifiedDate).toLocaleDateString("nl-NL", { month: "long", year: "numeric" })}</span>
               <span className="flex items-center gap-1"><Clock size={14} /> {readingTime} min leestijd</span>
-              {!isWatIs && (
-                <a href={article.url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-primary hover:underline">
-                  Origineel artikel <ExternalLink size={14} />
-                </a>
-              )}
             </div>
 
             {/* Table of Contents */}
