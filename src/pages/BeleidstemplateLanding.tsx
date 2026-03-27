@@ -66,12 +66,18 @@ const BeleidstemplateLanding = () => {
               Geschikt voor HR-managers, compliance officers, directieleden en IT-leads die AI-governance willen formaliseren voordat de handhaving start in augustus 2025.
             </p>
             <Button
-              asChild
               size="lg"
+              onClick={() => setDialogOpen(true)}
               className="mt-8 bg-gradient-to-r from-[hsl(var(--primary))] to-[hsl(330,80%,55%)] hover:opacity-90 text-white"
             >
-              <Link to="/tools/downloads/ai-beleid-opstellen/document">Download gratis <ArrowRight size={16} /></Link>
+              Download gratis <ArrowRight size={16} />
             </Button>
+            <DownloadLeadDialog
+              open={dialogOpen}
+              onOpenChange={setDialogOpen}
+              document="template"
+              onSuccess={handleSuccess}
+            />
           </AnimatedSection>
         </div>
       </section>

@@ -65,12 +65,18 @@ const ChecklistLanding = () => {
               Het document is gebaseerd op de officiële tekst van Verordening (EU) 2024/1689 en vertaald naar concrete, afvinkbare actiepunten. Geschikt voor compliance officers, HR-managers, IT-leads en directieleden.
             </p>
             <Button
-              asChild
               size="lg"
+              onClick={() => setDialogOpen(true)}
               className="mt-8 bg-gradient-to-r from-[hsl(var(--primary))] to-[hsl(330,80%,55%)] hover:opacity-90 text-white"
             >
-              <Link to="/tools/downloads/ai-act-compliance-checklist/document">Download gratis <ArrowRight size={16} /></Link>
+              Download gratis <ArrowRight size={16} />
             </Button>
+            <DownloadLeadDialog
+              open={dialogOpen}
+              onOpenChange={setDialogOpen}
+              document="checklist"
+              onSuccess={handleSuccess}
+            />
           </AnimatedSection>
         </div>
       </section>
