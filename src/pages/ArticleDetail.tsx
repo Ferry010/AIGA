@@ -489,6 +489,19 @@ const ArticleDetail = () => {
             </AnimatedSection>
           )}
 
+          {/* CTA for 5-stappen article */}
+          {is5Stappen && (
+            <AnimatedSection delay={0.1}>
+              <div className="mt-12 p-8 bg-card border border-border rounded-2xl text-center neon-glow">
+                <h2 className="text-2xl font-display font-bold text-foreground mb-3">Klaar om te starten?</h2>
+                <p className="text-muted-foreground mb-6 max-w-xl mx-auto">
+                  Onze training is volledig Nederlandstalig, gebaseerd op de EU AI Act, en bevat een audit-proof certificaat.
+                </p>
+                <Button asChild><Link to="/training">Bekijk de AI Geletterdheid Training →</Link></Button>
+              </div>
+            </AnimatedSection>
+          )}
+
           {/* Slug-based CTA blocks */}
           {article.slug && ARTICLE_CTAS[article.slug] && !isWatIs && (
             <AnimatedSection delay={0.08}>
