@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://aigeletterdheid.academy/</loc><priority>1.0</priority><changefreq>weekly</changefreq><lastmod>2026-03-13</lastmod></url>
-  <url><loc>https://aigeletterdheid.academy/training</loc><priority>0.9</priority><changefreq>monthly</changefreq><lastmod>2026-03-13</lastmod></url>
+  <url><loc>https://aigeletterdheid.academy/</loc><priority>1.0</priority><changefreq>weekly</changefreq><lastmod>2026-03-27</lastmod></url>
+  <url><loc>https://aigeletterdheid.academy/training</loc><priority>0.9</priority><changefreq>monthly</changefreq><lastmod>2026-03-27</lastmod></url>
   <url><loc>https://aigeletterdheid.academy/masterclass</loc><priority>0.9</priority><changefreq>monthly</changefreq><lastmod>2026-03-13</lastmod></url>
-  <url><loc>https://aigeletterdheid.academy/kenniscentrum</loc><priority>0.9</priority><changefreq>weekly</changefreq><lastmod>2026-03-13</lastmod></url>
-  <url><loc>https://aigeletterdheid.academy/gereedheidscan</loc><priority>0.8</priority><changefreq>monthly</changefreq><lastmod>2026-03-20</lastmod></url>
+  <url><loc>https://aigeletterdheid.academy/kenniscentrum</loc><priority>0.9</priority><changefreq>weekly</changefreq><lastmod>2026-03-27</lastmod></url>
+  <url><loc>https://aigeletterdheid.academy/gereedheidscan</loc><priority>0.8</priority><changefreq>monthly</changefreq><lastmod>2026-03-27</lastmod></url>
   <url><loc>https://aigeletterdheid.academy/faq</loc><priority>0.7</priority><changefreq>monthly</changefreq><lastmod>2026-03-13</lastmod></url>
   <url><loc>https://aigeletterdheid.academy/over-aiga</loc><priority>0.6</priority><changefreq>monthly</changefreq><lastmod>2026-03-13</lastmod></url>
   <url><loc>https://aigeletterdheid.academy/contact</loc><priority>0.6</priority><changefreq>monthly</changefreq><lastmod>2026-03-13</lastmod></url>
@@ -13,24 +13,35 @@
   <url><loc>https://aigeletterdheid.academy/ai-training-voor-bedrijven</loc><priority>0.8</priority><changefreq>monthly</changefreq><lastmod>2026-03-13</lastmod></url>
   <url><loc>https://aigeletterdheid.academy/ai-act-compliance-nederland</loc><priority>0.8</priority><changefreq>monthly</changefreq><lastmod>2026-03-13</lastmod></url>
   <url><loc>https://aigeletterdheid.academy/ai-cursus-medewerkers</loc><priority>0.8</priority><changefreq>monthly</changefreq><lastmod>2026-03-13</lastmod></url>
+  <url><loc>https://aigeletterdheid.academy/ai-act-deadlines</loc><priority>0.8</priority><changefreq>monthly</changefreq><lastmod>2026-03-27</lastmod></url>
+  <!-- Tools -->
+  <url><loc>https://aigeletterdheid.academy/tools</loc><priority>0.8</priority><changefreq>monthly</changefreq><lastmod>2026-03-27</lastmod></url>
+  <url><loc>https://aigeletterdheid.academy/tools/downloads</loc><priority>0.8</priority><changefreq>monthly</changefreq><lastmod>2026-03-27</lastmod></url>
+  <url><loc>https://aigeletterdheid.academy/tools/downloads/ai-act-compliance-checklist</loc><priority>0.8</priority><changefreq>monthly</changefreq><lastmod>2026-03-27</lastmod></url>
+  <url><loc>https://aigeletterdheid.academy/tools/downloads/ai-beleid-opstellen</loc><priority>0.8</priority><changefreq>monthly</changefreq><lastmod>2026-03-27</lastmod></url>
+  <url><loc>https://aigeletterdheid.academy/tools/boetecalculator</loc><priority>0.7</priority><changefreq>monthly</changefreq><lastmod>2026-03-27</lastmod></url>
+  <url><loc>https://aigeletterdheid.academy/tools/ai-risicoscan</loc><priority>0.7</priority><changefreq>monthly</changefreq><lastmod>2026-03-27</lastmod></url>
+  <url><loc>https://aigeletterdheid.academy/ai-use-case-checker</loc><priority>0.7</priority><changefreq>monthly</changefreq><lastmod>2026-03-27</lastmod></url>
+  <url><loc>https://aigeletterdheid.academy/ai-tools-onder-de-ai-act</loc><priority>0.7</priority><changefreq>monthly</changefreq><lastmod>2026-03-27</lastmod></url>
   <!-- Kenniscentrum articles -->
   <url><loc>https://aigeletterdheid.academy/kenniscentrum/ai-in-marketing-kansen-en-valkuilen</loc><priority>0.8</priority><changefreq>monthly</changefreq><lastmod>2025-06-15</lastmod></url>
-  <url><loc>https://aigeletterdheid.academy/kenniscentrum/ai-act-compliance-checklist-kleine-bedrijven</loc><priority>0.8</priority><changefreq>monthly</changefreq><lastmod>2025-06-01</lastmod></url>
+  <url><loc>https://aigeletterdheid.academy/kenniscentrum/ai-act-compliance-checklist-kleine-bedrijven</loc><priority>0.8</priority><changefreq>monthly</changefreq><lastmod>2026-03-27</lastmod></url>
   <url><loc>https://aigeletterdheid.academy/kenniscentrum/veelgestelde-vragen-ai-act-audit</loc><priority>0.8</priority><changefreq>monthly</changefreq><lastmod>2025-05-20</lastmod></url>
   <url><loc>https://aigeletterdheid.academy/kenniscentrum/welke-ai-systemen-zijn-verboden</loc><priority>0.8</priority><changefreq>monthly</changefreq><lastmod>2025-05-10</lastmod></url>
-  <url><loc>https://aigeletterdheid.academy/kenniscentrum/documentatie-eisen-eu-ai-act</loc><priority>0.8</priority><changefreq>monthly</changefreq><lastmod>2025-05-01</lastmod></url>
+  <url><loc>https://aigeletterdheid.academy/kenniscentrum/documentatie-eisen-eu-ai-act</loc><priority>0.8</priority><changefreq>monthly</changefreq><lastmod>2026-03-27</lastmod></url>
   <url><loc>https://aigeletterdheid.academy/kenniscentrum/ai-impact-assessment</loc><priority>0.8</priority><changefreq>monthly</changefreq><lastmod>2025-04-20</lastmod></url>
   <url><loc>https://aigeletterdheid.academy/kenniscentrum/ai-act-en-hr-wat-moet-je-als-hr-professional-weten</loc><priority>0.8</priority><changefreq>monthly</changefreq><lastmod>2025-04-10</lastmod></url>
   <url><loc>https://aigeletterdheid.academy/kenniscentrum/verschil-minimal-limited-high-risk-ai</loc><priority>0.8</priority><changefreq>monthly</changefreq><lastmod>2025-04-01</lastmod></url>
-  <url><loc>https://aigeletterdheid.academy/kenniscentrum/eu-ai-act-uitgelegd</loc><priority>0.8</priority><changefreq>monthly</changefreq><lastmod>2025-03-20</lastmod></url>
+  <url><loc>https://aigeletterdheid.academy/kenniscentrum/eu-ai-act-uitgelegd</loc><priority>0.8</priority><changefreq>monthly</changefreq><lastmod>2026-03-27</lastmod></url>
   <url><loc>https://aigeletterdheid.academy/kenniscentrum/wat-zijn-high-risk-ai-systemen</loc><priority>0.8</priority><changefreq>monthly</changefreq><lastmod>2025-03-10</lastmod></url>
   <url><loc>https://aigeletterdheid.academy/kenniscentrum/ai-geletterdheid-uitgelegd</loc><priority>0.8</priority><changefreq>monthly</changefreq><lastmod>2025-03-01</lastmod></url>
   <url><loc>https://aigeletterdheid.academy/kenniscentrum/llms-generatieve-ai-geletterdheid</loc><priority>0.8</priority><changefreq>monthly</changefreq><lastmod>2025-02-20</lastmod></url>
   <url><loc>https://aigeletterdheid.academy/kenniscentrum/ai-trends-2025-ai-geletterdheid</loc><priority>0.8</priority><changefreq>monthly</changefreq><lastmod>2025-02-10</lastmod></url>
   <url><loc>https://aigeletterdheid.academy/kenniscentrum/ai-drift-chatgpt-voorkomen</loc><priority>0.8</priority><changefreq>monthly</changefreq><lastmod>2025-02-01</lastmod></url>
-  <url><loc>https://aigeletterdheid.academy/kenniscentrum/ai-geletterdheid-voor-leiders</loc><priority>0.8</priority><changefreq>monthly</changefreq><lastmod>2025-01-25</lastmod></url>
+  <url><loc>https://aigeletterdheid.academy/kenniscentrum/ai-geletterdheid-voor-leiders</loc><priority>0.8</priority><changefreq>monthly</changefreq><lastmod>2026-03-27</lastmod></url>
   <url><loc>https://aigeletterdheid.academy/kenniscentrum/hoe-herken-je-ai-bias</loc><priority>0.8</priority><changefreq>monthly</changefreq><lastmod>2025-01-20</lastmod></url>
   <url><loc>https://aigeletterdheid.academy/kenniscentrum/5-ai-fouten-die-organisaties-maken</loc><priority>0.8</priority><changefreq>monthly</changefreq><lastmod>2025-01-15</lastmod></url>
   <url><loc>https://aigeletterdheid.academy/kenniscentrum/waarom-ai-geletterdheid-de-nieuwe-digitale-vaardigheid-is</loc><priority>0.8</priority><changefreq>monthly</changefreq><lastmod>2025-01-10</lastmod></url>
-  <url><loc>https://aigeletterdheid.academy/kenniscentrum/wat-is-ai-geletterdheid</loc><priority>0.8</priority><changefreq>monthly</changefreq><lastmod>2025-01-05</lastmod></url>
+  <url><loc>https://aigeletterdheid.academy/kenniscentrum/wat-is-ai-geletterdheid</loc><priority>0.8</priority><changefreq>monthly</changefreq><lastmod>2026-03-27</lastmod></url>
+  <url><loc>https://aigeletterdheid.academy/kenniscentrum/eu-ai-act-boetes-maximale-bedragen</loc><priority>0.8</priority><changefreq>monthly</changefreq><lastmod>2026-03-27</lastmod></url>
 </urlset>

@@ -185,6 +185,12 @@ const ChecklistLanding = () => {
         </div>
       </section>
 
+      <DownloadLeadDialog
+        open={showLeadDialog}
+        onOpenChange={setShowLeadDialog}
+        document="checklist"
+        onSuccess={() => navigate("/tools/downloads/ai-act-compliance-checklist/document")}
+      />
     </div>
   );
 };
