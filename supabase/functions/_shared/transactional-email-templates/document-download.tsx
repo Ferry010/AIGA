@@ -45,7 +45,7 @@ const DocumentDownloadEmail = ({ voornaam, documentType = 'checklist' }: Documen
           </Text>
 
           <Text style={text}>
-            Met dit document kun je direct aan de slag. Heb je vragen of wil je even sparren over hoe je dit het beste kunt toepassen binnen jouw organisatie? Stuur me gerust een berichtje — ik help je graag verder.
+            Met dit document kun je direct aan de slag. Heb je vragen of wil je even sparren over hoe je dit het beste kunt toepassen binnen jouw organisatie? Stuur me gerust een berichtje, ik help je graag verder.
           </Text>
 
           <Section style={buttonContainer}>
