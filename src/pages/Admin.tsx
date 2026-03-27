@@ -92,7 +92,7 @@ const hulpLabels: Record<string, string> = {
   anders: "Anders",
 };
 
-const emptyArticleForm = { title: "", category: CATEGORIES[0], url: "", image_url: "", published: true, sort_order: 0, content: "", slug: "", labels: [] as string[], published_date: new Date().toISOString().slice(0, 10), read_time_minutes: "" as string, meta_description: "" };
+const emptyArticleForm = { title: "", category: CATEGORIES[0], url: "", image_url: "", published: true, sort_order: 0, content: "", slug: "", labels: [] as string[], published_date: new Date().toISOString().slice(0, 10), read_time_minutes: "" as string, meta_description: "", seo_keywords: "", h1_override: "" };
 
 const formatDate = (dateStr: string) => {
   const date = new Date(dateStr);
