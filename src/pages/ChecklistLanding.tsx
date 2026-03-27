@@ -1,7 +1,5 @@
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { ArrowRight, CheckCircle, ClipboardCheck, Calculator, ShieldCheck, Search } from "lucide-react";
-import DownloadLeadDialog from "@/components/DownloadLeadDialog";
 import { AnimatedSection, StaggerContainer, StaggerItem } from "@/components/AnimatedSection";
 import SectionLabel from "@/components/SectionLabel";
 import { Button } from "@/components/ui/button";
@@ -25,13 +23,6 @@ const relatedTools = [
 ];
 
 const ChecklistLanding = () => {
-  const [dialogOpen, setDialogOpen] = useState(false);
-  const navigate = useNavigate();
-
-  const handleSuccess = () => {
-    navigate("/tools/downloads/ai-act-compliance-checklist/document");
-  };
-
   return (
     <div className="min-h-screen">
       <SEO
@@ -66,17 +57,13 @@ const ChecklistLanding = () => {
             </p>
             <Button
               size="lg"
-              onClick={() => setDialogOpen(true)}
+              asChild
               className="mt-8 bg-gradient-to-r from-[hsl(var(--primary))] to-[hsl(330,80%,55%)] hover:opacity-90 text-white"
             >
-              Download gratis <ArrowRight size={16} />
+              <Link to="/tools/downloads/ai-act-compliance-checklist/document">
+                Download gratis <ArrowRight size={16} />
+              </Link>
             </Button>
-            <DownloadLeadDialog
-              open={dialogOpen}
-              onOpenChange={setDialogOpen}
-              document="checklist"
-              onSuccess={handleSuccess}
-            />
           </AnimatedSection>
         </div>
       </section>
