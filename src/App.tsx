@@ -92,6 +92,15 @@ const AppContent = () => {
           <Route path="/privacyverklaring" element={<Privacyverklaring />} />
           <Route path="/unsubscribe" element={<Unsubscribe />} />
           <Route path="/licentie" element={<Licentie />} />
+          {/* Redirects for broken internal links in legacy article content */}
+          <Route path="/eu-ai-act-uitgelegd" element={<Navigate to="/kenniscentrum/eu-ai-act-uitgelegd" replace />} />
+          <Route path="/hoe-herken-je-ai-bias" element={<Navigate to="/kenniscentrum/hoe-herken-je-ai-bias" replace />} />
+          <Route path="/llms-generatieve-ai-geletterdheid" element={<Navigate to="/kenniscentrum/llms-generatieve-ai-geletterdheid" replace />} />
+          <Route path="/wat-is-ai-geletterdheid" element={<Navigate to="/kenniscentrum/wat-is-ai-geletterdheid" replace />} />
+          <Route path="/wat-zijn-high-risk-ai-systemen" element={<Navigate to="/kenniscentrum/wat-zijn-high-risk-ai-systemen" replace />} />
+          <Route path="/welke-ai-systemen-zijn-verboden" element={<Navigate to="/kenniscentrum/welke-ai-systemen-zijn-verboden" replace />} />
+          <Route path="/ai-geletterdheid-training" element={<Navigate to="/training" replace />} />
+          <Route path="/masterclass-voor-leidinggevenden" element={<Navigate to="/masterclass" replace />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
