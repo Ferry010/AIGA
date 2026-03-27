@@ -1,10 +1,11 @@
 import * as React from 'npm:react@18.3.1'
 import {
-  Body, Button, Container, Head, Heading, Hr, Html, Link, Preview, Section, Text,
+  Body, Button, Container, Head, Heading, Hr, Html, Img, Link, Preview, Section, Text,
 } from 'npm:@react-email/components@0.0.22'
 import type { TemplateEntry } from './registry.ts'
 
-const SITE_NAME = "AIGA Academy"
+const SITE_NAME = "AI Geletterdheid Academy"
+const LOGO_URL = "https://aigeletterdheid.academy/assets/AIGA_transparent-CxHDVoMM.png"
 
 interface DocumentDownloadProps {
   voornaam?: string
@@ -17,8 +18,8 @@ const documentLabels: Record<string, string> = {
 }
 
 const documentUrls: Record<string, string> = {
-  checklist: 'https://aiganl.lovable.app/tools/downloads/ai-act-compliance-checklist/document',
-  template: 'https://aiganl.lovable.app/tools/downloads/ai-beleid-opstellen/document',
+  checklist: 'https://aigeletterdheid.academy/tools/downloads/ai-act-compliance-checklist/document',
+  template: 'https://aigeletterdheid.academy/tools/downloads/ai-beleid-opstellen/document',
 }
 
 const DocumentDownloadEmail = ({ voornaam, documentType = 'checklist' }: DocumentDownloadProps) => {
@@ -32,7 +33,7 @@ const DocumentDownloadEmail = ({ voornaam, documentType = 'checklist' }: Documen
       <Body style={main}>
         <Container style={container}>
           <Section style={logoSection}>
-            <Text style={logoText}>AIGA Academy</Text>
+            <Img src={LOGO_URL} alt={SITE_NAME} width="160" height="auto" style={logoImg} />
           </Section>
 
           <Heading style={h1}>
@@ -49,7 +50,7 @@ const DocumentDownloadEmail = ({ voornaam, documentType = 'checklist' }: Documen
 
           <Section style={buttonContainer}>
             <Button style={button} href={docUrl}>
-              Bekijk het document →
+              Bekijk het document
             </Button>
           </Section>
 
@@ -60,7 +61,7 @@ const DocumentDownloadEmail = ({ voornaam, documentType = 'checklist' }: Documen
           <Hr style={hr} />
 
           <Text style={footer}>
-            {SITE_NAME} — AI-geletterdheid voor organisaties
+            {SITE_NAME} | AI-geletterdheid voor organisaties
           </Text>
           <Text style={footerContact}>
             <Link href="https://aigeletterdheid.academy" style={footerLink}>aigeletterdheid.academy</Link>
@@ -86,7 +87,7 @@ export const template = {
 const main = { backgroundColor: '#ffffff', fontFamily: "'Segoe UI', Arial, sans-serif" }
 const container = { padding: '32px 24px', maxWidth: '560px', margin: '0 auto' }
 const logoSection = { marginBottom: '24px' }
-const logoText = { fontSize: '20px', fontWeight: '700' as const, color: '#468C94', margin: '0' }
+const logoImg = { display: 'block' as const }
 const h1 = { fontSize: '22px', fontWeight: '700' as const, color: '#1a2332', margin: '0 0 16px' }
 const text = { fontSize: '15px', color: '#3d4654', lineHeight: '1.6', margin: '0 0 16px' }
 const buttonContainer = { textAlign: 'center' as const, margin: '24px 0' }
