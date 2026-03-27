@@ -1,28 +1,28 @@
 
 
-## Plan: Restore Gated Download Flow with Lead Capture Dialog
+## Fix broken internal links in kenniscentrum articles
 
-### Current State
-The landing pages (`ChecklistLanding`, `BeleidstemplateLanding`) have a "Download gratis" button that links directly to the document page. The `DownloadLeadDialog` component already exists but is not being used. The `SendCopyForm` on the document pages captures leads optionally.
+### Problem
+8 links inside article content (stored in the database) are missing the `/kenniscentrum/` prefix. These were scraped before the link-rewriting logic was added to the scraper. The scraper now handles this correctly for future imports, but existing stored content still has the wrong paths.
 
-### What Changes
+### Solution: Two-pronged fix
 
-**1. Update `ChecklistLanding.tsx`**
-- Replace the direct `<Link>` button with a button that opens `DownloadLeadDialog`
-- Add dialog state and handler
-- On success, navigate to the document page (`/tools/downloads/ai-act-compliance-checklist/document`)
+**1. Database content fix (SQL migration)**
+Run a SQL update to find-and-replace the 8 broken link paths in the `articles.content` column:
 
-**2. Update `BeleidstemplateLanding.tsx`**
-- Same pattern: button opens `DownloadLeadDialog` instead of linking directly
-- On success, navigate to `/tools/downloads/ai-beleid-opstellen/document`
+- `](/eu-ai-act-uitgelegd)` → `](/kenniscentrum/eu-ai-act-uitgelegd)`
+- `](/hoe-herken-je-ai-bias)` → `](/kenniscentrum/hoe-herken-je-ai-bias)`
+- `](/llms-generatieve-ai-geletterdheid)` → `](/kenniscentrum/llms-generatieve-ai-geletterdheid)`
+- `](/wat-is-ai-geletterdheid)` → `](/kenniscentrum/wat-is-ai-geletterdheid)`
+- `](/wat-zijn-high-risk-ai-systemen)` → `](/kenniscentrum/wat-zijn-high-risk-ai-systemen)`
+- `](/welke-ai-systemen-zijn-verboden)` → `](/kenniscentrum/welke-ai-systemen-zijn-verboden)`
+- `](/ai-geletterdheid-training)` → `](/training)`
+- `](/masterclass-voor-leidinggevenden)` → `](/masterclass)`
 
-**3. Keep existing `SendCopyForm` on document pages**
-- The "Stuur mij een kopie" form and "Deel dit document" button stay as-is on the document pages for users who land there directly
+**2. Catch-all redirects in App.tsx (safety net)**
+Add `<Route>` redirects for these 8 slugs so that even if someone has a bookmarked broken URL, they land on the right page. This also protects against any other articles with the same broken pattern.
 
-### Flow
-```text
-Landing page → Click "Download gratis" → Dialog (voornaam + email) → Submit → Navigate to document
-```
-
-No database or backend changes needed — `DownloadLeadDialog` already handles the insert and email sending.
+### Files changed
+- **SQL migration**: `UPDATE articles SET content = REPLACE(...)` for each broken path
+- **src/App.tsx**: Add 8 redirect routes before the `*` catch-all
 
