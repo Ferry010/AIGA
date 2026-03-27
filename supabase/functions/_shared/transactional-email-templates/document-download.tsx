@@ -5,7 +5,7 @@ import {
 import type { TemplateEntry } from './registry.ts'
 
 const SITE_NAME = "Ferry van AI Geletterdheid Academy"
-const LOGO_URL = "https://aigeletterdheid.academy/assets/AIGA_transparent-CxHDVoMM.png"
+const LOGO_URL = "https://zomldsagozipnelyuhzy.supabase.co/storage/v1/object/public/article-images/email-assets/aiga-logo.jpg"
 
 interface DocumentDownloadProps {
   voornaam?: string
@@ -33,7 +33,7 @@ const DocumentDownloadEmail = ({ voornaam, documentType = 'checklist' }: Documen
       <Body style={main}>
         <Container style={container}>
           <Section style={logoSection}>
-            <Img src={LOGO_URL} alt="AI Geletterdheid Academy" width="100" height="auto" style={logoImg} />
+            <Img src={LOGO_URL} alt="AIGA" width="80" height="auto" style={logoImg} />
           </Section>
 
           <Heading style={h1}>
@@ -45,12 +45,12 @@ const DocumentDownloadEmail = ({ voornaam, documentType = 'checklist' }: Documen
           </Text>
 
           <Text style={text}>
-            Met dit document kun je direct aan de slag. Heb je vragen of wil je even sparren over hoe je dit het beste kunt toepassen binnen jouw organisatie? Stuur me gerust een berichtje — ik help je graag verder.
+            Met dit document kun je direct aan de slag. Heb je vragen of wil je even sparren over hoe je dit het beste kunt toepassen binnen jouw organisatie? Stuur me gerust een berichtje, ik help je graag verder.
           </Text>
 
           <Section style={buttonContainer}>
             <Button style={button} href={docUrl}>
-              Bekijk het document →
+              Bekijk het document
             </Button>
           </Section>
 
