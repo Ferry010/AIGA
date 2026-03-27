@@ -45,8 +45,7 @@ const DownloadLeadDialog = ({ open, onOpenChange, document, onSuccess }: Downloa
         return;
       }
 
-      // Fire email delivery (non-blocking — don't await)
-      supabase.functions.invoke("send-transactional-email", {
+      const { error: fnError } = await supabase.functions.invoke("send-transactional-email", {
         body: {
           templateName: "document-download",
           recipientEmail: email.trim(),
@@ -56,7 +55,12 @@ const DownloadLeadDialog = ({ open, onOpenChange, document, onSuccess }: Downloa
             documentType: document,
           },
         },
-      }).catch((err) => console.error("Email send error:", err));
+      });
+
+      if (fnError) {
+        console.error("Email send error:", fnError);
+        toast.error("E-mail kon niet worden verzonden. Je kunt het later opnieuw proberen.");
+      }
 
       setSubmitted(true);
       resetForm();

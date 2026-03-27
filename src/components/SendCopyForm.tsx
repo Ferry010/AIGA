@@ -28,7 +28,7 @@ const SendCopyForm = ({ document }: SendCopyFormProps) => {
         document,
       });
 
-      supabase.functions.invoke("send-transactional-email", {
+      const { error: fnError } = await supabase.functions.invoke("send-transactional-email", {
         body: {
           templateName: "document-download",
           recipientEmail: email.trim(),
@@ -38,7 +38,13 @@ const SendCopyForm = ({ document }: SendCopyFormProps) => {
             documentType: document,
           },
         },
-      }).catch((err) => console.error("Email send error:", err));
+      });
+
+      if (fnError) {
+        console.error("Email send error:", fnError);
+        toast.error("E-mail kon niet worden verzonden. Probeer het opnieuw.");
+        return;
+      }
 
       setSent(true);
     } catch (err) {
