@@ -80,29 +80,6 @@ const ARTICLE_CTAS: Record<string, { href: string; text: string }[]> = {
   ],
 };
 
-const SLUG_DATES: Record<string, string> = {
-  "ai-in-marketing-kansen-en-valkuilen": "2025-06-15",
-  "ai-act-compliance-checklist-kleine-bedrijven": "2025-06-01",
-  "veelgestelde-vragen-ai-act-audit": "2025-05-20",
-  "welke-ai-systemen-zijn-verboden": "2025-05-10",
-  "documentatie-eisen-eu-ai-act": "2025-05-01",
-  "ai-impact-assessment": "2025-04-20",
-  "ai-act-en-hr-wat-moet-je-als-hr-professional-weten": "2025-04-10",
-  "verschil-minimal-limited-high-risk-ai": "2025-04-01",
-  "eu-ai-act-uitgelegd": "2025-03-20",
-  "wat-zijn-high-risk-ai-systemen": "2025-03-10",
-  "ai-geletterdheid-uitgelegd": "2025-03-01",
-  "llms-generatieve-ai-geletterdheid": "2025-02-20",
-  "ai-trends-2025-ai-geletterdheid": "2025-02-10",
-  "ai-drift-chatgpt-voorkomen": "2025-02-01",
-  "ai-geletterdheid-voor-leiders": "2025-01-25",
-  "hoe-herken-je-ai-bias": "2025-01-20",
-  "5-ai-fouten-die-organisaties-maken": "2025-01-15",
-  "waarom-ai-geletterdheid-de-nieuwe-digitale-vaardigheid-is": "2025-01-10",
-  "wat-is-ai-geletterdheid": "2025-01-05",
-  "eu-ai-act-boetes-maximale-bedragen": "2025-06-20",
-};
-
 const FALLBACK_IMAGE = "https://aigeletterdheid.academy/assets/AIGA_transparent-CxHDVoMM.png";
 
 const EU_AI_ACT_SOURCES = [
