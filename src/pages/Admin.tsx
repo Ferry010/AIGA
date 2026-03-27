@@ -205,13 +205,14 @@ const Admin = () => {
 
   const openNewForm = () => {
     setEditingId(null);
-    setForm({ ...emptyArticleForm, sort_order: articles.length + 1 });
+    // New articles go to position 1; existing articles will be pushed down on save
+    setForm({ ...emptyArticleForm, sort_order: 1 });
     setShowForm(true);
   };
 
   const openEditForm = (a: Article) => {
     setEditingId(a.id);
-    setForm({ title: a.title, category: a.category, url: a.url, image_url: a.image_url, published: a.published, sort_order: a.sort_order, content: a.content || "", slug: a.slug || "", labels: a.labels || [], published_date: a.published_date || new Date().toISOString().slice(0, 10), read_time_minutes: a.read_time_minutes != null ? String(a.read_time_minutes) : "" });
+    setForm({ title: a.title, category: a.category, url: a.url, image_url: a.image_url, published: a.published, sort_order: a.sort_order, content: a.content || "", slug: a.slug || "", labels: a.labels || [], published_date: a.published_date || new Date().toISOString().slice(0, 10), read_time_minutes: a.read_time_minutes != null ? String(a.read_time_minutes) : "", meta_description: a.meta_description || "" });
     setShowForm(true);
   };
 
