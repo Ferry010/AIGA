@@ -104,7 +104,7 @@ const DownloadLeadDialog = ({ open, onOpenChange, document, onSuccess }: Downloa
               <Button
                 type="submit"
                 disabled={submitting}
-                className="w-full bg-gradient-to-r from-[hsl(var(--primary))] to-[hsl(330,80%,55%)] hover:opacity-90 text-white"
+                className="w-full btn-neon"
               >
                 {submitting ? "Verzenden..." : "Download gratis →"}
               </Button>
