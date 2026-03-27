@@ -270,7 +270,7 @@ const Admin = () => {
     setSaving(true);
     const slug = form.slug || (form.content ? generateSlug(form.title) : null);
     const { read_time_minutes: rtStr, ...formRest } = form;
-    const payload = { ...formRest, content: formRest.content || null, slug, updated_at: new Date().toISOString(), read_time_minutes: rtStr ? parseInt(rtStr) : null, meta_description: formRest.meta_description || null };
+    const payload = { ...formRest, content: formRest.content || null, slug, updated_at: new Date().toISOString(), read_time_minutes: rtStr ? parseInt(rtStr) : null, meta_description: formRest.meta_description || null, seo_keywords: formRest.seo_keywords || null, h1_override: formRest.h1_override || null };
     if (editingId) {
       await supabase.from("articles").update(payload).eq("id", editingId);
     } else {
