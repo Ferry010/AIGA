@@ -29,6 +29,8 @@ interface Article {
   content: string | null;
   slug: string | null;
   labels: string[];
+  published_date: string | null;
+  read_time_minutes: number | null;
 }
 
 
@@ -42,7 +44,7 @@ const Kenniscentrum = () => {
   useEffect(() => {
     supabase
       .from("articles")
-      .select("id, title, category, url, image_url, content, slug, labels")
+      .select("id, title, category, url, image_url, content, slug, labels, published_date, read_time_minutes")
       .eq("published", true)
       .order("sort_order", { ascending: true })
       .then(({ data }) => {
@@ -265,7 +267,15 @@ const Kenniscentrum = () => {
                       </h3>
                       <div className="flex items-center justify-between text-xs text-muted-foreground mt-auto pt-3 border-t border-border">
                         <span>Ferry Hoes</span>
-                        {!isImported && <ExternalLink size={14} className="text-primary opacity-0 group-hover:opacity-100 transition-opacity" />}
+                        <div className="flex items-center gap-3">
+                          {article.published_date && (
+                            <span>{new Date(article.published_date).toLocaleDateString("nl-NL", { day: "numeric", month: "short", year: "numeric" })}</span>
+                          )}
+                          {article.read_time_minutes && (
+                            <span>{article.read_time_minutes} min</span>
+                          )}
+                          {!isImported && <ExternalLink size={14} className="text-primary opacity-0 group-hover:opacity-100 transition-opacity" />}
+                        </div>
                       </div>
                     </div>
                   </>

@@ -24,6 +24,8 @@ interface Article {
   sort_order: number | null;
   created_at: string | null;
   updated_at: string | null;
+  published_date: string | null;
+  read_time_minutes: number | null;
 }
 
 interface AdjacentArticle {
@@ -76,29 +78,6 @@ const ARTICLE_CTAS: Record<string, { href: string; text: string }[]> = {
   "wat-is-ai-geletterdheid": [
     { href: "/training", text: "Bekijk de AI Geletterdheid Training →" },
   ],
-};
-
-const SLUG_DATES: Record<string, string> = {
-  "ai-in-marketing-kansen-en-valkuilen": "2025-06-15",
-  "ai-act-compliance-checklist-kleine-bedrijven": "2025-06-01",
-  "veelgestelde-vragen-ai-act-audit": "2025-05-20",
-  "welke-ai-systemen-zijn-verboden": "2025-05-10",
-  "documentatie-eisen-eu-ai-act": "2025-05-01",
-  "ai-impact-assessment": "2025-04-20",
-  "ai-act-en-hr-wat-moet-je-als-hr-professional-weten": "2025-04-10",
-  "verschil-minimal-limited-high-risk-ai": "2025-04-01",
-  "eu-ai-act-uitgelegd": "2025-03-20",
-  "wat-zijn-high-risk-ai-systemen": "2025-03-10",
-  "ai-geletterdheid-uitgelegd": "2025-03-01",
-  "llms-generatieve-ai-geletterdheid": "2025-02-20",
-  "ai-trends-2025-ai-geletterdheid": "2025-02-10",
-  "ai-drift-chatgpt-voorkomen": "2025-02-01",
-  "ai-geletterdheid-voor-leiders": "2025-01-25",
-  "hoe-herken-je-ai-bias": "2025-01-20",
-  "5-ai-fouten-die-organisaties-maken": "2025-01-15",
-  "waarom-ai-geletterdheid-de-nieuwe-digitale-vaardigheid-is": "2025-01-10",
-  "wat-is-ai-geletterdheid": "2025-01-05",
-  "eu-ai-act-boetes-maximale-bedragen": "2025-06-20",
 };
 
 const FALLBACK_IMAGE = "https://aigeletterdheid.academy/assets/AIGA_transparent-CxHDVoMM.png";
@@ -172,7 +151,7 @@ const ArticleDetail = () => {
       setLoading(true);
       const { data: current } = await supabase
         .from("articles")
-        .select("id, title, category, url, image_url, content, slug, sort_order, created_at, updated_at")
+        .select("id, title, category, url, image_url, content, slug, sort_order, created_at, updated_at, published_date, read_time_minutes")
         .eq("slug", slug)
         .eq("published", true)
         .single();
@@ -209,14 +188,13 @@ const ArticleDetail = () => {
   }, [article]);
 
   const wordCount = useMemo(() => articleContent.split(/\s+/).length, [articleContent]);
-  const readingTime = Math.max(1, Math.ceil(wordCount / 200));
+  const readingTime = article?.read_time_minutes || Math.max(1, Math.ceil(wordCount / 200));
   const headings = useMemo(() => extractH2Headings(articleContent), [articleContent]);
   const showToc = wordCount >= 600 && headings.length >= 2;
   const isLegalCategory = article?.category === "Wetten en regels";
 
-  const slugDate = article?.slug && SLUG_DATES[article.slug] ? SLUG_DATES[article.slug] + "T00:00:00Z" : null;
-  const publishedDate = slugDate || (article?.created_at ? new Date(article.created_at).toISOString() : "2025-01-15T00:00:00Z");
-  const modifiedDate = "2026-03-13T00:00:00Z";
+  const publishedDate = article?.published_date ? article.published_date + "T00:00:00Z" : (article?.created_at ? new Date(article.created_at).toISOString() : "2025-01-15T00:00:00Z");
+  const modifiedDate = article?.updated_at ? new Date(article.updated_at).toISOString() : "2026-03-27T00:00:00Z";
 
   const formatDate = (iso: string) => {
     const d = new Date(iso);

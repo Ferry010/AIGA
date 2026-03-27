@@ -72,6 +72,8 @@ interface Article {
   content: string | null;
   slug: string | null;
   labels: string[];
+  published_date: string | null;
+  read_time_minutes: number | null;
 }
 
 const tierLabels: Record<string, string> = {
@@ -87,7 +89,7 @@ const hulpLabels: Record<string, string> = {
   anders: "Anders",
 };
 
-const emptyArticleForm = { title: "", category: CATEGORIES[0], url: "", image_url: "", published: true, sort_order: 0, content: "", slug: "", labels: [] as string[] };
+const emptyArticleForm = { title: "", category: CATEGORIES[0], url: "", image_url: "", published: true, sort_order: 0, content: "", slug: "", labels: [] as string[], published_date: new Date().toISOString().slice(0, 10), read_time_minutes: "" as string };
 
 const formatDate = (dateStr: string) => {
   const date = new Date(dateStr);
@@ -208,7 +210,7 @@ const Admin = () => {
 
   const openEditForm = (a: Article) => {
     setEditingId(a.id);
-    setForm({ title: a.title, category: a.category, url: a.url, image_url: a.image_url, published: a.published, sort_order: a.sort_order, content: a.content || "", slug: a.slug || "", labels: a.labels || [] });
+    setForm({ title: a.title, category: a.category, url: a.url, image_url: a.image_url, published: a.published, sort_order: a.sort_order, content: a.content || "", slug: a.slug || "", labels: a.labels || [], published_date: a.published_date || new Date().toISOString().slice(0, 10), read_time_minutes: a.read_time_minutes != null ? String(a.read_time_minutes) : "" });
     setShowForm(true);
   };
 
@@ -263,7 +265,8 @@ const Admin = () => {
     if (!form.title || !form.url || !form.image_url) return;
     setSaving(true);
     const slug = form.slug || (form.content ? generateSlug(form.title) : null);
-    const payload = { ...form, content: form.content || null, slug, updated_at: new Date().toISOString() };
+    const { read_time_minutes: rtStr, ...formRest } = form;
+    const payload = { ...formRest, content: formRest.content || null, slug, updated_at: new Date().toISOString(), read_time_minutes: rtStr ? parseInt(rtStr) : null };
     if (editingId) {
       await supabase.from("articles").update(payload).eq("id", editingId);
     } else {
@@ -277,6 +280,22 @@ const Admin = () => {
   const togglePublished = async (a: Article) => {
     setArticles((prev) => prev.map((x) => (x.id === a.id ? { ...x, published: !a.published } : x)));
     await supabase.from("articles").update({ published: !a.published, updated_at: new Date().toISOString() }).eq("id", a.id);
+  };
+
+  const moveArticle = async (article: Article, direction: "up" | "down") => {
+    const idx = articles.findIndex((a) => a.id === article.id);
+    const swapIdx = direction === "up" ? idx - 1 : idx + 1;
+    if (swapIdx < 0 || swapIdx >= articles.length) return;
+    const other = articles[swapIdx];
+    const newArticles = [...articles];
+    newArticles[idx] = { ...article, sort_order: other.sort_order };
+    newArticles[swapIdx] = { ...other, sort_order: article.sort_order };
+    newArticles.sort((a, b) => a.sort_order - b.sort_order);
+    setArticles(newArticles);
+    await Promise.all([
+      supabase.from("articles").update({ sort_order: other.sort_order, updated_at: new Date().toISOString() }).eq("id", article.id),
+      supabase.from("articles").update({ sort_order: article.sort_order, updated_at: new Date().toISOString() }).eq("id", other.id),
+    ]);
   };
 
   const importArticle = async (a: Article) => {
@@ -593,6 +612,14 @@ const Admin = () => {
                   <Label>Volgorde</Label>
                   <Input type="number" value={form.sort_order} onChange={(e) => setForm({ ...form, sort_order: parseInt(e.target.value) || 0 })} />
                 </div>
+                <div className="space-y-2">
+                  <Label>Publicatiedatum</Label>
+                  <Input type="date" value={form.published_date} onChange={(e) => setForm({ ...form, published_date: e.target.value })} />
+                </div>
+                <div className="space-y-2">
+                  <Label>Leestijd (min, optioneel)</Label>
+                  <Input type="number" value={form.read_time_minutes} onChange={(e) => setForm({ ...form, read_time_minutes: e.target.value })} placeholder="Auto-berekend indien leeg" />
+                </div>
                 <div className="flex items-center gap-3 pt-6">
                   <Switch checked={form.published} onCheckedChange={(v) => setForm({ ...form, published: v })} />
                   <Label>Gepubliceerd</Label>
@@ -649,9 +676,15 @@ const Admin = () => {
                 </tr>
               </thead>
               <tbody>
-                {articles.map((a) => (
+                {articles.map((a, idx) => (
                   <tr key={a.id} className="border-b border-border">
-                    <td className="py-3 px-2 text-muted-foreground font-mono">{a.sort_order}</td>
+                    <td className="py-3 px-2">
+                      <div className="flex items-center gap-1">
+                        <button onClick={() => moveArticle(a, "up")} disabled={idx === 0} className="text-muted-foreground hover:text-primary disabled:opacity-30"><ChevronUp size={16} /></button>
+                        <span className="text-muted-foreground font-mono text-xs w-5 text-center">{a.sort_order}</span>
+                        <button onClick={() => moveArticle(a, "down")} disabled={idx === articles.length - 1} className="text-muted-foreground hover:text-primary disabled:opacity-30"><ChevronDown size={16} /></button>
+                      </div>
+                    </td>
                     <td className="py-3 px-2 text-foreground max-w-xs truncate">{a.title}</td>
                     <td className="py-3 px-2 text-foreground">{a.category}</td>
                     <td className="py-3 px-2">
