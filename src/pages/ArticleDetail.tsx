@@ -81,6 +81,9 @@ const ARTICLE_CTAS: Record<string, { href: string; text: string }[]> = {
   "wat-is-ai-geletterdheid": [
     { href: "/training", text: "Bekijk de AI Geletterdheid Training →" },
   ],
+  "ai-geletterdheidsplicht-zo-voldoe-je-in-5-stappen-aiga": [
+    { href: "/training", text: "Bekijk de AI Geletterdheid Training →" },
+  ],
 };
 
 const FALLBACK_IMAGE = "https://aigeletterdheid.academy/assets/AIGA_transparent-CxHDVoMM.png";
@@ -109,6 +112,12 @@ const BOETES_FAQ = [
   { q: "Hoe bereken ik mijn boeterisico onder de EU AI Act?", a: "Gebruik de gratis AIGA Boetecalculator op aigeletterdheid.academy/tools/boetecalculator. De calculator combineert jouw organisatieprofiel, de tools die je gebruikt en jouw huidige compliancestatus." },
 ];
 
+const VIJF_STAPPEN_FAQ = [
+  { q: "Geldt de AI-geletterdheidsplicht voor alle medewerkers?", a: "De plicht geldt voor alle medewerkers die betrokken zijn bij het gebruik of de inzet van AI-systemen. Dat is in de meeste organisaties breder dan je denkt: ook HR-medewerkers die een AI-tool gebruiken voor roostering, marketeers die AI-gegenereerde teksten publiceren of managers die op basis van AI-dashboards besluiten nemen, vallen eronder. Medewerkers zonder enige AI-aanraking zijn uitgezonderd." },
+  { q: "Welk certificaat wordt erkend als bewijs?", a: "De wet schrijft geen specifiek certificaat voor. Wat telt is dat de training aantoonbaar aansluit bij de rol en het risiconiveau van de medewerker, en dat deelname gedocumenteerd is. Het AIGA-certificaat is gebaseerd op de officiële tekst van de EU AI Act en dekt de kerncompetenties die de AP als relevant beschouwt." },
+  { q: "Hoe vaak moet je medewerkers hertrainen?", a: "De wet schrijft geen vaste frequentie voor, maar gezien de snelheid waarmee AI-toepassingen zich ontwikkelen is een jaarlijkse herhaling de best verdedigbare aanpak. Bij de introductie van nieuwe AI-systemen of bij een significante verandering in gebruik is een tussentijdse update aan te raden." },
+];
+
 const WAT_IS_FAQ_JSONLD = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
@@ -123,6 +132,16 @@ const BOETES_FAQ_JSONLD = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
   mainEntity: BOETES_FAQ.map((f) => ({
+    "@type": "Question",
+    name: f.q,
+    acceptedAnswer: { "@type": "Answer", text: f.a },
+  })),
+};
+
+const VIJF_STAPPEN_FAQ_JSONLD = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: VIJF_STAPPEN_FAQ.map((f) => ({
     "@type": "Question",
     name: f.q,
     acceptedAnswer: { "@type": "Answer", text: f.a },
@@ -222,6 +241,7 @@ const ArticleDetail = () => {
 
   const isWatIs = article.slug === "wat-is-ai-geletterdheid";
   const isBoetes = article.slug === "eu-ai-act-boetes-maximale-bedragen";
+  const is5Stappen = article.slug === "ai-geletterdheidsplicht-zo-voldoe-je-in-5-stappen-aiga";
   const seoTitle = isWatIs
     ? "Wat is AI-geletterdheid? Complete gids voor organisaties (2026)"
     : isBoetes
@@ -292,6 +312,11 @@ const ArticleDetail = () => {
       {isBoetes && (
         <Helmet>
           <script type="application/ld+json">{JSON.stringify(BOETES_FAQ_JSONLD)}</script>
+        </Helmet>
+      )}
+      {is5Stappen && (
+        <Helmet>
+          <script type="application/ld+json">{JSON.stringify(VIJF_STAPPEN_FAQ_JSONLD)}</script>
         </Helmet>
       )}
       {/* Breadcrumb */}
@@ -430,6 +455,23 @@ const ArticleDetail = () => {
             </AnimatedSection>
           )}
 
+          {/* FAQ accordion for 5-stappen article */}
+          {is5Stappen && (
+            <AnimatedSection delay={0.05}>
+              <div className="mt-12">
+                <h2 className="text-2xl font-display font-bold text-foreground mb-6">Veelgestelde vragen</h2>
+                <Accordion type="single" collapsible className="w-full">
+                  {VIJF_STAPPEN_FAQ.map((faq, i) => (
+                    <AccordionItem key={i} value={`faq-${i}`}>
+                      <AccordionTrigger className="text-left text-base font-semibold">{faq.q}</AccordionTrigger>
+                      <AccordionContent><p className="text-muted-foreground leading-relaxed">{faq.a}</p></AccordionContent>
+                    </AccordionItem>
+                  ))}
+                </Accordion>
+              </div>
+            </AnimatedSection>
+          )}
+
           {/* CTA section for wat-is-ai-geletterdheid */}
           {isWatIs && (
             <AnimatedSection delay={0.1}>
@@ -443,6 +485,19 @@ const ArticleDetail = () => {
                   <Button asChild variant="outline"><Link to="/gereedheidscan">Doe de gratis AI Gereedheidscan</Link></Button>
                   <Button asChild variant="outline"><Link to="/contact">Vraag een offerte aan</Link></Button>
                 </div>
+              </div>
+            </AnimatedSection>
+          )}
+
+          {/* CTA for 5-stappen article */}
+          {is5Stappen && (
+            <AnimatedSection delay={0.1}>
+              <div className="mt-12 p-8 bg-card border border-border rounded-2xl text-center neon-glow">
+                <h2 className="text-2xl font-display font-bold text-foreground mb-3">Klaar om te starten?</h2>
+                <p className="text-muted-foreground mb-6 max-w-xl mx-auto">
+                  Onze training is volledig Nederlandstalig, gebaseerd op de EU AI Act, en bevat een audit-proof certificaat.
+                </p>
+                <Button asChild><Link to="/training">Bekijk de AI Geletterdheid Training →</Link></Button>
               </div>
             </AnimatedSection>
           )}
