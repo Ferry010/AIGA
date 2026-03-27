@@ -27,6 +27,8 @@ interface Article {
   published_date: string | null;
   read_time_minutes: number | null;
   meta_description: string | null;
+  seo_keywords: string | null;
+  h1_override: string | null;
 }
 
 interface AdjacentArticle {
@@ -152,7 +154,7 @@ const ArticleDetail = () => {
       setLoading(true);
       const { data: current } = await supabase
         .from("articles")
-        .select("id, title, category, url, image_url, content, slug, sort_order, created_at, updated_at, published_date, read_time_minutes, meta_description")
+        .select("id, title, category, url, image_url, content, slug, sort_order, created_at, updated_at, published_date, read_time_minutes, meta_description, seo_keywords, h1_override")
         .eq("slug", slug)
         .eq("published", true)
         .single();
@@ -257,6 +259,7 @@ const ArticleDetail = () => {
         datePublished: publishedDate,
         dateModified: modifiedDate,
         wordCount,
+        ...(article.seo_keywords ? { keywords: article.seo_keywords.split(",").map(k => k.trim()).filter(Boolean) } : {}),
         author: { "@type": "Person", name: "Ferry Hoes", url: "https://aigeletterdheid.academy/over-aiga", jobTitle: "AI-expert & Keynote Spreker", sameAs: "https://www.linkedin.com/in/ferryhoes" },
         publisher: { "@type": "Organization", name: "AIGA — AI Geletterdheid Academy", logo: { "@type": "ImageObject", url: "https://aigeletterdheid.academy/assets/AIGA_transparent-CxHDVoMM.png" } },
         mainEntityOfPage: { "@type": "WebPage", "@id": `https://aigeletterdheid.academy/kenniscentrum/${article.slug}` },
@@ -272,6 +275,7 @@ const ArticleDetail = () => {
         canonical={`/kenniscentrum/${article.slug}`}
         ogImage={article.image_url || FALLBACK_IMAGE}
         ogType="article"
+        keywords={article.seo_keywords || undefined}
         articleMeta={{
           publishedTime: isWatIs ? "2025-02-01" : publishedDate,
           modifiedTime: isWatIs ? "2026-03-21" : modifiedDate,
@@ -313,7 +317,7 @@ const ArticleDetail = () => {
               </Link>
               <Badge variant="secondary" className="mb-3 text-xs block w-fit">{article.category}</Badge>
               <h1 className="text-3xl sm:text-4xl font-display font-bold text-foreground leading-tight mb-2">
-                {isWatIs ? "Wat is AI-geletterdheid?" : article.title}
+                {article.h1_override || (isWatIs ? "Wat is AI-geletterdheid?" : article.title)}
               </h1>
               {isWatIs && (
                 <>

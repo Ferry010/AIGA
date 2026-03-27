@@ -75,6 +75,8 @@ interface Article {
   published_date: string | null;
   read_time_minutes: number | null;
   meta_description: string | null;
+  seo_keywords: string | null;
+  h1_override: string | null;
 }
 
 const tierLabels: Record<string, string> = {
@@ -90,7 +92,7 @@ const hulpLabels: Record<string, string> = {
   anders: "Anders",
 };
 
-const emptyArticleForm = { title: "", category: CATEGORIES[0], url: "", image_url: "", published: true, sort_order: 0, content: "", slug: "", labels: [] as string[], published_date: new Date().toISOString().slice(0, 10), read_time_minutes: "" as string, meta_description: "" };
+const emptyArticleForm = { title: "", category: CATEGORIES[0], url: "", image_url: "", published: true, sort_order: 0, content: "", slug: "", labels: [] as string[], published_date: new Date().toISOString().slice(0, 10), read_time_minutes: "" as string, meta_description: "", seo_keywords: "", h1_override: "" };
 
 const formatDate = (dateStr: string) => {
   const date = new Date(dateStr);
@@ -212,7 +214,7 @@ const Admin = () => {
 
   const openEditForm = (a: Article) => {
     setEditingId(a.id);
-    setForm({ title: a.title, category: a.category, url: a.url, image_url: a.image_url, published: a.published, sort_order: a.sort_order, content: a.content || "", slug: a.slug || "", labels: a.labels || [], published_date: a.published_date || new Date().toISOString().slice(0, 10), read_time_minutes: a.read_time_minutes != null ? String(a.read_time_minutes) : "", meta_description: a.meta_description || "" });
+    setForm({ title: a.title, category: a.category, url: a.url, image_url: a.image_url, published: a.published, sort_order: a.sort_order, content: a.content || "", slug: a.slug || "", labels: a.labels || [], published_date: a.published_date || new Date().toISOString().slice(0, 10), read_time_minutes: a.read_time_minutes != null ? String(a.read_time_minutes) : "", meta_description: a.meta_description || "", seo_keywords: a.seo_keywords || "", h1_override: a.h1_override || "" });
     setShowForm(true);
   };
 
@@ -268,7 +270,7 @@ const Admin = () => {
     setSaving(true);
     const slug = form.slug || (form.content ? generateSlug(form.title) : null);
     const { read_time_minutes: rtStr, ...formRest } = form;
-    const payload = { ...formRest, content: formRest.content || null, slug, updated_at: new Date().toISOString(), read_time_minutes: rtStr ? parseInt(rtStr) : null, meta_description: formRest.meta_description || null };
+    const payload = { ...formRest, content: formRest.content || null, slug, updated_at: new Date().toISOString(), read_time_minutes: rtStr ? parseInt(rtStr) : null, meta_description: formRest.meta_description || null, seo_keywords: formRest.seo_keywords || null, h1_override: formRest.h1_override || null };
     if (editingId) {
       await supabase.from("articles").update(payload).eq("id", editingId);
     } else {
@@ -579,7 +581,14 @@ const Admin = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <Label>Titel</Label>
-                  <Input value={form.title} onChange={(e) => setForm({ ...form, title: e.target.value })} placeholder="Titel van het artikel" />
+                  <Input value={form.title} onChange={(e) => {
+                    const newTitle = e.target.value;
+                    const updates: Partial<typeof form> = { title: newTitle };
+                    if (!editingId && (!form.slug || form.slug === generateSlug(form.title))) {
+                      updates.slug = generateSlug(newTitle);
+                    }
+                    setForm((prev) => ({ ...prev, ...updates }));
+                  }} placeholder="Titel van het artikel" />
                 </div>
                 <div className="space-y-2">
                   <Label>Categorie</Label>
@@ -639,6 +648,20 @@ const Admin = () => {
                     className="w-full border border-border rounded-lg px-3 py-2 bg-background text-foreground text-sm resize-none"
                   />
                   <p className="text-xs text-muted-foreground">{form.meta_description.length}/160</p>
+                </div>
+                <div className="space-y-2 md:col-span-2">
+                  <Label>H1 (optioneel)</Label>
+                  <Input value={form.h1_override} onChange={(e) => setForm({ ...form, h1_override: e.target.value })} placeholder="Standaard: titel wordt als H1 gebruikt" />
+                </div>
+                <div className="space-y-2 md:col-span-2">
+                  <Label>Zoektermen (SEO)</Label>
+                  <textarea
+                    value={form.seo_keywords}
+                    onChange={(e) => setForm({ ...form, seo_keywords: e.target.value })}
+                    placeholder="bijv. AI Act, AI-geletterdheid, compliance"
+                    rows={2}
+                    className="w-full border border-border rounded-lg px-3 py-2 bg-background text-foreground text-sm resize-none"
+                  />
                 </div>
                 <div className="flex items-center gap-3 pt-6">
                   <Switch checked={form.published} onCheckedChange={(v) => setForm({ ...form, published: v })} />
