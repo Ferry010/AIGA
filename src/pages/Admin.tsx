@@ -214,7 +214,7 @@ const Admin = () => {
 
   const openEditForm = (a: Article) => {
     setEditingId(a.id);
-    setForm({ title: a.title, category: a.category, url: a.url, image_url: a.image_url, published: a.published, sort_order: a.sort_order, content: a.content || "", slug: a.slug || "", labels: a.labels || [], published_date: a.published_date || new Date().toISOString().slice(0, 10), read_time_minutes: a.read_time_minutes != null ? String(a.read_time_minutes) : "", meta_description: a.meta_description || "" });
+    setForm({ title: a.title, category: a.category, url: a.url, image_url: a.image_url, published: a.published, sort_order: a.sort_order, content: a.content || "", slug: a.slug || "", labels: a.labels || [], published_date: a.published_date || new Date().toISOString().slice(0, 10), read_time_minutes: a.read_time_minutes != null ? String(a.read_time_minutes) : "", meta_description: a.meta_description || "", seo_keywords: a.seo_keywords || "", h1_override: a.h1_override || "" });
     setShowForm(true);
   };
 
