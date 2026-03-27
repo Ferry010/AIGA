@@ -1,45 +1,49 @@
 
+Doel: het e-mailprobleem van de downloadformulieren definitief oplossen.
 
-## Blog enhancements: auto-slug, SEO keywords, custom H1
+Diagnose (wat ik heb gevonden)
+1. De lead-inserts werken wel (`download_leads` krijgt nieuwe records).
+2. De call naar de backendfunctie voor e-mail krijgt nu `401 Unauthorized`.
+3. In `supabase/config.toml` staat:
+   - `[functions.send-transactional-email] verify_jwt = true`
+4. De downloadformulieren zijn publiek (gebruikers zijn meestal niet ingelogd), dus die call wordt door JWT-verificatie geblokkeerd.
+5. Oudere logs tonen nog `Emails disabled for this project`, maar de huidige blokkade is primair de 401 vóór de queue.
 
-### Current state
-- Slug is already auto-generated from title via `generateSlug()` but can be manually overridden
-- The H1 on the article page uses `article.title` (except for two hardcoded overrides for "wat-is-ai-geletterdheid" and "eu-ai-act-boetes")
-- No SEO keywords/search terms field exists in the database or admin form
-- The JSON-LD `keywords` field is only hardcoded for "wat-is-ai-geletterdheid"
+Implementatieplan
+1. Maak `send-transactional-email` publiek aanroepbaar
+   - Wijzig in `supabase/config.toml`:
+     - `[functions.send-transactional-email] verify_jwt = false`
+   - Laat `[functions.process-email-queue] verify_jwt = true` staan (moet alleen intern/service-role draaien).
 
-### Changes
+2. Verbeter foutafhandeling in alle 3 formulieren
+   - Bestanden:
+     - `src/components/DownloadLeadDialog.tsx`
+     - `src/components/SendCopyForm.tsx`
+     - `src/components/ShareDocumentButton.tsx`
+   - Wijzig gedrag:
+     - `await supabase.functions.invoke(...)` gebruiken (niet “fire-and-forget”).
+     - `error` van invoke expliciet checken.
+     - Alleen “verstuurd/success” tonen als invoke zonder fout terugkomt.
+     - Bij fout: duidelijke toast (“E-mail kon niet worden verzonden, probeer opnieuw”).
 
-#### 1. Database migration
-Add two columns to `articles`:
-```sql
-ALTER TABLE public.articles
-  ADD COLUMN seo_keywords text,
-  ADD COLUMN h1_override text;
-```
-- `seo_keywords`: comma-separated search terms for meta keywords tag and JSON-LD
-- `h1_override`: optional custom H1; if empty, `title` is used as H1
+3. UX-correctheid
+   - Voorkom vals-positieve success states (nu ziet gebruiker soms “verstuurd” terwijl e-mail nooit in queue kwam).
+   - Eventueel subtiele fallbacktekst toevoegen: “Download is beschikbaar, e-mail is optioneel opnieuw te proberen.”
 
-#### 2. Admin form (`Admin.tsx`)
-- **Auto-slug**: When the title changes and slug is empty (new article), auto-fill the slug field in real-time. User can still edit it manually.
-- **SEO keywords field**: New textarea labeled "Zoektermen (SEO)" with placeholder "bijv. AI Act, AI-geletterdheid, compliance" — stored as comma-separated text.
-- **H1 override field**: New input labeled "H1 (optioneel)" with placeholder "Standaard: titel wordt als H1 gebruikt". If left empty, the article title is shown as H1.
+4. Verificatie na implementatie (end-to-end)
+   - Vul elk formulier 1x in:
+     - Checklist download dialog
+     - “Stuur mij een kopie”
+     - “Deel dit document”
+   - Controleer:
+     - record in `download_leads`
+     - `email_send_log` status verloop `pending -> sent` (of duidelijke fout)
+     - daadwerkelijke ontvangst in inbox/spam.
 
-#### 3. ArticleDetail.tsx
-- Use `article.h1_override || article.title` for the `<h1>` element
-- Parse `article.seo_keywords` into an array and include as `<meta name="keywords">` in the SEO component
-- Add keywords to the JSON-LD `keywords` field for all articles (not just the two hardcoded ones)
+5. Fallbackcheck als het daarna nog faalt
+   - Als queue wel gevuld wordt maar eindigt op `dlq` met “Emails disabled for this project”, dan project-e-mails opnieuw inschakelen in Cloud → Emails en opnieuw testen.
 
-#### 4. SEO component
-- Add optional `keywords?: string` prop to `SEOProps`
-- Render `<meta name="keywords" content={keywords} />` when provided
-
-### Files changed
-
-| File | Change |
-|---|---|
-| SQL migration | Add `seo_keywords`, `h1_override` columns |
-| `src/pages/Admin.tsx` | Auto-fill slug from title, add keywords + H1 fields |
-| `src/pages/ArticleDetail.tsx` | Use h1_override, pass keywords to SEO |
-| `src/components/SEO.tsx` | Add optional keywords meta tag |
-
+Technische details (kort)
+- Root cause: publieke frontend -> protected function (`verify_jwt=true`) mismatch.
+- Scope van wijziging: 1 configbestand + 3 frontend componenten.
+- Geen schemawijzigingen nodig.
