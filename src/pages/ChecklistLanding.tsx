@@ -1,8 +1,10 @@
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { ArrowRight, CheckCircle, ClipboardCheck, Calculator, ShieldCheck, Search } from "lucide-react";
 import { AnimatedSection, StaggerContainer, StaggerItem } from "@/components/AnimatedSection";
 import SectionLabel from "@/components/SectionLabel";
 import { Button } from "@/components/ui/button";
+import DownloadLeadDialog from "@/components/DownloadLeadDialog";
 import { Card, CardContent } from "@/components/ui/card";
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
 import BreadcrumbNav from "@/components/BreadcrumbNav";
@@ -57,6 +59,9 @@ const relatedTools = [
 ];
 
 const ChecklistLanding = () => {
+  const [showLeadDialog, setShowLeadDialog] = useState(false);
+  const navigate = useNavigate();
+
   return (
     <div className="min-h-screen">
       <SEO
@@ -92,12 +97,10 @@ const ChecklistLanding = () => {
             </p>
             <Button
               size="lg"
-              asChild
+              onClick={() => setShowLeadDialog(true)}
               className="mt-8 bg-gradient-to-r from-[hsl(var(--primary))] to-[hsl(330,80%,55%)] hover:opacity-90 text-white"
             >
-              <Link to="/tools/downloads/ai-act-compliance-checklist/document">
-                Download gratis <ArrowRight size={16} />
-              </Link>
+              Download gratis <ArrowRight size={16} />
             </Button>
           </AnimatedSection>
         </div>
@@ -182,6 +185,12 @@ const ChecklistLanding = () => {
         </div>
       </section>
 
+      <DownloadLeadDialog
+        open={showLeadDialog}
+        onOpenChange={setShowLeadDialog}
+        document="checklist"
+        onSuccess={() => navigate("/tools/downloads/ai-act-compliance-checklist/document")}
+      />
     </div>
   );
 };

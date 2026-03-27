@@ -17,7 +17,7 @@ const documents = [
     description:
       "Stap-voor-stap controlelijst voor deployers. Dek alle verplichtingen onder de EU AI Act af: van AI-geletterdheid tot toezicht en documentatie.",
     icon: ClipboardCheck,
-    href: "/tools/downloads/ai-act-compliance-checklist/document",
+    href: "/tools/downloads/ai-act-compliance-checklist",
   },
   {
     type: "template" as DocumentType,
@@ -25,7 +25,7 @@ const documents = [
     description:
       "Kant-en-klaar beleidstemplate. Pas aan voor jouw organisatie en voldoe direct aan de documentatie-eisen van de AI Act.",
     icon: FileText,
-    href: "/tools/downloads/ai-beleid-opstellen/document",
+    href: "/tools/downloads/ai-beleid-opstellen",
   },
 ];
 
