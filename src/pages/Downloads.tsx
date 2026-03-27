@@ -77,10 +77,10 @@ const Downloads = () => {
                         PDF · Gratis · Bijgewerkt 2025
                       </Badge>
                       <Button
-                        onClick={() => openDialog(doc)}
+                        asChild
                         className="mt-auto w-fit bg-gradient-to-r from-[hsl(var(--primary))] to-[hsl(330,80%,55%)] hover:opacity-90 text-white"
                       >
-                        Download gratis <ArrowRight size={16} />
+                        <Link to={doc.href}>Download gratis <ArrowRight size={16} /></Link>
                       </Button>
                     </CardContent>
                   </Card>
