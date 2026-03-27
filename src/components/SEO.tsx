@@ -22,7 +22,7 @@ interface SEOProps {
 const SITE_URL = "https://aigeletterdheid.academy";
 const DEFAULT_OG_IMAGE = "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/7f3db3a8-2370-426e-a7da-f561dd5249cf/id-preview-4693eae0--f564cf86-994a-4cd5-a069-9e7bde9e18fc.lovable.app-1773402984673.png";
 
-const SEO = ({ title, description, canonical, ogType = "website", ogImage, jsonLd, articleMeta, breadcrumbJsonLd }: SEOProps) => {
+const SEO = ({ title, description, canonical, ogType = "website", ogImage, jsonLd, articleMeta, breadcrumbJsonLd, keywords }: SEOProps) => {
   const fullCanonical = canonical ? `${SITE_URL}${canonical}` : undefined;
   const image = ogImage || DEFAULT_OG_IMAGE;
 
