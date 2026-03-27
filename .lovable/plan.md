@@ -1,52 +1,51 @@
 
 
-## Re-enable lead capture + sitemap update
+## Article ordering + meta info
 
-### 1. Lead capture gate on landing pages
+### Problem
+1. Reordering requires manually typing sort_order numbers. Need up/down buttons that swap positions.
+2. Article dates are hardcoded in a `SLUG_DATES` map in `ArticleDetail.tsx`. Need proper `published_date` column in the database, plus optional `read_time_minutes` override.
 
-Both `ChecklistLanding.tsx` and `BeleidstemplateLanding.tsx` currently link directly to the `/document` route. Re-enable the `DownloadLeadDialog` component on both:
+---
 
-- Import `DownloadLeadDialog` and `useState`, `useNavigate`
-- Replace the direct `<Link>` button with an `onClick` that opens the dialog
-- On success: navigate to the `/document` route
-- The dialog collects voornaam + email, inserts into `download_leads`, fires transactional email with document copy, then lets user proceed to document
+### 1. Database migration
 
-### 2. Downloads hub page
+Add two columns to `articles`:
 
-Update `Downloads.tsx`: change the card hrefs from `/document` URLs to the landing page URLs (which now have the gate). The landing pages are the proper entry point.
+```sql
+ALTER TABLE public.articles
+  ADD COLUMN published_date date DEFAULT CURRENT_DATE,
+  ADD COLUMN read_time_minutes integer;
+```
 
-### 3. Sitemap update
+Then backfill `published_date` from the existing `SLUG_DATES` mapping via UPDATE statements for each slug.
 
-Add missing URLs to `public/sitemap.xml` and set lastmod to `2026-03-27` for all changed pages:
+### 2. Admin: up/down reorder buttons (`Admin.tsx`)
 
-Missing URLs to add:
-- `/tools` 
-- `/tools/downloads`
-- `/tools/downloads/ai-act-compliance-checklist`
-- `/tools/downloads/ai-beleid-opstellen`
-- `/tools/boetecalculator`
-- `/tools/ai-risicoscan`
-- `/ai-use-case-checker`
-- `/ai-act-deadlines`
-- `/ai-tools-onder-de-ai-act`
-- `/kenniscentrum/eu-ai-act-boetes-maximale-bedragen` (if article exists)
+Replace the manual sort_order number input in the articles table with **ChevronUp / ChevronDown** buttons per row. Clicking swaps the `sort_order` of the clicked article with its neighbor, then updates both rows in the database and re-fetches.
 
-Update lastmod to `2026-03-27` on all existing entries that were modified.
+Also add `published_date` and `read_time_minutes` fields to the article edit form.
 
-### 4. Google Search Console
+### 3. ArticleDetail.tsx: use DB fields
 
-This requires manual action outside Lovable. After publishing, the user needs to:
-- Go to Google Search Console → Sitemaps → resubmit `sitemap.xml`
-- URL Inspection for priority pages: `/`, `/training`, `/tools/downloads/ai-act-compliance-checklist`, `/tools/downloads/ai-beleid-opstellen`, `/ai-act-deadlines`
+- Remove the `SLUG_DATES` constant
+- Fetch `published_date` and `read_time_minutes` from the article query
+- Use `article.published_date` for `datePublished` in JSON-LD and display
+- If `read_time_minutes` is set, use it instead of the calculated word-count estimate
+- Keep `modifiedDate` using `updated_at` from the article
 
-I'll note this in the response after implementation.
+### 4. Kenniscentrum.tsx: show meta in cards
 
-### Files to change
+Add the published date and reading time below each article card (small text under author name).
+
+---
+
+### Files changed
 
 | File | Change |
 |---|---|
-| `src/pages/ChecklistLanding.tsx` | Add DownloadLeadDialog, gate the download button |
-| `src/pages/BeleidstemplateLanding.tsx` | Same |
-| `src/pages/Downloads.tsx` | Point cards to landing pages instead of /document |
-| `public/sitemap.xml` | Add missing URLs, update lastmod dates |
+| SQL migration | Add `published_date`, `read_time_minutes` columns + backfill |
+| `src/pages/Admin.tsx` | Up/down reorder buttons, new form fields |
+| `src/pages/ArticleDetail.tsx` | Remove SLUG_DATES, use DB fields |
+| `src/pages/Kenniscentrum.tsx` | Show date + read time on cards |
 
