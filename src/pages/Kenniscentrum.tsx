@@ -29,6 +29,8 @@ interface Article {
   content: string | null;
   slug: string | null;
   labels: string[];
+  published_date: string | null;
+  read_time_minutes: number | null;
 }
 
 
