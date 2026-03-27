@@ -1,90 +1,52 @@
 
 
-## SEO-verbeteringen: 6 werkpakketten
+## Re-enable lead capture + sitemap update
 
-Dit is een omvangrijk verzoek met 6 deeltaken. Hieronder het volledige plan.
+### 1. Lead capture gate on landing pages
 
----
+Both `ChecklistLanding.tsx` and `BeleidstemplateLanding.tsx` currently link directly to the `/document` route. Re-enable the `DownloadLeadDialog` component on both:
 
-### 1. Interne links `/ai-geletterdheid-training` → `/training`
+- Import `DownloadLeadDialog` and `useState`, `useNavigate`
+- Replace the direct `<Link>` button with an `onClick` that opens the dialog
+- On success: navigate to the `/document` route
+- The dialog collects voornaam + email, inserts into `download_leads`, fires transactional email with document copy, then lets user proceed to document
 
-**Database**: SQL UPDATE om resterende `](/ai-geletterdheid-training)` links in `articles.content` te vervangen door `](/training)`. (Dit is al eerder gedaan, maar we verifiëren en herhalen voor zekerheid.)
+### 2. Downloads hub page
 
-**Code**: De redirect in `App.tsx` bestaat al. Geen codewijziging nodig.
+Update `Downloads.tsx`: change the card hrefs from `/document` URLs to the landing page URLs (which now have the gate). The landing pages are the proper entry point.
 
----
+### 3. Sitemap update
 
-### 2. FAQ-secties op download-landingspagina's
+Add missing URLs to `public/sitemap.xml` and set lastmod to `2026-03-27` for all changed pages:
 
-**`ChecklistLanding.tsx`**: FAQ-array toevoegen (5 vragen over checklist), FAQ-accordion renderen boven de related tools sectie, FAQPage JSON-LD doorgeven via SEO component.
+Missing URLs to add:
+- `/tools` 
+- `/tools/downloads`
+- `/tools/downloads/ai-act-compliance-checklist`
+- `/tools/downloads/ai-beleid-opstellen`
+- `/tools/boetecalculator`
+- `/tools/ai-risicoscan`
+- `/ai-use-case-checker`
+- `/ai-act-deadlines`
+- `/ai-tools-onder-de-ai-act`
+- `/kenniscentrum/eu-ai-act-boetes-maximale-bedragen` (if article exists)
 
-**`BeleidstemplateLanding.tsx`**: FAQ-array toevoegen (5 vragen over AI-beleid), zelfde patroon. Alle tekst exact zoals opgegeven door de gebruiker.
+Update lastmod to `2026-03-27` on all existing entries that were modified.
 
-Beide pagina's: em-dashes in bestaande tekst vervangen door komma's/dubbele punten (conform huisstijl).
+### 4. Google Search Console
 
----
+This requires manual action outside Lovable. After publishing, the user needs to:
+- Go to Google Search Console → Sitemaps → resubmit `sitemap.xml`
+- URL Inspection for priority pages: `/`, `/training`, `/tools/downloads/ai-act-compliance-checklist`, `/tools/downloads/ai-beleid-opstellen`, `/ai-act-deadlines`
 
-### 3. CTA-blokken in kenniscentrum-artikelen
+I'll note this in the response after implementation.
 
-Aanpak: In `ArticleDetail.tsx` een mapping toevoegen van slug → CTA-configuratie (href, tekst). Na de article content en vóór de author bio wordt een CTA-card gerenderd als het artikel in de mapping staat.
+### Files to change
 
-```text
-Mapping:
-ai-act-compliance-checklist-kleine-bedrijven → /tools/downloads/ai-act-compliance-checklist
-documentatie-eisen-eu-ai-act → /tools/downloads/ai-act-compliance-checklist
-eu-ai-act-uitgelegd → /gereedheidscan  (+  /ai-act-deadlines)
-eu-ai-act-boetes-maximale-bedragen → /tools/boetecalculator
-ai-geletterdheid-voor-leiders → /masterclass
-wat-is-ai-geletterdheid → /training (al bestaand CTA, voegen extra link toe)
-```
-
-Stijl: hergebruik bestaande card/border patroon (bg-card, border, rounded-2xl), met gradient-knop.
-
----
-
-### 4. Schema markup op tool-pagina's
-
-**`Quiz.tsx`**: HowTo JSON-LD toevoegen ("Hoe doe ik de AI Gereedheidscan?" met 3 stappen) + FAQPage JSON-LD (4 vragen). Beide via `<Helmet>` script tags.
-
-**`UseCaseChecker.tsx`**: HowTo JSON-LD toevoegen ("Hoe check ik of mijn AI-gebruik hoog risico is?" met 3 stappen). Via SEO component `jsonLd` prop.
-
----
-
-### 5. Zichtbare "Bijgewerkt op" datum in artikelen
-
-In `ArticleDetail.tsx`:
-- Toon "Bijgewerkt: [maand jaar]" in de meta-row onder de titel, voor alle artikelen (niet alleen `wat-is-ai-geletterdheid`).
-- Gebruik `modifiedDate` die al bestaat ("2026-03-13"). Formatteer als "maart 2026".
-- De `dateModified` in Article JSON-LD gebruikt al `modifiedDate`, dus die is al correct.
-
----
-
-### 6. Nieuwe pagina `/ai-act-deadlines`
-
-**Nieuw bestand `src/pages/AiActDeadlines.tsx`**:
-- SEO title, H1, intro, tijdlijn/tabel met 4 deadlines, uitleg-sectie, FAQ-accordion met FAQPage JSON-LD (4 vragen), CTA naar `/gereedheidscan`.
-- Breadcrumb: Home > Kenniscentrum > AI Act Deadlines.
-- Visuele tijdlijn met verticale lijn en milestone-dots (Tailwind, geen library).
-
-**`App.tsx`**: Route toevoegen, lazy import.
-
-**`Footer.tsx`**: Link toevoegen in "Meer informatie" sectie.
-
-**`ArticleDetail.tsx`**: Interne link vanuit `eu-ai-act-uitgelegd` naar `/ai-act-deadlines` (toevoegen aan de CTA-mapping uit punt 3).
-
----
-
-### Bestanden die wijzigen
-
-| Bestand | Wijziging |
+| File | Change |
 |---|---|
-| `src/pages/ChecklistLanding.tsx` | FAQ-sectie + JSON-LD |
-| `src/pages/BeleidstemplateLanding.tsx` | FAQ-sectie + JSON-LD |
-| `src/pages/ArticleDetail.tsx` | CTA-mapping, zichtbare bijgewerkt-datum |
-| `src/pages/Quiz.tsx` | HowTo + FAQPage JSON-LD |
-| `src/pages/UseCaseChecker.tsx` | HowTo JSON-LD |
-| `src/pages/AiActDeadlines.tsx` | **Nieuw** |
-| `src/App.tsx` | Route voor `/ai-act-deadlines` |
-| `src/components/Footer.tsx` | Link naar `/ai-act-deadlines` |
-| SQL migration | Verify/fix `ai-geletterdheid-training` links |
+| `src/pages/ChecklistLanding.tsx` | Add DownloadLeadDialog, gate the download button |
+| `src/pages/BeleidstemplateLanding.tsx` | Same |
+| `src/pages/Downloads.tsx` | Point cards to landing pages instead of /document |
+| `public/sitemap.xml` | Add missing URLs, update lastmod dates |
 
