@@ -639,6 +639,7 @@ const Admin = () => {
                     className="w-full border border-border rounded-lg px-3 py-2 bg-background text-foreground text-sm resize-none"
                   />
                   <p className="text-xs text-muted-foreground">{form.meta_description.length}/160</p>
+                </div>
                 <div className="flex items-center gap-3 pt-6">
                   <Switch checked={form.published} onCheckedChange={(v) => setForm({ ...form, published: v })} />
                   <Label>Gepubliceerd</Label>
