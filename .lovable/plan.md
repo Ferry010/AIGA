@@ -1,51 +1,45 @@
 
 
-## Article ordering + meta info
+## Blog enhancements: auto-slug, SEO keywords, custom H1
 
-### Problem
-1. Reordering requires manually typing sort_order numbers. Need up/down buttons that swap positions.
-2. Article dates are hardcoded in a `SLUG_DATES` map in `ArticleDetail.tsx`. Need proper `published_date` column in the database, plus optional `read_time_minutes` override.
+### Current state
+- Slug is already auto-generated from title via `generateSlug()` but can be manually overridden
+- The H1 on the article page uses `article.title` (except for two hardcoded overrides for "wat-is-ai-geletterdheid" and "eu-ai-act-boetes")
+- No SEO keywords/search terms field exists in the database or admin form
+- The JSON-LD `keywords` field is only hardcoded for "wat-is-ai-geletterdheid"
 
----
+### Changes
 
-### 1. Database migration
-
+#### 1. Database migration
 Add two columns to `articles`:
-
 ```sql
 ALTER TABLE public.articles
-  ADD COLUMN published_date date DEFAULT CURRENT_DATE,
-  ADD COLUMN read_time_minutes integer;
+  ADD COLUMN seo_keywords text,
+  ADD COLUMN h1_override text;
 ```
+- `seo_keywords`: comma-separated search terms for meta keywords tag and JSON-LD
+- `h1_override`: optional custom H1; if empty, `title` is used as H1
 
-Then backfill `published_date` from the existing `SLUG_DATES` mapping via UPDATE statements for each slug.
+#### 2. Admin form (`Admin.tsx`)
+- **Auto-slug**: When the title changes and slug is empty (new article), auto-fill the slug field in real-time. User can still edit it manually.
+- **SEO keywords field**: New textarea labeled "Zoektermen (SEO)" with placeholder "bijv. AI Act, AI-geletterdheid, compliance" — stored as comma-separated text.
+- **H1 override field**: New input labeled "H1 (optioneel)" with placeholder "Standaard: titel wordt als H1 gebruikt". If left empty, the article title is shown as H1.
 
-### 2. Admin: up/down reorder buttons (`Admin.tsx`)
+#### 3. ArticleDetail.tsx
+- Use `article.h1_override || article.title` for the `<h1>` element
+- Parse `article.seo_keywords` into an array and include as `<meta name="keywords">` in the SEO component
+- Add keywords to the JSON-LD `keywords` field for all articles (not just the two hardcoded ones)
 
-Replace the manual sort_order number input in the articles table with **ChevronUp / ChevronDown** buttons per row. Clicking swaps the `sort_order` of the clicked article with its neighbor, then updates both rows in the database and re-fetches.
-
-Also add `published_date` and `read_time_minutes` fields to the article edit form.
-
-### 3. ArticleDetail.tsx: use DB fields
-
-- Remove the `SLUG_DATES` constant
-- Fetch `published_date` and `read_time_minutes` from the article query
-- Use `article.published_date` for `datePublished` in JSON-LD and display
-- If `read_time_minutes` is set, use it instead of the calculated word-count estimate
-- Keep `modifiedDate` using `updated_at` from the article
-
-### 4. Kenniscentrum.tsx: show meta in cards
-
-Add the published date and reading time below each article card (small text under author name).
-
----
+#### 4. SEO component
+- Add optional `keywords?: string` prop to `SEOProps`
+- Render `<meta name="keywords" content={keywords} />` when provided
 
 ### Files changed
 
 | File | Change |
 |---|---|
-| SQL migration | Add `published_date`, `read_time_minutes` columns + backfill |
-| `src/pages/Admin.tsx` | Up/down reorder buttons, new form fields |
-| `src/pages/ArticleDetail.tsx` | Remove SLUG_DATES, use DB fields |
-| `src/pages/Kenniscentrum.tsx` | Show date + read time on cards |
+| SQL migration | Add `seo_keywords`, `h1_override` columns |
+| `src/pages/Admin.tsx` | Auto-fill slug from title, add keywords + H1 fields |
+| `src/pages/ArticleDetail.tsx` | Use h1_override, pass keywords to SEO |
+| `src/components/SEO.tsx` | Add optional keywords meta tag |
 
