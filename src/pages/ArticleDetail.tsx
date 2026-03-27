@@ -259,6 +259,7 @@ const ArticleDetail = () => {
         datePublished: publishedDate,
         dateModified: modifiedDate,
         wordCount,
+        ...(article.seo_keywords ? { keywords: article.seo_keywords.split(",").map(k => k.trim()).filter(Boolean) } : {}),
         author: { "@type": "Person", name: "Ferry Hoes", url: "https://aigeletterdheid.academy/over-aiga", jobTitle: "AI-expert & Keynote Spreker", sameAs: "https://www.linkedin.com/in/ferryhoes" },
         publisher: { "@type": "Organization", name: "AIGA — AI Geletterdheid Academy", logo: { "@type": "ImageObject", url: "https://aigeletterdheid.academy/assets/AIGA_transparent-CxHDVoMM.png" } },
         mainEntityOfPage: { "@type": "WebPage", "@id": `https://aigeletterdheid.academy/kenniscentrum/${article.slug}` },
