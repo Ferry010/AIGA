@@ -676,9 +676,15 @@ const Admin = () => {
                 </tr>
               </thead>
               <tbody>
-                {articles.map((a) => (
+                {articles.map((a, idx) => (
                   <tr key={a.id} className="border-b border-border">
-                    <td className="py-3 px-2 text-muted-foreground font-mono">{a.sort_order}</td>
+                    <td className="py-3 px-2">
+                      <div className="flex items-center gap-1">
+                        <button onClick={() => moveArticle(a, "up")} disabled={idx === 0} className="text-muted-foreground hover:text-primary disabled:opacity-30"><ChevronUp size={16} /></button>
+                        <span className="text-muted-foreground font-mono text-xs w-5 text-center">{a.sort_order}</span>
+                        <button onClick={() => moveArticle(a, "down")} disabled={idx === articles.length - 1} className="text-muted-foreground hover:text-primary disabled:opacity-30"><ChevronDown size={16} /></button>
+                      </div>
+                    </td>
                     <td className="py-3 px-2 text-foreground max-w-xs truncate">{a.title}</td>
                     <td className="py-3 px-2 text-foreground">{a.category}</td>
                     <td className="py-3 px-2">
