@@ -60,6 +60,9 @@ const relatedTools = [
 ];
 
 const BeleidstemplateLanding = () => {
+  const [showLeadDialog, setShowLeadDialog] = useState(false);
+  const navigate = useNavigate();
+
   return (
     <div className="min-h-screen">
       <SEO
