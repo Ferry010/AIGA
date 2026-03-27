@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import BreadcrumbNav from "@/components/BreadcrumbNav";
 import SEO from "@/components/SEO";
 import ShareDocumentButton from "@/components/ShareDocumentButton";
+import SendCopyForm from "@/components/SendCopyForm";
 
 const DeadlineBadge = ({ text }: { text: string }) => (
   <span className="inline-block text-xs font-semibold px-2 py-0.5 rounded bg-accent text-primary border border-primary/20">
