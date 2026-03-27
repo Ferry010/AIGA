@@ -22,6 +22,7 @@ export type Database = {
           id: string
           image_url: string
           labels: string[]
+          meta_description: string | null
           published: boolean | null
           published_date: string | null
           read_time_minutes: number | null
@@ -38,6 +39,7 @@ export type Database = {
           id?: string
           image_url: string
           labels?: string[]
+          meta_description?: string | null
           published?: boolean | null
           published_date?: string | null
           read_time_minutes?: number | null
@@ -54,6 +56,7 @@ export type Database = {
           id?: string
           image_url?: string
           labels?: string[]
+          meta_description?: string | null
           published?: boolean | null
           published_date?: string | null
           read_time_minutes?: number | null
