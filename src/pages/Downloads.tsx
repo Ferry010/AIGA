@@ -30,14 +30,6 @@ const documents = [
 ];
 
 const Downloads = () => {
-  const navigate = useNavigate();
-  const [dialogOpen, setDialogOpen] = useState(false);
-  const [selectedDoc, setSelectedDoc] = useState<(typeof documents)[0] | null>(null);
-
-  const openDialog = (doc: (typeof documents)[0]) => {
-    setSelectedDoc(doc);
-    setDialogOpen(true);
-  };
 
   return (
     <div className="min-h-screen">
