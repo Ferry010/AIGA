@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 
@@ -13,16 +13,7 @@ const navLinks = [
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
-  const [showCta, setShowCta] = useState(false);
   const location = useLocation();
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setShowCta(window.scrollY > 600);
-    };
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-background border-b border-border">
@@ -53,12 +44,9 @@ const Navbar = () => {
             >
               Doe de scan
             </Link>
-            {/* Fix 3: Persistent CTA after scroll */}
             <Link
               to="/contact"
-              className={`btn-neon text-sm px-5 py-2 rounded-lg transition-all duration-300 ${
-                showCta ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-2 pointer-events-none"
-              }`}
+              className="btn-neon text-sm px-5 py-2 rounded-lg"
             >
               Offerte aanvragen
             </Link>
