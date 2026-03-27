@@ -265,7 +265,8 @@ const Admin = () => {
     if (!form.title || !form.url || !form.image_url) return;
     setSaving(true);
     const slug = form.slug || (form.content ? generateSlug(form.title) : null);
-    const payload = { ...form, content: form.content || null, slug, updated_at: new Date().toISOString() };
+    const { read_time_minutes: rtStr, ...formRest } = form;
+    const payload = { ...formRest, content: formRest.content || null, slug, updated_at: new Date().toISOString(), read_time_minutes: rtStr ? parseInt(rtStr) : null };
     if (editingId) {
       await supabase.from("articles").update(payload).eq("id", editingId);
     } else {
