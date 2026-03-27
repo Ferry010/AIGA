@@ -1,5 +1,7 @@
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { ArrowRight, CheckCircle, ClipboardCheck, Calculator, ShieldCheck, Search } from "lucide-react";
+import DownloadLeadDialog from "@/components/DownloadLeadDialog";
 import { AnimatedSection, StaggerContainer, StaggerItem } from "@/components/AnimatedSection";
 import SectionLabel from "@/components/SectionLabel";
 import { Button } from "@/components/ui/button";
@@ -23,6 +25,12 @@ const relatedTools = [
 ];
 
 const ChecklistLanding = () => {
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const navigate = useNavigate();
+
+  const handleSuccess = () => {
+    navigate("/tools/downloads/ai-act-compliance-checklist/document");
+  };
 
   return (
     <div className="min-h-screen">
@@ -57,12 +65,18 @@ const ChecklistLanding = () => {
               Het document is gebaseerd op de officiële tekst van Verordening (EU) 2024/1689 en vertaald naar concrete, afvinkbare actiepunten. Geschikt voor compliance officers, HR-managers, IT-leads en directieleden.
             </p>
             <Button
-              asChild
               size="lg"
+              onClick={() => setDialogOpen(true)}
               className="mt-8 bg-gradient-to-r from-[hsl(var(--primary))] to-[hsl(330,80%,55%)] hover:opacity-90 text-white"
             >
-              <Link to="/tools/downloads/ai-act-compliance-checklist/document">Download gratis <ArrowRight size={16} /></Link>
+              Download gratis <ArrowRight size={16} />
             </Button>
+            <DownloadLeadDialog
+              open={dialogOpen}
+              onOpenChange={setDialogOpen}
+              document="checklist"
+              onSuccess={handleSuccess}
+            />
           </AnimatedSection>
         </div>
       </section>
