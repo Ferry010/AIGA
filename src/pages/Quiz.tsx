@@ -368,7 +368,7 @@ const Quiz = () => {
               ))}
               {submitError && (
                 <p className="text-sm text-destructive text-center">
-                  Er ging iets mis. Probeer het opnieuw of mail ons op info@aigeletterdheid.academy.
+                  Er ging iets mis. Probeer het opnieuw of mail ons op aanvraag@aigeletterdheid.academy.
                 </p>
               )}
               <button type="submit" disabled={submitting} className="btn-neon w-full py-3 rounded-lg text-sm disabled:opacity-50">

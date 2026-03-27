@@ -64,7 +64,7 @@ const DocumentDownloadEmail = ({ voornaam, documentType = 'checklist' }: Documen
           </Text>
           <Text style={footerContact}>
             <Link href="https://aigeletterdheid.academy" style={footerLink}>aigeletterdheid.academy</Link>
-            {' · '}info@aigeletterdheid.academy{' · '}+31 (0)10 316 7827
+            {' · '}aanvraag@aigeletterdheid.academy{' · '}+31 (0)10 316 7827
           </Text>
         </Container>
       </Body>

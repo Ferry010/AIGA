@@ -248,7 +248,7 @@ const ComplianceChecklist = () => {
         {/* Footer */}
         <footer className="mt-12 pt-6 border-t border-border text-xs text-muted-foreground text-center space-y-1">
           <p className="font-semibold">AIGA Academy · aigeletterdheid.academy</p>
-          <p>E-mail: info@aigeletterdheid.academy · Telefoon: +31 (0)10 316 7827</p>
+          <p>E-mail: aanvraag@aigeletterdheid.academy · Telefoon: +31 (0)10 316 7827</p>
           <p>
             Gebaseerd op EUR-Lex 32024R1689 · Dit document is geen juridisch advies. Raadpleeg een jurist voor bindende
             uitspraken.
