@@ -23,8 +23,6 @@ const relatedTools = [
 ];
 
 const ChecklistLanding = () => {
-  const navigate = useNavigate();
-  const [dialogOpen, setDialogOpen] = useState(false);
 
   return (
     <div className="min-h-screen">
