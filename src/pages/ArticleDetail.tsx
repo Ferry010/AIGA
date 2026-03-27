@@ -275,6 +275,7 @@ const ArticleDetail = () => {
         canonical={`/kenniscentrum/${article.slug}`}
         ogImage={article.image_url || FALLBACK_IMAGE}
         ogType="article"
+        keywords={article.seo_keywords || undefined}
         articleMeta={{
           publishedTime: isWatIs ? "2025-02-01" : publishedDate,
           modifiedTime: isWatIs ? "2026-03-21" : modifiedDate,
