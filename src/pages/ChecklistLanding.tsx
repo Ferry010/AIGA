@@ -59,6 +59,9 @@ const relatedTools = [
 ];
 
 const ChecklistLanding = () => {
+  const [showLeadDialog, setShowLeadDialog] = useState(false);
+  const navigate = useNavigate();
+
   return (
     <div className="min-h-screen">
       <SEO
