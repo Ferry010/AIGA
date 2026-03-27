@@ -268,10 +268,16 @@ const Admin = () => {
     setSaving(true);
     const slug = form.slug || (form.content ? generateSlug(form.title) : null);
     const { read_time_minutes: rtStr, ...formRest } = form;
-    const payload = { ...formRest, content: formRest.content || null, slug, updated_at: new Date().toISOString(), read_time_minutes: rtStr ? parseInt(rtStr) : null };
+    const payload = { ...formRest, content: formRest.content || null, slug, updated_at: new Date().toISOString(), read_time_minutes: rtStr ? parseInt(rtStr) : null, meta_description: formRest.meta_description || null };
     if (editingId) {
       await supabase.from("articles").update(payload).eq("id", editingId);
     } else {
+      // Push all existing articles down by 1 to make room at position 1
+      await supabase.rpc("has_role", { _user_id: (await supabase.auth.getUser()).data.user!.id, _role: "admin" as const }); // auth check
+      for (const a of articles) {
+        await supabase.from("articles").update({ sort_order: a.sort_order + 1 }).eq("id", a.id);
+      }
+      payload.sort_order = 1;
       await supabase.from("articles").insert([payload]);
     }
     await fetchArticles();
