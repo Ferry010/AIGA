@@ -24,8 +24,6 @@ const relatedTools = [
 ];
 
 const BeleidstemplateLanding = () => {
-  const navigate = useNavigate();
-  const [dialogOpen, setDialogOpen] = useState(false);
 
   return (
     <div className="min-h-screen">
