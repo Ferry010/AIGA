@@ -1,70 +1,80 @@
 
 
-## Plan: Download Landing Pages + Form Submit Fix
+## Plan: Simplified Download Form + Dual Delivery (Direct Open + Email)
 
-### Problem Summary
-1. **Tools page links**: Both download cards on `/tools` link to `/tools/downloads` instead of individual pages
-2. **Form POST not firing**: The Supabase insert in `Downloads.tsx` may silently fail — need to verify RLS and add proper error logging
-3. **No dedicated landing pages**: The existing `/tools/downloads/ai-act-compliance-checklist` and `/tools/downloads/ai-beleid-template` routes exist but render the document content directly — they lack SEO landing page structure with hero, intro copy, and email-gate CTA
+### Overview
+Simplify the download form to just voornaam + email, open the document immediately on submit, and send a copy via email. This requires setting up email infrastructure first.
+
+### Problem: No Email Domain Configured
+The project has no email domain set up yet. Email delivery requires configuring a sender domain first. This is the first step before we can scaffold the transactional email system.
+
+### Database Migration
+The `download_leads` table currently requires `achternaam` (NOT NULL) and `organisatie` (NOT NULL). We need to make these columns nullable since the form will no longer collect them.
+
+```sql
+ALTER TABLE public.download_leads ALTER COLUMN achternaam DROP NOT NULL;
+ALTER TABLE public.download_leads ALTER COLUMN organisatie DROP NOT NULL;
+```
 
 ### Changes
 
-#### 1. Fix download card links on `/tools` (Tools.tsx)
-Update the `downloads` array hrefs:
-- Checklist: `/tools/downloads` → `/tools/downloads/ai-act-compliance-checklist`
-- Template: `/tools/downloads` → `/tools/downloads/ai-beleid-opstellen`
+#### 1. Simplify DownloadLeadDialog (`src/components/DownloadLeadDialog.tsx`)
+- Remove achternaam, organisatie, functie fields and newsletter checkbox
+- Keep only: voornaam (required) + email (required)
+- On submit: save lead to DB, fire email via edge function, then immediately call `onSuccess` (which opens the document)
+- Update success message: "Het document is naar je inbox gestuurd. Je kunt het hieronder ook direct bekijken."
+- Insert sends only `voornaam`, `email`, `document` (other fields null)
 
-#### 2. Create dedicated landing page: `/tools/downloads/ai-act-compliance-checklist` (new wrapper page)
-Create `src/pages/ChecklistLanding.tsx` — a SEO-rich landing page that:
-- SEO: title "AI Act Compliance Checklist — Gratis Download voor Deployers | AIGA", meta description, canonical URL
-- Breadcrumb: Home → Tools → Downloads → AI Act Compliance Checklist
-- H1 + 2-3 paragraphs explaining the checklist (what it covers, who it's for, EU AI Act deadlines)
-- Value proposition bullet list (10 secties, Artikel 4/26 coverage, print-ready)
-- Download CTA button that opens the email-gate dialog (reuse the same lead-capture modal from Downloads.tsx)
-- After successful submit, navigate to existing `ComplianceChecklist` component to view the document
-- Related tools section at the bottom
+#### 2. Set Up Email Domain
+Present the email domain setup dialog so the user can configure a sender domain. This is required before emails can be sent.
 
-#### 3. Create dedicated landing page: `/tools/downloads/ai-beleid-opstellen` (new page)
-Create `src/pages/BeleidstemplateLanding.tsx` — same structure:
-- SEO: title "AI Beleid Opstellen — Gratis Template voor EU AI Act Compliance | AIGA"
-- Breadcrumb: Home → Tools → Downloads → AI-beleid opstellen
-- H1 + intro copy about why every organization needs an AI policy under the AI Act
-- Value proposition bullets (invulbare secties, governance-structuur, risicoclassificatie)
-- Email-gate CTA → after submit navigates to existing `AiBeleidstemplate` page
-- Related tools section
+#### 3. Set Up Email Infrastructure + Scaffold Transactional Email
+After domain is configured:
+- Call `setup_email_infra` to create queue infrastructure
+- Call `scaffold_transactional_email` to create the send edge function
+- Create a `document-download` email template in `_shared/transactional-email-templates/`
 
-#### 4. Extract shared lead-capture dialog into reusable component
-Create `src/components/DownloadLeadDialog.tsx` — extract the dialog + form from Downloads.tsx into a shared component that accepts:
-- `document` type (checklist/template)
-- `onSuccess` callback (to navigate to the right page)
-- `open`/`onOpenChange` props
+#### 4. Create Email Template (`document-download.tsx`)
+A branded Dutch email with:
+- Subject: "Je {document name} van AIGA Academy"
+- Greeting using voornaam
+- Brief message explaining what they downloaded
+- CTA button linking to the document page
+- AIGA branding (teal primary color from CSS vars)
+- Contact details in email footer area
 
-This avoids duplicating the form logic across 3 pages.
+#### 5. Wire Up Email Trigger in DownloadLeadDialog
+After successful DB insert, invoke `send-transactional-email` with:
+- `templateName: 'document-download'`
+- `recipientEmail: email`
+- `idempotencyKey: download-doc-${leadId}`
+- `templateData: { voornaam, documentType, documentUrl }`
 
-#### 5. Fix the POST not firing (DownloadLeadDialog component)
-- Add `.select()` after `.insert()` to ensure the POST actually fires (Supabase JS client sometimes optimizes away requests without `.select()`)
-- Add explicit error logging with `console.error`
-- Verify RLS: the `download_leads` table already has `Allow anonymous inserts` policy with `WITH CHECK (true)` for `anon` role — this looks correct
-- Check if `GRANT INSERT ON download_leads TO anon` is needed (based on project memory, this pattern is required)
+#### 6. Add Contact Details to PDF Pages
+Update `ComplianceChecklist.tsx` and `AiBeleidstemplate.tsx` to include a footer on printed pages with:
+- Website: aigeletterdheid.academy
+- E-mail: info@aigeletterdheid.academy
+- Telefoon: +31 (0)10 316 7827
 
-#### 6. Update routing (App.tsx)
-- Add route for `/tools/downloads/ai-beleid-opstellen` → `BeleidstemplateLanding`
-- Change `/tools/downloads/ai-act-compliance-checklist` → `ChecklistLanding` (the actual checklist document moves to a sub-route or is embedded)
-- Keep `/tools/downloads/ai-beleid-template` as redirect to new URL
+Use `@media print` or existing print styling to ensure it appears on every printed page.
 
-#### 7. Database: Grant INSERT to anon
-Run migration: `GRANT INSERT ON public.download_leads TO anon;` — based on project patterns, explicit GRANT is required alongside RLS policies.
+### Files to Modify
+- `src/components/DownloadLeadDialog.tsx` — simplify form + add email trigger
+- `src/pages/ComplianceChecklist.tsx` — add contact footer for print
+- `src/pages/AiBeleidstemplate.tsx` — add contact footer for print
 
-### Files to create
-- `src/components/DownloadLeadDialog.tsx`
-- `src/pages/ChecklistLanding.tsx`
-- `src/pages/BeleidstemplateLanding.tsx`
+### Files to Create (after email domain setup)
+- `supabase/functions/_shared/transactional-email-templates/document-download.tsx`
+- Update `registry.ts` with new template
+- Unsubscribe page (path determined by scaffold tool)
 
-### Files to modify
-- `src/pages/Tools.tsx` — update download hrefs
-- `src/pages/Downloads.tsx` — use shared dialog component
-- `src/App.tsx` — add new routes, add redirect for old template URL
+### Execution Order
+1. Database migration (make columns nullable)
+2. Simplify the form component + add PDF contact footers
+3. Set up email domain (requires user action)
+4. Set up email infrastructure + scaffold + create template + deploy
+5. Wire email trigger into the form submit handler
 
-### Database
-- Migration: `GRANT INSERT ON public.download_leads TO anon;`
+### Blocker: Email Domain Required
+Before implementing email delivery, we need to set up a sender domain. I'll present the setup dialog after implementing the non-email changes (form simplification + PDF footers), then continue with the email setup once the domain is configured.
 
