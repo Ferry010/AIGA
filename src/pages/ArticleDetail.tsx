@@ -24,6 +24,8 @@ interface Article {
   sort_order: number | null;
   created_at: string | null;
   updated_at: string | null;
+  published_date: string | null;
+  read_time_minutes: number | null;
 }
 
 interface AdjacentArticle {
