@@ -32,8 +32,7 @@ const ShareDocumentButton = ({ document, documentUrl }: ShareDocumentButtonProps
         document,
       });
 
-      // Fire email (non-blocking)
-      supabase.functions.invoke("send-transactional-email", {
+      const { error: fnError } = await supabase.functions.invoke("send-transactional-email", {
         body: {
           templateName: "document-download",
           recipientEmail: email.trim(),
@@ -43,7 +42,13 @@ const ShareDocumentButton = ({ document, documentUrl }: ShareDocumentButtonProps
             documentType: document,
           },
         },
-      }).catch((err) => console.error("Share email error:", err));
+      });
+
+      if (fnError) {
+        console.error("Share email error:", fnError);
+        toast.error("E-mail kon niet worden verzonden. Probeer het opnieuw.");
+        return;
+      }
 
       setSent(true);
       toast.success("Document verstuurd!");
