@@ -125,12 +125,6 @@ const BeleidstemplateLanding = () => {
         </div>
       </section>
 
-      <DownloadLeadDialog
-        open={dialogOpen}
-        onOpenChange={setDialogOpen}
-        document="template"
-        onSuccess={() => navigate("/tools/downloads/ai-beleid-opstellen/document")}
-      />
     </div>
   );
 };

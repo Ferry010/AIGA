@@ -91,14 +91,6 @@ const Downloads = () => {
         </div>
       </section>
 
-      {selectedDoc && (
-        <DownloadLeadDialog
-          open={dialogOpen}
-          onOpenChange={setDialogOpen}
-          document={selectedDoc.type}
-          onSuccess={() => navigate(selectedDoc.href)}
-        />
-      )}
     </div>
   );
 };
