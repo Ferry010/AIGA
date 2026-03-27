@@ -5,7 +5,37 @@ import SectionLabel from "@/components/SectionLabel";
 import { motion } from "framer-motion";
 import { useReduceMotion } from "@/hooks/use-reduce-motion";
 import { supabase } from "@/integrations/supabase/client";
+import { Helmet } from "react-helmet-async";
 import SEO from "@/components/SEO";
+
+const QUIZ_HOWTO_JSONLD = {
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  name: "Hoe doe ik de AI Gereedheidscan?",
+  description: "Meet in drie minuten hoe gereed jouw organisatie is voor de EU AI Act.",
+  step: [
+    { "@type": "HowToStep", position: 1, name: "Beantwoord 10 vragen over je organisatie", text: "Beantwoord tien korte vragen over AI-gebruik, bewustzijn, risicobeheer, leiderschap en audit-readiness binnen jouw organisatie." },
+    { "@type": "HowToStep", position: 2, name: "Ontvang direct je score per dimensie", text: "Na de laatste vraag krijg je direct een totaalscore en een uitsplitsing over vijf dimensies, zodat je ziet waar je sterk staat en waar verbetering nodig is." },
+    { "@type": "HowToStep", position: 3, name: "Gebruik je score om prioriteiten te stellen", text: "Gebruik je score om prioriteiten te stellen voor AI Act compliance en bespreek de resultaten met je team of management." },
+  ],
+};
+
+const QUIZ_FAQ_ITEMS = [
+  { q: "Wat meet de AI Gereedheidscan precies?", a: "De scan meet vijf dimensies van AI-gereedheid: hoe je organisatie AI gebruikt, het bewustzijn van wetgeving, de mate van risicobeheer, de rol van leiderschap en hoe audit-ready je bent. Elke dimensie krijgt een eigen score zodat je precies ziet waar de sterktes en verbeterpunten liggen." },
+  { q: "Is de scan anoniem?", a: "Ja, de scan is volledig anoniem. Je hoeft geen account aan te maken en er worden geen persoonsgegevens gevraagd om de scan te starten. Pas na het zien van je resultaat kun je optioneel je gegevens achterlaten als je advies wilt." },
+  { q: "Hoe lang duurt de scan?", a: "De scan bevat tien vragen en duurt gemiddeld drie minuten. Je ontvangt direct na de laatste vraag je resultaat, zonder wachttijd of e-mailverificatie." },
+  { q: "Wat doe ik met mijn score?", a: "Gebruik je score om interne gesprekken te starten over AI-geletterdheid en compliance. De dimensiescores helpen je om prioriteiten te stellen: begin met de dimensie waar je het laagst scoort. De scan is ook een goed startpunt voor een gesprek met je directie over investering in AI-training." },
+];
+
+const QUIZ_FAQ_JSONLD = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: QUIZ_FAQ_ITEMS.map((f) => ({
+    "@type": "Question",
+    name: f.q,
+    acceptedAnswer: { "@type": "Answer", text: f.a },
+  })),
+};
 
 // Quiz SEO title/description defined inline below
 
@@ -176,6 +206,10 @@ const Quiz = () => {
             provider: { "@type": "Organization", name: "AIGA | AI Geletterdheid Academy" },
           }}
         />
+        <Helmet>
+          <script type="application/ld+json">{JSON.stringify(QUIZ_HOWTO_JSONLD)}</script>
+          <script type="application/ld+json">{JSON.stringify(QUIZ_FAQ_JSONLD)}</script>
+        </Helmet>
         <div className="max-w-3xl mx-auto px-4 pt-32 pb-24">
           <AnimatedSection>
             <SectionLabel text="GRATIS AI GEREEDHEIDSCAN" />

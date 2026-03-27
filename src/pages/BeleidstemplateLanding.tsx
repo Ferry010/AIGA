@@ -4,6 +4,7 @@ import { AnimatedSection, StaggerContainer, StaggerItem } from "@/components/Ani
 import SectionLabel from "@/components/SectionLabel";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
 import BreadcrumbNav from "@/components/BreadcrumbNav";
 import SEO from "@/components/SEO";
 
@@ -16,6 +17,39 @@ const includes = [
   "Gebaseerd op de officiële tekst van Verordening (EU) 2024/1689",
 ];
 
+const faqItems = [
+  {
+    q: "Is een AI-beleid verplicht voor mijn organisatie?",
+    a: "Een AI-beleid als losstaand document is niet wettelijk verplicht, maar de EU AI Act verplicht je organisatie wél om aantoonbaar te sturen op verantwoord AI-gebruik. Dat betekent: gedocumenteerde afspraken over welke AI-tools je gebruikt, hoe medewerkers daarmee omgaan en wie verantwoordelijk is bij incidenten. In de praktijk is een AI-beleid de meest directe manier om aan die verplichting te voldoen. Zeker als je hoog-risico AI inzet, zijn schriftelijke procedures geen optie maar een eis.",
+  },
+  {
+    q: "Wat moet er minimaal in een AI-beleid staan?",
+    a: "Een goed AI-beleid beschrijft welke AI-tools je organisatie gebruikt, voor welke doeleinden en met welke grenzen. Minimaal dek je: een inventarisatie van ingezette AI-systemen, afspraken over datagebruik en privacy, wie verantwoordelijk is voor AI-beslissingen, hoe medewerkers worden getraind en hoe je omgaat met incidenten of fouten. De EU AI Act voegt hier documentatie-eisen aan toe voor deployers van hoog-risico systemen, zoals risicobeoordelingen en toezichtprocedures. Dit template dekt al deze onderdelen.",
+  },
+  {
+    q: "Hoe lang duurt het om een AI-beleid op te stellen?",
+    a: "Met een goed template ben je als HR-manager of compliance officer in één tot twee dagdelen klaar met een eerste versie. De meeste tijd gaat zitten in de inventarisatie van welke AI-tools je organisatie al gebruikt, dat gesprek intern voeren is waardevol op zichzelf. Dit template biedt een kant-en-klare structuur zodat je niet vanaf nul hoeft te beginnen, en bevat instructies per sectie zodat je weet wat je moet invullen.",
+  },
+  {
+    q: "Wat is het verschil tussen een AI-beleid en een AI-strategie?",
+    a: "Een AI-strategie beschrijft waar je organisatie naartoe wil met AI: de ambities, investeringen en concurrentievoordelen. Een AI-beleid beschrijft de spelregels: wat mag, wat niet, wie is waarvoor verantwoordelijk en hoe zorg je voor veilig gebruik. Strategie is offensief, beleid is defensief. De EU AI Act vraagt om beleid, niet om strategie. Dit template richt zich daarom volledig op de governance- en compliancekant.",
+  },
+  {
+    q: "Voor welke organisaties is dit template geschikt?",
+    a: "Het template is ontwikkeld voor Nederlandse organisaties die AI-tools inzetten in hun dagelijkse werk, van ChatGPT tot gespecialiseerde HR- of financiële systemen. Het is direct toepasbaar voor compliance officers, HR-managers en directeuren die moeten aantonen dat hun organisatie voldoet aan de AI-geletterdheidsplicht van de EU AI Act (van kracht sinds 2 februari 2025). Zowel het MKB als grotere organisaties kunnen het template gebruiken: het is modulair opgebouwd en aanpasbaar aan de omvang en sector van jouw organisatie.",
+  },
+];
+
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqItems.map((f) => ({
+    "@type": "Question",
+    name: f.q,
+    acceptedAnswer: { "@type": "Answer", text: f.a },
+  })),
+};
+
 const relatedTools = [
   { title: "AI Act Compliance Checklist", description: "Stap-voor-stap checklist voor deployers.", icon: ClipboardCheck, href: "/tools/downloads/ai-act-compliance-checklist" },
   { title: "Boetecalculator", description: "Bereken het boeterisico voor jouw organisatie.", icon: Calculator, href: "/tools/boetecalculator" },
@@ -27,9 +61,10 @@ const BeleidstemplateLanding = () => {
   return (
     <div className="min-h-screen">
       <SEO
-        title="AI Beleid Opstellen — Gratis Template voor EU AI Act Compliance | AIGA"
+        title="AI Beleid Opstellen: Gratis Template voor EU AI Act Compliance | AIGA"
         description="Download een gratis, invulbaar AI-beleidstemplate. Voldoe aan de documentatie-eisen van de EU AI Act met een kant-en-klaar organisatiebeleid voor verantwoord AI-gebruik."
         canonical="/tools/downloads/ai-beleid-opstellen"
+        jsonLd={faqJsonLd}
       />
       <BreadcrumbNav items={[
         { label: "Home", href: "/" },
@@ -44,11 +79,11 @@ const BeleidstemplateLanding = () => {
           <AnimatedSection>
             <SectionLabel text="GRATIS DOWNLOAD" />
             <h1 className="text-4xl sm:text-5xl font-display font-bold text-foreground leading-tight mt-4">
-              AI-beleid opstellen —<br />
+              AI-beleid opstellen:<br />
               <span className="text-primary">gratis template.</span>
             </h1>
             <p className="mt-6 text-lg text-muted-foreground max-w-2xl leading-relaxed">
-              Elke organisatie die AI inzet heeft een intern AI-beleid nodig. Dit template geeft je een kant-en-klare structuur die je kunt aanpassen aan jouw organisatie — van scope en governance tot risicoclassificatie en incidentprocedures.
+              Elke organisatie die AI inzet heeft een intern AI-beleid nodig. Dit template geeft je een kant-en-klare structuur die je kunt aanpassen aan jouw organisatie, van scope en governance tot risicoclassificatie en incidentprocedures.
             </p>
             <p className="mt-4 text-base text-muted-foreground max-w-2xl leading-relaxed">
               De EU AI Act verplicht organisaties om beleid en procedures te documenteren rondom het gebruik van AI-systemen. Zonder een vastgelegd AI-beleid loop je het risico om bij een audit niet te kunnen aantonen dat je verantwoord met AI omgaat. Dit template helpt je om in één middag een solide basis neer te zetten.
@@ -88,6 +123,28 @@ const BeleidstemplateLanding = () => {
               </StaggerItem>
             ))}
           </StaggerContainer>
+        </div>
+      </section>
+
+      {/* FAQ */}
+      <section className="pb-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <AnimatedSection>
+            <SectionLabel text="VEELGESTELDE VRAGEN" />
+            <h2 className="text-2xl sm:text-3xl font-display font-bold text-foreground mt-4 mb-8">
+              Vragen over het AI-beleid template
+            </h2>
+          </AnimatedSection>
+          <div className="max-w-2xl">
+            <Accordion type="single" collapsible className="w-full">
+              {faqItems.map((faq, i) => (
+                <AccordionItem key={i} value={`faq-${i}`}>
+                  <AccordionTrigger className="text-left text-base font-semibold">{faq.q}</AccordionTrigger>
+                  <AccordionContent><p className="text-muted-foreground leading-relaxed">{faq.a}</p></AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+          </div>
         </div>
       </section>
 

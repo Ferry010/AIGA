@@ -11,6 +11,17 @@ const UseCaseChecker = () => {
         title="AI Use Case Checker | Valt jouw AI-gebruik onder hoog risico? | AIGA"
         description="Controleer per AI-tool en toepassing of jouw gebruik onder hoog risico valt volgens de EU AI Act. Selecteer een tool, kies je use case en zie direct het oordeel."
         canonical="/ai-use-case-checker"
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "HowTo",
+          name: "Hoe check ik of mijn AI-gebruik hoog risico is?",
+          description: "Controleer in drie stappen of jouw AI-toepassing onder hoog risico valt volgens de EU AI Act.",
+          step: [
+            { "@type": "HowToStep", position: 1, name: "Selecteer je AI-tool", text: "Kies de AI-tool die je organisatie gebruikt uit de lijst, bijvoorbeeld ChatGPT, Copilot of een HR-systeem." },
+            { "@type": "HowToStep", position: 2, name: "Kies je use case", text: "Selecteer de specifieke toepassing waarvoor je de AI-tool inzet, zoals sollicitantenscreening of klantenservice." },
+            { "@type": "HowToStep", position: 3, name: "Zie direct het risiconiveau", text: "Ontvang direct het oordeel: valt jouw gebruik onder hoog risico, beperkt risico of minimaal risico volgens de EU AI Act." },
+          ],
+        }}
       />
       <BreadcrumbNav items={[{ label: "Home", href: "/" }, { label: "Tools", href: "/tools" }, { label: "AI Use Case Checker" }]} />
 

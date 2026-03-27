@@ -56,6 +56,28 @@ function extractH2Headings(content: string): { id: string; text: string }[] {
 
 const FERRY_BIO = "Ferry Hoes is veelgevraagd spreker en trainer op het gebied van AI-geletterdheid. Hij staat meermaals per maand op het podium voor organisaties zoals a.s.r., VodafoneZiggo en verschillende ministeries. In 2020 won hij de Anti-Discriminatie AI-Hackathon van de Nederlandse overheid.";
 
+const ARTICLE_CTAS: Record<string, { href: string; text: string }[]> = {
+  "ai-act-compliance-checklist-kleine-bedrijven": [
+    { href: "/tools/downloads/ai-act-compliance-checklist", text: "Download de gratis AI Act Compliance Checklist →" },
+  ],
+  "documentatie-eisen-eu-ai-act": [
+    { href: "/tools/downloads/ai-act-compliance-checklist", text: "Download de gratis AI Act Compliance Checklist →" },
+  ],
+  "eu-ai-act-uitgelegd": [
+    { href: "/gereedheidscan", text: "Doe de gratis AI Gereedheidscan →" },
+    { href: "/ai-act-deadlines", text: "Bekijk alle AI Act deadlines →" },
+  ],
+  "eu-ai-act-boetes-maximale-bedragen": [
+    { href: "/tools/boetecalculator", text: "Bereken jouw boeterisico →" },
+  ],
+  "ai-geletterdheid-voor-leiders": [
+    { href: "/masterclass", text: "Bekijk de Masterclass voor leidinggevenden →" },
+  ],
+  "wat-is-ai-geletterdheid": [
+    { href: "/training", text: "Bekijk de AI Geletterdheid Training →" },
+  ],
+};
+
 const SLUG_DATES: Record<string, string> = {
   "ai-in-marketing-kansen-en-valkuilen": "2025-06-15",
   "ai-act-compliance-checklist-kleine-bedrijven": "2025-06-01",
@@ -330,7 +352,7 @@ const ArticleDetail = () => {
             <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground mb-8 pb-8 border-b border-border mt-4">
               <Link to="/over-aiga" className="hover:text-primary transition-colors" rel="author">Ferry Hoes</Link>
               <span>{formatDate(isWatIs ? "2025-02-01T00:00:00Z" : publishedDate)}</span>
-              {isWatIs && <span>Laatst bijgewerkt: 21 maart 2026</span>}
+              <span>Bijgewerkt: {new Date(modifiedDate).toLocaleDateString("nl-NL", { month: "long", year: "numeric" })}</span>
               <span className="flex items-center gap-1"><Clock size={14} /> {readingTime} min leestijd</span>
               {!isWatIs && (
                 <a href={article.url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-primary hover:underline">
@@ -437,6 +459,26 @@ const ArticleDetail = () => {
                   <Button asChild><Link to="/training">Bekijk de online training</Link></Button>
                   <Button asChild variant="outline"><Link to="/gereedheidscan">Doe de gratis AI Gereedheidscan</Link></Button>
                   <Button asChild variant="outline"><Link to="/contact">Vraag een offerte aan</Link></Button>
+                </div>
+              </div>
+            </AnimatedSection>
+          )}
+
+          {/* Slug-based CTA blocks */}
+          {article.slug && ARTICLE_CTAS[article.slug] && !isWatIs && (
+            <AnimatedSection delay={0.08}>
+              <div className="mt-12 bg-card border border-border rounded-2xl p-6 sm:p-8">
+                <p className="text-sm font-semibold text-foreground mb-4">Gerelateerde tool</p>
+                <div className="flex flex-col gap-3">
+                  {ARTICLE_CTAS[article.slug].map((cta) => (
+                    <Link
+                      key={cta.href}
+                      to={cta.href}
+                      className="inline-flex items-center gap-2 text-primary font-semibold hover:underline"
+                    >
+                      {cta.text}
+                    </Link>
+                  ))}
                 </div>
               </div>
             </AnimatedSection>
