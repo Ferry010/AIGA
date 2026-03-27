@@ -1,8 +1,8 @@
-import { Printer, Link as LinkIcon } from "lucide-react";
+import { Printer } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import BreadcrumbNav from "@/components/BreadcrumbNav";
 import SEO from "@/components/SEO";
-import { toast } from "sonner";
+import ShareDocumentButton from "@/components/ShareDocumentButton";
 
 const Placeholder = ({ children }: { children: React.ReactNode }) => (
   <span className="bg-primary/10 px-1 rounded font-mono text-sm text-primary">{children}</span>
@@ -43,9 +43,7 @@ const AiBeleidstemplate = () => {
       <div className="max-w-[210mm] mx-auto bg-white px-8 sm:px-12 py-10 print:px-[20mm] print:py-[15mm] print:shadow-none shadow-lg my-8 print:my-0">
         {/* Print button */}
         <div className="flex justify-end gap-2 mb-6 print:hidden">
-          <Button variant="outline" size="sm" onClick={() => { navigator.clipboard.writeText(window.location.href); toast.success("Link gekopieerd!"); }}>
-            <LinkIcon size={16} /> Kopieer link
-          </Button>
+          <ShareDocumentButton document="template" documentUrl={window.location.href} />
           <Button variant="outline" size="sm" onClick={() => window.print()}>
             <Printer size={16} /> Print / PDF
           </Button>
