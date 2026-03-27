@@ -33,7 +33,7 @@ const DocumentDownloadEmail = ({ voornaam, documentType = 'checklist' }: Documen
       <Body style={main}>
         <Container style={container}>
           <Section style={logoSection}>
-            <Img src={LOGO_URL} alt="AI Geletterdheid Academy" width="100" height="auto" style={logoImg} />
+            <Img src={LOGO_URL} alt="AIGA" width="80" height="auto" style={logoImg} />
           </Section>
 
           <Heading style={h1}>
