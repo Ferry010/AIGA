@@ -4,7 +4,7 @@ import {
 } from 'npm:@react-email/components@0.0.22'
 import type { TemplateEntry } from './registry.ts'
 
-const SITE_NAME = "AI Geletterdheid Academy"
+const SITE_NAME = "Ferry van AI Geletterdheid Academy"
 const LOGO_URL = "https://aigeletterdheid.academy/assets/AIGA_transparent-CxHDVoMM.png"
 
 interface DocumentDownloadProps {
@@ -29,39 +29,40 @@ const DocumentDownloadEmail = ({ voornaam, documentType = 'checklist' }: Documen
   return (
     <Html lang="nl" dir="ltr">
       <Head />
-      <Preview>Je {docLabel} van {SITE_NAME}</Preview>
+      <Preview>Je {docLabel} staat klaar!</Preview>
       <Body style={main}>
         <Container style={container}>
           <Section style={logoSection}>
-            <Img src={LOGO_URL} alt={SITE_NAME} width="160" height="auto" style={logoImg} />
+            <Img src={LOGO_URL} alt="AI Geletterdheid Academy" width="100" height="auto" style={logoImg} />
           </Section>
 
           <Heading style={h1}>
-            {voornaam ? `Hoi ${voornaam},` : 'Hoi,'}
+            {voornaam ? `Hoi ${voornaam}!` : 'Hoi!'}
           </Heading>
 
           <Text style={text}>
-            Bedankt voor je interesse in de <strong>{docLabel}</strong>. Hierbij ontvang je het document zodat je het altijd bij de hand hebt.
+            Leuk dat je de <strong>{docLabel}</strong> hebt aangevraagd. Ik heb hem hieronder voor je klaargezet.
           </Text>
 
           <Text style={text}>
-            Klik op de knop hieronder om het document te bekijken:
+            Met dit document kun je direct aan de slag. Heb je vragen of wil je even sparren over hoe je dit het beste kunt toepassen binnen jouw organisatie? Stuur me gerust een berichtje — ik help je graag verder.
           </Text>
 
           <Section style={buttonContainer}>
             <Button style={button} href={docUrl}>
-              Bekijk het document
+              Bekijk het document →
             </Button>
           </Section>
 
           <Text style={text}>
-            Heb je vragen over de AI Act of wil je weten hoe jouw organisatie AI-geletterd kan worden? Neem gerust contact met ons op.
+            Groet,<br />
+            Ferry
           </Text>
 
           <Hr style={hr} />
 
           <Text style={footer}>
-            {SITE_NAME} | AI-geletterdheid voor organisaties
+            AI Geletterdheid Academy · AI-geletterdheid voor organisaties
           </Text>
           <Text style={footerContact}>
             <Link href="https://aigeletterdheid.academy" style={footerLink}>aigeletterdheid.academy</Link>
@@ -77,13 +78,13 @@ export const template = {
   component: DocumentDownloadEmail,
   subject: (data: Record<string, any>) => {
     const label = documentLabels[data?.documentType] || 'document'
-    return `Je ${label} van ${SITE_NAME}`
+    return `Je ${label} staat klaar!`
   },
   displayName: 'Document download',
   previewData: { voornaam: 'Jan', documentType: 'checklist' },
 } satisfies TemplateEntry
 
-// Styles — AIGA teal primary: hsl(189, 35%, 42%) ≈ #468C94
+// Styles — branded gradient: teal #468C94 → pink #E0337A
 const main = { backgroundColor: '#ffffff', fontFamily: "'Segoe UI', Arial, sans-serif" }
 const container = { padding: '32px 24px', maxWidth: '560px', margin: '0 auto' }
 const logoSection = { marginBottom: '24px' }
@@ -93,6 +94,7 @@ const text = { fontSize: '15px', color: '#3d4654', lineHeight: '1.6', margin: '0
 const buttonContainer = { textAlign: 'center' as const, margin: '24px 0' }
 const button = {
   backgroundColor: '#468C94',
+  background: 'linear-gradient(to right, #468C94, #E0337A)',
   color: '#ffffff',
   fontSize: '15px',
   fontWeight: '600' as const,
