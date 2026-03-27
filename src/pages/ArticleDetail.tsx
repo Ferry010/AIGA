@@ -56,6 +56,28 @@ function extractH2Headings(content: string): { id: string; text: string }[] {
 
 const FERRY_BIO = "Ferry Hoes is veelgevraagd spreker en trainer op het gebied van AI-geletterdheid. Hij staat meermaals per maand op het podium voor organisaties zoals a.s.r., VodafoneZiggo en verschillende ministeries. In 2020 won hij de Anti-Discriminatie AI-Hackathon van de Nederlandse overheid.";
 
+const ARTICLE_CTAS: Record<string, { href: string; text: string }[]> = {
+  "ai-act-compliance-checklist-kleine-bedrijven": [
+    { href: "/tools/downloads/ai-act-compliance-checklist", text: "Download de gratis AI Act Compliance Checklist →" },
+  ],
+  "documentatie-eisen-eu-ai-act": [
+    { href: "/tools/downloads/ai-act-compliance-checklist", text: "Download de gratis AI Act Compliance Checklist →" },
+  ],
+  "eu-ai-act-uitgelegd": [
+    { href: "/gereedheidscan", text: "Doe de gratis AI Gereedheidscan →" },
+    { href: "/ai-act-deadlines", text: "Bekijk alle AI Act deadlines →" },
+  ],
+  "eu-ai-act-boetes-maximale-bedragen": [
+    { href: "/tools/boetecalculator", text: "Bereken jouw boeterisico →" },
+  ],
+  "ai-geletterdheid-voor-leiders": [
+    { href: "/masterclass", text: "Bekijk de Masterclass voor leidinggevenden →" },
+  ],
+  "wat-is-ai-geletterdheid": [
+    { href: "/training", text: "Bekijk de AI Geletterdheid Training →" },
+  ],
+};
+
 const SLUG_DATES: Record<string, string> = {
   "ai-in-marketing-kansen-en-valkuilen": "2025-06-15",
   "ai-act-compliance-checklist-kleine-bedrijven": "2025-06-01",
