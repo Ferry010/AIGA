@@ -267,7 +267,15 @@ const Kenniscentrum = () => {
                       </h3>
                       <div className="flex items-center justify-between text-xs text-muted-foreground mt-auto pt-3 border-t border-border">
                         <span>Ferry Hoes</span>
-                        {!isImported && <ExternalLink size={14} className="text-primary opacity-0 group-hover:opacity-100 transition-opacity" />}
+                        <div className="flex items-center gap-3">
+                          {article.published_date && (
+                            <span>{new Date(article.published_date).toLocaleDateString("nl-NL", { day: "numeric", month: "short", year: "numeric" })}</span>
+                          )}
+                          {article.read_time_minutes && (
+                            <span>{article.read_time_minutes} min</span>
+                          )}
+                          {!isImported && <ExternalLink size={14} className="text-primary opacity-0 group-hover:opacity-100 transition-opacity" />}
+                        </div>
                       </div>
                     </div>
                   </>

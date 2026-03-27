@@ -188,14 +188,13 @@ const ArticleDetail = () => {
   }, [article]);
 
   const wordCount = useMemo(() => articleContent.split(/\s+/).length, [articleContent]);
-  const readingTime = Math.max(1, Math.ceil(wordCount / 200));
+  const readingTime = article?.read_time_minutes || Math.max(1, Math.ceil(wordCount / 200));
   const headings = useMemo(() => extractH2Headings(articleContent), [articleContent]);
   const showToc = wordCount >= 600 && headings.length >= 2;
   const isLegalCategory = article?.category === "Wetten en regels";
 
-  const slugDate = article?.slug && SLUG_DATES[article.slug] ? SLUG_DATES[article.slug] + "T00:00:00Z" : null;
-  const publishedDate = slugDate || (article?.created_at ? new Date(article.created_at).toISOString() : "2025-01-15T00:00:00Z");
-  const modifiedDate = "2026-03-13T00:00:00Z";
+  const publishedDate = article?.published_date ? article.published_date + "T00:00:00Z" : (article?.created_at ? new Date(article.created_at).toISOString() : "2025-01-15T00:00:00Z");
+  const modifiedDate = article?.updated_at ? new Date(article.updated_at).toISOString() : "2026-03-27T00:00:00Z";
 
   const formatDate = (iso: string) => {
     const d = new Date(iso);
