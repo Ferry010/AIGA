@@ -282,6 +282,22 @@ const Admin = () => {
     await supabase.from("articles").update({ published: !a.published, updated_at: new Date().toISOString() }).eq("id", a.id);
   };
 
+  const moveArticle = async (article: Article, direction: "up" | "down") => {
+    const idx = articles.findIndex((a) => a.id === article.id);
+    const swapIdx = direction === "up" ? idx - 1 : idx + 1;
+    if (swapIdx < 0 || swapIdx >= articles.length) return;
+    const other = articles[swapIdx];
+    const newArticles = [...articles];
+    newArticles[idx] = { ...article, sort_order: other.sort_order };
+    newArticles[swapIdx] = { ...other, sort_order: article.sort_order };
+    newArticles.sort((a, b) => a.sort_order - b.sort_order);
+    setArticles(newArticles);
+    await Promise.all([
+      supabase.from("articles").update({ sort_order: other.sort_order, updated_at: new Date().toISOString() }).eq("id", article.id),
+      supabase.from("articles").update({ sort_order: article.sort_order, updated_at: new Date().toISOString() }).eq("id", other.id),
+    ]);
+  };
+
   const importArticle = async (a: Article) => {
     setImporting((prev) => ({ ...prev, [a.id]: true }));
     try {
