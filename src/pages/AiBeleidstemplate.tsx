@@ -205,7 +205,7 @@ const AiBeleidstemplate = () => {
         {/* Footer */}
         <footer className="mt-12 pt-6 border-t border-border text-xs text-muted-foreground text-center space-y-1">
           <p className="font-semibold">AIGA Academy · aigeletterdheid.academy</p>
-          <p>E-mail: info@aigeletterdheid.academy · Telefoon: +31 (0)10 316 7827</p>
+          <p>E-mail: aanvraag@aigeletterdheid.academy · Telefoon: +31 (0)10 316 7827</p>
           <p>Template door AIGA Academy · Pas aan naar jouw situatie · Geen juridisch advies</p>
         </footer>
       </div>
