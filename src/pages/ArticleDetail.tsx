@@ -109,6 +109,12 @@ const BOETES_FAQ = [
   { q: "Hoe bereken ik mijn boeterisico onder de EU AI Act?", a: "Gebruik de gratis AIGA Boetecalculator op aigeletterdheid.academy/tools/boetecalculator. De calculator combineert jouw organisatieprofiel, de tools die je gebruikt en jouw huidige compliancestatus." },
 ];
 
+const VIJF_STAPPEN_FAQ = [
+  { q: "Geldt de AI-geletterdheidsplicht voor alle medewerkers?", a: "De plicht geldt voor alle medewerkers die betrokken zijn bij het gebruik of de inzet van AI-systemen. Dat is in de meeste organisaties breder dan je denkt: ook HR-medewerkers die een AI-tool gebruiken voor roostering, marketeers die AI-gegenereerde teksten publiceren of managers die op basis van AI-dashboards besluiten nemen, vallen eronder. Medewerkers zonder enige AI-aanraking zijn uitgezonderd." },
+  { q: "Welk certificaat wordt erkend als bewijs?", a: "De wet schrijft geen specifiek certificaat voor. Wat telt is dat de training aantoonbaar aansluit bij de rol en het risiconiveau van de medewerker, en dat deelname gedocumenteerd is. Het AIGA-certificaat is gebaseerd op de officiële tekst van de EU AI Act en dekt de kerncompetenties die de AP als relevant beschouwt." },
+  { q: "Hoe vaak moet je medewerkers hertrainen?", a: "De wet schrijft geen vaste frequentie voor, maar gezien de snelheid waarmee AI-toepassingen zich ontwikkelen is een jaarlijkse herhaling de best verdedigbare aanpak. Bij de introductie van nieuwe AI-systemen of bij een significante verandering in gebruik is een tussentijdse update aan te raden." },
+];
+
 const WAT_IS_FAQ_JSONLD = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
