@@ -36,7 +36,7 @@ const DownloadLeadDialog = ({ open, onOpenChange, document, onSuccess }: Downloa
         voornaam: voornaam.trim(),
         email: email.trim(),
         document,
-      }).select();
+      });
 
       if (error) {
         console.error("Download lead insert error:", error);
