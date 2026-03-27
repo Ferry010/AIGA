@@ -36,6 +36,8 @@ import AiRisicoscan from "./pages/AiRisicoscan";
 import Downloads from "./pages/Downloads";
 import ComplianceChecklist from "./pages/ComplianceChecklist";
 import AiBeleidstemplate from "./pages/AiBeleidstemplate";
+import ChecklistLanding from "./pages/ChecklistLanding";
+import BeleidstemplateLanding from "./pages/BeleidstemplateLanding";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
