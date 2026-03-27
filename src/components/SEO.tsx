@@ -34,6 +34,10 @@ const SEO = ({ title, description, canonical, ogType = "website", ogImage, jsonL
       <meta property="og:description" content={description} />
       <meta property="og:type" content={ogType} />
       <meta property="og:image" content={image} />
+      <meta property="og:image:width" content="1200" />
+      <meta property="og:image:height" content="630" />
+      <meta property="og:site_name" content="AIGA — AI Geletterdheid Academy" />
+      <meta property="og:locale" content="nl_NL" />
       {fullCanonical && <meta property="og:url" content={fullCanonical} />}
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content={title} />
