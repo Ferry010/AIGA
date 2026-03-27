@@ -1,33 +1,70 @@
 
 
-## Plan: "Meest gebruikt" section + positive outcome messaging
+## Plan: Download Landing Pages + Form Submit Fix
+
+### Problem Summary
+1. **Tools page links**: Both download cards on `/tools` link to `/tools/downloads` instead of individual pages
+2. **Form POST not firing**: The Supabase insert in `Downloads.tsx` may silently fail — need to verify RLS and add proper error logging
+3. **No dedicated landing pages**: The existing `/tools/downloads/ai-act-compliance-checklist` and `/tools/downloads/ai-beleid-template` routes exist but render the document content directly — they lack SEO landing page structure with hero, intro copy, and email-gate CTA
 
 ### Changes
 
-**1. `src/pages/AiRisicoscan.tsx`** — Two changes:
+#### 1. Fix download card links on `/tools` (Tools.tsx)
+Update the `downloads` array hrefs:
+- Checklist: `/tools/downloads` → `/tools/downloads/ai-act-compliance-checklist`
+- Template: `/tools/downloads` → `/tools/downloads/ai-beleid-opstellen`
 
-**A. Add "Meest gebruikt" section above category grid (selection phase)**
-- Define a constant array of the 10 most-used tool names in the specified order
-- Before the `AI_CATEGORIES.filter(...)` loop, render a new section with header "🔥 Meest gebruikt in Nederlandse organisaties"
-- Show those 10 tools as cards (same card component/style as category cards)
-- In the category sections below, filter out any tool whose name is already in the "meest gebruikt" list — deduplication
-- The "Meest gebruikt" section should only show when `activeCategory === "Alle"` and search is empty (or tools match search), so filtering/search still works naturally
+#### 2. Create dedicated landing page: `/tools/downloads/ai-act-compliance-checklist` (new wrapper page)
+Create `src/pages/ChecklistLanding.tsx` — a SEO-rich landing page that:
+- SEO: title "AI Act Compliance Checklist — Gratis Download voor Deployers | AIGA", meta description, canonical URL
+- Breadcrumb: Home → Tools → Downloads → AI Act Compliance Checklist
+- H1 + 2-3 paragraphs explaining the checklist (what it covers, who it's for, EU AI Act deadlines)
+- Value proposition bullet list (10 secties, Artikel 4/26 coverage, print-ready)
+- Download CTA button that opens the email-gate dialog (reuse the same lead-capture modal from Downloads.tsx)
+- After successful submit, navigate to existing `ComplianceChecklist` component to view the document
+- Related tools section at the bottom
 
-**B. Positive messaging for low/no risk results (results phase)**
-- When `overallVerdict === "LAAG"`: change `verdictText` to a congratulatory message ("Goed bezig! ...") instead of pushing training
-- In Section D (CTA): when verdict is LAAG, replace the training-push CTA with a compliment card ("Goed voorbereid! Jouw organisatie heeft een laag risicoprofiel...") and softer secondary links
-- Keep training/offerte CTAs only for GEMIDDELD and HOOG verdicts
+#### 3. Create dedicated landing page: `/tools/downloads/ai-beleid-opstellen` (new page)
+Create `src/pages/BeleidstemplateLanding.tsx` — same structure:
+- SEO: title "AI Beleid Opstellen — Gratis Template voor EU AI Act Compliance | AIGA"
+- Breadcrumb: Home → Tools → Downloads → AI-beleid opstellen
+- H1 + intro copy about why every organization needs an AI policy under the AI Act
+- Value proposition bullets (invulbare secties, governance-structuur, risicoclassificatie)
+- Email-gate CTA → after submit navigates to existing `AiBeleidstemplate` page
+- Related tools section
 
-**2. `src/pages/Boetecalculator.tsx`** — Positive messaging for zero/low risk:
-- When `results.isZeroRisk === true`: replace the CTA card heading/body with congratulatory text ("Goed bezig! Je organisatie loopt geen direct boeterisico.") and remove the training push. Show a softer "Blijf op de hoogte" or link to gereedheidscan instead
-- When `results.riskLevel === "LAAG"`: similar softer messaging
+#### 4. Extract shared lead-capture dialog into reusable component
+Create `src/components/DownloadLeadDialog.tsx` — extract the dialog + form from Downloads.tsx into a shared component that accepts:
+- `document` type (checklist/template)
+- `onSuccess` callback (to navigate to the right page)
+- `open`/`onOpenChange` props
 
-**3. `src/components/AiUseCaseChecker.tsx`** — Positive messaging for limited/out-of-scope:
-- The "out-of-scope" result already has neutral messaging — keep as is
-- The "limited" outcome currently pushes training — replace CTA with a compliment ("Goed nieuws! Dit gebruik valt onder beperkt risico.") and softer link to training as optional rather than primary CTA
+This avoids duplicating the form logic across 3 pages.
 
-### Technical details
-- "Meest gebruikt" list: `["ChatGPT (Free/Pro)", "Microsoft Copilot (M365)", "Google Gemini", "Claude (Anthropic)", "GitHub Copilot", "Grammarly AI", "DeepL", "HubSpot AI", "Fireflies.ai", "LinkedIn Talent AI"]`
-- Dedup logic: in the category loop, filter with `.filter(t => !POPULAR_TOOLS.includes(t.name))`
-- No new dependencies needed
+#### 5. Fix the POST not firing (DownloadLeadDialog component)
+- Add `.select()` after `.insert()` to ensure the POST actually fires (Supabase JS client sometimes optimizes away requests without `.select()`)
+- Add explicit error logging with `console.error`
+- Verify RLS: the `download_leads` table already has `Allow anonymous inserts` policy with `WITH CHECK (true)` for `anon` role — this looks correct
+- Check if `GRANT INSERT ON download_leads TO anon` is needed (based on project memory, this pattern is required)
+
+#### 6. Update routing (App.tsx)
+- Add route for `/tools/downloads/ai-beleid-opstellen` → `BeleidstemplateLanding`
+- Change `/tools/downloads/ai-act-compliance-checklist` → `ChecklistLanding` (the actual checklist document moves to a sub-route or is embedded)
+- Keep `/tools/downloads/ai-beleid-template` as redirect to new URL
+
+#### 7. Database: Grant INSERT to anon
+Run migration: `GRANT INSERT ON public.download_leads TO anon;` — based on project patterns, explicit GRANT is required alongside RLS policies.
+
+### Files to create
+- `src/components/DownloadLeadDialog.tsx`
+- `src/pages/ChecklistLanding.tsx`
+- `src/pages/BeleidstemplateLanding.tsx`
+
+### Files to modify
+- `src/pages/Tools.tsx` — update download hrefs
+- `src/pages/Downloads.tsx` — use shared dialog component
+- `src/App.tsx` — add new routes, add redirect for old template URL
+
+### Database
+- Migration: `GRANT INSERT ON public.download_leads TO anon;`
 
