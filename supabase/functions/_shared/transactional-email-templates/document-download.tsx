@@ -50,7 +50,7 @@ const DocumentDownloadEmail = ({ voornaam, documentType = 'checklist' }: Documen
 
           <Section style={buttonContainer}>
             <Button style={button} href={docUrl}>
-              Bekijk het document →
+              Bekijk het document
             </Button>
           </Section>
 
