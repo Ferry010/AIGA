@@ -315,7 +315,7 @@ const ArticleDetail = () => {
               </Link>
               <Badge variant="secondary" className="mb-3 text-xs block w-fit">{article.category}</Badge>
               <h1 className="text-3xl sm:text-4xl font-display font-bold text-foreground leading-tight mb-2">
-                {isWatIs ? "Wat is AI-geletterdheid?" : article.title}
+                {article.h1_override || (isWatIs ? "Wat is AI-geletterdheid?" : article.title)}
               </h1>
               {isWatIs && (
                 <>
