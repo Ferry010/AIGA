@@ -81,6 +81,9 @@ const ARTICLE_CTAS: Record<string, { href: string; text: string }[]> = {
   "wat-is-ai-geletterdheid": [
     { href: "/training", text: "Bekijk de AI Geletterdheid Training →" },
   ],
+  "ai-geletterdheidsplicht-zo-voldoe-je-in-5-stappen-aiga": [
+    { href: "/training", text: "Bekijk de AI Geletterdheid Training →" },
+  ],
 };
 
 const FALLBACK_IMAGE = "https://aigeletterdheid.academy/assets/AIGA_transparent-CxHDVoMM.png";
