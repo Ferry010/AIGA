@@ -75,6 +75,8 @@ interface Article {
   published_date: string | null;
   read_time_minutes: number | null;
   meta_description: string | null;
+  seo_keywords: string | null;
+  h1_override: string | null;
 }
 
 const tierLabels: Record<string, string> = {
