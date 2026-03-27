@@ -4,8 +4,6 @@ import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 
@@ -20,17 +18,11 @@ const DownloadLeadDialog = ({ open, onOpenChange, document, onSuccess }: Downloa
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [voornaam, setVoornaam] = useState("");
-  const [achternaam, setAchternaam] = useState("");
   const [email, setEmail] = useState("");
-  const [organisatie, setOrganisatie] = useState("");
-  const [functie, setFunctie] = useState("");
 
   const resetForm = () => {
     setVoornaam("");
-    setAchternaam("");
     setEmail("");
-    setOrganisatie("");
-    setFunctie("");
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -38,14 +30,12 @@ const DownloadLeadDialog = ({ open, onOpenChange, document, onSuccess }: Downloa
     setSubmitting(true);
 
     try {
+      const leadId = crypto.randomUUID();
       const { error } = await supabase.from("download_leads").insert({
+        id: leadId,
         voornaam: voornaam.trim(),
-        achternaam: achternaam.trim(),
         email: email.trim(),
-        organisatie: organisatie.trim(),
-        functie: functie || null,
         document,
-        newsletter_optin: true,
       }).select();
 
       if (error) {
@@ -54,6 +44,19 @@ const DownloadLeadDialog = ({ open, onOpenChange, document, onSuccess }: Downloa
         setSubmitting(false);
         return;
       }
+
+      // Fire email delivery (non-blocking — don't await)
+      supabase.functions.invoke("send-transactional-email", {
+        body: {
+          templateName: "document-download",
+          recipientEmail: email.trim(),
+          idempotencyKey: `download-doc-${leadId}`,
+          templateData: {
+            voornaam: voornaam.trim(),
+            documentType: document,
+          },
+        },
+      }).catch((err) => console.error("Email send error:", err));
 
       setSubmitted(true);
       resetForm();
@@ -86,54 +89,23 @@ const DownloadLeadDialog = ({ open, onOpenChange, document, onSuccess }: Downloa
               <DialogDescription>Vul je gegevens in om het document te ontvangen.</DialogDescription>
             </DialogHeader>
             <form onSubmit={handleSubmit} className="space-y-4 mt-2">
-              <div className="grid grid-cols-2 gap-3">
-                <div className="space-y-1.5">
-                  <Label htmlFor="voornaam">Voornaam *</Label>
-                  <Input id="voornaam" required value={voornaam} onChange={(e) => setVoornaam(e.target.value)} maxLength={100} />
-                </div>
-                <div className="space-y-1.5">
-                  <Label htmlFor="achternaam">Achternaam *</Label>
-                  <Input id="achternaam" required value={achternaam} onChange={(e) => setAchternaam(e.target.value)} maxLength={100} />
-                </div>
+              <div className="space-y-1.5">
+                <Label htmlFor="voornaam">Voornaam *</Label>
+                <Input id="voornaam" required value={voornaam} onChange={(e) => setVoornaam(e.target.value)} maxLength={100} />
               </div>
               <div className="space-y-1.5">
                 <Label htmlFor="email">E-mailadres *</Label>
                 <Input id="email" type="email" required value={email} onChange={(e) => setEmail(e.target.value)} maxLength={255} />
-              </div>
-              <div className="space-y-1.5">
-                <Label htmlFor="organisatie">Organisatie *</Label>
-                <Input id="organisatie" required value={organisatie} onChange={(e) => setOrganisatie(e.target.value)} maxLength={200} />
-              </div>
-              <div className="space-y-1.5">
-                <Label htmlFor="functie">Functie</Label>
-                <Select value={functie} onValueChange={setFunctie}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Selecteer je functie" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="HR/L&D">HR / L&D</SelectItem>
-                    <SelectItem value="Compliance/Legal">Compliance / Legal</SelectItem>
-                    <SelectItem value="Management/Directie">Management / Directie</SelectItem>
-                    <SelectItem value="IT">IT</SelectItem>
-                    <SelectItem value="Anders">Anders</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-              <div className="flex items-start gap-2">
-                <Checkbox id="newsletter" checked disabled />
-                <Label htmlFor="newsletter" className="text-xs text-muted-foreground leading-snug">
-                  Ik ontvang graag updates over AI Act compliance en nieuwe tools van AIGA.
-                </Label>
               </div>
               <Button
                 type="submit"
                 disabled={submitting}
                 className="w-full bg-gradient-to-r from-[hsl(var(--primary))] to-[hsl(330,80%,55%)] hover:opacity-90 text-white"
               >
-                {submitting ? "Verzenden..." : "Stuur mij het document →"}
+                {submitting ? "Verzenden..." : "Download gratis →"}
               </Button>
               <p className="text-xs text-muted-foreground text-center">
-                Geen spam. Je kunt je altijd afmelden. Jouw gegevens worden niet gedeeld met derden.
+                Geen spam. Jouw gegevens worden niet gedeeld met derden.
               </p>
             </form>
           </>
@@ -143,8 +115,10 @@ const DownloadLeadDialog = ({ open, onOpenChange, document, onSuccess }: Downloa
               <ClipboardCheck size={28} className="text-primary" />
             </div>
             <DialogHeader>
-              <DialogTitle className="font-display">Bedankt voor je aanvraag.</DialogTitle>
-              <DialogDescription>Je kunt het document nu direct bekijken.</DialogDescription>
+              <DialogTitle className="font-display">Bedankt, {voornaam || "het document is klaar"}!</DialogTitle>
+              <DialogDescription>
+                Het document is naar je inbox gestuurd. Je kunt het hieronder ook direct bekijken.
+              </DialogDescription>
             </DialogHeader>
             <Button
               onClick={handleGoToDoc}

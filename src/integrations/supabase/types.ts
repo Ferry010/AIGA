@@ -103,36 +103,36 @@ export type Database = {
       }
       download_leads: {
         Row: {
-          achternaam: string
+          achternaam: string | null
           created_at: string | null
           document: string
           email: string
           functie: string | null
           id: string
           newsletter_optin: boolean | null
-          organisatie: string
+          organisatie: string | null
           voornaam: string
         }
         Insert: {
-          achternaam: string
+          achternaam?: string | null
           created_at?: string | null
           document: string
           email: string
           functie?: string | null
           id?: string
           newsletter_optin?: boolean | null
-          organisatie: string
+          organisatie?: string | null
           voornaam: string
         }
         Update: {
-          achternaam?: string
+          achternaam?: string | null
           created_at?: string | null
           document?: string
           email?: string
           functie?: string | null
           id?: string
           newsletter_optin?: boolean | null
-          organisatie?: string
+          organisatie?: string | null
           voornaam?: string
         }
         Relationships: []
