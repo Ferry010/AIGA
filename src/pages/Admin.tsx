@@ -74,6 +74,7 @@ interface Article {
   labels: string[];
   published_date: string | null;
   read_time_minutes: number | null;
+  meta_description: string | null;
 }
 
 const tierLabels: Record<string, string> = {
@@ -89,7 +90,7 @@ const hulpLabels: Record<string, string> = {
   anders: "Anders",
 };
 
-const emptyArticleForm = { title: "", category: CATEGORIES[0], url: "", image_url: "", published: true, sort_order: 0, content: "", slug: "", labels: [] as string[], published_date: new Date().toISOString().slice(0, 10), read_time_minutes: "" as string };
+const emptyArticleForm = { title: "", category: CATEGORIES[0], url: "", image_url: "", published: true, sort_order: 0, content: "", slug: "", labels: [] as string[], published_date: new Date().toISOString().slice(0, 10), read_time_minutes: "" as string, meta_description: "" };
 
 const formatDate = (dateStr: string) => {
   const date = new Date(dateStr);
@@ -204,13 +205,14 @@ const Admin = () => {
 
   const openNewForm = () => {
     setEditingId(null);
-    setForm({ ...emptyArticleForm, sort_order: articles.length + 1 });
+    // New articles go to position 1; existing articles will be pushed down on save
+    setForm({ ...emptyArticleForm, sort_order: 1 });
     setShowForm(true);
   };
 
   const openEditForm = (a: Article) => {
     setEditingId(a.id);
-    setForm({ title: a.title, category: a.category, url: a.url, image_url: a.image_url, published: a.published, sort_order: a.sort_order, content: a.content || "", slug: a.slug || "", labels: a.labels || [], published_date: a.published_date || new Date().toISOString().slice(0, 10), read_time_minutes: a.read_time_minutes != null ? String(a.read_time_minutes) : "" });
+    setForm({ title: a.title, category: a.category, url: a.url, image_url: a.image_url, published: a.published, sort_order: a.sort_order, content: a.content || "", slug: a.slug || "", labels: a.labels || [], published_date: a.published_date || new Date().toISOString().slice(0, 10), read_time_minutes: a.read_time_minutes != null ? String(a.read_time_minutes) : "", meta_description: a.meta_description || "" });
     setShowForm(true);
   };
 
@@ -266,10 +268,16 @@ const Admin = () => {
     setSaving(true);
     const slug = form.slug || (form.content ? generateSlug(form.title) : null);
     const { read_time_minutes: rtStr, ...formRest } = form;
-    const payload = { ...formRest, content: formRest.content || null, slug, updated_at: new Date().toISOString(), read_time_minutes: rtStr ? parseInt(rtStr) : null };
+    const payload = { ...formRest, content: formRest.content || null, slug, updated_at: new Date().toISOString(), read_time_minutes: rtStr ? parseInt(rtStr) : null, meta_description: formRest.meta_description || null };
     if (editingId) {
       await supabase.from("articles").update(payload).eq("id", editingId);
     } else {
+      // Push all existing articles down by 1 to make room at position 1
+      await supabase.rpc("has_role", { _user_id: (await supabase.auth.getUser()).data.user!.id, _role: "admin" as const }); // auth check
+      for (const a of articles) {
+        await supabase.from("articles").update({ sort_order: a.sort_order + 1 }).eq("id", a.id);
+      }
+      payload.sort_order = 1;
       await supabase.from("articles").insert([payload]);
     }
     await fetchArticles();
@@ -619,6 +627,18 @@ const Admin = () => {
                 <div className="space-y-2">
                   <Label>Leestijd (min, optioneel)</Label>
                   <Input type="number" value={form.read_time_minutes} onChange={(e) => setForm({ ...form, read_time_minutes: e.target.value })} placeholder="Auto-berekend indien leeg" />
+                </div>
+                <div className="space-y-2 md:col-span-2">
+                  <Label>Meta description (SEO)</Label>
+                  <textarea
+                    value={form.meta_description}
+                    onChange={(e) => setForm({ ...form, meta_description: e.target.value })}
+                    placeholder="Max 160 tekens — wordt getoond in zoekresultaten"
+                    maxLength={160}
+                    rows={2}
+                    className="w-full border border-border rounded-lg px-3 py-2 bg-background text-foreground text-sm resize-none"
+                  />
+                  <p className="text-xs text-muted-foreground">{form.meta_description.length}/160</p>
                 </div>
                 <div className="flex items-center gap-3 pt-6">
                   <Switch checked={form.published} onCheckedChange={(v) => setForm({ ...form, published: v })} />

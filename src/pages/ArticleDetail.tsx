@@ -26,6 +26,7 @@ interface Article {
   updated_at: string | null;
   published_date: string | null;
   read_time_minutes: number | null;
+  meta_description: string | null;
 }
 
 interface AdjacentArticle {
@@ -151,7 +152,7 @@ const ArticleDetail = () => {
       setLoading(true);
       const { data: current } = await supabase
         .from("articles")
-        .select("id, title, category, url, image_url, content, slug, sort_order, created_at, updated_at, published_date, read_time_minutes")
+        .select("id, title, category, url, image_url, content, slug, sort_order, created_at, updated_at, published_date, read_time_minutes, meta_description")
         .eq("slug", slug)
         .eq("published", true)
         .single();
@@ -228,7 +229,7 @@ const ArticleDetail = () => {
     ? "AI-geletterdheid is wettelijk verplicht sinds februari 2025. Lees wat het inhoudt, welke verplichtingen de EU AI Act stelt, wat voorbeelden zijn en hoe jij je organisatie compliant maakt."
     : isBoetes
     ? "Wat zijn de maximale boetes onder de EU AI Act? Artikel 99 legt de bedragen vast. Lees wat jouw organisatie riskeert en bereken het direct."
-    : (article.content ? article.content.slice(0, 155).replace(/[#*\n]/g, "") + "..." : "Lees dit artikel over AI-geletterdheid op het AIGA Kenniscentrum.");
+    : (article.meta_description || (article.content ? article.content.slice(0, 155).replace(/[#*\n]/g, "") + "..." : "Lees dit artikel over AI-geletterdheid op het AIGA Kenniscentrum."));
 
   const articleJsonLd = isWatIs
     ? {
