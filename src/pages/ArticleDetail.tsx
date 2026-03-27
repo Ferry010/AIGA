@@ -464,6 +464,26 @@ const ArticleDetail = () => {
             </AnimatedSection>
           )}
 
+          {/* Slug-based CTA blocks */}
+          {article.slug && ARTICLE_CTAS[article.slug] && !isWatIs && (
+            <AnimatedSection delay={0.08}>
+              <div className="mt-12 bg-card border border-border rounded-2xl p-6 sm:p-8">
+                <p className="text-sm font-semibold text-foreground mb-4">Gerelateerde tool</p>
+                <div className="flex flex-col gap-3">
+                  {ARTICLE_CTAS[article.slug].map((cta) => (
+                    <Link
+                      key={cta.href}
+                      to={cta.href}
+                      className="inline-flex items-center gap-2 text-primary font-semibold hover:underline"
+                    >
+                      {cta.text}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            </AnimatedSection>
+          )}
+
           {/* External sources for legal articles */}
           {isLegalCategory && (
             <AnimatedSection delay={0.05}>

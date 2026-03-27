@@ -88,6 +88,7 @@ const AppContent = () => {
           <Route path="/tools/downloads/ai-beleid-opstellen" element={<BeleidstemplateLanding />} />
           <Route path="/tools/downloads/ai-beleid-opstellen/document" element={<AiBeleidstemplate />} />
           <Route path="/tools/downloads/ai-beleid-template" element={<Navigate to="/tools/downloads/ai-beleid-opstellen" replace />} />
+          <Route path="/ai-act-deadlines" element={<AiActDeadlines />} />
           <Route path="/admin" element={<Admin />} />
           <Route path="/admin/login" element={<AdminLogin />} />
           <Route path="/privacyverklaring" element={<Privacyverklaring />} />

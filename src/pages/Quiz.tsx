@@ -206,6 +206,10 @@ const Quiz = () => {
             provider: { "@type": "Organization", name: "AIGA | AI Geletterdheid Academy" },
           }}
         />
+        <Helmet>
+          <script type="application/ld+json">{JSON.stringify(QUIZ_HOWTO_JSONLD)}</script>
+          <script type="application/ld+json">{JSON.stringify(QUIZ_FAQ_JSONLD)}</script>
+        </Helmet>
         <div className="max-w-3xl mx-auto px-4 pt-32 pb-24">
           <AnimatedSection>
             <SectionLabel text="GRATIS AI GEREEDHEIDSCAN" />
