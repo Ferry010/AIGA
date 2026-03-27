@@ -241,6 +241,7 @@ const ArticleDetail = () => {
 
   const isWatIs = article.slug === "wat-is-ai-geletterdheid";
   const isBoetes = article.slug === "eu-ai-act-boetes-maximale-bedragen";
+  const is5Stappen = article.slug === "ai-geletterdheidsplicht-zo-voldoe-je-in-5-stappen-aiga";
   const seoTitle = isWatIs
     ? "Wat is AI-geletterdheid? Complete gids voor organisaties (2026)"
     : isBoetes
