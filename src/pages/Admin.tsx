@@ -628,6 +628,17 @@ const Admin = () => {
                   <Label>Leestijd (min, optioneel)</Label>
                   <Input type="number" value={form.read_time_minutes} onChange={(e) => setForm({ ...form, read_time_minutes: e.target.value })} placeholder="Auto-berekend indien leeg" />
                 </div>
+                <div className="space-y-2 md:col-span-2">
+                  <Label>Meta description (SEO)</Label>
+                  <textarea
+                    value={form.meta_description}
+                    onChange={(e) => setForm({ ...form, meta_description: e.target.value })}
+                    placeholder="Max 160 tekens — wordt getoond in zoekresultaten"
+                    maxLength={160}
+                    rows={2}
+                    className="w-full border border-border rounded-lg px-3 py-2 bg-background text-foreground text-sm resize-none"
+                  />
+                  <p className="text-xs text-muted-foreground">{form.meta_description.length}/160</p>
                 <div className="flex items-center gap-3 pt-6">
                   <Switch checked={form.published} onCheckedChange={(v) => setForm({ ...form, published: v })} />
                   <Label>Gepubliceerd</Label>
