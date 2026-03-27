@@ -19,6 +19,7 @@ export type Database = {
           category: string
           content: string | null
           created_at: string | null
+          h1_override: string | null
           id: string
           image_url: string
           labels: string[]
@@ -26,6 +27,7 @@ export type Database = {
           published: boolean | null
           published_date: string | null
           read_time_minutes: number | null
+          seo_keywords: string | null
           slug: string | null
           sort_order: number | null
           title: string
@@ -36,6 +38,7 @@ export type Database = {
           category: string
           content?: string | null
           created_at?: string | null
+          h1_override?: string | null
           id?: string
           image_url: string
           labels?: string[]
@@ -43,6 +46,7 @@ export type Database = {
           published?: boolean | null
           published_date?: string | null
           read_time_minutes?: number | null
+          seo_keywords?: string | null
           slug?: string | null
           sort_order?: number | null
           title: string
@@ -53,6 +57,7 @@ export type Database = {
           category?: string
           content?: string | null
           created_at?: string | null
+          h1_override?: string | null
           id?: string
           image_url?: string
           labels?: string[]
@@ -60,6 +65,7 @@ export type Database = {
           published?: boolean | null
           published_date?: string | null
           read_time_minutes?: number | null
+          seo_keywords?: string | null
           slug?: string | null
           sort_order?: number | null
           title?: string

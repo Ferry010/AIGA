@@ -16,6 +16,7 @@ interface SEOProps {
   jsonLd?: Record<string, unknown>;
   articleMeta?: ArticleMeta;
   breadcrumbJsonLd?: Record<string, unknown>;
+  keywords?: string;
 }
 
 const SITE_URL = "https://aigeletterdheid.academy";
