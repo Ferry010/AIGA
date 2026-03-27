@@ -1,0 +1,1 @@
+GRANT INSERT ON public.download_leads TO anon;
