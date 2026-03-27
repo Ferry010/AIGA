@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { ArrowRight, CheckCircle, ClipboardCheck, Calculator, ShieldCheck, Search, FileText } from "lucide-react";
 import { AnimatedSection, StaggerContainer, StaggerItem } from "@/components/AnimatedSection";
 import SectionLabel from "@/components/SectionLabel";
@@ -7,7 +6,6 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import BreadcrumbNav from "@/components/BreadcrumbNav";
 import SEO from "@/components/SEO";
-import DownloadLeadDialog from "@/components/DownloadLeadDialog";
 
 const includes = [
   "Invulbare secties voor scope, doelstellingen en verantwoordelijkheden",
@@ -26,8 +24,6 @@ const relatedTools = [
 ];
 
 const BeleidstemplateLanding = () => {
-  const navigate = useNavigate();
-  const [dialogOpen, setDialogOpen] = useState(false);
 
   return (
     <div className="min-h-screen">
@@ -62,11 +58,11 @@ const BeleidstemplateLanding = () => {
               Geschikt voor HR-managers, compliance officers, directieleden en IT-leads die AI-governance willen formaliseren voordat de handhaving start in augustus 2025.
             </p>
             <Button
-              onClick={() => setDialogOpen(true)}
+              asChild
               size="lg"
               className="mt-8 bg-gradient-to-r from-[hsl(var(--primary))] to-[hsl(330,80%,55%)] hover:opacity-90 text-white"
             >
-              Download gratis <ArrowRight size={16} />
+              <Link to="/tools/downloads/ai-beleid-opstellen/document">Download gratis <ArrowRight size={16} /></Link>
             </Button>
           </AnimatedSection>
         </div>
@@ -129,12 +125,6 @@ const BeleidstemplateLanding = () => {
         </div>
       </section>
 
-      <DownloadLeadDialog
-        open={dialogOpen}
-        onOpenChange={setDialogOpen}
-        document="template"
-        onSuccess={() => navigate("/tools/downloads/ai-beleid-opstellen/document")}
-      />
     </div>
   );
 };

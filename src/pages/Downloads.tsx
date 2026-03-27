@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { ClipboardCheck, FileText, ArrowRight } from "lucide-react";
 import { AnimatedSection, StaggerContainer, StaggerItem } from "@/components/AnimatedSection";
 import SectionLabel from "@/components/SectionLabel";
@@ -8,7 +7,6 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import BreadcrumbNav from "@/components/BreadcrumbNav";
 import SEO from "@/components/SEO";
-import DownloadLeadDialog from "@/components/DownloadLeadDialog";
 
 type DocumentType = "checklist" | "template";
 
@@ -32,14 +30,6 @@ const documents = [
 ];
 
 const Downloads = () => {
-  const navigate = useNavigate();
-  const [dialogOpen, setDialogOpen] = useState(false);
-  const [selectedDoc, setSelectedDoc] = useState<(typeof documents)[0] | null>(null);
-
-  const openDialog = (doc: (typeof documents)[0]) => {
-    setSelectedDoc(doc);
-    setDialogOpen(true);
-  };
 
   return (
     <div className="min-h-screen">
@@ -87,10 +77,10 @@ const Downloads = () => {
                         PDF · Gratis · Bijgewerkt 2025
                       </Badge>
                       <Button
-                        onClick={() => openDialog(doc)}
+                        asChild
                         className="mt-auto w-fit bg-gradient-to-r from-[hsl(var(--primary))] to-[hsl(330,80%,55%)] hover:opacity-90 text-white"
                       >
-                        Download gratis <ArrowRight size={16} />
+                        <Link to={doc.href}>Download gratis <ArrowRight size={16} /></Link>
                       </Button>
                     </CardContent>
                   </Card>
@@ -101,14 +91,6 @@ const Downloads = () => {
         </div>
       </section>
 
-      {selectedDoc && (
-        <DownloadLeadDialog
-          open={dialogOpen}
-          onOpenChange={setDialogOpen}
-          document={selectedDoc.type}
-          onSuccess={() => navigate(selectedDoc.href)}
-        />
-      )}
     </div>
   );
 };
