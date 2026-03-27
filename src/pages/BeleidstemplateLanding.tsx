@@ -91,12 +91,6 @@ const BeleidstemplateLanding = () => {
               </StaggerItem>
             ))}
           </StaggerContainer>
-          <Button
-            onClick={() => setDialogOpen(true)}
-            className="mt-8 bg-gradient-to-r from-[hsl(var(--primary))] to-[hsl(330,80%,55%)] hover:opacity-90 text-white"
-          >
-            Download gratis <ArrowRight size={16} />
-          </Button>
         </div>
       </section>
 
