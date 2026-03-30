@@ -1,34 +1,31 @@
 
 
-## Plan: Update deadlines page + unify gradient buttons
+## Plan: Add FAQ section to "AI-geletterdheid training vergelijken" article
 
-### 1. Update deadline statuses for March 2027
+### File: `src/pages/ArticleDetail.tsx`
 
-The current date is March 2027. The deadlines data needs updating:
+**1. Add FAQ data array** (after `VIJF_STAPPEN_FAQ` ~line 119)
+- Add `TRAINING_VERGELIJKEN_FAQ` with all 8 Q&A pairs exactly as provided
+- Add `TRAINING_VERGELIJKEN_FAQ_JSONLD` with the FAQPage schema markup
 
-| Deadline | Current label | New label | Active? |
-|---|---|---|---|
-| 2 feb 2025 | "Al van kracht" | "Al van kracht" | `true` |
-| 2 aug 2025 | "Binnenkort" | "Al van kracht" | `true` |
-| 2 aug 2026 | "In voorbereiding" | "Al van kracht" | `true` |
-| 2 aug 2027 | "Volledige handhaving" | "Binnenkort" | `false` |
+**2. Add slug detection** (~line 244)
+- Add `const isTrainingVergelijken = article.slug === "ai-geletterdheid-training-vergelijken-hoe-kies-je-de-juiste";`
 
-File: `src/pages/AiActDeadlines.tsx` — update the `deadlines` array labels and `active` flags.
+**3. Add SEO overrides** for this slug (in the seoTitle/seoDescription logic)
 
-### 2. Unify all gradient buttons to purple→pink
+**4. Add FAQ JSON-LD to the Helmet** section (where other FAQ JSON-LDs are conditionally rendered)
 
-The homepage hero uses `btn-neon` class (defined in `index.css`), which produces a purple→pink gradient. Other pages incorrectly use `bg-gradient-to-r from-[hsl(var(--primary))] to-[hsl(330,80%,55%)]` — this starts from teal (`--primary`) instead of purple.
+**5. Add FAQ accordion section** (after the existing `is5Stappen` FAQ block, ~line 468, before the CTA blocks)
+- Follow exact same pattern as existing FAQ sections
+- Render with `isTrainingVergelijken` condition
+- Title: "Veelgestelde vragen"
+- Uses existing `Accordion`/`AccordionItem`/`AccordionTrigger`/`AccordionContent` components (already imported)
+- Styling matches existing FAQ sections: `text-left text-base font-semibold` trigger, `text-muted-foreground leading-relaxed` answer
 
-Replace all instances of `bg-gradient-to-r from-[hsl(var(--primary))] to-[hsl(330,80%,55%)]` with `btn-neon` across these files:
+**6. Add to ARTICLE_CTAS** if not already present (link to training page)
 
-- `src/pages/AiActDeadlines.tsx` (1 button)
-- `src/pages/BeleidstemplateLanding.tsx` (1 button)
-- `src/pages/ChecklistLanding.tsx` (1 button)
-- `src/pages/Downloads.tsx` (1 button)
-- `src/components/DownloadLeadDialog.tsx` (2 buttons)
-- `src/components/ShareDocumentButton.tsx` (1 button)
-
-The Boetecalculator already uses `neon-purple`→`neon-pink` so that's correct.
-
-For `<Button>` components using `btn-neon`, add the class and remove conflicting Tailwind bg/text classes. The `btn-neon` class already sets `background`, `color: white`, `font-weight: 600`, hover effects, and shadow.
+### Notes
+- The existing accordion already has chevron rotation animation and border-bottom dividers between items
+- No new components or styles needed; follows established pattern exactly
+- The slug needs to be verified against the database; will use the most likely slug based on the title pattern
 
