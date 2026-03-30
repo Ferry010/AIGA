@@ -341,6 +341,11 @@ const ArticleDetail = () => {
           <script type="application/ld+json">{JSON.stringify(VIJF_STAPPEN_FAQ_JSONLD)}</script>
         </Helmet>
       )}
+      {isTrainingVergelijken && (
+        <Helmet>
+          <script type="application/ld+json">{JSON.stringify(TRAINING_VERGELIJKEN_FAQ_JSONLD)}</script>
+        </Helmet>
+      )}
       {/* Breadcrumb */}
       <BreadcrumbNav items={[
         { label: "Home", href: "/" },
