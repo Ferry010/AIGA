@@ -118,6 +118,27 @@ const VIJF_STAPPEN_FAQ = [
   { q: "Hoe vaak moet je medewerkers hertrainen?", a: "De wet schrijft geen vaste frequentie voor, maar gezien de snelheid waarmee AI-toepassingen zich ontwikkelen is een jaarlijkse herhaling de best verdedigbare aanpak. Bij de introductie van nieuwe AI-systemen of bij een significante verandering in gebruik is een tussentijdse update aan te raden." },
 ];
 
+const TRAINING_VERGELIJKEN_FAQ = [
+  { q: "Wat moet een AI-geletterdheid training bevatten om te voldoen aan de EU AI Act?", a: "Een training die voldoet aan artikel 4 van de EU AI-verordening behandelt minimaal: hoe AI werkt op basisniveau, de kansen en risico's van AI in de werkcontext, ethische en juridische verantwoordelijkheden, en verantwoord gebruik in de dagelijkse praktijk. Een algemene AI-cursus die alleen tools uitlegt voldoet hier niet aan. De training moet aantoonbaar afgestemd zijn op de rol en het risiconiveau van de medewerker." },
+  { q: "Hoe bewijs ik als organisatie dat mijn medewerkers AI-geletterd zijn?", a: "Met individueel bewijs van deelname per medewerker. Een groepssessie waarbij niemand individueel geregistreerd staat, levert bij een handhavingscontrole niets op. Elke medewerker die met AI werkt — inclusief wie ChatGPT of Copilot gebruikt — moet aantoonbaar de training hebben gevolgd. Zorg dat de aanbieder per persoon een bewijs van deelname uitgeeft en dat jij als organisatie de deelname kunt registreren." },
+  { q: "Geldt de AI-geletterdheidsplicht alleen voor technische medewerkers?", a: "Nee. Artikel 4 van de EU AI-verordening geldt voor iedereen die met AI in aanraking komt. Dat zijn ook medewerkers die sociale media advertenties beheren, AI-schrijftools gebruiken of werken met tools als Copilot in Microsoft 365. In de meeste organisaties betekent dat: vrijwel het volledige personeelsbestand." },
+  { q: "Wat kost een AI-geletterdheid training per medewerker?", a: "Dat verschilt sterk per aanbieder en format. Klassikale trainingen op locatie kosten al snel €300 tot €500 per persoon, exclusief reistijd en locatiekosten. Bij grotere teams loopt dat snel op naar tienduizenden euro's. Online trainingen zijn doorgaans schaalbaar tegen een vast tarief per seat — wat voor organisaties met meerdere tientallen medewerkers aanzienlijk goedkoper uitpakt." },
+  { q: "Wanneer moet mijn organisatie voldoen aan de AI-geletterdheidsplicht?", a: "De verplichting geldt al sinds februari 2025, maar de actieve handhaving start in augustus 2026. Dat klinkt als ruimte, maar organisaties die wachten tot juni of juli lopen het risico niet op tijd alle medewerkers gecertificeerd te hebben. Zeker bij grotere teams is vroeg starten geen luxe." },
+  { q: "Wordt de inhoud van AI-geletterdheid trainingen bijgehouden als de regelgeving verandert?", a: "Dat hangt af van de aanbieder — en het is een cruciale vraag om te stellen. De EU AI Act wordt doorlopend aangescherpt met nieuwe richtlijnen vanuit de Europese Commissie. Een training die in 2024 is ontwikkeld en sindsdien niet is bijgewerkt, dekt mogelijk niet wat in 2026 gevraagd wordt. Vraag elke aanbieder expliciet wanneer de content voor het laatst is geactualiseerd." },
+  { q: "Wat is het verschil tussen een AI-cursus en een AI-geletterdheid training?", a: "Een AI-cursus leert medewerkers hoe ze AI-tools effectiever gebruiken — denk aan prompttechnieken, workflows, productiviteit. Dat is nuttig, maar het is geen compliance. Een AI-geletterdheid training is specifiek gericht op het voldoen aan artikel 4 van de EU AI-verordening: bewustzijn van risico's, ethiek, juridische kaders en verantwoord gebruik. Beide kunnen naast elkaar bestaan, maar ze zijn niet uitwisselbaar." },
+  { q: "Hoe weet ik of een aanbieder de EU AI Act écht begrijpt?", a: "Stel deze vraag letterlijk: \"Op welke manier sluit uw training aan op artikel 4 van de EU AI-verordening?\" Een aanbieder die dat goed begrijpt, geeft een concreet antwoord. Wie terugvalt op algemene termen als \"we behandelen de AI-wetgeving\" zonder specificatie, begrijpt de materie waarschijnlijk onvoldoende." },
+];
+
+const TRAINING_VERGELIJKEN_FAQ_JSONLD = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: TRAINING_VERGELIJKEN_FAQ.map((f) => ({
+    "@type": "Question",
+    name: f.q,
+    acceptedAnswer: { "@type": "Answer", text: f.a },
+  })),
+};
+
 const WAT_IS_FAQ_JSONLD = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
