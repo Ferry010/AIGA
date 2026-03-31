@@ -87,6 +87,10 @@ const ARTICLE_CTAS: Record<string, { href: string; text: string }[]> = {
   "ai-geletterdheid-training-vergelijken-hoe-kies-je-de-juiste": [
     { href: "/training", text: "Bekijk de AI Geletterdheid Training →" },
   ],
+  "ai-act-per-sector-zorg-welzijn": [
+    { href: "/gereedheidscan", text: "Doe de gratis AI Gereedheidscan →" },
+    { href: "/training", text: "Bekijk de AI Geletterdheid Training →" },
+  ],
 };
 
 const FALLBACK_IMAGE = "https://aigeletterdheid.academy/assets/AIGA_transparent-CxHDVoMM.png";
@@ -120,6 +124,31 @@ const VIJF_STAPPEN_FAQ = [
   { q: "Welk certificaat wordt erkend als bewijs?", a: "De wet schrijft geen specifiek certificaat voor. Wat telt is dat de training aantoonbaar aansluit bij de rol en het risiconiveau van de medewerker, en dat deelname gedocumenteerd is. Het AIGA-certificaat is gebaseerd op de officiële tekst van de EU AI Act en dekt de kerncompetenties die de AP als relevant beschouwt." },
   { q: "Hoe vaak moet je medewerkers hertrainen?", a: "De wet schrijft geen vaste frequentie voor, maar gezien de snelheid waarmee AI-toepassingen zich ontwikkelen is een jaarlijkse herhaling de best verdedigbare aanpak. Bij de introductie van nieuwe AI-systemen of bij een significante verandering in gebruik is een tussentijdse update aan te raden." },
 ];
+
+const ZORG_FAQ = [
+  { q: "Geldt de EU AI Act ook voor ziekenhuizen en zorginstellingen, of alleen voor techbedrijven die AI maken?", a: "De AI Act geldt uitdrukkelijk voor iedereen die AI-systemen gebruikt, niet alleen voor de bedrijven die ze ontwikkelen. Zorginstellingen vallen in de categorie \"deployers\": organisaties die AI-systemen van externe aanbieders inzetten in hun eigen processen. Als deployer heb je eigen verplichtingen onder de wet, ongeacht of je de software zelf hebt gemaakt. Het feit dat je een systeem inkoopt bij een medtech-bedrijf of zorgsoft­wareleverancier, ontslaat je niet van verantwoordelijkheid voor hoe je dat systeem gebruikt, wie er toezicht op houdt en of je medewerkers weten hoe het werkt." },
+  { q: "Welke AI-systemen in de zorg vallen onder \"hoog risico\"?", a: "Bijlage III van de AI Act somt de hoog-risico categorieën op. Voor de zorgsector zijn twee categorieën direct relevant. De eerste is AI ingezet als medisch hulpmiddel of voor veiligheid in kritieke infrastructuur. Systemen die helpen bij diagnose, triage, behandeladvies of monitoring vallen hier doorgaans onder als hun uitkomst direct invloed heeft op een klinische beslissing. De tweede categorie betreft toegang tot essentiële diensten. AI die bepaalt welke zorg iemand krijgt, welke prioriteit iemand heeft op een wachtlijst of welke behandeling wordt aanbevolen, valt hieronder. Concrete voorbeelden: radiologie-AI die afwijkingen detecteert, sepsis-voorspellingsmodellen, AI-triagesystemen op de SEH, systemen die suïciderisico inschatten in de GGZ, en AI die thuiszorgplanningen maakt op basis van patiëntprofielen. Een vuistregel: als een AI-systeem een aanbeveling of beslissing produceert die direct invloed heeft op de gezondheid, veiligheid of toegang tot zorg van een patiënt, is er vrijwel altijd sprake van hoog-risico AI." },
+  { q: "Ons systeem heeft al een CE-markering als medisch hulpmiddel (MDR). Zijn we dan automatisch compliant met de AI Act?", a: "Nee. De CE-markering onder de Medical Device Regulation (MDR) dekt niet de deployer-verplichtingen van de AI Act. Wat de MDR regelt, is of het product zelf veilig en effectief is als medisch hulpmiddel. Wat de AI Act aanvullend regelt, is hoe jouw organisatie dat systeem gebruikt: of er menselijk toezicht is ingericht, of er logging plaatsvindt, of je medewerkers weten hoe het systeem werkt en wanneer ze er niet op moeten vertrouwen, en of je incidenten kunt melden. Een MDR-gecertificeerd systeem dat door ongeoefende medewerkers zonder toezichtsstructuur wordt gebruikt, voldoet niet aan de AI Act. Beide wetgevingen zijn van toepassing naast elkaar." },
+  { q: "Moet een arts altijd de uiteindelijke beslissing nemen als AI een aanbeveling geeft?", a: "De AI Act vereist \"betekenisvol menselijk toezicht\" bij hoog-risico AI. Dat betekent niet per definitie dat een arts elke uitkomst handmatig moet goedkeuren, maar het betekent wel dat er altijd een bevoegde persoon moet zijn die de AI-uitkomst kan begrijpen, kan betwisten en kan overrulen. In de praktijk houdt dit in: de zorgprofessional die werkt met het hoog-risico AI-systeem moet voldoende kennis hebben om te beoordelen of de aanbeveling betrouwbaar is in de specifieke klinische context. Een radioloog die AI-detectie gebruikt, moet kunnen inschatten wanneer het systeem mogelijk een fout maakt. Een verpleegkundige die een sepsis-model gebruikt, moet weten bij welke patiëntgroepen het model minder betrouwbaar is. Volledig geautomatiseerde beslissingen zonder menselijke tussenkomst, waarbij een patiënt een behandeling krijgt of niet krijgt puur op basis van AI-uitkomst, zijn niet toegestaan voor hoog-risico toepassingen." },
+  { q: "Geldt de AI Act ook voor AI-tools die we intern gebruiken, zoals planningssoftware of administratieve AI?", a: "Dat hangt af van het doel van de tool. Puur administratieve AI, een systeem dat facturen verwerkt, roosters optimaliseert zonder patiëntprioritering, of HR-correspondentie genereert, valt doorgaans niet in de hoog-risico categorie. Zodra AI echter betrokken is bij beslissingen over patiënten, wie welke zorg krijgt, welke prioriteit iemand heeft, welke medewerker bij welke patiënt wordt ingezet op basis van patiëntkenmerken, wordt de grens met hoog-risico snel bereikt. Thuiszorgplanningssoftware die op basis van patiëntprofielen bepaalt wie hoeveel zorg krijgt, valt vrijwel zeker in de hoog-risico categorie. Vraag bij twijfel de leverancier om een conformiteitsbeoordeling en check of het systeem in Bijlage III valt." },
+  { q: "Onze GGZ-instelling gebruikt een risico-inschattingstool voor suïcidepreventie. Wat zijn onze verplichtingen?", a: "Dit is een van de meest gevoelige toepassingen van AI in de zorg, en de verplichtingen zijn navenant zwaar. Een AI-systeem dat suïciderisico inschat valt zonder meer onder hoog-risico. De verplichtingen als deployer zijn: aantoonbaar menselijk toezicht door een bevoegde zorgprofessional, logging van alle relevante aanbevelingen, training van alle medewerkers die met het systeem werken, en een meldstructuur voor incidenten. Aanvullend zijn er ethische overwegingen die de wet niet volledig dekt maar die in de GGZ zwaar wegen: de patiënt moet in beginsel weten dat AI wordt ingezet bij de risico-inschatting. Transparantie naar de patiënt is ook een verplichting die de AI Act stelt voor systemen die beslissingen over individuen nemen, ook in de zorg." },
+  { q: "Wat moeten onze verpleegkundigen en zorgprofessionals weten over AI? En hoe toon ik dat aan bij een audit?", a: "Artikel 4 van de AI Act verplicht zorginstellingen om \"passende maatregelen\" te nemen voor AI-geletterdheid bij medewerkers die met AI-systemen werken. In de zorg betekent dat: begrijpen hoe het AI-systeem werkt, welke data het gebruikt, wat de bekende beperkingen en risico's zijn, en wanneer de uitkomst niet betrouwbaar is. Dat niveau van kennis verschilt per functie. Een radioloog die AI-detectie gebruikt heeft andere kennis nodig dan een SEH-verpleegkundige die een triagesysteem hanteert. De training moet aansluiten op de specifieke tool en de klinische context. Bij een audit, door de Autoriteit Persoonsgegevens, de IGJ of een interne auditcommissie, zijn dit de sterkste bewijselementen: een individueel certificaat per medewerker, een overzicht van wie welke training heeft gevolgd, documentatie waaruit blijkt dat de training aansloot op de gebruikte AI-systemen, en bewijs van periodieke herhaling." },
+  { q: "Hoe verhoudt de AI Act zich tot de AVG bij gebruik van patiëntdata in AI-systemen?", a: "De AI Act en de AVG vullen elkaar aan maar overlappen niet volledig. De AVG regelt hoe je persoonsgegevens verwerkt: de rechtmatigheid, de doelbinding, de beveiliging. De AI Act regelt hoe AI-systemen worden ontworpen, ingezet en gecontroleerd. Als een AI-systeem patiëntdata verwerkt, en dat doen vrijwel alle medische AI-systemen, gelden beide wetgevingen tegelijk. Gezondheidsdata is bijzondere persoonsdata onder de AVG, waarvoor striktere regels gelden. Een Data Protection Impact Assessment (DPIA) die al verplicht is onder de AVG voor verwerkingen met hoog risico, overlapt sterk met de risicobeoordelingsverplichting onder de AI Act. De slimste aanpak: integreer de AVG-compliance en de AI Act-compliance in één documentatieprocedure. Dat voorkomt dubbel werk en geeft een sterker totaalplaatje bij een audit." },
+  { q: "Welke incidenten moeten we melden en bij wie?", a: "De AI Act verplicht deployers van hoog-risico AI om ernstige incidenten te melden bij de aanbieder (leverancier) van het systeem. De aanbieder is vervolgens verantwoordelijk voor melding bij de nationale markttoezichthouder. In de zorg overlapt dit met bestaande meldverplichtingen. Ernstige incidenten met medische hulpmiddelen, en een hoog-risico AI-systeem dat als medisch hulpmiddel is gecertificeerd valt hieronder, moeten worden gemeld bij de IGJ via het meldportaal voor Medische Technologie. Incidenten waarbij persoonsgegevens zijn betrokken, vereisen mogelijk ook een datalek-melding bij de Autoriteit Persoonsgegevens binnen 72 uur. Wat telt als een ernstig incident? Een situatie waarbij het AI-systeem een aanbeveling heeft gegeven die heeft geleid of had kunnen leiden tot ernstig nadeel voor een patiënt. Denk aan een gemiste diagnose waarbij het AI-systeem als enige bron is gebruikt, of een onjuiste triagering met klinische gevolgen." },
+  { q: "We werken met een extern softwarebedrijf dat AI levert. Wie is verantwoordelijk: wij of zij?", a: "Beide partijen hebben eigen verantwoordelijkheden, maar ze zijn anders van aard. De aanbieder (het softwarebedrijf) is verantwoordelijk voor de conformiteit van het systeem zelf: de technische documentatie, de conformiteitsbeoordeling, de CE-markering en de instructies voor gebruik. Zij moeten kunnen aantonen dat het systeem voldoet aan de eisen voor hoog-risico AI. Jij als deployer (de zorginstelling) bent verantwoordelijk voor hoe je het systeem gebruikt: het inrichten van menselijk toezicht, de training van medewerkers, de logging, de incidentmelding en het naleven van de gebruiksinstructies van de aanbieder. Als de aanbieder jou onvoldoende informatie geeft om aan jouw deployer-verplichtingen te voldoen, heb je het recht, en deels de plicht, om die informatie op te vragen. Leg afspraken over compliance vast in contracten. Een leverancier die geen conformiteitsverklaring kan overleggen voor een hoog-risico AI-systeem, is zelf in overtreding." },
+  { q: "Wat zijn de risico's als we niets doen?", a: "De AI Act wordt gehandhaafd door de Autoriteit Persoonsgegevens als coördinerend nationaal toezichthouder, met aanvullend toezicht van de IGJ voor zorgspecifieke toepassingen. De handhaving bouwt stapsgewijs op: sinds februari 2025 gelden de verplichtingen rondom verboden AI en AI-geletterdheid al; vanaf augustus 2026 geldt de volledige wet inclusief alle deployer-verplichtingen voor hoog-risico AI. De maximale boete voor het niet naleven van verplichtingen als deployer van hoog-risico AI bedraagt 15.000.000 euro of 3% van de wereldwijde jaaromzet. Maar naast boetes zijn er andere risico's die voor zorginstellingen minstens zo zwaar wegen: reputatieschade bij patiënten en zorgprofessionals, gedwongen stillegging van een systeem tijdens een handhavingstraject, en aansprakelijkheid als een patiënt schade heeft geleden door een AI-systeem dat niet aan de wet voldeed. Zorginstellingen die nu actief aan de slag gaan, met een AI-inventarisatie, een toezichtsstructuur en gecertificeerde AI-geletterdheid voor medewerkers, staan aanzienlijk sterker dan instellingen die wachten." },
+  { q: "Waar begin ik als zorginstelling die nu nog niets heeft geregeld?", a: "Begin met drie concrete stappen. Inventariseer eerst alle AI-systemen die je organisatie gebruikt, per afdeling. Vraag leveranciers of hun systeem is aangemerkt als hoog-risico AI onder de EU AI Act en of er een conformiteitsverklaring beschikbaar is. Zorg vervolgens dat alle medewerkers die met AI-systemen werken aantoonbaar AI-geletterd zijn. Dit is de verplichting die al geldt en die bij een audit als eerste wordt beoordeeld. Een certificaat per medewerker is het sterkste bewijs. Documenteer daarna je toezichtsstructuur. Wie is verantwoordelijk voor menselijk toezicht op welk systeem? Hoe worden AI-uitkomsten gelogd? Hoe meld je een incident? Dat hoeft geen uitgebreid beleidsdocument te zijn: een helder overzicht per systeem volstaat als startpunt. Doe de AI Gereedheidscan om in drie minuten te zien hoe jouw instelling er nu voor staat op vijf dimensies: AI-gebruik, wetgeving, risicobeheer, leiderschap en audit-readiness." },
+];
+
+const ZORG_FAQ_JSONLD = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: ZORG_FAQ.map((f) => ({
+    "@type": "Question",
+    name: f.q,
+    acceptedAnswer: { "@type": "Answer", text: f.a },
+  })),
+};
 
 const TRAINING_VERGELIJKEN_FAQ = [
   { q: "Wat moet een AI-geletterdheid training bevatten om te voldoen aan de EU AI Act?", a: "Een training die voldoet aan artikel 4 van de EU AI-verordening behandelt minimaal: hoe AI werkt op basisniveau, de kansen en risico's van AI in de werkcontext, ethische en juridische verantwoordelijkheden, en verantwoord gebruik in de dagelijkse praktijk. Een algemene AI-cursus die alleen tools uitlegt voldoet hier niet aan. De training moet aantoonbaar afgestemd zijn op de rol en het risiconiveau van de medewerker." },
@@ -267,6 +296,7 @@ const ArticleDetail = () => {
   const isBoetes = article.slug === "eu-ai-act-boetes-maximale-bedragen";
   const is5Stappen = article.slug === "ai-geletterdheidsplicht-zo-voldoe-je-in-5-stappen-aiga";
   const isTrainingVergelijken = article.slug === "ai-geletterdheid-training-vergelijken-hoe-kies-je-de-juiste";
+  const isZorgSector = article.slug === "ai-act-per-sector-zorg-welzijn";
   const seoTitle = isWatIs
     ? "Wat is AI-geletterdheid? Complete gids voor organisaties (2026)"
     : isBoetes
@@ -347,6 +377,11 @@ const ArticleDetail = () => {
       {isTrainingVergelijken && (
         <Helmet>
           <script type="application/ld+json">{JSON.stringify(TRAINING_VERGELIJKEN_FAQ_JSONLD)}</script>
+        </Helmet>
+      )}
+      {isZorgSector && (
+        <Helmet>
+          <script type="application/ld+json">{JSON.stringify(ZORG_FAQ_JSONLD)}</script>
         </Helmet>
       )}
       {/* Breadcrumb */}
@@ -505,6 +540,23 @@ const ArticleDetail = () => {
                 <Accordion type="single" collapsible className="w-full">
                   {TRAINING_VERGELIJKEN_FAQ.map((faq, i) => (
                     <AccordionItem key={i} value={`faq-${i}`}>
+                      <AccordionTrigger className="text-left text-base font-semibold">{faq.q}</AccordionTrigger>
+                      <AccordionContent><p className="text-muted-foreground leading-relaxed">{faq.a}</p></AccordionContent>
+                    </AccordionItem>
+                  ))}
+                </Accordion>
+              </div>
+            </AnimatedSection>
+          )}
+
+          {/* FAQ accordion for zorg sector article */}
+          {isZorgSector && (
+            <AnimatedSection delay={0.05}>
+              <div className="mt-12">
+                <h2 className="text-2xl font-display font-bold text-foreground mb-6">AI Act in de zorg: alle veelgestelde vragen beantwoord</h2>
+                <Accordion type="single" collapsible className="w-full">
+                  {ZORG_FAQ.map((faq, i) => (
+                    <AccordionItem key={i} value={`faq-${i}`} className="border-primary/20">
                       <AccordionTrigger className="text-left text-base font-semibold">{faq.q}</AccordionTrigger>
                       <AccordionContent><p className="text-muted-foreground leading-relaxed">{faq.a}</p></AccordionContent>
                     </AccordionItem>
