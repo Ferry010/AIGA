@@ -292,6 +292,7 @@ const ArticleDetail = () => {
   const isBoetes = article.slug === "eu-ai-act-boetes-maximale-bedragen";
   const is5Stappen = article.slug === "ai-geletterdheidsplicht-zo-voldoe-je-in-5-stappen-aiga";
   const isTrainingVergelijken = article.slug === "ai-geletterdheid-training-vergelijken-hoe-kies-je-de-juiste";
+  const isZorgSector = article.slug === "ai-act-per-sector-zorg-welzijn";
   const seoTitle = isWatIs
     ? "Wat is AI-geletterdheid? Complete gids voor organisaties (2026)"
     : isBoetes
