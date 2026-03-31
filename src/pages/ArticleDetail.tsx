@@ -87,6 +87,10 @@ const ARTICLE_CTAS: Record<string, { href: string; text: string }[]> = {
   "ai-geletterdheid-training-vergelijken-hoe-kies-je-de-juiste": [
     { href: "/training", text: "Bekijk de AI Geletterdheid Training →" },
   ],
+  "ai-act-per-sector-zorg-welzijn": [
+    { href: "/gereedheidscan", text: "Doe de gratis AI Gereedheidscan →" },
+    { href: "/training", text: "Bekijk de AI Geletterdheid Training →" },
+  ],
 };
 
 const FALLBACK_IMAGE = "https://aigeletterdheid.academy/assets/AIGA_transparent-CxHDVoMM.png";
