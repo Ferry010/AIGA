@@ -66,6 +66,7 @@ const AppContent = () => {
           <Route path="/training" element={<Training />} />
           <Route path="/masterclass" element={<Masterclass />} />
           <Route path="/kenniscentrum" element={<Kenniscentrum />} />
+          <Route path="/kenniscentrum/ai-begrippen" element={<AiBegrippen />} />
           <Route path="/kenniscentrum/:slug" element={<ArticleDetail />} />
           <Route path="/over-aiga" element={<OverAiga />} />
           <Route path="/contact" element={<Contact />} />
