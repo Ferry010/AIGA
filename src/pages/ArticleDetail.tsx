@@ -603,6 +603,18 @@ const ArticleDetail = () => {
             </AnimatedSection>
           )}
 
+          {/* MKB Gids interactive components */}
+          {isMkbGids && (
+            <>
+              <MkbRiskTable />
+              <MkbComparisonTable />
+              <MkbStepTracker />
+              <MkbFaqAccordion items={MKB_FAQ} />
+              <MkbCtaBanner />
+              <MkbLeesOok />
+            </>
+          )}
+
           {/* CTA section for wat-is-ai-geletterdheid */}
           {isWatIs && (
             <AnimatedSection delay={0.1}>
