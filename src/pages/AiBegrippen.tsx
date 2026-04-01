@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
-import { Search, Link as LinkIcon, Check } from "lucide-react";
+import { Search, Link as LinkIcon, Check, ArrowRight } from "lucide-react";
 import SEO from "@/components/SEO";
 import BreadcrumbNav from "@/components/BreadcrumbNav";
 import { AnimatedSection } from "@/components/AnimatedSection";
