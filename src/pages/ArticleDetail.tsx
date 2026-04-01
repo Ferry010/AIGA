@@ -172,6 +172,27 @@ const TRAINING_VERGELIJKEN_FAQ_JSONLD = {
   })),
 };
 
+const MKB_FAQ = [
+  { q: "Geldt Artikel 4 EU AI Act ook voor zzp'ers?", a: "Ja. Als je als zzp'er AI-systemen inzet in je werkzaamheden, val je onder de verplichting. De proportionaliteit is wel lager: voor een eenpitter volstaat basiskennis en een eenvoudige vorm van documentatie." },
+  { q: "Wat als mijn medewerkers AI gebruiken zonder dat ik het weet?", a: "Dan is het risico groter, niet kleiner. De organisatie is aansprakelijk voor het AI-gebruik van haar medewerkers, ook als dat gebruik officieel niet is goedgekeurd. Een AI-inventarisatie is daarom stap een." },
+  { q: "Moeten ook medewerkers die nooit bewust AI gebruiken een training volgen?", a: "Als ze tools gebruiken die AI-functies bevatten, denk aan Copilot in Outlook, AI-functies in je CRM, of een chatbot in klantenservice, dan ja. Bewust of onbewust maakt voor de wet geen verschil." },
+  { q: "Hoe lang duurt een goede basistraining?", a: "Een effectieve AI-geletterdheidsmodule voor het MKB duurt doorgaans 1,5 tot 3 uur. Genoeg voor de verplichte basiskennis, niet zo lang dat het een obstakel wordt voor medewerkers." },
+  { q: "Wat is het verschil tussen AI-geletterdheid en een GDPR-training?", a: "GDPR gaat over de verwerking van persoonsgegevens. AI-geletterdheid gaat over het begrijpen en verantwoord inzetten van AI-systemen. Ze overlappen bij AI-gebruik met persoonsgegevens, maar het zijn aparte verplichtingen met aparte documentatievereisten." },
+  { q: "Is een eenmalige training genoeg?", a: "Voor de eerste compliance-cyclus: ja, als basis. Maar AI-gebruik en regelgeving evolueren. Een jaarlijkse update is de aanbevolen praktijk." },
+  { q: "Waar bewaar ik de certificaten het best?", a: "In het digitale personeelsdossier per medewerker, of in een centrale compliance-map. Zorg dat je snel kunt aantonen wie een training heeft gevolgd en wanneer." },
+  { q: "Kan ik de training intern organiseren?", a: "Dat mag, maar het stelt hoge eisen aan de inhoudelijke kwaliteit. De training moet aantoonbaar aansluiten op de EU AI Act, en je hebt een objectieve bewijsvorm nodig. Externe gecertificeerde trainingen hebben daarin een duidelijk voordeel." },
+];
+
+const MKB_FAQ_JSONLD = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: MKB_FAQ.map((f) => ({
+    "@type": "Question",
+    name: f.q,
+    acceptedAnswer: { "@type": "Answer", text: f.a },
+  })),
+};
+
 const WAT_IS_FAQ_JSONLD = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
