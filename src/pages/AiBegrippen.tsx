@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
-import { Search, Link as LinkIcon, Check } from "lucide-react";
+import { Search, Link as LinkIcon, Check, ArrowRight } from "lucide-react";
 import SEO from "@/components/SEO";
 import BreadcrumbNav from "@/components/BreadcrumbNav";
 import { AnimatedSection } from "@/components/AnimatedSection";
@@ -311,49 +311,50 @@ const AiBegrippen = () => {
                 <article
                   key={b.term}
                   id={slug}
-                  className="bg-card border border-border rounded-2xl p-6 sm:p-8 relative scroll-mt-36"
+                  className="bg-card border border-border rounded-2xl p-6 sm:p-8 scroll-mt-36"
                 >
-                  {/* Theme badge */}
-                  <button
-                    onClick={() => handleThemeClick(b.theme)}
-                    className="absolute top-4 right-4"
-                  >
-                    <Badge
-                      className={`text-[11px] font-medium cursor-pointer ${THEME_META[b.theme].className}`}
+                  <div className="flex items-start justify-between gap-3 mb-3">
+                    <div className="flex items-center gap-2">
+                      <h3 className="text-lg font-display font-bold text-primary">{b.term}</h3>
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <button
+                            onClick={() => handleCopyLink(slug)}
+                            className="text-muted-foreground hover:text-primary transition-colors shrink-0"
+                            aria-label="Kopieer link naar dit begrip"
+                          >
+                            {isCopied ? (
+                              <Check className="h-4 w-4 text-emerald-400" />
+                            ) : (
+                              <LinkIcon className="h-4 w-4" />
+                            )}
+                          </button>
+                        </TooltipTrigger>
+                        <TooltipContent>
+                          {isCopied ? "Link gekopieerd ✓" : "Kopieer link naar dit begrip"}
+                        </TooltipContent>
+                      </Tooltip>
+                    </div>
+                    <button
+                      onClick={() => handleThemeClick(b.theme)}
+                      className="shrink-0"
                     >
-                      {THEME_META[b.theme].label}
-                    </Badge>
-                  </button>
-
-                  <div className="flex items-center gap-2 pr-32 sm:pr-48 mb-2">
-                    <h3 className="text-lg font-display font-bold text-primary">{b.term}</h3>
-                    <Tooltip>
-                      <TooltipTrigger asChild>
-                        <button
-                          onClick={() => handleCopyLink(slug)}
-                          className="text-muted-foreground hover:text-primary transition-colors shrink-0"
-                          aria-label="Kopieer link naar dit begrip"
-                        >
-                          {isCopied ? (
-                            <Check className="h-4 w-4 text-emerald-400" />
-                          ) : (
-                            <LinkIcon className="h-4 w-4" />
-                          )}
-                        </button>
-                      </TooltipTrigger>
-                      <TooltipContent>
-                        {isCopied ? "Link gekopieerd ✓" : "Kopieer link naar dit begrip"}
-                      </TooltipContent>
-                    </Tooltip>
+                      <Badge
+                        className={`text-[11px] font-medium cursor-pointer ${THEME_META[b.theme].className}`}
+                      >
+                        {THEME_META[b.theme].label}
+                      </Badge>
+                    </button>
                   </div>
 
                   <p className="text-muted-foreground leading-relaxed text-sm">{b.description}</p>
                   {b.link && (
                     <Link
                       to={b.link.href}
-                      className="inline-block mt-3 text-sm font-medium text-primary hover:underline"
+                      className="inline-flex items-center gap-1.5 mt-4 text-sm font-semibold text-primary hover:text-primary/80 transition-colors group"
                     >
-                      {b.link.label} →
+                      {b.link.label}
+                      <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-0.5 transition-transform" />
                     </Link>
                   )}
                 </article>
