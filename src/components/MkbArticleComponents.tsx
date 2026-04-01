@@ -154,8 +154,8 @@ interface FaqItem {
 export const MkbFaqAccordion = ({ items }: { items: FaqItem[] }) => (
   <AnimatedSection delay={0.12}>
     <div className="mt-12">
-      <h2 className="text-2xl font-display font-bold text-foreground mb-6">Veelgestelde vragen</h2>
-      <Accordion type="single" collapsible defaultValue="faq-0" className="w-full">
+      <h2 className="text-2xl font-display font-bold text-foreground mb-6">Veelgestelde vragen over de AI-geletterdheidsplicht voor het MKB</h2>
+      <Accordion type="single" collapsible className="w-full">
         {items.map((faq, i) => (
           <AccordionItem key={i} value={`faq-${i}`} className="border-primary/20">
             <AccordionTrigger className="text-left text-base font-semibold">{faq.q}</AccordionTrigger>
