@@ -120,40 +120,25 @@ const Kenniscentrum = () => {
               </Link>
             </StaggerItem>
 
-            {/* Card 2 — coming soon */}
+            {/* Card 2 — Begrippenlijst */}
             <StaggerItem>
-              <div className="opacity-60 cursor-default bg-card border border-border rounded-2xl overflow-hidden flex flex-col h-full">
+              <Link
+                to="/kenniscentrum/ai-begrippen"
+                className="group bg-card border border-border rounded-2xl overflow-hidden hover:border-primary/40 neon-glow transition-all duration-300 flex flex-col h-full"
+              >
                 <div className="p-6 flex flex-col flex-1 gap-3">
-                  <div className="flex items-center gap-2">
-                    <Badge variant="secondary" className="w-fit text-xs">Sectoroverzicht</Badge>
-                    <Badge variant="outline" className="w-fit text-xs text-muted-foreground">Binnenkort</Badge>
-                  </div>
-                  <h3 className="text-base font-semibold text-foreground leading-snug">
-                    AI Act per sector: Financiële Dienstverlening
+                  <Badge variant="default" className="w-fit text-xs">Begrippenlijst</Badge>
+                  <h3 className="text-base font-semibold text-foreground leading-snug group-hover:text-primary transition-colors">
+                    AI Begrippen: Glossarium EU AI Act
                   </h3>
                   <p className="text-sm text-muted-foreground leading-relaxed">
-                    Welke tools, risico's en extra regelgeving gelden specifiek voor financiële organisaties?
+                    Alle belangrijke begrippen uit de EU AI Act helder uitgelegd — van hoog-risico AI tot conformiteitsbeoordeling.
                   </p>
+                  <span className="mt-auto flex items-center gap-1.5 text-sm font-semibold text-primary group-hover:gap-2.5 transition-all pt-2">
+                    Bekijk begrippenlijst <ArrowRight size={16} />
+                  </span>
                 </div>
-              </div>
-            </StaggerItem>
-
-            {/* Card 3 — coming soon */}
-            <StaggerItem>
-              <div className="opacity-60 cursor-default bg-card border border-border rounded-2xl overflow-hidden flex flex-col h-full">
-                <div className="p-6 flex flex-col flex-1 gap-3">
-                  <div className="flex items-center gap-2">
-                    <Badge variant="secondary" className="w-fit text-xs">Sectoroverzicht</Badge>
-                    <Badge variant="outline" className="w-fit text-xs text-muted-foreground">Binnenkort</Badge>
-                  </div>
-                  <h3 className="text-base font-semibold text-foreground leading-snug">
-                    AI Act per sector: Zorg &amp; Welzijn
-                  </h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    Medische beslissingsondersteuning, Wkkgz en AVG — wat betekent de AI Act voor zorgorganisaties?
-                  </p>
-                </div>
-              </div>
+              </Link>
             </StaggerItem>
 
             {/* Card 4 — EU AI Act in 1 A4 */}
