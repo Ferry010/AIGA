@@ -12,6 +12,7 @@ import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/
 import BreadcrumbNav from "@/components/BreadcrumbNav";
 import ferryImg from "@/assets/ferry-hoes.gif";
 import SEO from "@/components/SEO";
+import { MkbRiskTable, MkbComparisonTable, MkbStepTracker, MkbFaqAccordion, MkbCtaBanner, MkbLeesOok } from "@/components/MkbArticleComponents";
 
 interface Article {
   id: string;
@@ -91,6 +92,11 @@ const ARTICLE_CTAS: Record<string, { href: string; text: string }[]> = {
     { href: "/gereedheidscan", text: "Doe de gratis AI Gereedheidscan →" },
     { href: "/training", text: "Bekijk de AI Geletterdheid Training →" },
   ],
+  "ai-geletterdheidsplicht-voor-het-mkb-de-complete-gids-2026": [
+    { href: "/gereedheidscan", text: "Doe de gratis AI Gereedheidscan →" },
+    { href: "/training", text: "Bekijk de AI Geletterdheid Training →" },
+    { href: "/tools/downloads/ai-act-compliance-checklist", text: "Download de AI Act Compliance Checklist →" },
+  ],
 };
 
 const FALLBACK_IMAGE = "https://aigeletterdheid.academy/assets/AIGA_transparent-CxHDVoMM.png";
@@ -165,6 +171,27 @@ const TRAINING_VERGELIJKEN_FAQ_JSONLD = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
   mainEntity: TRAINING_VERGELIJKEN_FAQ.map((f) => ({
+    "@type": "Question",
+    name: f.q,
+    acceptedAnswer: { "@type": "Answer", text: f.a },
+  })),
+};
+
+const MKB_FAQ = [
+  { q: "Geldt Artikel 4 EU AI Act ook voor zzp'ers?", a: "Ja. Als je als zzp'er AI-systemen inzet in je werkzaamheden, val je onder de verplichting. De proportionaliteit is wel lager: voor een eenpitter volstaat basiskennis en een eenvoudige vorm van documentatie." },
+  { q: "Wat als mijn medewerkers AI gebruiken zonder dat ik het weet?", a: "Dan is het risico groter, niet kleiner. De organisatie is aansprakelijk voor het AI-gebruik van haar medewerkers, ook als dat gebruik officieel niet is goedgekeurd. Een AI-inventarisatie is daarom stap een." },
+  { q: "Moeten ook medewerkers die nooit bewust AI gebruiken een training volgen?", a: "Als ze tools gebruiken die AI-functies bevatten, denk aan Copilot in Outlook, AI-functies in je CRM, of een chatbot in klantenservice, dan ja. Bewust of onbewust maakt voor de wet geen verschil." },
+  { q: "Hoe lang duurt een goede basistraining?", a: "Een effectieve AI-geletterdheidsmodule voor het MKB duurt doorgaans 1,5 tot 3 uur. Genoeg voor de verplichte basiskennis, niet zo lang dat het een obstakel wordt voor medewerkers." },
+  { q: "Wat is het verschil tussen AI-geletterdheid en een GDPR-training?", a: "GDPR gaat over de verwerking van persoonsgegevens. AI-geletterdheid gaat over het begrijpen en verantwoord inzetten van AI-systemen. Ze overlappen bij AI-gebruik met persoonsgegevens, maar het zijn aparte verplichtingen met aparte documentatievereisten." },
+  { q: "Is een eenmalige training genoeg?", a: "Voor de eerste compliance-cyclus: ja, als basis. Maar AI-gebruik en regelgeving evolueren. Een jaarlijkse update is de aanbevolen praktijk." },
+  { q: "Waar bewaar ik de certificaten het best?", a: "In het digitale personeelsdossier per medewerker, of in een centrale compliance-map. Zorg dat je snel kunt aantonen wie een training heeft gevolgd en wanneer." },
+  { q: "Kan ik de training intern organiseren?", a: "Dat mag, maar het stelt hoge eisen aan de inhoudelijke kwaliteit. De training moet aantoonbaar aansluiten op de EU AI Act, en je hebt een objectieve bewijsvorm nodig. Externe gecertificeerde trainingen hebben daarin een duidelijk voordeel." },
+];
+
+const MKB_FAQ_JSONLD = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: MKB_FAQ.map((f) => ({
     "@type": "Question",
     name: f.q,
     acceptedAnswer: { "@type": "Answer", text: f.a },
@@ -297,15 +324,20 @@ const ArticleDetail = () => {
   const is5Stappen = article.slug === "ai-geletterdheidsplicht-zo-voldoe-je-in-5-stappen-aiga";
   const isTrainingVergelijken = article.slug === "ai-geletterdheid-training-vergelijken-hoe-kies-je-de-juiste";
   const isZorgSector = article.slug === "ai-act-per-sector-zorg-welzijn";
+  const isMkbGids = article.slug === "ai-geletterdheidsplicht-voor-het-mkb-de-complete-gids-2026";
   const seoTitle = isWatIs
     ? "Wat is AI-geletterdheid? Complete gids voor organisaties (2026)"
     : isBoetes
     ? "EU AI Act boetes: wat zijn de maximale bedragen? | AIGA"
+    : isMkbGids
+    ? "AI-geletterdheidsplicht MKB: wat je verplicht bent (en hoe je het regelt)"
     : `${article.title} | AIGA Kenniscentrum`;
   const seoDescription = isWatIs
     ? "AI-geletterdheid is wettelijk verplicht sinds februari 2025. Lees wat het inhoudt, welke verplichtingen de EU AI Act stelt, wat voorbeelden zijn en hoe jij je organisatie compliant maakt."
     : isBoetes
     ? "Wat zijn de maximale boetes onder de EU AI Act? Artikel 99 legt de bedragen vast. Lees wat jouw organisatie riskeert en bereken het direct."
+    : isMkbGids
+    ? "Artikel 4 EU AI Act geldt ook voor kleine bedrijven. Lees wat AI-geletterdheid voor het MKB concreet betekent, wat het kost en hoe je compliant wordt voor augustus 2026."
     : (article.meta_description || (article.content ? article.content.slice(0, 155).replace(/[#*\n]/g, "") + "..." : "Lees dit artikel over AI-geletterdheid op het AIGA Kenniscentrum."));
 
   const articleJsonLd = isWatIs
@@ -382,6 +414,11 @@ const ArticleDetail = () => {
       {isZorgSector && (
         <Helmet>
           <script type="application/ld+json">{JSON.stringify(ZORG_FAQ_JSONLD)}</script>
+        </Helmet>
+      )}
+      {isMkbGids && (
+        <Helmet>
+          <script type="application/ld+json">{JSON.stringify(MKB_FAQ_JSONLD)}</script>
         </Helmet>
       )}
       {/* Breadcrumb */}
@@ -564,6 +601,18 @@ const ArticleDetail = () => {
                 </Accordion>
               </div>
             </AnimatedSection>
+          )}
+
+          {/* MKB Gids interactive components */}
+          {isMkbGids && (
+            <>
+              <MkbRiskTable />
+              <MkbComparisonTable />
+              <MkbStepTracker />
+              <MkbFaqAccordion items={MKB_FAQ} />
+              <MkbCtaBanner />
+              <MkbLeesOok />
+            </>
           )}
 
           {/* CTA section for wat-is-ai-geletterdheid */}
