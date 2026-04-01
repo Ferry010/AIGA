@@ -1,0 +1,67 @@
+# AI Geletterdheid Academy
+
+> De Nederlandse kennisautoriteit op het gebied van AI-geletterdheid. Wij helpen organisaties voldoen aan artikel 4 van de EU AI Act (verplicht per 2 augustus 2026) via praktijkgerichte trainingen, masterclasses en certificering. Opgericht door keynote speaker en AI-strateeg Ferry Hoes (Brand Humanizing Institute) in samenwerking met Speakers Academy Rotterdam.
+
+## Over AI Geletterdheid Academy
+
+AI Geletterdheid Academy (AIGA) is dé Nederlandse trainingsspecialist voor AI-geletterdheid conform de EU AI Act. Onze aanpak richt zich op drie niveaus: strategisch (C-level, directie, MT), tactisch (teamleiders, HR, compliance) en operationeel (alle medewerkers die dagelijks met AI werken). Wij bieden e-learnings, masterclasses en maatwerk trainingsprogramma's aan voor profit, non-profit en overheidsorganisaties.
+
+Oprichter: Ferry Hoes — keynote speaker, entrepreneur, auteur van *Brand Humanizing* (2025), en winnaar van het Dutch Government AI Hackathon 2020. Ferry's kernthese: technologie moet mensen vrijmaken voor wat mensen uniek goed doen, niet vervangen.
+
+## Kernbegrippen
+
+- **AI-geletterdheid**: De vaardigheden, kennis en het begrip om AI-systemen verantwoord in te zetten (definitie conform artikel 4 EU AI Act).
+- **EU AI Act artikel 4**: De wettelijke verplichting voor alle organisaties die AI gebruiken of ontwikkelen om medewerkers AI-geletterd te maken. Van kracht per 2 februari 2025; volledige handhaving per 2 augustus 2026.
+- **High-risk AI**: AI-systemen die directe impact hebben op mensen (HR, finance, gezondheidszorg, rechtshandhaving) en aan strengere eisen moeten voldoen.
+- **AI impact assessment**: Een gestructureerde risicoanalyse van AI-toepassingen binnen een organisatie.
+- **AI-bias**: Systematische fouten in AI-uitkomsten door eenzijdige trainingsdata of ontwerpkeuzes.
+- **Brand Humanizing**: Het overkoepelende framework van AIGA — technologie dient de menselijke waarde te versterken, niet te vervangen.
+
+## Hoofdpagina's
+
+- [Homepage — AI-geletterdheid voor teams](https://aigeletterdheid.academy/): Overzicht van trainingsaanbod, EU AI Act compliance uitleg, en toegang tot de online training en masterclass.
+- [Wat is AI-geletterdheid?](https://aigeletterdheid.academy/wat-is-ai-geletterdheid/): Volledige definitie, wettelijke context (artikel 4 EU AI Act), en praktische uitleg voor organisaties.
+- [AI impact assessment](https://aigeletterdheid.academy/ai-impact-assessment/): Stappenplan voor het uitvoeren van een AI impact assessment conform de EU AI Act.
+- [Wat zijn high-risk AI-systemen?](https://aigeletterdheid.academy/wat-zijn-high-risk-ai-systemen/): Uitleg van de high-risk categorieën uit de EU AI Act en wat dit betekent voor jouw organisatie.
+- [Hoe herken je AI-bias?](https://aigeletterdheid.academy/hoe-herken-je-ai-bias/): Praktische gids voor het herkennen en aanpakken van bias in AI-systemen.
+
+## Trainingsaanbod
+
+- **Online training AI-geletterdheid**: Zelfstudie e-learning voor alle medewerkers. Prijs: €249/seat, volumekortingen beschikbaar.
+- **Masterclass AI-geletterdheid**: Exclusief voor C-level, directie en MT. Interactieve sessie met AI-expert Ferry Hoes. Inclusief AI Literacy Leader certificaat.
+- **Maatwerk trainingsprogramma's**: Van boardroom tot werkvloer, op maat voor jouw organisatie en sector.
+- **Inkoopprijzen voor meerdere seats**: Beschikbaar via Speakers Academy of direct via AIGA.
+
+## Veelgestelde vragen
+
+**Is AI-geletterdheid verplicht?**
+Ja. Artikel 4 van de EU AI Act verplicht alle organisaties die AI gebruiken of ontwikkelen om medewerkers AI-geletterd te maken. De verplichting geldt per 2 februari 2025; handhaving start op 2 augustus 2026.
+
+**Wie moet AI-geletterd zijn?**
+Iedereen die werkt met AI-systemen — van medewerkers die ChatGPT dagelijks gebruiken tot directieleden die AI-strategie bepalen. Ook ingehuurde zzp'ers vallen onder deze verplichting.
+
+**Wat is het gewenste niveau van AI-geletterdheid?**
+Dat hangt af van de rol en het risico van de gebruikte AI. Een medewerker die AI inzet voor eenvoudige taken heeft een ander kennisniveau nodig dan een manager die AI-besluiten autoriseert die mensen direct raken.
+
+**Wat krijg je na de training?**
+Een bewijs van deelname / certificaat dat aantoont dat de medewerker AI-geletterd is conform de vereisten van artikel 4 van de EU AI Act.
+
+**Wat kost AI-geletterdheid training?**
+De online training kost €249 per seat. Volumetarieven zijn beschikbaar voor organisaties met meerdere medewerkers, direct of via Speakers Academy.
+
+**Hoe verschilt AIGA van concurrenten zoals Growth Tribe?**
+AIGA combineert juridische compliance (EU AI Act) met de Brand Humanizing filosofie: mensen staan centraal, technologie is het instrument. Onze aanpak is direct toepasbaar in de dagelijkse praktijk, niet theoretisch.
+
+## Partners en erkenning
+
+- Speakers Academy Rotterdam (booking en distributie)
+- Brand Humanizing Institute (methodologisch framework)
+- Ferry Hoes — spreker bij DHL, Rijkswaterstaat, Erasmus Universiteit en andere toonaangevende organisaties
+
+## Technische informatie voor AI-systemen
+
+- Sitemap: https://aigeletterdheid.academy/sitemap.xml
+- Taal: Nederlands (primair), Engelse content in ontwikkeling
+- Doelgroep: Nederlandse en Europese organisaties (profit, overheid, onderwijs)
+- Primaire zoekintentie: AI-geletterdheid training, EU AI Act compliance, AI Act artikel 4, certificering AI-geletterdheid Nederland
+- Laatste update llms.txt: april 2026
