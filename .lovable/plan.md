@@ -1,70 +1,54 @@
 
 
-## Plan: Enhance AI Begrippen page with themes, anchors, and filters
+## Plan: Fix card layout overlap and restyle links
 
-The current file has 20 terms. You mentioned 32 are live — the category lists reference 12 additional terms (e.g. General Purpose AI, Deepfake, FRIA) that are not in the current code. Your message was also cut off at point 4 (internal links). I'll proceed with what's clear; please share the remaining text (point 4 descriptions + any missing term texts) after approval.
+### Problem
+The theme badge (absolute top-right) overlaps with the H3 title on smaller widths, and the internal links are plain text links that don't feel on-brand.
 
 ### Changes to `src/pages/AiBegrippen.tsx`
 
-**1. Data model update**
+**1. Fix badge overlap — move badge below title row**
 
-Add a `theme` field to each `Begrip` and a slug helper for anchor IDs:
+Instead of absolute-positioning the badge in the top-right corner, place it as the first element inside the card flow (not absolute). This gives it natural spacing.
 
+- Remove `relative` from the article (no longer needed for badge positioning)
+- Remove the absolute-positioned badge `<button>` block
+- Add the badge as the first child inside the card, as a flex row with `justify-end` or just `mb-3`
+- Remove `pr-32 sm:pr-48` from the title row since the badge no longer sits beside it
+
+New card structure:
 ```text
-type Theme = "wetgeving" | "technologie" | "rollen" | "praktijk";
-
-interface Begrip {
-  term: string;
-  description: string;
-  theme: Theme;
-  link?: { href: string; label: string };
-}
+<article class="bg-card border ... rounded-2xl p-6 sm:p-8 scroll-mt-36">
+  <div class="flex items-start justify-between gap-3 mb-3">
+    <div class="flex items-center gap-2">
+      <h3>...</h3>
+      <copy-link-icon />
+    </div>
+    <badge (clickable, shrink-0) />
+  </div>
+  <p>description</p>
+  <Link button />
+</article>
 ```
 
-Each of the 20 existing terms gets its theme assigned per the mapping you provided. A `toSlug(term)` utility converts terms to lowercase-hyphenated IDs.
+This puts badge and title on the same row with `justify-between`, badge won't wrap onto the title. The badge gets `shrink-0` and the title side is allowed to wrap naturally.
 
-**2. Theme badges on cards**
+**2. Restyle internal links as on-brand text buttons**
 
-Each card gets a small colored pill (top-right) using the Badge component with theme-specific colors:
-- Wetgeving & Compliance: orange (`bg-orange-500/15 text-orange-400`)
-- Technologie: blue-grey (`bg-blue-500/15 text-blue-400`)
-- Rollen & Verantwoordelijkheid: green (`bg-emerald-500/15 text-emerald-400`)
-- Praktijk & Vaardigheden: purple (`bg-purple-500/15 text-purple-400`)
-
-Clicking a badge sets the active theme filter.
-
-**3. Anchor links per term**
-
-- Each `<article>` gets `id={toSlug(term)}` (e.g. `id="hoog-risico-ai"`)
-- A small link icon next to each H3; on hover shows tooltip "Kopieer link naar dit begrip"
-- On click: copies `https://aigeletterdheid.academy/kenniscentrum/ai-begrippen#slug` to clipboard, shows "Link gekopieerd" toast for 2 seconds
-- Uses Tooltip component and `navigator.clipboard.writeText()`
-
-**4. Filter navigation row**
-
-Below the sticky search bar, a row of toggle buttons:
-
-```text
-[Alle begrippen] [Wetgeving & Compliance] [Technologie] [Rollen & Verantwoordelijkheid] [Praktijk & Vaardigheden]
-```
-
-- Active filter has orange background
-- Filters combine with search (AND logic): `filtered = BEGRIPPEN.filter(matchesSearch && matchesTheme)`
-- "Alle begrippen" resets theme filter to `null`
-- On filter click, smooth-scrolls to the glossary grid section
-
-**5. State additions**
+Replace the plain `text-primary hover:underline` link with a styled inline-flex link that matches the site's neon/primary style:
 
 ```tsx
-const [search, setSearch] = useState("");
-const [activeTheme, setActiveTheme] = useState<Theme | null>(null);
-const [copiedSlug, setCopiedSlug] = useState<string | null>(null);
+<Link
+  to={b.link.href}
+  className="inline-flex items-center gap-1.5 mt-4 text-sm font-semibold text-primary hover:text-primary/80 transition-colors group"
+>
+  {b.link.label}
+  <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-0.5 transition-transform" />
+</Link>
 ```
 
-### Files affected
-- `src/pages/AiBegrippen.tsx` — all changes in this single file
+Import `ArrowRight` from lucide-react (already likely available in the project).
 
-### Not included (awaiting your input)
-- The 12 additional term descriptions (FRIA, GPAI, Deepfake, etc.) — I see them in your category list but they're not in the current code and no description text was provided
-- Point 4 (internal links in explanations) — your message was cut off
+### Files affected
+- `src/pages/AiBegrippen.tsx` — card layout restructure + link restyle
 
