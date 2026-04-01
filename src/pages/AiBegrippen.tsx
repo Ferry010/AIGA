@@ -313,38 +313,37 @@ const AiBegrippen = () => {
                   id={slug}
                   className="bg-card border border-border rounded-2xl p-6 sm:p-8 scroll-mt-36"
                 >
-                  <div className="flex items-start justify-between gap-3 mb-3">
-                    <div className="flex items-center gap-2">
-                      <h3 className="text-lg font-display font-bold text-primary">{b.term}</h3>
-                      <Tooltip>
-                        <TooltipTrigger asChild>
-                          <button
-                            onClick={() => handleCopyLink(slug)}
-                            className="text-muted-foreground hover:text-primary transition-colors shrink-0"
-                            aria-label="Kopieer link naar dit begrip"
-                          >
-                            {isCopied ? (
-                              <Check className="h-4 w-4 text-emerald-400" />
-                            ) : (
-                              <LinkIcon className="h-4 w-4" />
-                            )}
-                          </button>
-                        </TooltipTrigger>
-                        <TooltipContent>
-                          {isCopied ? "Link gekopieerd ✓" : "Kopieer link naar dit begrip"}
-                        </TooltipContent>
-                      </Tooltip>
-                    </div>
-                    <button
-                      onClick={() => handleThemeClick(b.theme)}
-                      className="shrink-0"
+                  <button
+                    onClick={() => handleThemeClick(b.theme)}
+                    className="mb-3"
+                  >
+                    <Badge
+                      className={`text-[11px] font-medium cursor-pointer ${THEME_META[b.theme].className}`}
                     >
-                      <Badge
-                        className={`text-[11px] font-medium cursor-pointer ${THEME_META[b.theme].className}`}
-                      >
-                        {THEME_META[b.theme].label}
-                      </Badge>
-                    </button>
+                      {THEME_META[b.theme].label}
+                    </Badge>
+                  </button>
+
+                  <div className="flex items-center gap-2 mb-2">
+                    <h3 className="text-lg font-display font-bold text-primary">{b.term}</h3>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <button
+                          onClick={() => handleCopyLink(slug)}
+                          className="text-muted-foreground hover:text-primary transition-colors shrink-0"
+                          aria-label="Kopieer link naar dit begrip"
+                        >
+                          {isCopied ? (
+                            <Check className="h-4 w-4 text-emerald-400" />
+                          ) : (
+                            <LinkIcon className="h-4 w-4" />
+                          )}
+                        </button>
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        {isCopied ? "Link gekopieerd ✓" : "Kopieer link naar dit begrip"}
+                      </TooltipContent>
+                    </Tooltip>
                   </div>
 
                   <p className="text-muted-foreground leading-relaxed text-sm">{b.description}</p>
