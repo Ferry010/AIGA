@@ -416,6 +416,11 @@ const ArticleDetail = () => {
           <script type="application/ld+json">{JSON.stringify(ZORG_FAQ_JSONLD)}</script>
         </Helmet>
       )}
+      {isMkbGids && (
+        <Helmet>
+          <script type="application/ld+json">{JSON.stringify(MKB_FAQ_JSONLD)}</script>
+        </Helmet>
+      )}
       {/* Breadcrumb */}
       <BreadcrumbNav items={[
         { label: "Home", href: "/" },
