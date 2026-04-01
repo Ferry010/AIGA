@@ -203,16 +203,11 @@ const MKB_FAQ = [
 const MKB_FAQ_JSONLD = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
-  mainEntity: [
-    { "@type": "Question", name: "Geldt de AI-geletterdheidsplicht ook voor kleine bedrijven en het MKB?", acceptedAnswer: { "@type": "Answer", text: "Ja, zonder uitzondering. Artikel 4 van de EU AI Act maakt geen onderscheid naar bedrijfsgrootte. De verplichting geldt voor elke organisatie in de EU die AI-systemen gebruikt. Wat verschilt is de proportionaliteit: een klein marketingbureau mag volstaan met een basistraining en certificaat, een middelgroot accountantskantoor heeft meer nodig. Proportioneel betekent nadrukkelijk niet niets doen." } },
-    { "@type": "Question", name: "Geldt de AI-geletterdheidsplicht ook voor zzp'ers en freelancers?", acceptedAnswer: { "@type": "Answer", text: "Ja. Als je als zelfstandige AI-systemen inzet in je werkzaamheden, ben je een deployer en geldt Artikel 4. Voor een zzp'er volstaat in de meeste gevallen een erkende basistraining met certificaat plus een korte notitie over welke tools je gebruikt." } },
-    { "@type": "Question", name: "Wat zijn de boetes als een MKB-bedrijf de AI-geletterdheidsplicht niet naleeft?", acceptedAnswer: { "@type": "Answer", text: "Schendingen van deployer-verplichtingen kunnen leiden tot boetes van maximaal 15 miljoen euro of 3% van de wereldwijde jaaromzet. Voor MKB geldt de laagste van de twee bedragen. Voor een bedrijf met 3 miljoen euro omzet is dat maximaal 90.000 euro." } },
-    { "@type": "Question", name: "Wanneer begint de handhaving van de AI-geletterdheidsplicht?", acceptedAnswer: { "@type": "Answer", text: "De AI-geletterdheidsplicht is van kracht sinds 2 februari 2025. De Autoriteit Persoonsgegevens is in Nederland aangesteld als coordinerend toezichthouder en heeft per die datum handhavingsbevoegdheden." } },
-    { "@type": "Question", name: "Is een eenmalige AI-training voldoende?", acceptedAnswer: { "@type": "Answer", text: "Een eenmalige basistraining is het startpunt, maar de aanbevolen aanpak is een jaarlijkse herhalingscheck van 20-30 minuten. Nieuwe medewerkers volgen de basistraining bij indiensttreding. Wanneer de organisatie nieuwe AI-systemen in gebruik neemt, wordt gecontroleerd of de bestaande training die systemen dekt." } },
-    { "@type": "Question", name: "Geldt de AI-geletterdheidsplicht ook voor Microsoft Copilot en Google Gemini?", acceptedAnswer: { "@type": "Answer", text: "Ja. Microsoft Copilot, Google Gemini, Salesforce Einstein en vergelijkbare ingebouwde AI-assistenten in zakelijke software zijn AI-systemen in de zin van de wet. Als jouw medewerkers deze tools gebruiken, ben jij als organisatie de deployer en geldt de AI-geletterdheidsplicht." } },
-    { "@type": "Question", name: "Wat moet er minimaal in een AI-beleid voor een klein bedrijf staan?", acceptedAnswer: { "@type": "Answer", text: "Een AI-beleid hoeft geen uitgebreid document te zijn. Een A4 met zes onderdelen volstaat: een lijst van goedgekeurde AI-tools, het toegestane gebruiksdoel per tool, de verificatieprocedure voor AI-uitkomsten, verboden toepassingen, het aanspreekpunt voor AI-vragen en de datum plus verantwoordelijke persoon." } },
-    { "@type": "Question", name: "Hoe lang duurt een goede basistraining voor AI-geletterdheid?", acceptedAnswer: { "@type": "Answer", text: "Een kwalitatief goede basistraining die voldoet aan Artikel 4 EU AI Act heeft een minimale doorlooptijd van 60 tot 90 minuten voor niet-technische medewerkers, en 2 tot 3 uur voor medewerkers die AI actief inzetten in hun werkproces." } },
-  ],
+  mainEntity: MKB_FAQ.map((f) => ({
+    "@type": "Question" as const,
+    name: f.q,
+    acceptedAnswer: { "@type": "Answer" as const, text: f.a },
+  })),
 };
 
 const WAT_IS_FAQ_JSONLD = {
