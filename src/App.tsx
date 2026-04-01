@@ -39,6 +39,7 @@ import AiBeleidstemplate from "./pages/AiBeleidstemplate";
 import ChecklistLanding from "./pages/ChecklistLanding";
 import BeleidstemplateLanding from "./pages/BeleidstemplateLanding";
 import AiActDeadlines from "./pages/AiActDeadlines";
+import AiBegrippen from "./pages/AiBegrippen";
 import Unsubscribe from "./pages/Unsubscribe";
 import NotFound from "./pages/NotFound";
 
