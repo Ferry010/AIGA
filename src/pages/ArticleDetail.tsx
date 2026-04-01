@@ -12,6 +12,7 @@ import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/
 import BreadcrumbNav from "@/components/BreadcrumbNav";
 import ferryImg from "@/assets/ferry-hoes.gif";
 import SEO from "@/components/SEO";
+import { MkbRiskTable, MkbComparisonTable, MkbStepTracker, MkbFaqAccordion, MkbCtaBanner, MkbLeesOok } from "@/components/MkbArticleComponents";
 
 interface Article {
   id: string;
