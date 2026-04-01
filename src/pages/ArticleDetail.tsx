@@ -92,6 +92,11 @@ const ARTICLE_CTAS: Record<string, { href: string; text: string }[]> = {
     { href: "/gereedheidscan", text: "Doe de gratis AI Gereedheidscan →" },
     { href: "/training", text: "Bekijk de AI Geletterdheid Training →" },
   ],
+  "ai-geletterdheidsplicht-voor-het-mkb-de-complete-gids-2026": [
+    { href: "/gereedheidscan", text: "Doe de gratis AI Gereedheidscan →" },
+    { href: "/training", text: "Bekijk de AI Geletterdheid Training →" },
+    { href: "/tools/downloads/ai-act-compliance-checklist", text: "Download de AI Act Compliance Checklist →" },
+  ],
 };
 
 const FALLBACK_IMAGE = "https://aigeletterdheid.academy/assets/AIGA_transparent-CxHDVoMM.png";
