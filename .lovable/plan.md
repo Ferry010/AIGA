@@ -1,38 +1,70 @@
 
 
-## Plan: Update Kennisoverzichten cards
+## Plan: Enhance AI Begrippen page with themes, anchors, and filters
 
-**What**: Remove the 2 "Sectoroverzicht" placeholder cards (Cards 2 & 3, lines 123-157) and add a new live card for the AI Begrippen glossary page.
+The current file has 20 terms. You mentioned 32 are live — the category lists reference 12 additional terms (e.g. General Purpose AI, Deepfake, FRIA) that are not in the current code. Your message was also cut off at point 4 (internal links). I'll proceed with what's clear; please share the remaining text (point 4 descriptions + any missing term texts) after approval.
 
-### Edit: `src/pages/Kenniscentrum.tsx`
+### Changes to `src/pages/AiBegrippen.tsx`
 
-Replace lines 123-157 (the two Sectoroverzicht StaggerItems) with a single new card:
+**1. Data model update**
 
-```tsx
-{/* Card 2 — Begrippenlijst */}
-<StaggerItem>
-  <Link
-    to="/kenniscentrum/ai-begrippen"
-    className="group bg-card border border-border rounded-2xl overflow-hidden hover:border-primary/40 neon-glow transition-all duration-300 flex flex-col h-full"
-  >
-    <div className="p-6 flex flex-col flex-1 gap-3">
-      <Badge variant="default" className="w-fit text-xs">Begrippenlijst</Badge>
-      <h3 className="text-base font-semibold text-foreground leading-snug group-hover:text-primary transition-colors">
-        AI Begrippen: Glossarium EU AI Act
-      </h3>
-      <p className="text-sm text-muted-foreground leading-relaxed">
-        Alle belangrijke begrippen uit de EU AI Act helder uitgelegd — van hoog-risico AI tot conformiteitsbeoordeling.
-      </p>
-      <span className="mt-auto flex items-center gap-1.5 text-sm font-semibold text-primary group-hover:gap-2.5 transition-all pt-2">
-        Bekijk begrippenlijst <ArrowRight size={16} />
-      </span>
-    </div>
-  </Link>
-</StaggerItem>
+Add a `theme` field to each `Begrip` and a slug helper for anchor IDs:
+
+```text
+type Theme = "wetgeving" | "technologie" | "rollen" | "praktijk";
+
+interface Begrip {
+  term: string;
+  description: string;
+  theme: Theme;
+  link?: { href: string; label: string };
+}
 ```
 
-Result: 3 cards total (AI-tools overzicht, Begrippenlijst, EU AI Act in 1 A4) in the grid.
+Each of the 20 existing terms gets its theme assigned per the mapping you provided. A `toSlug(term)` utility converts terms to lowercase-hyphenated IDs.
+
+**2. Theme badges on cards**
+
+Each card gets a small colored pill (top-right) using the Badge component with theme-specific colors:
+- Wetgeving & Compliance: orange (`bg-orange-500/15 text-orange-400`)
+- Technologie: blue-grey (`bg-blue-500/15 text-blue-400`)
+- Rollen & Verantwoordelijkheid: green (`bg-emerald-500/15 text-emerald-400`)
+- Praktijk & Vaardigheden: purple (`bg-purple-500/15 text-purple-400`)
+
+Clicking a badge sets the active theme filter.
+
+**3. Anchor links per term**
+
+- Each `<article>` gets `id={toSlug(term)}` (e.g. `id="hoog-risico-ai"`)
+- A small link icon next to each H3; on hover shows tooltip "Kopieer link naar dit begrip"
+- On click: copies `https://aigeletterdheid.academy/kenniscentrum/ai-begrippen#slug` to clipboard, shows "Link gekopieerd" toast for 2 seconds
+- Uses Tooltip component and `navigator.clipboard.writeText()`
+
+**4. Filter navigation row**
+
+Below the sticky search bar, a row of toggle buttons:
+
+```text
+[Alle begrippen] [Wetgeving & Compliance] [Technologie] [Rollen & Verantwoordelijkheid] [Praktijk & Vaardigheden]
+```
+
+- Active filter has orange background
+- Filters combine with search (AND logic): `filtered = BEGRIPPEN.filter(matchesSearch && matchesTheme)`
+- "Alle begrippen" resets theme filter to `null`
+- On filter click, smooth-scrolls to the glossary grid section
+
+**5. State additions**
+
+```tsx
+const [search, setSearch] = useState("");
+const [activeTheme, setActiveTheme] = useState<Theme | null>(null);
+const [copiedSlug, setCopiedSlug] = useState<string | null>(null);
+```
 
 ### Files affected
-- `src/pages/Kenniscentrum.tsx` (replace lines 123-157)
+- `src/pages/AiBegrippen.tsx` — all changes in this single file
+
+### Not included (awaiting your input)
+- The 12 additional term descriptions (FRIA, GPAI, Deepfake, etc.) — I see them in your category list but they're not in the current code and no description text was provided
+- Point 4 (internal links in explanations) — your message was cut off
 
