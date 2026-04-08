@@ -12,6 +12,7 @@ import { Badge } from "@/components/ui/badge";
 import AdminUsers from "@/components/AdminUsers";
 import AdminAccount from "@/components/AdminAccount";
 import BlogPdfImport, { type PdfArticleData } from "@/components/BlogPdfImport";
+import BlogJsonImport from "@/components/BlogJsonImport";
 
 const CATEGORIES = [
   "Wetten en regels",
@@ -588,6 +589,7 @@ const Admin = () => {
                 {Object.values(importing).some(Boolean) ? "Bezig met importeren..." : "Importeer alles"}
               </button>
               <BlogPdfImport onImport={handlePdfImport} />
+              <BlogJsonImport onImport={handlePdfImport} />
               <button onClick={openNewForm} className="flex items-center gap-2 bg-primary text-primary-foreground rounded-lg px-4 py-2 text-sm font-medium">
                 <Plus size={16} /> Nieuw artikel
               </button>
