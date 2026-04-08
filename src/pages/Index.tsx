@@ -12,7 +12,7 @@ import SEO from "@/components/SEO";
 import brandLogo from "@/assets/brand-humanizing-logo.png";
 import speakersLogo from "@/assets/speakers-academy-logo.png";
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 
 const faqItems = [
   {
@@ -44,6 +44,13 @@ const faqItems = [
 const Index = () => {
   const reduced = useReduceMotion();
   const [videoPlaying, setVideoPlaying] = useState(false);
+
+  const calcDays = () => Math.max(0, Math.ceil((new Date('2026-08-02').getTime() - Date.now()) / 86400000));
+  const [daysLeft, setDaysLeft] = useState(calcDays);
+  useEffect(() => {
+    const id = setInterval(() => setDaysLeft(calcDays()), 3600000);
+    return () => clearInterval(id);
+  }, []);
   const videoRef = useRef<HTMLVideoElement>(null);
 
   const handlePlayVideo = () => {
@@ -128,12 +135,24 @@ const Index = () => {
 
       {/* Urgency Banner */}
       <AnimatedSection>
-        <div className="bg-amber-50 border-l-[3px] border-warning mx-4 sm:mx-8 lg:mx-auto max-w-7xl px-6 py-5 rounded-r-lg mt-8">
-          <div className="flex flex-col sm:flex-row sm:items-center gap-3">
-            <span className="text-xs font-medium uppercase tracking-[0.08em] text-amber-700 font-body">Deadline</span>
-            <p className="text-sm text-foreground leading-relaxed">
-              Per augustus 2025 wordt de AI Act actief gehandhaafd. Organisaties zonder gecertificeerde medewerkers riskeren boetes.
-            </p>
+        <div className="bg-destructive/5 border border-destructive/20 mx-4 sm:mx-8 lg:mx-auto max-w-7xl px-6 py-5 rounded-xl mt-8">
+          <div className="flex flex-col sm:flex-row sm:items-start gap-4">
+            <div className="flex items-center gap-3 shrink-0">
+              <span className="relative flex h-3 w-3">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-destructive/60" />
+                <span className="relative inline-flex rounded-full h-3 w-3 bg-destructive" />
+              </span>
+              <span className="text-4xl sm:text-5xl font-display font-bold text-foreground leading-none">{daysLeft}</span>
+              <span className="text-xs font-medium uppercase tracking-[0.08em] text-muted-foreground leading-tight">dagen<br />resterend</span>
+            </div>
+            <div className="flex-1">
+              <p className="text-sm text-foreground leading-relaxed font-medium">
+                Nog {daysLeft} dagen tot volledige handhaving van de AI Act (2 augustus 2026). Organisaties zonder gecertificeerde medewerkers riskeren boetes tot <strong>€35 miljoen</strong>.
+              </p>
+              <Link to="/training" className="inline-flex items-center gap-1 text-sm font-semibold text-primary hover:text-primary/80 mt-2 transition-colors">
+                Begin vandaag →
+              </Link>
+            </div>
           </div>
         </div>
       </AnimatedSection>
