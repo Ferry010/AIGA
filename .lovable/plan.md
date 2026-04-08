@@ -1,20 +1,16 @@
 
 
-## Plan: Fix deadline year + add FOMO urgency banner
+## Plan: Add CollectionPage structured data to Kenniscentrum
 
-### Changes
+### Change
 
-**File: `src/pages/Index.tsx`**
+**File: `src/pages/Kenniscentrum.tsx`**
 
-1. **Fix year**: Change "augustus 2025" to "augustus 2026" in the urgency banner (line 135)
+Add a `CollectionPage` JSON-LD schema to the existing `<SEO>` component's `jsonLd` prop. The schema will be built dynamically from the loaded articles and include:
 
-2. **Add FOMO/urgency**: Replace the current simple amber banner with a more impactful version that includes:
-   - A live **countdown timer** showing days remaining until 2 augustus 2026 (updates every hour)
-   - Stronger copy emphasizing consequence and scarcity, e.g.: *"Nog X dagen tot volledige handhaving van de AI Act. Organisaties zonder gecertificeerde medewerkers riskeren boetes tot €35 miljoen."*
-   - A subtle pulsing dot or warning icon to draw attention
-   - A small inline CTA link ("Begin vandaag →") pointing to `/training`
+- `@type: "CollectionPage"` with `name`, `description`, `url`, `inLanguage: "nl"`
+- `mainEntity` as an `ItemList` containing each published article as a `ListItem` with nested `Article` schema (`headline`, `url`, `image`, `author`, `datePublished`)
+- `publisher` as the AIGA `EducationalOrganization`
 
-### Technical Detail
-- Countdown uses a simple `useState` + `useEffect` with `setInterval` calculating days between `new Date()` and `new Date('2026-08-02')`
-- The banner keeps its current amber styling but gets slightly more visual weight with the countdown numbers displayed prominently
+The schema is constructed after articles load, so it reflects the actual published content. Pass it via the existing `jsonLd` prop on `<SEO>` — no new components needed.
 
