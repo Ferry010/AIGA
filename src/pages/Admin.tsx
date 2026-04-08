@@ -567,6 +567,7 @@ const Admin = () => {
               <button onClick={importAll} disabled={Object.values(importing).some(Boolean)} className="flex items-center gap-2 bg-card border border-border text-foreground rounded-lg px-4 py-2 text-sm font-medium hover:border-primary/40 transition-colors disabled:opacity-50">
                 {Object.values(importing).some(Boolean) ? "Bezig met importeren..." : "Importeer alles"}
               </button>
+              <BlogPdfImport onImport={handlePdfImport} />
               <button onClick={openNewForm} className="flex items-center gap-2 bg-primary text-primary-foreground rounded-lg px-4 py-2 text-sm font-medium">
                 <Plus size={16} /> Nieuw artikel
               </button>
