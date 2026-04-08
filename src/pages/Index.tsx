@@ -44,6 +44,13 @@ const faqItems = [
 const Index = () => {
   const reduced = useReduceMotion();
   const [videoPlaying, setVideoPlaying] = useState(false);
+
+  const calcDays = () => Math.max(0, Math.ceil((new Date('2026-08-02').getTime() - Date.now()) / 86400000));
+  const [daysLeft, setDaysLeft] = useState(calcDays);
+  useEffect(() => {
+    const id = setInterval(() => setDaysLeft(calcDays()), 3600000);
+    return () => clearInterval(id);
+  }, []);
   const videoRef = useRef<HTMLVideoElement>(null);
 
   const handlePlayVideo = () => {
