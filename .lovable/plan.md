@@ -1,38 +1,20 @@
 
 
-## Plan: Clean Up Article Filters for SEO Focus
+## Plan: Fix deadline year + add FOMO urgency banner
 
-### Problem
-The current filter section has two rows: 6 category buttons + up to 29 label buttons. The labels are inconsistent (duplicates like "AI Geletterdheid" vs "AI geletterdheid", "EU AI Act" vs "EU AI ACT"), too granular (e.g. "CIO", "HR", "IT" as separate tags), and visually cluttered. This hurts both UX and SEO value.
+### Changes
 
-### Solution
-Replace the two-row category + label filter with a single, clean filter bar using curated **topic filters** that double as SEO anchor points. Each filter maps to one or more existing categories/labels behind the scenes.
+**File: `src/pages/Index.tsx`**
 
-**Proposed topic filters:**
+1. **Fix year**: Change "augustus 2025" to "augustus 2026" in the urgency banner (line 135)
 
-| Filter | Maps to (categories/labels) |
-|---|---|
-| Alle | everything |
-| EU AI Act | category "Wetten en regels" + labels containing "EU AI Act", "Artikel 4", "Artikel 99", "Wetgeving", "Boetes" |
-| AI-geletterdheid | category "AI-geletterdheid uitgelegd" + labels containing "AI geletterdheid", "AI training" |
-| Compliance & governance | labels "Compliance", "Governance", "AI-beleid", "Bestuursverantwoordelijkheid" |
-| Sectoren & praktijk | category "Praktijk en sectoren" + sector labels |
-| Tools & vaardigheden | category "Tools en vaardigheden" + "Shadow AI" |
-| Actueel | category "Actueel" |
+2. **Add FOMO/urgency**: Replace the current simple amber banner with a more impactful version that includes:
+   - A live **countdown timer** showing days remaining until 2 augustus 2026 (updates every hour)
+   - Stronger copy emphasizing consequence and scarcity, e.g.: *"Nog X dagen tot volledige handhaving van de AI Act. Organisaties zonder gecertificeerde medewerkers riskeren boetes tot €35 miljoen."*
+   - A subtle pulsing dot or warning icon to draw attention
+   - A small inline CTA link ("Begin vandaag →") pointing to `/training`
 
-### Implementation
-
-**File: `src/pages/Kenniscentrum.tsx`**
-
-1. Replace `articleCategories` and the label filter state with a single `topicFilters` array, each with a `label` (display name), `slug` (URL-friendly for potential future defined route anchors), and a `match` function
-2. Remove the second labels filter row entirely
-3. Render a single row of well-spaced filter buttons with the curated topics
-4. Each button filters articles by matching against both the `category` and `labels` fields
-5. Add `id` attributes to the filter section for SEO anchor linking (e.g., `#eu-ai-act`)
-
-### Database Cleanup (optional, separate step)
-Normalize duplicate labels ("AI Geletterdheid" vs "AI geletterdheid", "EU AI Act" vs "EU AI ACT") in a future migration. The filter logic will handle case-insensitive matching for now.
-
-### Visual Result
-One clean horizontal row of 7 topic buttons instead of the current 6 + 29. Consistent styling, no second row, better scannability.
+### Technical Detail
+- Countdown uses a simple `useState` + `useEffect` with `setInterval` calculating days between `new Date()` and `new Date('2026-08-02')`
+- The banner keeps its current amber styling but gets slightly more visual weight with the countdown numbers displayed prominently
 
