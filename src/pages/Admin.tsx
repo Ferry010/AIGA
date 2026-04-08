@@ -11,6 +11,7 @@ import { Pencil, Plus, X, LogOut, ChevronDown, ChevronUp, Mail, Phone, Search, U
 import { Badge } from "@/components/ui/badge";
 import AdminUsers from "@/components/AdminUsers";
 import AdminAccount from "@/components/AdminAccount";
+import BlogPdfImport, { type PdfArticleData } from "@/components/BlogPdfImport";
 
 const CATEGORIES = [
   "Wetten en regels",
