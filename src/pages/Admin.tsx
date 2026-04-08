@@ -213,6 +213,26 @@ const Admin = () => {
     setShowForm(true);
   };
 
+  const handlePdfImport = (data: PdfArticleData) => {
+    setEditingId(null);
+    const matchedCategory = CATEGORIES.find(
+      (c) => c.toLowerCase() === data.category.toLowerCase()
+    ) || CATEGORIES[0];
+    setForm({
+      ...emptyArticleForm,
+      title: data.title,
+      category: matchedCategory,
+      url: data.url,
+      meta_description: data.meta_description,
+      seo_keywords: data.seo_keywords,
+      labels: data.labels,
+      content: data.content,
+      slug: generateSlug(data.title),
+      sort_order: 1,
+    });
+    setShowForm(true);
+  };
+
   const openEditForm = (a: Article) => {
     setEditingId(a.id);
     setForm({ title: a.title, category: a.category, url: a.url, image_url: a.image_url, published: a.published, sort_order: a.sort_order, content: a.content || "", slug: a.slug || "", labels: a.labels || [], published_date: a.published_date || new Date().toISOString().slice(0, 10), read_time_minutes: a.read_time_minutes != null ? String(a.read_time_minutes) : "", meta_description: a.meta_description || "", seo_keywords: a.seo_keywords || "", h1_override: a.h1_override || "" });
