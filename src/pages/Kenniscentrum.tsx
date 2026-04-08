@@ -9,16 +9,57 @@ import BreadcrumbNav from "@/components/BreadcrumbNav";
 import DefinitionBlock from "@/components/DefinitionBlock";
 import SEO from "@/components/SEO";
 
-const articleCategories = [
-  "Alle",
-  "Wetten en regels",
-  "AI-geletterdheid uitgelegd",
-  "Actueel",
-  "Tools en vaardigheden",
-  "Praktijk en sectoren",
-] as const;
+interface TopicFilter {
+  label: string;
+  slug: string;
+  match: (a: Article) => boolean;
+}
 
-type ArticleCategory = (typeof articleCategories)[number];
+const ciMatch = (haystack: string[], needles: string[]) =>
+  needles.some((n) => haystack.some((h) => h.toLowerCase() === n.toLowerCase()));
+
+const topicFilters: TopicFilter[] = [
+  { label: "Alle", slug: "alle", match: () => true },
+  {
+    label: "EU AI Act",
+    slug: "eu-ai-act",
+    match: (a) =>
+      a.category === "Wetten en regels" ||
+      ciMatch(a.labels || [], ["EU AI Act", "Artikel 4", "Artikel 99", "Wetgeving", "Boetes"]),
+  },
+  {
+    label: "AI-geletterdheid",
+    slug: "ai-geletterdheid",
+    match: (a) =>
+      a.category === "AI-geletterdheid uitgelegd" ||
+      ciMatch(a.labels || [], ["AI geletterdheid", "AI training", "AI Geletterdheid"]),
+  },
+  {
+    label: "Compliance & governance",
+    slug: "compliance-governance",
+    match: (a) =>
+      ciMatch(a.labels || [], ["Compliance", "Governance", "AI-beleid", "Bestuursverantwoordelijkheid"]),
+  },
+  {
+    label: "Sectoren & praktijk",
+    slug: "sectoren-praktijk",
+    match: (a) =>
+      a.category === "Praktijk en sectoren" ||
+      ciMatch(a.labels || [], ["HR", "IT", "CIO", "Onderwijs", "Zorg", "Overheid", "MKB"]),
+  },
+  {
+    label: "Tools & vaardigheden",
+    slug: "tools-vaardigheden",
+    match: (a) =>
+      a.category === "Tools en vaardigheden" ||
+      ciMatch(a.labels || [], ["Shadow AI", "Prompt engineering", "AI-tools"]),
+  },
+  {
+    label: "Actueel",
+    slug: "actueel",
+    match: (a) => a.category === "Actueel",
+  },
+];
 
 interface Article {
   id: string;
@@ -35,9 +76,7 @@ interface Article {
 
 
 const Kenniscentrum = () => {
-  // Article state
-  const [activeCategory, setActiveCategory] = useState<ArticleCategory>("Alle");
-  const [activeLabel, setActiveLabel] = useState<string | null>(null);
+  const [activeTopic, setActiveTopic] = useState<string>("alle");
   const [articles, setArticles] = useState<Article[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -53,15 +92,8 @@ const Kenniscentrum = () => {
       });
   }, []);
 
-  // Collect all unique labels
-  const allLabels = Array.from(new Set(articles.flatMap((a) => a.labels || []))).sort();
-
-  const filteredArticles = articles.filter((a) => {
-    if (activeCategory !== "Alle" && a.category !== activeCategory) return false;
-    if (activeLabel && !(a.labels || []).includes(activeLabel)) return false;
-    return true;
-  });
-
+  const activeFilter = topicFilters.find((f) => f.slug === activeTopic) || topicFilters[0];
+  const filteredArticles = articles.filter(activeFilter.match);
   return (
     <div className="min-h-screen">
       <SEO
@@ -167,53 +199,27 @@ const Kenniscentrum = () => {
 
 
       {/* ── Artikelen & Blogs ── */}
-      <section className="pb-8">
+      <section className="pb-8" id="artikelen">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection>
             <SectionLabel text="ARTIKELEN & BLOGS" />
           </AnimatedSection>
           <div className="flex flex-wrap gap-2 mt-4">
-            {articleCategories.map((cat) => (
+            {topicFilters.map((filter) => (
               <button
-                key={cat}
-                onClick={() => setActiveCategory(cat)}
+                key={filter.slug}
+                id={filter.slug !== "alle" ? filter.slug : undefined}
+                onClick={() => setActiveTopic(filter.slug)}
                 className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 ${
-                  activeCategory === cat
+                  activeTopic === filter.slug
                     ? "bg-primary text-primary-foreground"
                     : "bg-card border border-border text-muted-foreground hover:border-primary/40 hover:text-foreground"
                 }`}
               >
-                {cat}
+                {filter.label}
               </button>
             ))}
           </div>
-          {allLabels.length > 0 && (
-            <div className="flex flex-wrap gap-2 mt-3">
-              <button
-                onClick={() => setActiveLabel(null)}
-                className={`px-3 py-1.5 rounded-md text-xs font-medium transition-all duration-300 ${
-                  !activeLabel
-                    ? "bg-accent text-accent-foreground"
-                    : "bg-card border border-border text-muted-foreground hover:border-primary/40 hover:text-foreground"
-                }`}
-              >
-                Alle labels
-              </button>
-              {allLabels.map((label) => (
-                <button
-                  key={label}
-                  onClick={() => setActiveLabel(activeLabel === label ? null : label)}
-                  className={`px-3 py-1.5 rounded-md text-xs font-medium transition-all duration-300 ${
-                    activeLabel === label
-                      ? "bg-primary text-primary-foreground"
-                      : "bg-card border border-border text-muted-foreground hover:border-primary/40 hover:text-foreground"
-                  }`}
-                >
-                  {label}
-                </button>
-              ))}
-            </div>
-          )}
         </div>
       </section>
 
