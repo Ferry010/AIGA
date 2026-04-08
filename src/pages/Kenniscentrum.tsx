@@ -199,53 +199,27 @@ const Kenniscentrum = () => {
 
 
       {/* ── Artikelen & Blogs ── */}
-      <section className="pb-8">
+      <section className="pb-8" id="artikelen">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection>
             <SectionLabel text="ARTIKELEN & BLOGS" />
           </AnimatedSection>
           <div className="flex flex-wrap gap-2 mt-4">
-            {articleCategories.map((cat) => (
+            {topicFilters.map((filter) => (
               <button
-                key={cat}
-                onClick={() => setActiveCategory(cat)}
+                key={filter.slug}
+                id={filter.slug !== "alle" ? filter.slug : undefined}
+                onClick={() => setActiveTopic(filter.slug)}
                 className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 ${
-                  activeCategory === cat
+                  activeTopic === filter.slug
                     ? "bg-primary text-primary-foreground"
                     : "bg-card border border-border text-muted-foreground hover:border-primary/40 hover:text-foreground"
                 }`}
               >
-                {cat}
+                {filter.label}
               </button>
             ))}
           </div>
-          {allLabels.length > 0 && (
-            <div className="flex flex-wrap gap-2 mt-3">
-              <button
-                onClick={() => setActiveLabel(null)}
-                className={`px-3 py-1.5 rounded-md text-xs font-medium transition-all duration-300 ${
-                  !activeLabel
-                    ? "bg-accent text-accent-foreground"
-                    : "bg-card border border-border text-muted-foreground hover:border-primary/40 hover:text-foreground"
-                }`}
-              >
-                Alle labels
-              </button>
-              {allLabels.map((label) => (
-                <button
-                  key={label}
-                  onClick={() => setActiveLabel(activeLabel === label ? null : label)}
-                  className={`px-3 py-1.5 rounded-md text-xs font-medium transition-all duration-300 ${
-                    activeLabel === label
-                      ? "bg-primary text-primary-foreground"
-                      : "bg-card border border-border text-muted-foreground hover:border-primary/40 hover:text-foreground"
-                  }`}
-                >
-                  {label}
-                </button>
-              ))}
-            </div>
-          )}
         </div>
       </section>
 
