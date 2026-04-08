@@ -102,9 +102,12 @@ export default function BlogPdfImport({ onImport }: BlogPdfImportProps) {
       for (let i = 1; i <= pdf.numPages; i++) {
         const page = await pdf.getPage(i);
         const content = await page.getTextContent();
-        const pageText = content.items
-          .map((item: any) => item.str)
-          .join(" ");
+      const pageText = content.items
+          .map((item: any) => {
+            // Preserve line breaks using the hasEOL flag from pdfjs
+            return item.str + (item.hasEOL ? "\n" : "");
+          })
+          .join("");
         fullText += pageText + "\n";
       }
       const parsed = parseStructuredText(fullText);
