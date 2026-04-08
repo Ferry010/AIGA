@@ -1,39 +1,38 @@
 
 
-## Plan: Fix PDF Import
+## Plan: Fix PDF Parser to Match Actual PDF Format
 
 ### Problem
-The `pdfjs-dist` v4.x import with the CDN worker approach is likely failing silently. Version 4.x changed its module structure significantly, and the CDN worker URL pattern may not match, or Vite's bundling of `pdfjs-dist` causes initialization issues that prevent the file input from working.
+The parser expects labels like `TITEL:`, `CATEGORIE:`, `BODY:` inline with values. But the actual PDF uses markdown-style headings on separate lines:
+
+```text
+# CATEGORIE
+Wetgeving en regels
+
+# URL
+https://...
+
+# BODY
+Er is een misverstand...
+```
+
+The title appears as a standalone heading after "AIGA Blog Import Document", not with a `TITEL:` label. This mismatch causes the "Kon geen gestructureerde data vinden" error.
 
 ### Solution
-Replace `pdfjs-dist` with a simpler approach: use the **`unpdf`** library (lightweight, works in browsers, no worker setup needed) or switch to reading the PDF via a **Supabase Edge Function** using `pdf-parse`. However, since the component structure is simple and client-side is preferred, the cleanest fix is:
+Rewrite `parseStructuredText()` in `src/components/BlogPdfImport.tsx` to handle the actual PDF format:
 
-**Option: Use `pdfjs-dist` with proper Vite configuration**
+1. **New label detection**: Match section headers like `CATEGORIE`, `URL`, `META DESCRIPTION`, `KEYWORDS`, `LABELS`, `BODY` — with or without `#` prefix and with or without trailing colon
+2. **Title extraction**: The title is the first `#`-heading that isn't a known section label (e.g. the line "AI en bestuursverantwoordelijkheid: wat de EU AI Act van directies vraagt")
+3. **Body handling**: Everything after the `BODY` section header becomes body content. Sub-headings within the body (like `# Wat de wet precies zegt`) should be converted to `<h2>`/`<h3>` tags
+4. **Keep backward compatibility**: Also support the old `TITEL:` inline format so existing PDFs still work
 
-1. **Update `BlogPdfImport.tsx`**:
-   - Use a dynamic import approach for `pdfjs-dist` to avoid module-level initialization issues
-   - Set the worker source using a Vite-compatible approach (copy worker to public, or use `?url` import)
-   - Add a toast notification for errors so failures aren't silent
-   - Add `console.log` breadcrumbs to confirm the handler fires
+### Files to Change
+- **`src/components/BlogPdfImport.tsx`** — rewrite `parseStructuredText()` to handle both heading-style and inline-style labels
 
-2. **Copy the PDF.js worker to `public/`**:
-   - Copy `pdf.worker.min.mjs` from `node_modules/pdfjs-dist/build/` to `public/` so it's served as a static asset, avoiding CDN/CORS issues
-
-3. **Update worker source reference**:
-   ```typescript
-   pdfjsLib.GlobalWorkerOptions.workerSrc = "/pdf.worker.min.mjs";
-   ```
-
-### Alternative (simpler, recommended)
-Replace `pdfjs-dist` entirely with the browser-native `FileReader` + an edge function approach:
-- Upload the PDF to a backend function that uses `pdf-parse` (Deno-compatible) to extract text
-- Return the parsed text to the client
-- This avoids all worker/bundling issues
-
-**Recommended: Fix client-side approach** since it's already built and just needs the worker path fixed.
-
-### Files affected
-- `src/components/BlogPdfImport.tsx` — fix worker setup, add error toasts
-- `public/pdf.worker.min.mjs` — copy worker file from node_modules (build step or manual copy)
-- Alternatively: add a `vite.config.ts` plugin to handle the worker
+### Technical Detail
+The new parser will:
+- Split text into lines
+- Scan for lines matching known section names (case-insensitive, with optional `#` prefix)
+- Collect lines between sections as values
+- For BODY, convert `#`-headings to HTML `<h2>`/`<h3>` and paragraphs to `<p>` tags
 
