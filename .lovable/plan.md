@@ -1,38 +1,38 @@
 
 
-## Plan: Fix PDF Parser to Match Actual PDF Format
+## Plan: Clean Up Article Filters for SEO Focus
 
 ### Problem
-The parser expects labels like `TITEL:`, `CATEGORIE:`, `BODY:` inline with values. But the actual PDF uses markdown-style headings on separate lines:
-
-```text
-# CATEGORIE
-Wetgeving en regels
-
-# URL
-https://...
-
-# BODY
-Er is een misverstand...
-```
-
-The title appears as a standalone heading after "AIGA Blog Import Document", not with a `TITEL:` label. This mismatch causes the "Kon geen gestructureerde data vinden" error.
+The current filter section has two rows: 6 category buttons + up to 29 label buttons. The labels are inconsistent (duplicates like "AI Geletterdheid" vs "AI geletterdheid", "EU AI Act" vs "EU AI ACT"), too granular (e.g. "CIO", "HR", "IT" as separate tags), and visually cluttered. This hurts both UX and SEO value.
 
 ### Solution
-Rewrite `parseStructuredText()` in `src/components/BlogPdfImport.tsx` to handle the actual PDF format:
+Replace the two-row category + label filter with a single, clean filter bar using curated **topic filters** that double as SEO anchor points. Each filter maps to one or more existing categories/labels behind the scenes.
 
-1. **New label detection**: Match section headers like `CATEGORIE`, `URL`, `META DESCRIPTION`, `KEYWORDS`, `LABELS`, `BODY` — with or without `#` prefix and with or without trailing colon
-2. **Title extraction**: The title is the first `#`-heading that isn't a known section label (e.g. the line "AI en bestuursverantwoordelijkheid: wat de EU AI Act van directies vraagt")
-3. **Body handling**: Everything after the `BODY` section header becomes body content. Sub-headings within the body (like `# Wat de wet precies zegt`) should be converted to `<h2>`/`<h3>` tags
-4. **Keep backward compatibility**: Also support the old `TITEL:` inline format so existing PDFs still work
+**Proposed topic filters:**
 
-### Files to Change
-- **`src/components/BlogPdfImport.tsx`** — rewrite `parseStructuredText()` to handle both heading-style and inline-style labels
+| Filter | Maps to (categories/labels) |
+|---|---|
+| Alle | everything |
+| EU AI Act | category "Wetten en regels" + labels containing "EU AI Act", "Artikel 4", "Artikel 99", "Wetgeving", "Boetes" |
+| AI-geletterdheid | category "AI-geletterdheid uitgelegd" + labels containing "AI geletterdheid", "AI training" |
+| Compliance & governance | labels "Compliance", "Governance", "AI-beleid", "Bestuursverantwoordelijkheid" |
+| Sectoren & praktijk | category "Praktijk en sectoren" + sector labels |
+| Tools & vaardigheden | category "Tools en vaardigheden" + "Shadow AI" |
+| Actueel | category "Actueel" |
 
-### Technical Detail
-The new parser will:
-- Split text into lines
-- Scan for lines matching known section names (case-insensitive, with optional `#` prefix)
-- Collect lines between sections as values
-- For BODY, convert `#`-headings to HTML `<h2>`/`<h3>` and paragraphs to `<p>` tags
+### Implementation
+
+**File: `src/pages/Kenniscentrum.tsx`**
+
+1. Replace `articleCategories` and the label filter state with a single `topicFilters` array, each with a `label` (display name), `slug` (URL-friendly for potential future defined route anchors), and a `match` function
+2. Remove the second labels filter row entirely
+3. Render a single row of well-spaced filter buttons with the curated topics
+4. Each button filters articles by matching against both the `category` and `labels` fields
+5. Add `id` attributes to the filter section for SEO anchor linking (e.g., `#eu-ai-act`)
+
+### Database Cleanup (optional, separate step)
+Normalize duplicate labels ("AI Geletterdheid" vs "AI geletterdheid", "EU AI Act" vs "EU AI ACT") in a future migration. The filter logic will handle case-insensitive matching for now.
+
+### Visual Result
+One clean horizontal row of 7 topic buttons instead of the current 6 + 29. Consistent styling, no second row, better scannability.
 
