@@ -94,12 +94,46 @@ const Kenniscentrum = () => {
 
   const activeFilter = topicFilters.find((f) => f.slug === activeTopic) || topicFilters[0];
   const filteredArticles = articles.filter(activeFilter.match);
+
+  const collectionJsonLd = articles.length > 0 ? {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: "Kenniscentrum AI-Geletterdheid & AI Act",
+    description: "Artikelen, uitleg en achtergronden over AI-geletterdheid, de EU AI Act en verantwoord AI-gebruik. Geschreven door AI-expert Ferry Hoes.",
+    url: "https://aigeletterdheid.academy/kenniscentrum",
+    inLanguage: "nl",
+    publisher: {
+      "@type": "EducationalOrganization",
+      name: "AIGA — AI Geletterdheid Academy",
+      url: "https://aigeletterdheid.academy",
+    },
+    mainEntity: {
+      "@type": "ItemList",
+      numberOfItems: articles.length,
+      itemListElement: articles.map((article, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        item: {
+          "@type": "Article",
+          headline: article.title,
+          url: article.content && article.slug
+            ? `https://aigeletterdheid.academy/kenniscentrum/${article.slug}`
+            : article.url,
+          image: article.image_url,
+          author: { "@type": "Person", name: "Ferry Hoes" },
+          ...(article.published_date && { datePublished: article.published_date }),
+        },
+      })),
+    },
+  } : undefined;
+
   return (
     <div className="min-h-screen">
       <SEO
         title="Kenniscentrum AI-Geletterdheid & AI Act | Artikelen | AIGA"
         description="Artikelen, uitleg en achtergronden over AI-geletterdheid, de EU AI Act en verantwoord AI-gebruik. Geschreven door AI-expert Ferry Hoes."
         canonical="/kenniscentrum"
+        jsonLd={collectionJsonLd}
       />
       <BreadcrumbNav items={[{ label: "Home", href: "/" }, { label: "Kenniscentrum" }]} />
 
