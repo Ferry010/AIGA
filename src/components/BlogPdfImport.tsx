@@ -1,9 +1,6 @@
 import { useRef, useState } from "react";
 import { FileUp, Loader2 } from "lucide-react";
-import * as pdfjsLib from "pdfjs-dist";
-
-// Use the bundled worker
-pdfjsLib.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.mjs`;
+import { toast } from "sonner";
 
 export interface PdfArticleData {
   title: string;
@@ -12,7 +9,7 @@ export interface PdfArticleData {
   meta_description: string;
   seo_keywords: string;
   labels: string[];
-  content: string; // HTML
+  content: string;
 }
 
 const LABELS = ["TITEL:", "CATEGORIE:", "URL:", "META DESCRIPTION:", "KEYWORDS:", "LABELS:", "BODY:"] as const;
@@ -20,7 +17,6 @@ const LABELS = ["TITEL:", "CATEGORIE:", "URL:", "META DESCRIPTION:", "KEYWORDS:"
 function parseStructuredText(text: string): PdfArticleData {
   const result: Record<string, string> = {};
 
-  // Find positions of each label
   const positions: { label: string; index: number }[] = [];
   for (const label of LABELS) {
     const idx = text.indexOf(label);
@@ -53,28 +49,17 @@ function parseStructuredText(text: string): PdfArticleData {
 
 function markdownToHtml(md: string): string {
   let html = md
-    // Headings (must come before bold because ### can include **)
     .replace(/^### (.+)$/gm, "<h3>$1</h3>")
     .replace(/^## (.+)$/gm, "<h2>$1</h2>")
-    // Bold
     .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
-    // Italic
     .replace(/(?<!\*)\*(?!\*)(.+?)(?<!\*)\*(?!\*)/g, "<em>$1</em>")
-    // Unordered list items
     .replace(/^- (.+)$/gm, "<li>$1</li>")
-    // Wrap consecutive <li> in <ul>
     .replace(/((?:<li>.*<\/li>\n?)+)/g, "<ul>$1</ul>")
-    // Line breaks: double newlines → paragraph breaks
     .replace(/\n{2,}/g, "</p><p>")
-    // Single newlines → <br>
     .replace(/\n/g, "<br>");
 
-  // Wrap in paragraph tags
   html = `<p>${html}</p>`;
-
-  // Clean up empty paragraphs
   html = html.replace(/<p>\s*<\/p>/g, "");
-  // Clean up paragraphs wrapping block elements
   html = html.replace(/<p>\s*(<h[23]>)/g, "$1");
   html = html.replace(/(<\/h[23]>)\s*<\/p>/g, "$1");
   html = html.replace(/<p>\s*(<ul>)/g, "$1");
@@ -96,27 +81,42 @@ export default function BlogPdfImport({ onImport }: BlogPdfImportProps) {
     if (!file) return;
     setLoading(true);
     try {
+      const pdfjsLib = await import("pdfjs-dist");
+      pdfjsLib.GlobalWorkerOptions.workerSrc = "/pdf.worker.min.mjs";
+
       const arrayBuffer = await file.arrayBuffer();
       const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
       let fullText = "";
       for (let i = 1; i <= pdf.numPages; i++) {
         const page = await pdf.getPage(i);
         const content = await page.getTextContent();
-      const pageText = content.items
-          .map((item: any) => {
-            // Preserve line breaks using the hasEOL flag from pdfjs
-            return item.str + (item.hasEOL ? "\n" : "");
-          })
+        const pageText = content.items
+          .map((item: any) => item.str + (item.hasEOL ? "\n" : ""))
           .join("");
         fullText += pageText + "\n";
       }
+
+      if (!fullText.trim()) {
+        toast.error("Geen tekst gevonden in de PDF");
+        setLoading(false);
+        return;
+      }
+
       const parsed = parseStructuredText(fullText);
+
+      if (!parsed.title && !parsed.content) {
+        toast.error("Kon geen gestructureerde data vinden. Zorg dat de PDF labels bevat zoals TITEL:, BODY:, etc.");
+        setLoading(false);
+        return;
+      }
+
       onImport(parsed);
+      toast.success("PDF succesvol geïmporteerd");
     } catch (err) {
       console.error("PDF parse error:", err);
+      toast.error("Fout bij het lezen van de PDF");
     }
     setLoading(false);
-    // Reset input so same file can be re-uploaded
     if (inputRef.current) inputRef.current.value = "";
   };
 
