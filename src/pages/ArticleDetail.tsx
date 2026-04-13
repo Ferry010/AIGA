@@ -119,7 +119,7 @@ const WAT_IS_FAQ = [
 
 const BOETES_FAQ = [
   { q: "Wat zijn de maximale boetes onder de EU AI Act?", a: "De maximale boete is €35.000.000 of 7% van de wereldwijde jaaromzet voor het gebruik van verboden AI-praktijken. Voor niet-naleving van verplichtingen voor hoog-risico AI geldt een maximum van €15.000.000 of 3% van de omzet." },
-  { q: "Wanneer worden AI Act boetes opgelegd in Nederland?", a: "De Autoriteit Persoonsgegevens handhaaft actief vanaf augustus 2025. De verboden AI-praktijken zijn al van kracht sinds februari 2025." },
+  { q: "Wanneer worden AI Act boetes opgelegd in Nederland?", a: "De Autoriteit Persoonsgegevens handhaaft actief vanaf augustus 2026. De verboden AI-praktijken zijn al van kracht sinds februari 2025." },
   { q: "Geldt de boete ook voor kleine bedrijven?", a: "Ja, maar voor MKB en startups geldt Artikel 99 lid 6: de boete is het laagste van het percentage of het vaste bedrag. Voor een klein bedrijf is dat vaak aanzienlijk minder dan de nominale maximum bedragen." },
   { q: "Wat is de boete voor het niet trainen van medewerkers in AI-geletterdheid?", a: "Artikel 4 heeft geen eigen boetebedrag, maar niet-naleving valt onder de algemene deployer-verplichtingen van Categorie 2: maximaal €15.000.000 of 3% van de omzet." },
   { q: "Hoe bereken ik mijn boeterisico onder de EU AI Act?", a: "Gebruik de gratis AIGA Boetecalculator op aigeletterdheid.academy/tools/boetecalculator. De calculator combineert jouw organisatieprofiel, de tools die je gebruikt en jouw huidige compliancestatus." },
