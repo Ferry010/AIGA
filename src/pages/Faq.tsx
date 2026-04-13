@@ -11,7 +11,7 @@ const faqItems = [
   },
   {
     q: "Is een AI-geletterdheid training verplicht in Nederland?",
-    a: "Ja. Sinds februari 2025 vereist de EU AI Act dat organisaties die AI inzetten aantoonbaar investeren in AI-geletterdheid van hun medewerkers. Vanaf augustus 2025 wordt dit actief gehandhaafd.",
+    a: "Ja. Sinds februari 2025 vereist de EU AI Act dat organisaties die AI inzetten aantoonbaar investeren in AI-geletterdheid van hun medewerkers. Vanaf augustus 2026 wordt dit actief gehandhaafd.",
   },
   {
     q: "Wat zijn de boetes voor niet-naleving van de AI Act?",
