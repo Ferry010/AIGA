@@ -83,14 +83,59 @@ const Index = () => {
           knowsAbout: ["AI-geletterdheid", "EU AI Act", "AI compliance", "AI training"],
         }}
       />
+      <Helmet>
+        <script type="application/ld+json">{JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: faqItems.map((f) => ({
+            "@type": "Question",
+            name: f.q,
+            acceptedAnswer: { "@type": "Answer", text: f.a },
+          })),
+        })}</script>
+        <script type="application/ld+json">{JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Course",
+          name: "AI-Geletterdheid Training voor Teams",
+          description: "Online AI-geletterdheid training voor medewerkers. Voldoe aan de EU AI Act. AI Literacy Practitioner certificaat. Selfpaced, 2-3 uur.",
+          provider: { "@type": "Organization", name: "AIGA | AI Geletterdheid Academy", url: "https://aigeletterdheid.academy" },
+          url: "https://aigeletterdheid.academy/training",
+          inLanguage: "nl",
+          educationalLevel: "beginner",
+          teaches: "EU AI Act compliance, AI-geletterdheid, verantwoord AI-gebruik",
+          offers: { "@type": "Offer", price: "249", priceCurrency: "EUR", availability: "https://schema.org/InStock" },
+          hasCourseInstance: { "@type": "CourseInstance", courseMode: "online", courseWorkload: "PT2H30M" },
+        })}</script>
+        <script type="application/ld+json">{JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Person",
+          name: "Ferry Hoes",
+          jobTitle: "AI-expert en keynote spreker",
+          url: "https://ferryhoes.com",
+          worksFor: { "@type": "Organization", name: "AIGA | AI Geletterdheid Academy" },
+          knowsAbout: ["AI-geletterdheid", "EU AI Act", "AI compliance", "Brand Humanizing"],
+          sameAs: ["https://www.linkedin.com/in/ferryhoes"],
+        })}</script>
+        <script type="application/ld+json">{JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "VideoObject",
+          name: "Hoe AIGA werkt — van inschrijving tot audit-proof certificaat",
+          description: "Van inschrijving tot audit-proof certificaat, uitgelegd in twee minuten.",
+          thumbnailUrl: "https://aigeletterdheid.academy/og/home.jpg",
+          uploadDate: "2025-01-01",
+          duration: "PT2M",
+          contentUrl: "/assets/AI-Geletterdheid-Homepage-scaled-1-CCikEiO1.webm",
+          embedUrl: "https://aigeletterdheid.academy/",
+        })}</script>
+      </Helmet>
 
       {/* Hero */}
       <section className="min-h-[90vh] flex items-center relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32">
-          <motion.div initial={reduced ? false : { opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: reduced ? 0 : 0.6 }}>
+          <div>
             <SectionLabel text="AI GELETTERDHEID VOOR TEAMS" />
             <h1 className="text-4xl sm:text-5xl lg:text-[56px] font-display font-bold text-foreground leading-tight mt-4">
-              Jouw team werkt al met AI.<br />
+              AI-geletterdheid voor jouw team.<br />
               <span className="neon-text">Weet iedereen wat dat betekent?</span>
             </h1>
             <h2 className="text-xl sm:text-2xl font-display font-semibold text-primary mt-4">
@@ -116,7 +161,7 @@ const Index = () => {
               <span className="flex items-center gap-1.5"><Check size={14} className="text-primary/60" /> Gratis Masterclass vanaf 50 seats</span>
               <span className="flex items-center gap-1.5"><Check size={14} className="text-primary/60" /> Direct starten</span>
             </div>
-          </motion.div>
+          </div>
         </div>
       </section>
 
