@@ -9,6 +9,7 @@ import TrainerSection from "@/components/TrainerSection";
 import SocialProof from "@/components/SocialProof";
 import DefinitionBlock from "@/components/DefinitionBlock";
 import SEO from "@/components/SEO";
+import { Helmet } from "react-helmet-async";
 import brandLogo from "@/assets/brand-humanizing-logo.png";
 import speakersLogo from "@/assets/speakers-academy-logo.png";
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
