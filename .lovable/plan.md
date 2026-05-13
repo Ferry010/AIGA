@@ -1,50 +1,45 @@
 
+# Externe tools koppelen aan je database
 
-## Plan: Fix SEO rendering issues and add structured data to homepage
+Je hoeft niets te migreren. De bestaande database blijft staan. Je hebt drie dingen nodig om vanuit Retool, n8n of een andere externe tool te verbinden.
 
-### Issue 1: Fix Googlebot blank page (hero animation)
+## Wat je nodig hebt
 
-**File: `src/pages/Index.tsx`**
+**1. Project URL** (al bekend)
+```
+https://zomldsagozipnelyuhzy.supabase.co
+```
 
-The hero section (line 90) uses `motion.div` with `initial={{ opacity: 0, y: 30 }}`, which means the first paint has `opacity: 0` — Googlebot captures this blank state.
+**2. Service role key** (geheim — geeft volledige toegang, voorbij RLS)
+- Staat als `SUPABASE_SERVICE_ROLE_KEY` in je Cloud secrets
+- Bekijk hem via: **Cloud tab → Secrets → SUPABASE_SERVICE_ROLE_KEY → oogje icoon**
+- Deze gebruik je in n8n / Retool als "API key"
 
-**Fix**: Replace the `motion.div` wrapper around the hero content (lines 90-119) with a plain `<div>`. The hero must be immediately visible without any animation. The hero content is above-the-fold and should never animate in.
+**3. Database connection string** (voor directe SQL toegang via Postgres)
+- Staat als `SUPABASE_DB_URL` in je Cloud secrets
+- Bekijk hem via: **Cloud tab → Secrets → SUPABASE_DB_URL → oogje icoon**
+- Format: `postgresql://postgres.[ref]:[password]@aws-1-eu-central-1.pooler.supabase.com:6543/postgres`
 
-### Issue 2: Add structured data (4 JSON-LD blocks)
+## Hoe te gebruiken per tool
 
-**File: `src/pages/Index.tsx`**
+**n8n** — gebruik de Supabase node:
+- Host: `zomldsagozipnelyuhzy.supabase.co`
+- Service Role Secret: plak `SUPABASE_SERVICE_ROLE_KEY`
 
-Add 4 additional JSON-LD blocks to the `<SEO>` component. Since `jsonLd` only accepts one object, we'll add a second `<Helmet>` block (or use `breadcrumbJsonLd` for one and add additional `<script>` tags) — actually the cleanest approach is to add raw `<Helmet>` script tags directly after the `<SEO>` component for the additional schemas:
+**Retool** — kies "REST API" of "PostgreSQL" resource:
+- REST API: base URL = je project URL + `/rest/v1`, header `apikey` en `Authorization: Bearer` met service role key
+- PostgreSQL: gebruik de `SUPABASE_DB_URL` connection string
 
-1. **FAQPage** — built from the existing `faqItems` array (lines 17-42), which already has all 6 Q&A pairs with answers
-2. **Course** — exact JSON provided by user
-3. **Person** (Ferry Hoes) — exact JSON provided by user  
-4. **VideoObject** — exact JSON provided by user
+**Andere tools (Make, Zapier, eigen scripts)** — werken hetzelfde: project URL + service role key, of de Postgres connection string.
 
-We'll add a `<Helmet>` block right after the `<SEO>` component containing 4 `<script type="application/ld+json">` tags.
+## Belangrijke waarschuwingen
 
-### Issue 3: Remove duplicate meta description
+- De **service role key** omzeilt alle RLS policies. Behandel hem als een wachtwoord. Zet hem nooit in frontend code, GitHub repos of openbare tools.
+- Gebruik bij voorkeur de **anon key** (`VITE_SUPABASE_PUBLISHABLE_KEY`) als de externe tool alleen openbare data hoeft te lezen — die respecteert RLS.
+- Je hebt geen toegang tot het Supabase dashboard zelf (`supabase.com`), maar voor externe tools heb je dat ook niet nodig — alleen de keys.
 
-**File: `index.html`**
+## Wat ik doe na goedkeuring
 
-There is no `<meta name="description">` in `index.html` currently — so this is already clean. The only description comes from React Helmet. No change needed.
-
-### Issue 4: Fix H1 for SEO
-
-**File: `src/pages/Index.tsx`** (line 93)
-
-Change: `"Jouw team werkt al met AI."` → `"AI-geletterdheid voor jouw team."`
-
-The second line and H2 remain unchanged.
-
----
-
-### Summary of changes
-
-**`src/pages/Index.tsx`**:
-- Line 90-119: Replace `motion.div` with plain `<div>` (no animation on hero)
-- Line 93: Update H1 text
-- After line 85: Add `<Helmet>` with 4 JSON-LD script blocks (FAQPage, Course, Person, VideoObject)
-
-No other files need changes.
-
+Niets in de code — dit zijn alleen instructies. Ik kan op verzoek:
+- Een korte handleiding schrijven specifiek voor de tool die je gaat gebruiken (zeg welke)
+- Een dedicated read-only database user aanmaken als je de service role key niet wilt delen met externe tools
